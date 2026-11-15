@@ -123,6 +123,7 @@ def base_context(request, key: str = "home", alt: dict | None = None, title: str
         data["ads"] = {"gads": S.google_ads_id}
     main = next((s for s in shops if s["workshop"]), shops[0] if shops else None)
     return {
+        "ts": data["ts"],
         "T": T, "IMGS": IMGS, "SHOPS": shops, "MAIN_SHOP": main, "snap": snap, "page_key": key,
         "page_title": title, "page_description": description,
         "page_data": json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"),

@@ -1,0 +1,17 @@
+{% extends "site/base.html" %}{% load tt %}
+{% block main %}
+<main id="main" class="legalv"><div class="wrap lg" id="legalBody">
+  <nav class="lg-nav" aria-label="{{ T.lg_nav }}">{% for p in nav %}<a href="{{ p.url }}"{% if p.key == key %} aria-current="page"{% endif %}>{{ p.nav }}</a>{% endfor %}</nav>
+  <article class="lg-doc">
+    <a class="lg-back" href="{{ urls.home }}">{% ic "left" 2 %}<span>{{ T.lg_back }}</span></a>
+    <h1>{{ v.title }}</h1>
+    <p class="lg-meta">{% t "lg_upd" d=v.stand %}</p>
+    {% if v.intro %}<p class="lg-intro">{{ v.intro }}</p>{% endif %}
+    {% if lang == "en" %}<p class="lg-note">{{ T.lg_en }}</p>{% endif %}
+    {% if not v.lawyer_approved %}<p class="lg-note tpl">{{ T.lg_tpl }}</p>{% endif %}
+    {% if key == "widerruf" %}{% include "site/_withdraw.html" %}{% endif %}
+    {% if key == "cookies" %}<div class="ccbox" id="ccbox"><button type="button" class="btn" data-ccopen>{{ T.cc_change }}</button></div>{% endif %}
+    {{ toc }}{{ body }}
+  </article>
+</div></main>
+{% endblock %}

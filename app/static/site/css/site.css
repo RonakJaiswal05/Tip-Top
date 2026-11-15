@@ -847,3 +847,5 @@ html.cc-open .fab{opacity:0;pointer-events:none}
 .lcard-go::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:3}
 .lcard-go:focus-visible{outline:none}
 .lcard:has(.lcard-go:focus-visible){outline:3px solid var(--cobalt);outline-offset:3px}
+.lg-toc a{color:var(--ink-2);text-decoration:none;font-size:14.5px;line-height:1.4}
+.lg-toc a:hover{color:var(--cobalt);text-decoration:underline}

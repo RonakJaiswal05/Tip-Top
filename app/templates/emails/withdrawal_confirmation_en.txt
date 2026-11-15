@@ -1,0 +1,19 @@
+{% autoescape off %}Hello {{ r.name }},
+
+we have received your withdrawal. This email confirms receipt.
+
+Received on {{ date }} at {{ time }} (Berlin time)
+
+What you sent us:
+Name: {{ r.name }}
+Email: {{ wd.confirmation_to }}
+Contract (order number or date of the order): {{ wd.reference }}
+{% if wd.device %}Device: {{ wd.device }}
+{% endif %}{% if wd.message %}Message: {{ wd.message }}
+{% endif %}
+If you have any questions, just reply to this email or call us: {{ s.phone_display }}.
+
+TipTop Service 24
+TLAMO GmbH, Beusselstraße 18, 10553 Berlin
+{{ s.contact_email }}
+{% endautoescape %}

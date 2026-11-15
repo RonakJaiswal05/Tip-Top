@@ -224,7 +224,7 @@ GOOGLE_SERVICE_ACCOUNT_FILE = env("GOOGLE_SERVICE_ACCOUNT_FILE", str(BASE_DIR / 
 SENTRY_DSN = env("SENTRY_DSN", "")
 
 # Rate limits for public forms: requests per window per IP (and per form).
-FORM_RATE_LIMIT = int(env("FORM_RATE_LIMIT", "5"))
+FORM_RATE_LIMIT = int(env("FORM_RATE_LIMIT", "8"))
 FORM_RATE_WINDOW = int(env("FORM_RATE_WINDOW", "600"))
 FORM_MIN_SECONDS = float(env("FORM_MIN_SECONDS", "2.5"))
 

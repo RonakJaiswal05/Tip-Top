@@ -1,0 +1,19 @@
+{% autoescape off %}Hallo {{ r.name }},
+
+dein Widerruf ist bei uns eingegangen. Diese E-Mail bestätigt den Eingang.
+
+Eingegangen am {{ date }} um {{ time }} Uhr
+
+Inhalt deines Widerrufs:
+Name: {{ r.name }}
+E-Mail: {{ wd.confirmation_to }}
+Vertrag (Auftragsnummer oder Datum der Beauftragung): {{ wd.reference }}
+{% if wd.device %}Gerät: {{ wd.device }}
+{% endif %}{% if wd.message %}Nachricht: {{ wd.message }}
+{% endif %}
+Bei Fragen antworte einfach auf diese E-Mail oder ruf uns an: {{ s.phone_display }}.
+
+TipTop Service 24
+TLAMO GmbH, Beusselstraße 18, 10553 Berlin
+{{ s.contact_email }}
+{% endautoescape %}

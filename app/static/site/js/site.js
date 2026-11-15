@@ -735,7 +735,7 @@ document.querySelectorAll(".lang a[data-lang]").forEach(a => a.addEventListener(
     const model = $("lfModel").value.trim(), r = CAT ? parse(model) : {};
     try {
       await send("form", { name:n, phone:p, website:f.elements.website.value, category:LEAD.cat, device:model || t("cat_" + LEAD.cat),
-        model_id:r.m && fullName(r.m).toLowerCase() === model.toLowerCase() ? +r.m.id : null,
+        model_id:r.m ? +r.m.id : null,
         problem:$("lfProb").value.trim(), method:["moabit", "spandau", "pickup", "mailin"][LEAD.where], contact_via:["whatsapp", "phone"][LEAD.via] });
       $("leadBody").innerHTML = `<div class="form-card"><div class="ok" tabindex="-1" id="lfOk"><span class="ck">${ic("check", 2.4)}</span><h2 class="bt">${esc(t("cb_done_t", { n }))}</h2><p class="bs">${esc(t("lf_done", { n, v:t("vias")[LEAD.via] }))}</p><a class="btn" href="${location.pathname}">${esc(t("lf_new"))}</a></div></div>`;
       $("lfOk").focus();

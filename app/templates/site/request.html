@@ -1,0 +1,23 @@
+{% extends "site/base.html" %}{% load tt %}
+{% block main %}
+<main id="main" class="leadv">
+  <div class="wrap lead-grid">
+    <div class="lead-media" id="leadMedia">{% ph "hero" "notag" sizes="hero" eager=True %}</div>
+    <div><h1>{{ T.lf_h }}</h1><p style="color:var(--muted);margin-top:16px;max-width:44ch">{{ T.lf_p }}</p><div id="leadBody">
+      {% if sent %}<div class="form-card"><div class="ok" tabindex="-1" id="lfOk"><span class="ck">{% ic "check" 2.4 %}</span><h2 class="bt">{{ T.lf_done_nojs }}</h2><a class="btn" href="{{ urls.request }}">{{ T.lf_new }}</a></div></div>
+      {% else %}<form class="form-card" id="leadForm" novalidate method="post" action="/api/requests/">{% csrf_token %}
+        <input type="hidden" name="kind" value="form"><input type="hidden" name="lang" value="{{ lang }}"><input type="hidden" name="ts" value="{{ ts }}"><input type="hidden" name="back" value="{{ urls.request }}"><input type="hidden" name="source" value="{{ request.path }}">
+        <input type="hidden" name="category" value="phone"><input type="hidden" name="method_i" value="0"><input type="hidden" name="via_i" value="0">
+        <div class="two"><div><label class="lab-l" for="lfName">{{ T.name_l }}</label><input class="inp" id="lfName" name="name" autocomplete="name" required maxlength="120"></div>
+        <div><label class="lab-l" for="lfPhone">{{ T.phone_l }}</label><input class="inp" id="lfPhone" name="phone" type="tel" autocomplete="tel" required maxlength="40"></div></div>
+        <div><span class="lab-l" id="lfCatL">{{ T.f_dev }}</span><div class="chips" id="lfCat" role="group" aria-labelledby="lfCatL">{% for c in cats %}<button type="button" data-v="{{ c.key }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ c.name }}</button>{% endfor %}</div></div>
+        <div><label class="lab-l" for="lfModel">{{ T.f_model }}</label><input class="inp" id="lfModel" name="device" list="lfModels" placeholder="{{ T.lf_model_ph }}" maxlength="160"><datalist id="lfModels">{% for m in phone_models %}<option value="{{ m }}">{% endfor %}</datalist></div>
+        <div><label class="lab-l" for="lfProb">{{ T.lf_prob }}</label><div class="ta"><textarea class="inp" id="lfProb" name="problem" placeholder="{{ T.lf_prob_ph }}" maxlength="2000">{{ prefill }}</textarea><button type="button" class="mic" id="lfMic" aria-label="{{ T.mic }}">{% ic "mic" %}</button></div><p class="hint" id="lfHint" aria-live="polite"></p></div>
+        <div><span class="lab-l" id="lfWhereL">{{ T.lf_where }}</span><div class="chips" id="lfWhere" role="group" aria-labelledby="lfWhereL">{% for w in T.wheres %}<button type="button" data-v="{{ forloop.counter0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ w }}</button>{% endfor %}</div></div>
+        <div><span class="lab-l" id="lfViaL">{{ T.lf_via }}</span><div class="chips" id="lfVia" role="group" aria-labelledby="lfViaL">{% for w in T.vias %}<button type="button" data-v="{{ forloop.counter0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ w }}</button>{% endfor %}</div></div>
+        <div class="hp" aria-hidden="true"><label for="lfWeb">Website</label><input id="lfWeb" name="website" tabindex="-1" autocomplete="off"></div>
+        <p class="err" id="lfErr" role="alert">{{ error_text }}</p><p class="fine">{% fine "fine_lf" %}</p><button type="submit" class="btn" style="height:58px;font-size:17px">{{ T.lf_send }}</button></form>{% endif %}
+    </div></div>
+  </div>
+</main>
+{% endblock %}

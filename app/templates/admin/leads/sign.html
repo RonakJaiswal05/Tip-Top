@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/tiptop/admin.css' %}">{% endblock %}
+{% block content %}
+<div class="tt-sign">
+  <h2>{{ c.device }} · {{ c.imei }}</h2>
+  <p>{{ c.seller_name }}, {{ c.seller_street }}, {{ c.seller_postal_code }} {{ c.seller_city }} · {{ c.get_id_type_display }} {{ c.id_number }}</p>
+  <p><b>Kaufpreis: {{ c.price }} €</b> ({{ c.get_payment_display }})</p>
+  {% if errors %}<ul class="errorlist">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+  <h3>Erklärungen des Verkäufers (AGB Teil B)</h3>
+  <ul class="tt-decl">{% for d in declarations %}<li>{{ d }}</li>{% endfor %}</ul>
+  <form method="post" id="signForm">{% csrf_token %}
+    <p><label><input type="checkbox" name="confirm" value="1"> Der Verkäufer hat die Erklärungen gelesen und bestätigt sie mit seiner Unterschrift.</label></p>
+    <p>Unterschrift des Verkäufers:</p>
+    <canvas id="sigPad" width="900" height="300" aria-label="Unterschriftenfeld"></canvas>
+    <input type="hidden" name="signature" id="sigData">
+    <p><button type="button" class="button" id="sigClear">Unterschrift löschen</button>
+       <input type="submit" class="default" value="Vertrag abschließen und PDF erstellen"></p>
+  </form>
+</div>
+<script src="{% static 'admin/tiptop/sign.js' %}"></script>
+{% endblock %}

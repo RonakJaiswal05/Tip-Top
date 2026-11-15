@@ -1,0 +1,14 @@
+{% autoescape off %}Tageszusammenfassung für {{ date|date:"l, d.m.Y" }}
+
+Heute eingegangen: {{ total }}
+{% for k, n in by_kind.items %}{% if n %}- {{ k }}: {{ n }}
+{% endif %}{% endfor %}
+{% if waiting_n %}Seit mehr als 2 Stunden ohne Kontakt (Status „Neu“): {{ waiting_n }}
+{% for r in waiting %}- #{{ r.pk }} {{ r.created_at|date:"d.m. H:i" }} {{ r.get_kind_display }}: {{ r.name|default:"–" }}, {{ r.phone|default:r.email }}, {{ r.device|default:"–" }} → {{ site }}/admin/leads/request/{{ r.pk }}/change/
+{% endfor %}{% else %}Keine offenen Anfragen älter als 2 Stunden.
+{% endif %}{% if withdrawals %}
+Widerrufe heute:
+{% for w in withdrawals %}- {{ w.received_at|date:"H:i" }} {{ w.request.name }} ({{ w.reference }}), Bestätigung {% if w.confirmation_sent_at %}gesendet{% else %}NICHT gesendet{% endif %}
+{% endfor %}{% endif %}
+Zum Posteingang: {{ site }}/admin/leads/request/
+{% endautoescape %}

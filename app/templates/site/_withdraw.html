@@ -1,0 +1,18 @@
+{% load tt %}{% if receipt %}<div class="wd done" id="wd" tabindex="-1"><span class="ck">{% ic "check" 2.4 %}</span><h2>{{ T.wd_done_h }}</h2>
+  <p>{% t "wd_done_p" d=receipt_date t=receipt_time m=receipt.confirmation_to %}</p>
+  <dl class="wd-sum"><dt>{{ T.wd_s_n }}</dt><dd>{{ receipt.request.name }}</dd><dt>{{ T.wd_s_r }}</dt><dd>{{ receipt.reference }}</dd>{% if receipt.device %}<dt>{{ T.wd_s_d }}</dt><dd>{{ receipt.device }}</dd>{% endif %}{% if receipt.message %}<dt>{{ T.wd_s_x }}</dt><dd>{{ receipt.message }}</dd>{% endif %}</dl>
+  <a class="btn line" href="{{ urls.withdraw }}">{{ T.wd_new }}</a></div>
+{% else %}<div id="wd">
+  <div class="wd" id="wdStart"{% if wd_open %} hidden{% endif %}><h2>{{ T.wd_h }}</h2><p>{{ T.wd_p }}</p><a class="btn" href="{{ urls.withdraw }}" data-wd="open">{{ T.wd_go }}</a></div>
+  <form class="wd" id="wdForm" novalidate method="post" action="/api/requests/"{% if not wd_open %} hidden{% endif %}>{% csrf_token %}
+    <input type="hidden" name="kind" value="withdrawal"><input type="hidden" name="lang" value="{{ lang }}"><input type="hidden" name="ts" value="{{ ts }}"><input type="hidden" name="back" value="{{ urls.withdraw }}"><input type="hidden" name="source" value="{{ request.path }}">
+    <h2>{{ T.wd_h }}</h2><p>{{ T.wd_p }}</p>
+    <div class="two"><div><label class="lab-l" for="wdN">{{ T.wd_name }}</label><input class="inp" id="wdN" name="name" autocomplete="name" required maxlength="120"></div>
+    <div><label class="lab-l" for="wdM">{{ T.wd_mail }}</label><input class="inp" id="wdM" name="email" type="email" autocomplete="email" required maxlength="254"></div></div>
+    <div class="two"><div><label class="lab-l" for="wdR">{{ T.wd_ref }}</label><input class="inp" id="wdR" name="reference" placeholder="{{ T.wd_ref_ph }}" required maxlength="120"></div>
+    <div><label class="lab-l" for="wdD">{{ T.wd_dev }}</label><input class="inp" id="wdD" name="device" placeholder="{{ T.wd_dev_ph }}" maxlength="160"></div></div>
+    <div><label class="lab-l" for="wdX">{{ T.wd_note }}</label><textarea class="inp" id="wdX" name="message" rows="3" maxlength="2000"></textarea></div>
+    <div class="hp" aria-hidden="true"><label for="wdWeb">Website</label><input id="wdWeb" name="website" tabindex="-1" autocomplete="off"></div>
+    <p class="err" id="wdErr" role="alert">{{ error_text }}</p><p class="fine">{{ T.wd_hint }}</p>
+    <button type="submit" class="btn">{{ T.wd_confirm }}</button></form>
+</div>{% endif %}

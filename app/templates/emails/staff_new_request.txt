@@ -1,0 +1,24 @@
+{% autoescape off %}Neue Anfrage über die Website ({{ r.get_kind_display }})
+
+Eingegangen: {{ r.created_at|date:"d.m.Y H:i" }} Uhr
+Name: {{ r.name|default:"–" }}
+{% if r.phone %}Telefon: {{ r.phone }}
+{% endif %}{% if r.email %}E-Mail: {{ r.email }}
+{% endif %}Gerät: {{ r.device|default:"–" }}
+{% if r.repairs_text %}Reparatur: {{ r.repairs_text }}
+{% endif %}{% if r.total_text %}Angezeigter Preis: {{ r.total_text }}
+{% endif %}{% if r.problem %}Beschreibung: {{ r.problem }}
+{% endif %}{% if r.method %}Reparaturweg: {{ r.get_method_display }}
+{% endif %}{% if r.contact_via %}Kontakt gewünscht über: {{ r.get_contact_via_display }}
+{% endif %}Sprache: {{ r.language|upper }}
+{% if r.kind == "withdrawal" %}
+Widerruf zu Auftrag: {{ r.withdrawal.reference }}
+Die Eingangsbestätigung geht automatisch an {{ r.withdrawal.confirmation_to }}.
+{% endif %}
+Im Admin öffnen: {{ url }}
+{% if r.phone %}Anrufen: tel:{{ r.phone }}
+{% endif %}{% if wa %}WhatsApp: {{ wa }}
+{% endif %}
+--
+Automatische Nachricht der Website tiptophandyreparatur.de
+{% endautoescape %}

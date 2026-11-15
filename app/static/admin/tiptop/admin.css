@@ -1,0 +1,29 @@
+/* TipTop admin additions: badges, late requests, signature pad, price table */
+.tt-badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;background:#F1F3F6;color:#12141C;white-space:nowrap}
+.tt-k-callback{background:#E8EEFC}.tt-k-form{background:#E0F6EE}.tt-k-withdrawal{background:#FFEDE3}.tt-k-whatsapp{background:#DCF8E7}.tt-k-sale{background:#FFF6CC}.tt-k-walkin{background:#FFEAF3}
+.tt-late{color:#B3261E;font-weight:700}
+.tt-late::after{content:" ⏰"}
+.tt-sign{max-width:960px}
+.tt-sign canvas{width:100%;max-width:900px;height:auto;aspect-ratio:3/1;border:2px dashed #BCC2CC;border-radius:12px;touch-action:none;background:#fff}
+.tt-decl li{margin:6px 0;line-height:1.5}
+.tt-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:0 0 22px}
+.tt-card{background:var(--darkened-bg,#f8f8f8);border:1px solid var(--hairline-color,#e8e8e8);border-radius:12px;padding:14px 16px}
+.tt-card h3{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--body-quiet-color,#666);text-transform:none}
+.tt-card b{display:block;font-size:28px;line-height:1.1}
+.tt-card small{color:var(--body-quiet-color,#666)}
+.tt-card.alert{border-color:#B3261E;background:#FDECEA}
+.tt-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.tt-table{width:100%}
+.tt-table td,.tt-table th{padding:6px 8px}
+.tt-prices{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:900px){.tt-prices{grid-template-columns:1fr}}
+.tt-list{max-height:70vh;overflow:auto;border:1px solid var(--hairline-color,#e8e8e8);border-radius:10px}
+.tt-list a{display:block;padding:7px 10px;border-bottom:1px solid var(--hairline-color,#eee);text-decoration:none}
+.tt-list a.on{background:#3048F0;color:#fff}
+.tt-list a small{opacity:.7}
+.tt-ptable input[type=number]{width:96px;text-align:right}
+.tt-ptable input.chg{border-color:#3048F0;background:#EEF1FF}
+.tt-ptable .ph{color:#8A909C}
+.tt-filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.tt-filters a.on{font-weight:700;text-decoration:underline}
+.tt-help{color:var(--body-quiet-color,#666);max-width:70ch}

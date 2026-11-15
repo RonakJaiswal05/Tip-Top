@@ -68,6 +68,8 @@ NEW = {
     "err_rate": ("Gerade kommen zu viele Anfragen von deinem Anschluss. Bitte versuch es in ein paar Minuten noch einmal oder ruf uns an.",
                  "Too many requests from your connection right now. Please try again in a few minutes or give us a call."),
     "sending": ("Wird gesendet …", "Sending…"),
+    "lf_done_nojs": ("Danke! Deine Anfrage ist da. Wir melden uns während der Öffnungszeiten.",
+                     "Thanks! We've got your request and will get back to you during opening hours."),
     "lab_count": ("15000", "15000"),
     "all_models": ("Alle Modelle und Preise", "All models and prices"),
     "f_hours_sun": ("So geschlossen", "Sun closed"),
