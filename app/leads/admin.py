@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from core.roles import RoleAdminMixin, user_in
 
@@ -23,16 +24,25 @@ class KindFilter(admin.SimpleListFilter):
     title = "Art"
     parameter_name = "art"
 
+    """Defaults to the requests staff have to work; 'Alle Arten' also shows WhatsApp starts and sale offers."""
+
     def lookups(self, request, model_admin):
-        return [("actionable", "Zu bearbeiten (Rückruf, Formular, Widerruf, Laufkundschaft)")] + list(Request.Kind.choices)
+        return ([("actionable", "Zu bearbeiten (Rückruf, Formular, Widerruf, Laufkundschaft)"), ("all", "Alle Arten")]
+                + list(Request.Kind.choices))
 
     def queryset(self, request, qs):
-        v = self.value()
+        v = self.value() or "actionable"
         if v == "actionable":
             return qs.filter(kind__in=Request.ACTIONABLE)
-        if v:
-            return qs.filter(kind=v)
-        return qs
+        if v == "all":
+            return qs
+        return qs.filter(kind=v)
+
+    def choices(self, changelist):
+        current = self.value() or "actionable"
+        for value, label in self.lookup_choices:
+            yield {"selected": current == value, "query_string": changelist.get_query_string({self.parameter_name: value}),
+                   "display": label}
 
 
 class WaitingFilter(admin.SimpleListFilter):
@@ -129,13 +139,6 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
             qs = qs.filter(assignee=request.user)
         return qs
 
-    def changelist_view(self, request, extra_context=None):
-        if not request.GET and not request.META.get("QUERY_STRING"):
-            from django.shortcuts import redirect
-
-            return redirect(f"{request.path}?art=actionable")
-        return super().changelist_view(request, extra_context)
-
     @admin.display(description="Nr.", ordering="pk")
     def number(self, r):
         return f"#{r.pk}"
@@ -188,7 +191,8 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
                         ("ab " if x.get("from") else "") + (f"{x['price']:.0f} €" if x.get("price") is not None else "auf Anfrage"))
             for x in r.repairs
         )
-        return format_html("<table>{}</table>", format_html(rows))
+        # rows are escaped by format_html above; they must not be used as a format string again (visitor data)
+        return mark_safe(f"<table>{rows}</table>")
 
     @admin.display(description="Sheet-Fehler")
     def sheet_error_view(self, r):
@@ -197,9 +201,11 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if not change and obj.is_actionable:
+            from django.db import transaction
+
             from .tasks import sync_to_sheet
 
-            sync_to_sheet.delay(obj.pk)
+            transaction.on_commit(lambda: sync_to_sheet.delay(obj.pk))
 
     def get_urls(self):
         from django.urls import path

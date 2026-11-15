@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.http import HttpResponseRedirect, JsonResponse
 from django.utils import timezone
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 from catalog.models import DeviceModel
@@ -91,7 +92,11 @@ def submit(request):
     data, is_json = _payload(request)
     kind = str(data.get("kind", ""))
     lang = "en" if data.get("lang") == "en" else "de"
-    back = data.get("back") if str(data.get("back", "")).startswith("/") else None
+    back = str(data.get("back") or "")
+    # only a path on this site: "//evil.example" or "https://…" would be an open redirect
+    if not (back.startswith("/") and not back.startswith(("//", "/\\"))
+            and url_has_allowed_host_and_scheme(back, allowed_hosts={request.get_host()}, require_https=request.is_secure())):
+        back = None
 
     if kind not in ACTIONABLE | BEACONS:
         return _answer(is_json, 400, back, error="kind")

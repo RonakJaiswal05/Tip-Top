@@ -125,12 +125,9 @@ class PriceLevelForm(forms.ModelForm):
 
 def create_starting_prices(model: DeviceModel) -> int:
     """Starting prices for a new model from its category's base prices and the price level (the prototype's formula)."""
-    opts = RepairOption.objects.filter(category=model.category)
-    if model.category.key == "console":
-        opts = opts.filter(console_type=model.console_type)
-    else:
-        opts = opts.filter(console_type="")
-    keys = {o.repair_id for o in opts}
+    from .services import model_repairs
+
+    keys = {r.id for r in model_repairs(model, with_diagnosis=False)}
     base = CategoryPrice.objects.filter(category=model.category, repair_id__in=keys).select_related("repair")
     made = 0
     for cp in base:

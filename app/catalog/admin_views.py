@@ -14,8 +14,9 @@ from django.urls import reverse
 from django.utils import timezone
 
 from . import pricelist
+from .services import model_repairs
 from .models import (
-    Brand, Category, CategoryPrice, DeviceModel, Price, PriceSource, RepairOption, RepairType, ScheduledPriceChange, Tier,
+    Brand, Category, CategoryPrice, DeviceModel, Price, PriceSource, RepairType, ScheduledPriceChange, Tier,
 )
 
 
@@ -30,22 +31,7 @@ def _ctx(request, title, **kw):
     return {**admin.site.each_context(request), "title": title, "opts": Price._meta, **kw}
 
 
-def services(model: DeviceModel) -> list[RepairType]:
-    opts = RepairOption.objects.filter(category=model.category).select_related("repair").order_by("order")
-    opts = opts.filter(console_type=model.console_type if model.category.key == "console" else "")
-    out, seen = [], set()
-    for o in opts:
-        if o.requires == "face_id" and not model.has_face_id:
-            continue
-        if o.requires == "jack" and not model.has_headphone_jack:
-            continue
-        out.append(o.repair)
-        seen.add(o.repair.key)
-    if "diagnosis" not in seen:
-        d = RepairType.objects.filter(key="diagnosis").first()
-        if d:
-            out.append(d)
-    return out
+services = model_repairs  # one rule for editor, import and starting prices
 
 
 def _dec(raw):

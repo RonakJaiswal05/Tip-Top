@@ -19,7 +19,7 @@ from decimal import Decimal, InvalidOperation
 
 from django.db import transaction
 
-from .models import Category, CategoryPrice, DeviceModel, Price, PriceSource, RepairOption, RepairType, Tier
+from .models import Category, CategoryPrice, DeviceModel, Price, PriceSource, RepairType, Tier
 
 
 GENERIC = re.compile(r"\b(reparatur|repair|austausch|replacement|tausch|wechsel|preis|price|eur)\b")
@@ -211,11 +211,14 @@ def _col(headers, names):
     return None
 
 
-def offered(model: DeviceModel, key: str) -> bool:
-    opts = RepairOption.objects.filter(category=model.category, repair__key=key)
-    if model.category.key == "console":
-        opts = opts.filter(console_type=model.console_type)
-    return key == "diagnosis" or opts.exists()
+def offered(model: DeviceModel, key: str, _cache: dict | None = None) -> bool:
+    """Same rule as the calculator (services.model_repairs), looked up once per model."""
+    from .services import model_repairs
+
+    cache = _cache if _cache is not None else {}
+    if model.id not in cache:
+        cache[model.id] = {r.key for r in model_repairs(model)}
+    return key in cache[model.id]
 
 
 @transaction.atomic
@@ -282,10 +285,11 @@ def import_rows(rows: list[list[str]], filename: str = "Preisliste", dry_run: bo
     base = {(cp.category_id, cp.repair.key, cp.tier): cp.amount for cp in CategoryPrice.objects.select_related("repair")}
     existing = {(p.model_id, p.repair.key, p.tier): p for p in Price.objects.select_related("repair")}
     reason = f"Import {filename}"
+    offered_cache: dict = {}
     for m, key, tier, action, amount, is_from, where in targets:
         if action == "skip":
             continue
-        if not offered(m, key):
+        if not offered(m, key, offered_cache):
             rep.not_offered.append(f"{where}: {m.full_name()} · {reps[key].name_de}")
             continue
         cur = existing.get((m.id, key, tier))
@@ -352,11 +356,10 @@ def export_rows(category: str | None = None) -> list[list]:
     qs = DeviceModel.objects.select_related("brand", "category").order_by("category__order", "brand__order", "sort_order")
     if category:
         qs = qs.filter(category__key=category)
-    offered_map = {}
-    for o in RepairOption.objects.select_related("repair", "category"):
-        offered_map.setdefault((o.category_id, o.console_type), set()).add(o.repair.key)
+    offered_cache: dict = {}
     for m in qs:
-        keys = offered_map.get((m.category_id, m.console_type if m.category.key == "console" else ""), set()) | {"diagnosis"}
+        offered(m, "diagnosis", offered_cache)
+        keys = offered_cache[m.id]
         row = [m.category.name_de, m.brand.name, m.name, m.slug]
         for r, tier, _ in cols:
             if r.key not in keys:

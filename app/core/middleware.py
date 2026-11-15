@@ -101,7 +101,7 @@ class MaintenanceMiddleware:
         return self.get_response(request)
 
 
-SHOPIFY_PREFIXES = ("/pages/", "/products/", "/collections/", "/policies/", "/blogs/", "/cart", "/account", "/search")
+SHOPIFY_PREFIXES = ("/pages", "/products", "/collections", "/policies", "/blogs", "/cart", "/account", "/search")
 
 
 class LegacyRedirectMiddleware:

@@ -150,6 +150,9 @@ class MediaAsset(models.Model):
         if changed and self.image:
             self.make_variants()
             MediaAsset.objects.filter(pk=self.pk).update(variants=self.variants)
+            from core.cache import bump
+
+            bump()  # the variants exist only now; pages cached since the save above must be rebuilt
 
     def make_variants(self):
         self.image.open("rb")

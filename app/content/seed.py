@@ -204,6 +204,9 @@ def seed_media(log=print) -> int:
         log(f"  image {key}: {asset.variants.get('w')}×{asset.variants.get('h')}")
     for rkey, mkey in REP_IMG.items():
         RepairType.objects.filter(key=rkey, image__isnull=True).update(image=MediaAsset.objects.filter(key=mkey).first())
+    from core.cache import bump
+
+    bump()  # .update() sends no signal
     return n
 
 

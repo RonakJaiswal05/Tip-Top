@@ -181,5 +181,9 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
     created += len(new)
     stats["prices_created"] = created
     stats["prices_total"] = Price.objects.count()
+    # bulk writes send no post_save signal: rebuild cached catalogue data once this transaction is committed
+    from core.cache import bump
+
+    transaction.on_commit(bump)
     log(", ".join(f"{k}: {v}" for k, v in stats.items()))
     return stats

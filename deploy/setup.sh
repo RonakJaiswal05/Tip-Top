@@ -45,7 +45,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update -q
 apt-get install -y -q --no-install-recommends \
   nginx postgresql postgresql-contrib redis-server certbot python3-certbot-nginx \
-  ufw fail2ban unattended-upgrades apt-listchanges git curl ca-certificates rsync pipx \
+  ufw fail2ban python3-systemd unattended-upgrades apt-listchanges git curl ca-certificates rsync pipx \
   build-essential libpq-dev gettext apache2-utils logrotate jq
 
 # ---------------------------------------------------------------- swap

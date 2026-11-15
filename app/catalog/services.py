@@ -100,6 +100,23 @@ def snapshot() -> dict:
 
 # ---------- rules (same as the prototype) ----------
 
+def model_repairs(model: DeviceModel, with_diagnosis: bool = True) -> list[RepairType]:
+    """Repairs a saved model gets (database version of services_for): its category's list, the console type's list
+    for consoles, Face ID / headphone jack only where fitted, plus the diagnosis."""
+    opts = RepairOption.objects.filter(category=model.category).select_related("repair").order_by("order")
+    opts = opts.filter(console_type=model.console_type if model.category.key == "console" else "")
+    out = []
+    for o in opts:
+        if (o.requires == "face_id" and not model.has_face_id) or (o.requires == "jack" and not model.has_headphone_jack):
+            continue
+        out.append(o.repair)
+    if with_diagnosis and all(r.key != "diagnosis" for r in out):
+        d = RepairType.objects.filter(key="diagnosis").first()
+        if d:
+            out.append(d)
+    return out
+
+
 def services_for(snap: dict, m: dict | None, custom_cat: str | None = None) -> list[str]:
     """Repair keys for a model dict from the snapshot, or for an unlisted model of custom_cat."""
     cat = m["cat"] if m else custom_cat
