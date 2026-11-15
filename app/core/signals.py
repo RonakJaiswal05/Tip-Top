@@ -8,7 +8,7 @@ from .cache import bump
 PUBLIC_MODELS = [
     "core.SiteSettings",
     "catalog.Category", "catalog.Brand", "catalog.DeviceModel", "catalog.RepairType", "catalog.RepairName",
-    "catalog.RepairOption", "catalog.FeaturedRepair", "catalog.Price", "catalog.CategoryPrice", "catalog.BuybackPrice",
+    "catalog.RepairOption", "catalog.FeaturedRepair", "catalog.Price", "catalog.CategoryPrice", "catalog.BuybackPrice", "catalog.CabinetDrawer",
     "shops.Shop", "shops.OpeningHours", "shops.SpecialHours", "shops.Holiday",
     "content.ContentBlock", "content.FAQ", "content.MediaAsset", "content.BeforeAfter", "content.WorkshopCard",
     "legal.LegalPage", "legal.LegalPageVersion",

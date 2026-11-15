@@ -12,7 +12,15 @@ const lg0 = find(/^const LEGAL_KEYS/), lg1 = find(/^\/\* ===== Legal pages, cook
 const ta0 = lg1 + 1, ta1 = find(/^function fine\(k\)/);
 const gm0 = find(/^const GMB = \{/), gm1 = find(/^const gmbUrl/);
 const code = [seg(s0, s1), seg(sh0, sh1), seg(bw0, bw1), seg(lg0, lg1), seg(ta0, ta1), seg(gm0, gm1)].join("\n") + `
-;OUT = { T, SV, SV_CAT, LISTS, CON, BASE, FIXED:[...FIXED], FROM:[...FROM], K, REAL, M, CATS, TOP6, KW, CATW, BRANDW, IMGS, REP_IMG, CAT_IMG,
+;buildModels();
+const PRICES = [];  // array: the prototype's ids collide for e.g. Galaxy S26 and S26+
+for (const c of CATS) for (const m of MODELS[c]) {
+  const row = {};
+  for (const k of [...servicesFor(m), "diagnosis"]) row[k] = k === "display" ? [price(m, k, "p"), price(m, k, "o")] : price(m, k);
+  PRICES.push({ id:m.id, cat:m.cat, brand:m.brand, name:m.name, f:m.f, fl:m.fl, services:servicesFor(m), prices:row, full_de:(lang = "de", fullName(m)), full_en:(lang = "en", fullName(m)) });
+}
+lang = "en";
+;OUT = { PRICES, T, SV, SV_CAT, LISTS, CON, BASE, FIXED:[...FIXED], FROM:[...FROM], K, REAL, M, CATS, TOP6, KW, CATW, BRANDW, IMGS, REP_IMG, CAT_IMG,
   SHOPS, BRANDWALL, BRAND_LOGO, LEGAL_KEYS, LEGAL_UPD, LEGAL_DE, LEGAL_EN, COOKIES, GMB, IC, WA_NUMBER };`;
 const ctx = { matchMedia: () => ({ matches:false, addEventListener(){} }), document: { documentElement: { classList: { add(){} } } },
   localStorage: { getItem(){ return null; }, setItem(){} }, console, OUT:null, Intl, Math, JSON, Set, Object, String, Array, Number, RegExp, encodeURIComponent };
