@@ -938,6 +938,10 @@ watch(document);
 updStatus();
 setInterval(updStatus, 60000);
 if (readHash()) fromHash();
-else if ("requestIdleCallback" in window) requestIdleCallback(() => loadCatalog().catch(() => {}), { timeout:4000 });
-else setTimeout(() => loadCatalog().catch(() => {}), 2500);
+else {
+  // prefetch the catalogue once the page has settled, or as soon as the visitor reaches for the calculator
+  const pre = () => loadCatalog().catch(() => {});
+  addEventListener("load", () => setTimeout(() => ("requestIdleCallback" in window ? requestIdleCallback(pre, { timeout:5000 }) : pre()), 3000), { once:true });
+  ["pointerdown", "keydown", "focusin"].forEach(ev => addEventListener(ev, e => { if (e.target.closest && e.target.closest("[data-open-builder],[data-hcat],[data-rail],[data-bc],#askIn,#lfModel,#sellModel")) pre(); }, { passive:true }));
+}
 })();

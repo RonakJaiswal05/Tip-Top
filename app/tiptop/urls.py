@@ -47,7 +47,8 @@ for lang in ("de", "en"):
 
 urlpatterns += i18n_patterns(*localized, prefix_default_language=True)
 
-if settings.DEBUG:
-    from django.conf.urls.static import static
+if settings.DEBUG or getattr(settings, "SERVE_MEDIA", False):  # production: Nginx serves /media/
+    from django.urls import re_path
+    from django.views.static import serve
 
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT})]

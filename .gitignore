@@ -26,3 +26,7 @@ Thumbs.db
 .vscode/
 node_modules/
 /prototype/src/_check.js
+/app/staticfiles-perf/
+
+# local browser test assets (axe-core, expected labels)
+/app/static/test/

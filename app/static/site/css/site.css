@@ -293,7 +293,7 @@ footer{background:var(--ink);color:#fff;padding:clamp(64px,8vw,110px) 0 110px}
 .ftel:hover::after{transform:scaleX(1);transform-origin:left}
 .fmail{display:inline-block;margin-top:18px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);font-size:18px}
 .fgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;margin-top:clamp(48px,6vw,80px);font-size:15px}
-.fgrid h4{font-size:13px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:10px}
+.fgrid h3{font-stretch:100%;letter-spacing:0;font-size:13px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:10px}
 .fgrid ul{list-style:none;display:grid;gap:6px}
 .fgrid a,.fgrid button{color:#fff;text-decoration:none}
 .fgrid a:hover,.fgrid button:hover{color:var(--lemon)}

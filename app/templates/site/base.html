@@ -67,15 +67,15 @@
     <a class="ftel" href="tel:{{ S.phone }}">{{ S.phone_display }}</a><br>
     <a class="fmail" href="mailto:{{ S.contact_email }}">{{ S.contact_email }}</a>
     <div class="fgrid">
-      {% for s in SHOPS %}<div><h4>{{ s.area }}</h4><p>{{ s.street }}<br>{{ s.zip }}</p></div>
-      {% endfor %}<div><h4>{{ T.f_hours_h }}</h4><p>{% for l in T.f_hours_lines %}{{ l }}{% if not forloop.last %}<br>{% endif %}{% endfor %}</p></div>
-      <div><h4>{{ T.f_more }}</h4><ul>
+      {% for s in SHOPS %}<div><h3>{{ s.area }}</h3><p>{{ s.street }}<br>{{ s.zip }}</p></div>
+      {% endfor %}<div><h3>{{ T.f_hours_h }}</h3><p>{% for l in T.f_hours_lines %}{{ l }}{% if not forloop.last %}<br>{% endif %}{% endfor %}</p></div>
+      <div><h3>{{ T.f_more }}</h3><ul>
         <li><a href="{{ urls.request }}">{{ T.f_form }}</a></li>
         <li><a href="{{ urls.models }}">{{ T.all_models }}</a></li>
         {% if S.b2b_url %}<li><a href="{{ S.b2b_url }}">{{ T.f_b2b }}</a></li>{% endif %}
         {% if S.instagram_url %}<li><a href="{{ S.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>{% endif %}
       </ul></div>
-      <div><h4>{{ T.f_legal }}</h4><ul>
+      <div><h3>{{ T.f_legal }}</h3><ul>
         <li><a href="{{ urls.impressum }}">{{ T.f_imp }}</a></li>
         <li><a href="{{ urls.datenschutz }}">{{ T.f_priv }}</a></li>
         <li><a href="{{ urls.agb }}">{{ T.f_agb }}</a></li>
@@ -85,6 +85,7 @@
         <li><button type="button" data-ccopen style="color:inherit;font:inherit;padding:0">{{ T.f_ccset }}</button></li>
       </ul></div>
     </div>
+    <a class="fab" id="fab" href="https://wa.me/{{ S.whatsapp_number }}?text={{ T.wa_general|urlencode:'' }}" target="_blank" rel="noopener" aria-label="WhatsApp">{% ic "wa" 1.9 %}</a>
     <div class="fbase"><span>© {% now "Y" %} TLAMO GmbH, TipTop Service 24</span><a class="fwd" href="{{ urls.withdraw }}">{{ T.f_wdr }}</a>{% if S.prices_are_placeholders %}<span>{{ T.price_note }}</span>{% endif %}</div>
   </div>
 </footer>
@@ -110,7 +111,6 @@
 <div class="ccm" id="ccm" hidden><div class="bld-scrim" data-ccx></div><div class="ccm-p" id="ccmP" role="dialog" aria-modal="true" aria-labelledby="ccmH" tabindex="-1"></div></div>
 <div class="ccm" id="micm" hidden><div class="bld-scrim" data-micx></div><div class="ccm-p sm" id="micP" role="dialog" aria-modal="true" aria-labelledby="micH" tabindex="-1"></div></div>
 
-<a class="fab" id="fab" href="https://wa.me/{{ S.whatsapp_number }}?text={{ T.wa_general|urlencode:'' }}" target="_blank" rel="noopener" aria-label="WhatsApp">{% ic "wa" 1.9 %}</a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script id="tt-data" type="application/json">{{ page_data|safe }}</script>
 {% block structured %}{% endblock %}
