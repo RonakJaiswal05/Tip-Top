@@ -26,8 +26,10 @@ def _csp(request) -> str:
     if request.path.startswith("/admin/"):
         return ("default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; "
                 "script-src 'self' 'unsafe-inline'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'")
+    from .page import HEAD_JS_HASH
+
     s = SiteSettings.load()
-    script, connect, img = ["'self'"], ["'self'"], ["'self'", "data:"]
+    script, connect, img = ["'self'", f"'{HEAD_JS_HASH}'"], ["'self'"], ["'self'", "data:"]
     # Optional services only ever load after consent (core.js checks the consent first); CSP just allows their hosts.
     if s.analytics_enabled and s.matomo_url:
         host = s.matomo_url.rstrip("/")

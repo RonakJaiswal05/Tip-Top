@@ -5,7 +5,7 @@ from decimal import Decimal
 from core.cache import cached
 
 from .models import (
-    CabinetDrawer, Category, CategoryPrice, DeviceModel, FeaturedRepair, Price, RepairName, RepairOption, RepairType, Tier,
+    BuybackPrice, CabinetDrawer, Category, CategoryPrice, DeviceModel, FeaturedRepair, Price, RepairName, RepairOption, RepairType, Tier,
 )
 
 TIER_CODE = {Tier.PREMIUM: "p", Tier.ORIGINAL: "o", Tier.STANDARD: ""}
@@ -74,6 +74,10 @@ def build() -> dict:
         if is_from:
             froms.setdefault(model_id, set()).add(key)
 
+    buy = {}
+    for model_id, cond, low, high in BuybackPrice.objects.filter(model__active=True).values_list("model_id", "condition", "low", "high"):
+        buy.setdefault(str(model_id), {})[cond] = [_num(low), _num(high)]
+
     drawers = [
         {"group": d.group, "label": d.label, "cat": d.category.key, "brand": d.brand.name,
          "logo": d.logo_file.url if d.logo_file else None}
@@ -86,6 +90,7 @@ def build() -> dict:
         "prices": {str(k): v for k, v in prices.items()},
         "from": {str(k): sorted(v) for k, v in froms.items()},
         "drawers": drawers,
+        "buy": buy,
     }
 
 

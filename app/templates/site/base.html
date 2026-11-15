@@ -1,0 +1,118 @@
+{% load static tt %}<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>{% block title %}{% if page_title %}{{ page_title }} | TipTop Service 24{% else %}TipTop Service 24{% if lang == "de" %} · Handy-Reparatur in Berlin-Moabit und Spandau{% else %} · Phone repair in Berlin-Moabit and Spandau{% endif %}{% endif %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% if page_description %}{{ page_description }}{% else %}{{ T.hero_p }}{% endif %}{% endblock %}">
+<script>{{ head_js|safe }}</script>
+<link rel="canonical" href="{{ SITE_URL }}{{ canonical }}">
+<link rel="alternate" hreflang="de" href="{{ SITE_URL }}{{ alternates.de }}">
+<link rel="alternate" hreflang="en" href="{{ SITE_URL }}{{ alternates.en }}">
+<link rel="alternate" hreflang="x-default" href="{{ SITE_URL }}{{ alternates.de }}">
+<link rel="preload" href="{% static 'site/fonts/archivo-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+{% block preload %}{% endblock %}
+<link rel="stylesheet" href="{% static 'site/css/site.css' %}">
+<link rel="icon" href="{% static 'site/img/favicon.svg' %}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{% static 'site/img/apple-touch-icon.png' %}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TipTop Service 24">
+<meta property="og:locale" content="{% if lang == 'de' %}de_DE{% else %}en_GB{% endif %}">
+<meta property="og:title" content="{% block og_title %}{% if page_title %}{{ page_title }}{% else %}TipTop Service 24{% endif %}{% endblock %}">
+<meta property="og:url" content="{{ SITE_URL }}{{ canonical }}">
+{% if IMGS.hero %}<meta property="og:image" content="{{ SITE_URL }}{{ IMGS.hero.l.jpg }}">{% endif %}
+{% block head %}{% endblock %}
+<script src="{% static 'site/js/site.js' %}" defer></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<a class="skip" href="#main">{{ T.skip }}</a>
+
+<header class="nav">
+  <a class="logo" href="{% if hp %}{{ hp }}{% else %}#top{% endif %}" aria-label="TipTop Service 24">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#3048F0"/><text x="20" y="26.6" text-anchor="middle" fill="#fff" style="font:800 16px Archivo,Arial,sans-serif;font-stretch:118%">TT</text><circle cx="32.5" cy="7.5" r="3.2" fill="#FFE14D"/></svg>
+    <b>TipTop <span>Service 24</span></b>
+  </a>
+  <nav class="nav-links" aria-label="{{ T.nav_main }}">
+    <a href="{{ hp }}#repairs">{{ T.nav_repair }}</a>
+    <a href="{{ hp }}#brands">{{ T.nav_brands }}</a>
+    <a href="{{ hp }}#workshop">{{ T.nav_lab }}</a>
+    <a href="{{ hp }}#sell">{{ T.nav_sell }}</a>
+    <a href="{{ hp }}#shops">{{ T.nav_shops }}</a>
+  </nav>
+  <a class="nav-tel" href="tel:{{ S.phone }}">{{ S.phone_display }}</a>
+  <div class="lang" role="group" aria-label="{{ T.lang_l }}">{% include "site/_lang.html" %}</div>
+  <button type="button" class="cta" data-open-builder><span>{{ T.cta }}</span></button>
+  <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mnav" aria-label="{{ T.menu }}"><span></span><span></span></button>
+  <span class="prog" aria-hidden="true"></span>
+</header>
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="{{ T.menu }}">
+    <a href="{{ hp }}#repairs">{{ T.nav_repair }}</a>
+    <a href="{{ hp }}#brands">{{ T.nav_brands }}</a>
+    <a href="{{ hp }}#workshop">{{ T.nav_lab }}</a>
+    <a href="{{ hp }}#sell">{{ T.nav_sell }}</a>
+    <a href="{{ hp }}#shops">{{ T.nav_shops }}</a>
+  </nav>
+  <div class="mnav-foot">
+    <a class="btn" href="tel:{{ S.phone }}" id="mnavCall">{% ic "call" %}<span>{{ S.phone_display }}</span></a>
+    <div class="lang" role="group" aria-label="{{ T.lang_l }}">{% include "site/_lang.html" %}</div>
+  </div>
+</div>
+
+{% block main %}{% endblock %}
+
+<footer>
+  <div class="wrap">
+    <a class="ftel" href="tel:{{ S.phone }}">{{ S.phone_display }}</a><br>
+    <a class="fmail" href="mailto:{{ S.contact_email }}">{{ S.contact_email }}</a>
+    <div class="fgrid">
+      {% for s in SHOPS %}<div><h4>{{ s.area }}</h4><p>{{ s.street }}<br>{{ s.zip }}</p></div>
+      {% endfor %}<div><h4>{{ T.f_hours_h }}</h4><p>{% for l in T.f_hours_lines %}{{ l }}{% if not forloop.last %}<br>{% endif %}{% endfor %}</p></div>
+      <div><h4>{{ T.f_more }}</h4><ul>
+        <li><a href="{{ urls.request }}">{{ T.f_form }}</a></li>
+        <li><a href="{{ urls.models }}">{{ T.all_models }}</a></li>
+        {% if S.b2b_url %}<li><a href="{{ S.b2b_url }}">{{ T.f_b2b }}</a></li>{% endif %}
+        {% if S.instagram_url %}<li><a href="{{ S.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>{% endif %}
+      </ul></div>
+      <div><h4>{{ T.f_legal }}</h4><ul>
+        <li><a href="{{ urls.impressum }}">{{ T.f_imp }}</a></li>
+        <li><a href="{{ urls.datenschutz }}">{{ T.f_priv }}</a></li>
+        <li><a href="{{ urls.agb }}">{{ T.f_agb }}</a></li>
+        <li><a href="{{ urls.widerruf }}">{{ T.f_wdr_i }}</a></li>
+        <li><a href="{{ urls.cookies }}">{{ T.f_ck }}</a></li>
+        <li><a href="{{ urls.barrierefreiheit }}">{{ T.f_a11y }}</a></li>
+        <li><button type="button" data-ccopen style="color:inherit;font:inherit;padding:0">{{ T.f_ccset }}</button></li>
+      </ul></div>
+    </div>
+    <div class="fbase"><span>© {% now "Y" %} TLAMO GmbH, TipTop Service 24</span><a class="fwd" href="{{ urls.withdraw }}">{{ T.f_wdr }}</a>{% if S.prices_are_placeholders %}<span>{{ T.price_note }}</span>{% endif %}</div>
+  </div>
+</footer>
+
+<!-- Repair price calculator: opens over any page (data-open-builder, #rechner) -->
+<div class="bld" id="bld" hidden>
+  <div class="bld-scrim" data-close></div>
+  <div class="bld-panel" role="dialog" aria-modal="true" aria-label="{{ T.bld_l }}" tabindex="-1" id="bldPanel">
+    <aside class="bld-side" id="bldSide"></aside>
+    <div class="bld-main">
+      <div class="bld-top">
+        <button type="button" class="icb" id="bldBack" aria-label="{{ T.back }}">{% ic "left" 2 %}</button>
+        <ol class="bsteps" id="bldSteps"></ol>
+        <button type="button" class="icb" data-close aria-label="{{ T.close }}" id="bldClose">{% ic "x" 2 %}</button>
+      </div>
+      <div class="mini" id="bldMini"></div>
+      <div class="bld-body" id="bldBody" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<section class="cc" id="cc" aria-labelledby="ccH" hidden></section>
+<div class="ccm" id="ccm" hidden><div class="bld-scrim" data-ccx></div><div class="ccm-p" id="ccmP" role="dialog" aria-modal="true" aria-labelledby="ccmH" tabindex="-1"></div></div>
+<div class="ccm" id="micm" hidden><div class="bld-scrim" data-micx></div><div class="ccm-p sm" id="micP" role="dialog" aria-modal="true" aria-labelledby="micH" tabindex="-1"></div></div>
+
+<a class="fab" id="fab" href="https://wa.me/{{ S.whatsapp_number }}?text={{ T.wa_general|urlencode:'' }}" target="_blank" rel="noopener" aria-label="WhatsApp">{% ic "wa" 1.9 %}</a>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script id="tt-data" type="application/json">{{ page_data|safe }}</script>
+{% block structured %}{% endblock %}
+</body>
+</html>

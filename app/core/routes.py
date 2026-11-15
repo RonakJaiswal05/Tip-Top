@@ -15,7 +15,7 @@ PAGES = {
     "datenschutz": {"de": "datenschutz", "en": "privacy"},
     "agb": {"de": "agb", "en": "terms"},
     "widerruf": {"de": "widerruf", "en": "withdrawal"},
-    "vertrag-widerrufen": {"de": "vertrag-widerrufen", "en": "withdraw-contract"},
+    "withdraw": {"de": "vertrag-widerrufen", "en": "withdraw-contract"},
     "cookies": {"de": "cookies", "en": "cookies"},
     "barrierefreiheit": {"de": "barrierefreiheit", "en": "accessibility"},
 }

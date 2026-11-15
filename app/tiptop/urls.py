@@ -8,6 +8,8 @@ from core import views as core_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("healthz", core_views.healthz),
+    path("robots.txt", core_views.robots),
+    path("api/catalog.json", core_views.catalog_json, name="catalog-json"),
 ]
 
 urlpatterns += i18n_patterns(

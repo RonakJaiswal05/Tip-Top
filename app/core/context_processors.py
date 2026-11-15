@@ -1,6 +1,9 @@
 from django.utils import translation
 
+from django.conf import settings
+
 from .models import SiteSettings
+from .page import HEAD_JS
 from .routes import LANGS, PAGES, alternates, page_url
 
 
@@ -16,4 +19,7 @@ def site(request):
         "alternates": alt,
         "canonical": alt.get(lang),
         "urls": {k: page_url(k, lang) for k in PAGES},
+        "head_js": HEAD_JS,
+        "SITE_URL": settings.SITE_URL,
+        "hp": "" if getattr(request, "is_home", False) else page_url("home", lang),
     }

@@ -1,0 +1,1 @@
+{% load tt %}{% if shop.rating %}<a class="gmb" href="{{ shop.maps }}" target="_blank" rel="noopener" title="{% t 'gmb_title' d=shop.asof %}"><b class="gmb-r">{{ shop.rating|num1:lang }}</b><span class="gmb-m">{% stars shop.rating %}<small>{% t 'gmb_n' n=shop.count s=shop.short %}</small></span><span class="gmb-g">Google</span></a>{% endif %}
