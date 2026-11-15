@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/tiptop/admin.css' %}">{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Übersicht</a> › <a href="{% url 'admin:catalog_price_editor' %}">Preise</a> › Import</div>{% endblock %}
+{% block content %}
+<div class="tt-help">
+<p>Excel (.xlsx) oder CSV. Am einfachsten: zuerst <a href="{% url 'admin:catalog_price_export' %}">die aktuelle Preisliste exportieren</a>, darin ändern und wieder hochladen. Eine Zeile pro Modell, eine Spalte pro Reparatur.</p>
+<p>Zellen: „149“ oder „149,00 €“ setzt den Preis, „ab 149“ einen Ab-Preis, „auf Anfrage“ oder „-“ entfernt ihn, leere Zellen bleiben unverändert. Es geht auch eine Liste mit den Spalten Kategorie, Marke, Modell, Reparatur, Teil, Preis.</p>
+</div>
+{% if not report %}<form method="post" enctype="multipart/form-data">{% csrf_token %}
+  <fieldset class="module aligned">{% for f in form %}<div class="form-row">{{ f.errors }}{{ f.label_tag }} {{ f }}</div>{% endfor %}</fieldset>
+  <div class="submit-row"><input type="submit" class="default" value="Vorschau anzeigen"></div>
+</form>
+{% else %}
+<h2>Vorschau für {{ name }}</h2>
+<p><b>{{ report.summary }}</b>. Noch ist nichts gespeichert.</p>
+{% if report.unknown_models %}<h3>Unbekannte Modelle ({{ report.unknown_models|length }})</h3><p class="tt-help">Diese Zeilen werden übersprungen. Modell zuerst unter „Geräte“ anlegen oder den Namen in der Datei anpassen.</p><ul>{% for x in report.unknown_models|slice:":50" %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+{% if report.unknown_columns %}<h3>Unbekannte Spalten ({{ report.unknown_columns|length }})</h3><ul>{% for x in report.unknown_columns %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+{% if report.bad_cells %}<h3>Unlesbare Zellen ({{ report.bad_cells|length }})</h3><ul>{% for x in report.bad_cells|slice:":50" %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+{% if report.not_offered %}<h3>Reparatur für dieses Modell nicht vorgesehen ({{ report.not_offered|length }})</h3><ul>{% for x in report.not_offered|slice:":50" %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+{% if report.changes %}<h3>Änderungen ({{ report.changes|length }})</h3><ul>{% for x in report.changes|slice:":400" %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+<form method="post">{% csrf_token %}<input type="hidden" name="token" value="{{ token }}">
+  <div class="submit-row"><input type="submit" class="default" value="Import übernehmen"> <a href="{% url 'admin:catalog_price_import' %}">Abbrechen</a></div>
+</form>
+{% endif %}
+{% endblock %}

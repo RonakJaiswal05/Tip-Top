@@ -1,0 +1,46 @@
+{% extends "admin/base_site.html" %}{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/tiptop/admin.css' %}">{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Übersicht</a> › Preise</div>{% endblock %}
+{% block content %}
+<p class="tt-help">Kategorie wählen, Modell suchen, Preise in der Tabelle ändern und speichern. Änderungen sind sofort auf der Website, jede Änderung steht in der Historie und lässt sich zurücknehmen. Leeres Feld = Preis auf Anfrage.</p>
+<p class="tt-filters">
+  {% for c in cats %}<a class="button{% if c.key == cat %} default{% endif %}" href="?cat={{ c.key }}">{{ c.name_de }}</a>{% endfor %}
+  <a href="{% url 'admin:catalog_price_bulk' %}">Gesammelt ändern</a> ·
+  <a href="{% url 'admin:catalog_price_copy' %}{% if model %}?target={{ model.pk }}{% endif %}">Von ähnlichem Modell übernehmen</a> ·
+  <a href="{% url 'admin:catalog_price_import' %}">Import</a> ·
+  <a href="{% url 'admin:catalog_price_export' %}?cat={{ cat }}">Export (Excel)</a> ·
+  <a href="{% url 'admin:catalog_price_changelist' %}">Alle Preise und Historie</a> ·
+  <a href="{% url 'admin:catalog_scheduledpricechange_changelist' %}">Geplante Änderungen</a>
+</p>
+<div class="tt-prices">
+  <div>
+    <form method="get" class="tt-filters">
+      <input type="hidden" name="cat" value="{{ cat }}">
+      <input type="search" name="q" value="{{ q }}" placeholder="Modell suchen" aria-label="Modell suchen" style="flex:1">
+      <select name="brand" aria-label="Marke" onchange="this.form.submit()"><option value="">Alle Marken</option>{% for b in brands %}<option value="{{ b.slug }}"{% if b.slug == brand %} selected{% endif %}>{{ b.name }}</option>{% endfor %}</select>
+      <input type="submit" value="Suchen">
+    </form>
+    <div class="tt-list">{% for m in models %}<a href="?model={{ m.pk }}&amp;cat={{ cat }}{% if brand %}&amp;brand={{ brand }}{% endif %}{% if q %}&amp;q={{ q|urlencode }}{% endif %}" class="{% if model and m.pk == model.pk %}on{% endif %}">{{ m.name }} <small>{{ m.brand.name }}{% if not m.active %} · ausgeblendet{% endif %}</small></a>{% empty %}<p style="padding:10px">Kein Modell gefunden.</p>{% endfor %}</div>
+    <p><a class="addlink" href="{% url 'admin:catalog_devicemodel_add' %}">Neues Gerät anlegen</a></p>
+  </div>
+  <div>
+    {% if model %}
+    <h2 style="margin-top:0">{{ model.full_name }} <small>{% if not model.active %}(ausgeblendet){% endif %} · <a href="/de/reparatur/{{ model.slug }}/" target="_blank">Modellseite</a> · <a href="{% url 'admin:catalog_devicemodel_change' model.pk %}">Gerät bearbeiten</a></small></h2>
+    <form method="post">{% csrf_token %}
+      <table class="tt-ptable">
+        <thead><tr><th>Reparatur</th><th>Teil</th><th>Preis (€)</th><th>„ab“</th><th>Herkunft</th><th>Geändert</th></tr></thead>
+        <tbody>{% for r in rows %}<tr>
+          <td>{{ r.repair.name_de }}</td><td>{{ r.tier_label }}</td>
+          <td><input type="number" min="0" step="1" name="{{ r.field }}" value="{% if r.p %}{{ r.p.amount|floatformat:'-2' }}{% endif %}" data-def="{% if r.p %}{{ r.p.amount|floatformat:'-2' }}{% endif %}" placeholder="{% if r.fixed %}{{ r.placeholder|floatformat:'-2' }} (Einheitspreis){% else %}auf Anfrage{% endif %}" aria-label="{{ r.repair.name_de }} {{ r.tier_label }}"></td>
+          <td><input type="checkbox" name="{{ r.from_field }}"{% if r.p.is_from %} checked{% endif %} aria-label="ab-Preis"></td>
+          <td class="ph">{% if r.p %}{{ r.p.get_source_display }}{% elif r.fixed %}Einheitspreis der Kategorie{% else %}–{% endif %}</td>
+          <td class="ph">{% if r.p %}{{ r.p.updated_at|date:"d.m.Y" }}{% endif %}</td></tr>{% endfor %}</tbody>
+      </table>
+      <div class="submit-row"><input type="submit" class="default" value="Preise speichern"></div>
+    </form>
+    {% if scheduled %}<h3>Geplante Änderungen</h3><ul>{% for s in scheduled %}<li>{{ s.repair.name_de }} {{ s.get_tier_display }}: {{ s.amount }} € ab {{ s.effective_at|date:"d.m.Y H:i" }}</li>{% endfor %}</ul>{% endif %}
+    {% else %}<p>Links ein Modell wählen, um seine Preise zu bearbeiten.</p>{% endif %}
+  </div>
+</div>
+<script src="{% static 'admin/tiptop/prices.js' %}"></script>
+{% endblock %}

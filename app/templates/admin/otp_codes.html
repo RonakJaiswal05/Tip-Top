@@ -1,0 +1,8 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div style="max-width:640px">
+<p><b>Die Zwei-Faktor-Anmeldung ist eingerichtet.</b> Bitte notieren oder drucken Sie diese Notfall-Codes und bewahren Sie sie sicher auf. Jeder Code funktioniert einmal, falls das Telefon nicht zur Hand ist. Sie werden nur jetzt angezeigt.</p>
+<ul style="font:18px/1.8 monospace;columns:2">{% for c in codes %}<li>{{ c }}</li>{% endfor %}</ul>
+<p><a class="button default" href="{% url 'admin:index' %}">Weiter zur Übersicht</a></p>
+</div>
+{% endblock %}

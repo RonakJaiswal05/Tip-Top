@@ -1,0 +1,14 @@
+{% extends "admin/base_site.html" %}{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/tiptop/admin.css' %}">{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Übersicht</a> › <a href="{% url 'admin:catalog_price_editor' %}">Preise</a> › Gesammelt ändern</div>{% endblock %}
+{% block content %}
+<p class="tt-help">Zum Beispiel: alle Akku-Preise einer Marke um 10 % erhöhen. Erst „Vorschau“, dann „Übernehmen“. Mit Datum wird die Änderung geplant und zum Zeitpunkt automatisch übernommen.</p>
+<form method="post">{% csrf_token %}
+  <fieldset class="module aligned">{% for f in form %}<div class="form-row">{{ f.errors }}{{ f.label_tag }} {{ f }}{% if f.help_text %}<div class="help">{{ f.help_text }}</div>{% endif %}</div>{% endfor %}</fieldset>
+  <div class="submit-row"><input type="submit" name="preview" value="Vorschau">{% if preview %}<input type="submit" name="apply" class="default" value="{{ total }} Preise übernehmen">{% endif %}</div>
+</form>
+{% if preview %}<h2>Vorschau ({{ total }} Änderungen{% if total > 300 %}, die ersten 300{% endif %})</h2>
+<table class="tt-table"><tr><th>Modell</th><th>Reparatur</th><th>Teil</th><th>Alt</th><th>Neu</th></tr>
+{% for p, n in preview %}<tr><td>{{ p.model }}</td><td>{{ p.repair.name_de }}</td><td>{{ p.get_tier_display }}</td><td>{{ p.amount|floatformat:"-2" }} €</td><td><b>{{ n|floatformat:"-2" }} €</b></td></tr>{% endfor %}</table>
+{% elif request.method == "POST" and form.is_valid %}<p>Keine Preise betroffen.</p>{% endif %}
+{% endblock %}

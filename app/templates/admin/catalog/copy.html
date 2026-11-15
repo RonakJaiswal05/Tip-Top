@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Übersicht</a> › <a href="{% url 'admin:catalog_price_editor' %}">Preise</a> › Übernehmen</div>{% endblock %}
+{% block content %}
+<p>Übernimmt alle Preise eines Modells auf ein anderes derselben Kategorie, zum Beispiel für ein neues Modell, das ähnlich teuer zu reparieren ist. Reparaturen, die das Ziel nicht hat (z. B. Face ID), werden übersprungen.</p>
+<form method="post">{% csrf_token %}
+  <fieldset class="module aligned">{% for f in form %}<div class="form-row">{{ f.errors }}{{ f.label_tag }} {{ f }}</div>{% endfor %}</fieldset>
+  <div class="submit-row"><input type="submit" class="default" value="Preise übernehmen"></div>
+</form>
+{% endblock %}

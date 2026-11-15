@@ -48,7 +48,7 @@ SITE_URL = env("SITE_URL", "http://localhost:8000").rstrip("/")
 ENVIRONMENT = env("ENVIRONMENT", "dev")  # dev, staging, production
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    "core.admin_config.TipTopAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -147,6 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 LOGIN_URL = "admin:login"
+LOGIN_REDIRECT_URL = "/admin/"
 # Staff are signed out after STAFF_IDLE_TIMEOUT without activity (A1). Visitors never get a session.
 SESSION_COOKIE_AGE = 14 * 24 * 60 * 60  # matches the cookie policy ("2 Wochen")
 SESSION_SAVE_EVERY_REQUEST = False

@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<p>Diese Einträge werden in das gewählte Modell zusammengeführt. Ihre Anfragen zeigen danach auf das Ziel, fehlende Preise werden übernommen, die doppelten Einträge werden ausgeblendet (nicht gelöscht).</p>
+<ul>{% for m in items %}<li>{{ m }}</li>{% endfor %}</ul>
+<form method="post">{% csrf_token %}
+  {% for m in items %}<input type="hidden" name="_selected_action" value="{{ m.pk }}">{% endfor %}
+  <input type="hidden" name="action" value="{{ action }}">
+  <p><label for="target">Ziel</label> <select id="target" name="target">{% for c in candidates %}<option value="{{ c.pk }}">{{ c }}</option>{% endfor %}</select></p>
+  <div class="submit-row"><input type="submit" class="default" value="Zusammenführen"></div>
+</form>
+{% endblock %}

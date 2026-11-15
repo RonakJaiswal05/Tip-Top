@@ -1,0 +1,36 @@
+{% extends "admin/index.html" %}{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/tiptop/admin.css' %}">{% endblock %}
+{% block content %}
+{% if dash %}
+<div class="tt-dash">
+  {% if stale %}<p class="errornote">{{ stale }} Anfrage(n) seit über 24 Stunden ohne Status. <a href="{% url 'admin:leads_request_changelist' %}?wartet=24h">Ansehen</a></p>{% endif %}
+  {% if not tech_only %}{% if placeholder_prices %}<p class="errornote">{{ placeholder_prices }} Preise sind noch Platzhalter aus dem Prototyp. <a href="{% url 'admin:catalog_price_import' %}">Preisliste importieren</a></p>{% endif %}
+  {% if unsent_confirmations %}<p class="errornote">{{ unsent_confirmations }} Widerrufsbestätigung(en) noch nicht gesendet. <a href="{% url 'admin:leads_withdrawal_changelist' %}">Prüfen</a></p>{% endif %}{% endif %}
+  <div class="tt-cards">
+    <div class="tt-card"><h3>Heute</h3><b>{{ today_total }}</b><small>{% for c in today %}{{ c.label }} {{ c.n }}{% if not forloop.last %} · {% endif %}{% endfor %}</small></div>
+    <div class="tt-card"><h3>Diese Woche</h3><b>{{ week_total }}</b><small>{% for c in week %}{{ c.label }} {{ c.n }}{% if not forloop.last %} · {% endif %}{% endfor %}</small></div>
+    <div class="tt-card{% if waiting_n %} alert{% endif %}"><h3>Wartet über 2 Stunden</h3><b>{{ waiting_n }}</b><small><a href="{% url 'admin:leads_request_changelist' %}?wartet=2h">Liste öffnen</a></small></div>
+    <div class="tt-card"><h3>Zu Buchungen geworden (30 Tage)</h3><b>{% if booking_rate is not None %}{{ booking_rate }} %{% else %}–{% endif %}</b><small>von {{ total30 }} Anfragen</small></div>
+    {% if not tech_only %}{% for s in shops %}<div class="tt-card"><h3>{{ s.name }}</h3><b style="font-size:18px">{{ s.status }}</b><small>Google {{ s.rating|default:"–" }} ({{ s.count|default:"–" }}){% if s.fetched %}, Stand {{ s.fetched|date:"d.m.Y" }}{% endif %}{% if s.error %}<br>Abruffehler: {{ s.error }}{% endif %}</small></div>{% endfor %}{% endif %}
+  </div>
+  <div class="tt-grid2">
+    <div class="module"><h2>Rückrufe und Anfragen, die warten</h2><table class="tt-table">
+      {% for r in waiting %}<tr><td class="tt-late">{{ r.created_at|date:"d.m. H:i" }}</td><td>{{ r.get_kind_display }}</td><td><a href="{% url 'admin:leads_request_change' r.pk %}">{{ r.name|default:"–" }}</a></td><td>{% if r.phone %}<a href="tel:{{ r.phone }}">{{ r.phone }}</a>{% endif %}</td><td>{{ r.device }}</td></tr>
+      {% empty %}<tr><td>Nichts offen.</td></tr>{% endfor %}</table></div>
+    <div class="module"><h2>Diesen Monat am häufigsten angefragt</h2><table class="tt-table"><tr><th>Modell</th><th>Anzahl</th></tr>
+      {% for m in top_models %}<tr><td>{{ m.0 }}</td><td>{{ m.1 }}</td></tr>{% empty %}<tr><td colspan="2">Noch keine Daten.</td></tr>{% endfor %}
+      <tr><th>Reparatur</th><th>Anzahl</th></tr>
+      {% for m in top_repairs %}<tr><td>{{ m.0 }}</td><td>{{ m.1 }}</td></tr>{% empty %}<tr><td colspan="2">Noch keine Daten.</td></tr>{% endfor %}</table></div>
+    {% if not tech_only %}<div class="module"><h2>Sonderöffnungszeiten und Feiertage (3 Wochen)</h2><ul>{% for u in upcoming %}<li>{{ u }}</li>{% empty %}<li>Keine.</li>{% endfor %}</ul>
+      <p><a href="{% url 'admin:shops_specialhours_add' %}">Sonderöffnungszeit eintragen</a></p></div>
+    <div class="module"><h2>Zu erledigen</h2><ul>
+      <li>Offene Erstattungen nach Widerruf: <a href="{% url 'admin:leads_withdrawal_changelist' %}?refund_status__exact=open">{{ open_refunds }}</a></li>
+      <li>Anfragen mit Google-Sheets-Fehler: {{ sheet_errors }}</li>
+      <li>Veröffentlichte Rechtstexte ohne anwaltliche Prüfung: <a href="{% url 'admin:legal_legalpageversion_changelist' %}?status__exact=published&amp;lawyer_approved__exact=0">{{ legal_unapproved }}</a></li>
+    </ul></div>{% endif %}
+  </div>
+</div>
+{% endif %}
+{{ block.super }}
+<script src="{% static 'admin/tiptop/dashboard.js' %}"></script>
+{% endblock %}
