@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Django
+/app/media/
+/app/staticfiles/
+/app/*.sqlite3
+/app/.env
+.env
+*.log
+
+# Secrets (service account keys etc.)
+/app/secrets/
+*.pem
+*-service-account*.json
+
+# Tooling
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/
+/prototype/src/_check.js
