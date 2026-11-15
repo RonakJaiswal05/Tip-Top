@@ -1,0 +1,23 @@
+[Unit]
+Description=TipTop background jobs (%i): Celery worker, concurrency 1
+After=network.target postgresql.service redis-server.service
+Wants=redis-server.service
+
+[Service]
+User=tiptop
+Group=tiptop
+EnvironmentFile=/etc/tiptop/%i.env
+WorkingDirectory=/srv/tiptop/%i/app
+ExecStart=/srv/tiptop/%i/app/.venv/bin/celery -A tiptop worker --concurrency=1 --loglevel=INFO \
+    --max-memory-per-child=200000 --without-gossip --without-mingle -n worker-%i@%%h
+Restart=always
+RestartSec=5
+MemoryMax=400M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/tiptop/%i/media /var/log/tiptop /var/lib/tiptop/%i
+
+[Install]
+WantedBy=multi-user.target

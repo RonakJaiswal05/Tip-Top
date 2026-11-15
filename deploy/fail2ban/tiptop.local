@@ -1,0 +1,21 @@
+# /etc/fail2ban/jail.d/tiptop.local
+[DEFAULT]
+bantime = 1h
+findtime = 10m
+maxretry = 6
+backend = systemd
+
+[sshd]
+enabled = true
+maxretry = 4
+bantime = 6h
+
+# repeated hits on the Nginx rate limits (forms, sign-in)
+[nginx-limit-req]
+enabled = true
+backend = auto
+port = http,https
+logpath = /var/log/nginx/tiptop-*.error.log
+maxretry = 10
+findtime = 10m
+bantime = 1h

@@ -22,6 +22,13 @@ USE_X_FORWARDED_HOST = False
 
 if env("EMAIL_BACKEND") is None and env("BREVO_API_KEY"):
     EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
+elif env("EMAIL_BACKEND") is None and env("EMAIL_HOST"):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST = env("EMAIL_HOST")
+    EMAIL_PORT = int(env("EMAIL_PORT", "587"))
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER", "")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "")
+    EMAIL_USE_TLS = True
 
 LOGGING["handlers"]["file"] = {  # noqa: F405
     "class": "logging.handlers.WatchedFileHandler",
@@ -35,3 +42,6 @@ if SENTRY_DSN:
 
     # Use an EU-region DSN (e.g. a *.de.sentry.io project). No personal data is sent.
     sentry_sdk.init(dsn=SENTRY_DSN, environment=ENVIRONMENT, send_default_pii=False, traces_sample_rate=0.0)
+
+# HSTS stays on the main host only: subdomains (mail, autodiscover) are run by other providers.
+SILENCED_SYSTEM_CHECKS = ["security.W005", "security.W021"]

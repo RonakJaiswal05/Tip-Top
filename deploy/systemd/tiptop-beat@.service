@@ -1,0 +1,22 @@
+[Unit]
+Description=TipTop scheduler (%i): Celery beat (ratings daily, scheduled prices, daily summary, retention, Sheets retry)
+After=network.target redis-server.service
+Wants=redis-server.service
+
+[Service]
+User=tiptop
+Group=tiptop
+EnvironmentFile=/etc/tiptop/%i.env
+WorkingDirectory=/srv/tiptop/%i/app
+ExecStart=/srv/tiptop/%i/app/.venv/bin/celery -A tiptop beat --loglevel=INFO --schedule /var/lib/tiptop/%i/celerybeat-schedule
+Restart=always
+RestartSec=5
+MemoryMax=200M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/tiptop /var/lib/tiptop/%i
+
+[Install]
+WantedBy=multi-user.target

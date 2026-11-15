@@ -1,0 +1,31 @@
+[Unit]
+Description=TipTop website (%i): Gunicorn
+After=network.target postgresql.service redis-server.service
+Wants=postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=tiptop
+Group=tiptop
+EnvironmentFile=/etc/tiptop/%i.env
+WorkingDirectory=/srv/tiptop/%i/app
+RuntimeDirectory=tiptop-%i
+RuntimeDirectoryMode=0755
+ExecStart=/srv/tiptop/%i/app/.venv/bin/gunicorn tiptop.wsgi:application \
+    --bind unix:/run/tiptop-%i/gunicorn.sock --umask 0o007 \
+    --workers ${GUNICORN_WORKERS} --threads 2 --worker-class gthread \
+    --timeout 30 --graceful-timeout 20 --max-requests 1000 --max-requests-jitter 100 \
+    --access-logfile - --error-logfile -
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=3
+MemoryHigh=600M
+MemoryMax=800M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/tiptop/%i/media /var/log/tiptop /var/lib/tiptop/%i
+
+[Install]
+WantedBy=multi-user.target
