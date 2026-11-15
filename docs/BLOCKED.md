@@ -28,6 +28,7 @@ decisions or access only Ronak can give. Last updated: 15 Nov 2026.
 | 3 | Brevo account (API key) and sender domain | Emails go to the console in dev; withdrawal confirmation needs a working sender before launch |
 | 4 | Google service account JSON and the Sheet ID(s) | Sheets sync switched off in Settings until set |
 | 5 | Sentry (EU region) DSN for error tracking, uptime monitor | – |
+| 7 | Google Maps Platform attribution: the Places API terms ask for the "Google Maps" logo or the text "Google Maps" next to Places data. CLAUDE.md says "Google"; the badge currently says "Google" | One word in `templates/site/_gmb_badge.html` if you want "Google Maps" |
 | 6 | Cookie banner with no optional category: keep it (as instructed) or drop it? Legally a banner is only needed for optional storage | Kept: "Alle ablehnen" / "Alle akzeptieren" with the necessary-only text; decisions are logged |
 
 ## Decisions taken during the build (tell me if any is wrong)
