@@ -1,0 +1,46 @@
+{% extends "site/base.html" %}{% load tt %}
+{% block main %}
+<main id="main" class="mp" style="--cc:var(--c-{{ m.cat }})">
+  <section class="hero mp-hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <nav class="mp-crumbs" aria-label="Breadcrumb"><ol>{% for n, u in crumbs %}<li>{% if forloop.last %}<span aria-current="page">{{ n }}</span>{% else %}<a href="{{ u }}">{{ n }}</a>{% endif %}</li>{% endfor %}</ol></nav>
+        <h1><span class="l1">{{ name }}</span><span class="l2">{{ T.mp_h1b }}</span></h1>
+        <p class="hero-p">{% t "mp_lead" m=name %}</p>
+        <div class="gmb-wrap">{% include "site/_gmb_badge.html" with shop=MAIN_SHOP %}</div>
+        <div class="row mp-cta"><a class="btn" href="#{{ hash }}={{ m.slug }}" data-open-builder data-model="{{ m.slug }}">{{ T.cta }}</a><a class="btn-wa" href="{{ wa_url }}" target="_blank" rel="noopener">{% ic "wa" 1.9 %}<span>{{ T.mp_wa }}</span></a></div>
+        <div class="facts">{% for f in T.facts %}<span>{% ic "check" 2.4 %}{{ f }}</span>{% endfor %}</div>
+      </div>
+      <div class="hero-media"><div class="hero-frame">{% if m.photo %}<figure class="ph notag loaded"><img src="{{ m.photo }}" alt="" width="1024" height="1536" fetchpriority="high"></figure>{% else %}{% ph img "notag" sizes="hero" eager=True high=True %}{% endif %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if sticker %}<span class="stk wait" style="--d:.4s"><small>{{ sticker.0 }}</small><b>{{ sticker.1 }}</b></span>{% endif %}</div>
+    </div>
+  </section>
+
+  <section class="sec" id="prices" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><h2 data-rv><span class="rv-line"><span>{% t "mp_prices" m=name %}</span></span></h2><p>{{ T.tier_p }}: {{ T.tier_p_s }} {{ T.tier_o }}: {{ T.tier_o_s }}</p></div>
+      <div class="lines mp-lines">{% for r in rows %}<div class="line"><span class="n">{{ r.name }}{% if r.tier_label %} <span class="mp-tier">({{ r.tier_label }})</span>{% endif %}</span><span class="p">{{ r.label }}</span><a class="lk" href="#{{ hash }}={{ m.slug }}/{{ r.key }}{% if r.tier == 'o' %}:o{% endif %}" data-open-builder data-model="{{ m.slug }}" data-repair="{{ r.key }}" data-tier="{{ r.tier }}" aria-label="{{ T.mp_book }}: {{ r.name }}{% if r.tier_label %} ({{ r.tier_label }}){% endif %}">{{ T.mp_book }}</a></div>{% endfor %}</div>
+      <p class="vat">{{ T.vat }}</p>
+    </div>
+  </section>
+
+  <section class="sec" id="shops" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><h2 data-rv><span class="rv-line"><span>{{ T.shops_h }}</span></span></h2><p>{{ T.shops_p }}</p></div>
+      <div class="shops">{% for sh in SHOPS %}<article class="shop"><div class="fr"><div class="sign" aria-hidden="true"><span><small>{{ sh.short }}</small><b>{{ sh.street }}</b></span></div>{% ph sh.photo "notag" %}</div><div class="shop-b"><h3>{{ sh.area }}</h3><p class="addr">{{ sh.street }}, {{ sh.zip }}</p>{% include "site/_shop_rating.html" with shop=sh %}{% with st=status|get:sh.key %}<span class="stat" data-open="{{ sh.key }}"><span class="pulse{% if not st.0 %} off{% endif %}"></span>{{ st.1 }}</span>{% endwith %}
+        <div class="row" style="margin-top:8px"><a class="btn" href="{{ sh.maps }}" target="_blank" rel="noopener">{% ic "store" %}{{ T.directions }}</a><a class="btn line" href="tel:{{ sh.tel }}">{% ic "call" %}{{ sh.telTxt }}</a></div></div></article>{% endfor %}</div>
+      <div class="ways">{% with w=T.ways %}<div class="way"><b>{{ w.0.0 }}</b><p>{{ w.0.1 }}</p></div>
+        <div class="way"><b>{{ w.1.0 }}</b><p>{{ w.1.1 }}</p><a href="{{ pick_wa }}" target="_blank" rel="noopener" data-wa="pickup">{{ w.1.2 }}</a></div>
+        <div class="way"><b>{{ w.2.0 }}</b><p>{{ w.2.1 }}</p><button type="button" id="copyAddr">{{ w.2.2 }}</button></div>{% endwith %}</div>
+    </div>
+  </section>
+
+  {% if others %}<section class="sec fog mp-more">
+    <div class="wrap">
+      <h2>{% t "mp_more" b=m.brand %}</h2>
+      <ul class="mp-links">{% for x in others %}<li><a href="{{ urls.models }}{{ x.slug }}/">{% if lang == "de" %}{{ x.nde }}{% else %}{{ x.nen }}{% endif %}</a></li>{% endfor %}</ul>
+      <p style="margin-top:22px"><a class="lk" href="{{ urls.models }}">{{ T.all_models }}</a></p>
+    </div>
+  </section>{% endif %}
+</main>
+{% endblock %}
+{% block structured %}<script type="application/ld+json">{{ ld_json|safe }}</script>{% endblock %}

@@ -71,6 +71,23 @@ NEW = {
     "lf_done_nojs": ("Danke! Deine Anfrage ist da. Wir melden uns während der Öffnungszeiten.",
                      "Thanks! We've got your request and will get back to you during opening hours."),
     "lab_count": ("15000", "15000"),
+    # model pages
+    "mp_title": ("{m} Reparatur in Berlin · Preise", "{m} repair in Berlin · prices"),
+    "mp_h1b": ("Reparatur in Berlin", "Repair in Berlin"),
+    "mp_lead": ("Alle Reparaturpreise für dein {m} auf einen Blick. Komm ohne Termin in Moabit oder Spandau vorbei, die meisten "
+                "Reparaturen sind in unter einer Stunde fertig.",
+                "Every repair price for your {m} at a glance. Walk in without an appointment in Moabit or Spandau; most repairs "
+                "are done in under an hour."),
+    "mp_prices": ("Preise für {m}", "Prices for {m}"),
+    "mp_book": ("Buchen", "Book"),
+    "mp_wa": ("Per WhatsApp fragen", "Ask on WhatsApp"),
+    "mp_wa_msg": ("Hallo TipTop, ich habe eine Frage zur Reparatur meines {m}.", "Hello TipTop, I have a question about repairing my {m}."),
+    "mp_more": ("Weitere {b}-Modelle", "More {b} models"),
+    "mp_home": ("Start", "Home"),
+    "mp_models": ("Reparatur", "Repairs"),
+    "mp_desc": ("{m} Reparatur in Berlin-Moabit und Spandau: {list}. Preise inkl. MwSt., ohne Termin.",
+                "{m} repair in Berlin-Moabit and Spandau: {list}. Prices incl. VAT, no appointment needed."),
+    "mi_p": ("Wähl dein Gerät und sieh alle Reparaturpreise auf einen Blick.", "Pick your device to see every repair price at a glance."),
     "all_models": ("Alle Modelle und Preise", "All models and prices"),
     "f_hours_sun": ("So geschlossen", "Sun closed"),
     "lab_go": ("Preis berechnen", "Get a price"),

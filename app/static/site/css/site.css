@@ -849,3 +849,30 @@ html.cc-open .fab{opacity:0;pointer-events:none}
 .lcard:has(.lcard-go:focus-visible){outline:3px solid var(--cobalt);outline-offset:3px}
 .lg-toc a{color:var(--ink-2);text-decoration:none;font-size:14.5px;line-height:1.4}
 .lg-toc a:hover{color:var(--cobalt);text-decoration:underline}
+/* model pages and model index (built from the design's existing parts) */
+.mp-hero .hero-grid{align-items:center}
+.mp-crumbs ol{display:flex;flex-wrap:wrap;gap:6px;list-style:none;font-size:14px;color:var(--muted);margin-bottom:18px}
+.mp-crumbs li+li::before{content:"›";margin-right:6px;color:var(--dim)}
+.mp-crumbs a{color:var(--ink-2)}
+.mp .hero h1 .l1{width:auto}
+.mp-cta{margin-top:26px;gap:12px}
+.mp-cta .btn-wa{height:50px;padding:0 20px;font-size:15.5px}
+.mp-cta .btn{text-decoration:none}
+.mp-lines{margin-top:clamp(24px,3vw,40px)}
+.mp-lines .line{flex-wrap:wrap;padding:16px 0}
+.mp-lines .line .n{font-size:17px}
+.mp-lines .line .p{font-size:17px;min-width:6.5em;text-align:right}
+.mp-lines .line .lk{margin-left:8px;min-height:44px;display:inline-flex;align-items:center}
+.mp-tier{color:var(--muted);font-weight:500}
+.mp-more h2{font-size:clamp(26px,2.6vw,38px)}
+.mp-links{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.mp-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 15px;border-radius:10px;border:1px solid var(--line);background:#fff;font-weight:650;font-size:14.5px;text-decoration:none}
+.mp-links a:hover{border-color:var(--ink)}
+.mp-cat{margin-top:clamp(40px,5vw,64px)}
+.mp-cat > h2{display:flex;align-items:center;gap:12px;font-size:clamp(26px,2.6vw,38px)}
+.mp-cat > h2 i{width:14px;height:14px;border-radius:4px;background:var(--cc)}
+.mp-brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:16px;margin-top:18px}
+.mp-brand{background:var(--tc);border-radius:18px;padding:18px 20px}
+.mp-brand h3{font-size:19px}
+.mp-brand .mp-links{margin-top:10px}
+@media(max-width:520px){.mp-lines .line .p{min-width:0}.mp-cta .btn,.mp-cta .btn-wa{width:100%}}

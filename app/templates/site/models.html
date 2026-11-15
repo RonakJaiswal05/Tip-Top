@@ -1,0 +1,14 @@
+{% extends "site/base.html" %}{% load tt %}
+{% block main %}
+<main id="main" class="mp mp-index">
+  <section class="sec" style="padding-top:clamp(104px,11vw,136px)">
+    <div class="wrap">
+      <div class="head"><h1 class="big">{{ T.all_models }}</h1><p>{{ T.mi_p }}</p></div>
+      {% for g in groups %}<section class="mp-cat" id="{{ g.cat }}" style="--cc:var(--c-{{ g.cat }});--tc:var(--t-{{ g.cat }})">
+        <h2><i aria-hidden="true"></i>{{ g.name }}</h2>
+        <div class="mp-brands">{% for b in g.brands %}<div class="mp-brand" id="{{ b.anchor }}"><h3>{{ b.name }}</h3><ul class="mp-links">{% for x in b.models %}<li><a href="{{ x.url }}">{{ x.short }}</a></li>{% endfor %}</ul></div>{% endfor %}</div>
+      </section>{% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}
