@@ -42,3 +42,21 @@ decisions or access only Ronak can give. Last updated: 15 Nov 2026.
 - Workshop cards open the calculator on the matching repair (SOW F8): micro-soldering and IC repair → mainboard,
   water damage → water damage check, data recovery → data recovery.
 - The hero's open status shows the main shop (Moabit); each shop card shows its own status.
+- Legal texts changed only where the instructions required it: statistics/Matomo and marketing removed from the
+  privacy and cookie policies ("Wir setzen keine Statistik- oder Marketing-Dienste ein."), cookie table updated to
+  the live site, internal links made real. These pages carry "Stand: 15. November 2026"; the others keep 14 November.
+  All still need the lawyer.
+- Price list: rows from the prototype are marked "Platzhalter"; the dashboard counts them until the import.
+- Old Shopify URLs (2,086 from the sitemap of 15 Nov 2026): 72 go to the exact model page, products for models
+  no longer listed (HTC, LG, Nokia, older Samsung/Huawei/Sony) go to their brand's section of /de/reparatur/.
+- Staging runs background jobs inline (no Celery worker) to save memory on the 2 GB server.
+
+## Not done yet (from the SOW, after this build)
+
+- Run `deploy/setup.sh` and `deploy/deploy.sh` on the server, DNS, certificates, Search Console (waiting for
+  access and your go). Restore test of the backups.
+- German admin handbook and the two training sessions (SOW deliverables).
+- Buyback guide prices (F9) work, but no ranges are entered yet (Admin → Ankaufpreise).
+- The remaining 8 of the 14 SOW screen sizes, real phones with VoiceOver/NVDA, voice input on HTTPS, Lighthouse
+  on the live server, the 100 customer phrases (docs/TESTING.md).
+- Matomo and ad tracking: switched off, can be turned on in Settings once decided (the legal texts need the lawyer).
