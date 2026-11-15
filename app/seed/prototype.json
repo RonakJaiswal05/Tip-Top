@@ -1,0 +1,3095 @@
+{
+ "T": {
+  "en": {
+   "nav_repair": "Repairs",
+   "nav_brands": "Brands",
+   "nav_lab": "Workshop",
+   "nav_sell": "Sell",
+   "nav_shops": "Shops",
+   "cta": "Get a price",
+   "h1a": "Phone broken?",
+   "h1b": "We fix it while you wait.",
+   "hero_p": "TipTop Service 24 repairs smartphones, tablets, laptops and consoles in Berlin-Moabit and Spandau. Most repairs take less than an hour, no appointment needed.",
+   "stk_hero": "Screens from",
+   "br_h": "Brands we repair",
+   "br_p": "Open a drawer to see that brand's models and prices.",
+   "br_phone": "Phones and tablets",
+   "br_laptop": "Laptops",
+   "br_console": "Consoles",
+   "pick": "What needs fixing?",
+   "cat_phone": "Smartphone",
+   "cat_phone_s": "iPhone, Samsung, Pixel, all Android",
+   "cat_tablet": "Tablet",
+   "cat_tablet_s": "iPad, Galaxy Tab and more",
+   "cat_laptop": "Laptop",
+   "cat_laptop_s": "MacBook and all laptops",
+   "cat_console": "Console",
+   "cat_console_s": "PlayStation, Xbox, Switch",
+   "ask_l": "Describe the problem",
+   "ask_ph": "Or just describe it: “iPhone 13, screen cracked”",
+   "ask_go": "Find price",
+   "mic": "Speak instead of typing",
+   "facts": [
+    "Up to 24 months warranty",
+    "Premium or original parts",
+    "Free pickup within 5 km"
+   ],
+   "glass_w": "Up to 24 months warranty",
+   "pop_h": "Repairs and prices",
+   "pop_p": "Smartphone prices shown. Tap a repair, pick your model and see the exact price.",
+   "prev": "Previous",
+   "next": "Next",
+   "from_p": "from {p}",
+   "cmp_h": "Before and after",
+   "cmp_p": "Drag the handle to compare.",
+   "before": "Before",
+   "after": "After",
+   "lab_h": "Our own workshop for the hard cases",
+   "lab_p": "We've soldered in-house since 2013. Our certified master workshop takes the hard cases: dead boards, water damage and lost data.",
+   "lab": [
+    [
+     "Micro-soldering",
+     "Chips and connectors replaced under the microscope."
+    ],
+    [
+     "IC repair",
+     "Network, Wi-Fi and charging chips brought back."
+    ],
+    [
+     "Water damage",
+     "Corrosion cleaned off before it spreads."
+    ],
+    [
+     "Data recovery",
+     "Photos and files rescued from dead devices."
+    ]
+   ],
+   "lab_note": "More than {n} customers since 2009 in Moabit, with parts in original quality.",
+   "sell_h": "Sell your old device",
+   "sell_p": "We buy phones, tablets, laptops and consoles. Tell us what you have and get an offer on WhatsApp.",
+   "f_dev": "Device",
+   "f_model": "Model",
+   "f_cond": "Condition",
+   "sell_ph": "e.g. iPhone 14 Pro",
+   "conds": [
+    "Like new",
+    "Good",
+    "Worn",
+    "Broken"
+   ],
+   "sell_btn": "Get an offer on WhatsApp",
+   "sell_ticks": [
+    "Paid on the spot, in cash or by bank transfer",
+    "Bring a photo ID, we need it for the purchase contract"
+   ],
+   "wa_sell": "Hello TipTop, I'd like to sell my device.\nDevice: {c} {m}\nCondition: {k}",
+   "shops_h": "Two shops in Berlin",
+   "shops_p": "Two shops, no appointment needed. Monday to Saturday, 10:00 to 20:00.",
+   "open": "Open now, until 20:00",
+   "closed": "Closed, opens {d} at 10:00",
+   "today": "today",
+   "tomorrow": "tomorrow",
+   "days": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+   ],
+   "directions": "Directions",
+   "call": "Call",
+   "ways": [
+    [
+     "Walk in",
+     "No appointment. Most repairs are done while you wait.",
+     "See shops"
+    ],
+    [
+     "Free pickup",
+     "Within 5 km we collect your device and bring it back.",
+     "Book on WhatsApp"
+    ],
+    [
+     "Send it in",
+     "Post it without accessories. Return shipping is free.",
+     "Copy address"
+    ]
+   ],
+   "copied": "Address copied",
+   "wa_pick": "Hello TipTop, I'd like to book the free pickup service.",
+   "wa_general": "Hello TipTop!",
+   "faq_h": "Questions",
+   "faq": [
+    [
+     "How long does a repair take?",
+     "Most repairs are done in under an hour while you wait. If a part has to be ordered, it can take up to three days."
+    ],
+    [
+     "Will I lose my data?",
+     "No. Your data stays on the device and is treated confidentially. It's only at risk if the storage chip itself is damaged."
+    ],
+    [
+     "Premium or Original part?",
+     "Original is the manufacturer's own part. Premium is a high-quality alternative at a lower price. You see both prices before we start."
+    ],
+    [
+     "Is there a warranty?",
+     "Yes. You get up to 24 months warranty on our repairs."
+    ]
+   ],
+   "f_hours_h": "Opening hours",
+   "f_hours": "Mon–Sat 10:00–20:00, Sun closed",
+   "f_more": "More",
+   "f_form": "Repair request form",
+   "f_b2b": "Business customers",
+   "f_imp": "Imprint",
+   "f_priv": "Privacy",
+   "proto_foot": "Design prototype. Prices are placeholders until the shop's price list is loaded.",
+   "steps": [
+    "Device",
+    "Model",
+    "Repair",
+    "Price"
+   ],
+   "back": "Back",
+   "close": "Close",
+   "d_title": "What needs fixing?",
+   "side_empty": "Choose your device",
+   "m_title": "Which model?",
+   "search_ph": "Search, e.g. iPhone 13",
+   "popular": "Popular",
+   "not_listed": "My model isn't listed",
+   "other_ph": "Type your model",
+   "use_model": "Use this model",
+   "no_match": "No model matches “{q}”.",
+   "use_q": "Continue with “{q}”",
+   "tip_phone": "Not sure? iPhone: Settings > General > About. Android: Settings > About phone.",
+   "tip_tablet": "Not sure? iPad: Settings > General > About. Android: Settings > About tablet.",
+   "tip_laptop": "Not sure? Mac: Apple menu > About This Mac. Windows: check the sticker underneath.",
+   "tip_console": "Not sure? The model name is on the box or under the console.",
+   "r_title": "What's broken?",
+   "all_rep": "All repairs ({n})",
+   "fewer": "Fewer repairs",
+   "unsure_t": "Not sure what's wrong?",
+   "unsure_s": "We find the fault for {p}.",
+   "p_title": "Your price",
+   "tier_p": "Premium part",
+   "tier_o": "Original part",
+   "tier_p_s": "High-quality alternative part, lower price.",
+   "tier_o_s": "The manufacturer's own part.",
+   "from": "from",
+   "on_request": "Price on request",
+   "plus_req": "Some items are priced on request.",
+   "total": "Total",
+   "vat": "Incl. VAT. Up to 24 months warranty.",
+   "add": "Add another repair",
+   "remove": "Remove",
+   "wa_b": "Send on WhatsApp",
+   "wa_s": "Your repair and price are filled in",
+   "cb_b": "Call me back",
+   "cb_s": "Leave your number, we'll call you",
+   "wi_b": "Walk in today",
+   "wi_s": "No appointment, Mon–Sat 10:00–20:00",
+   "name_l": "Your name",
+   "phone_l": "Phone or WhatsApp number",
+   "cb_send": "Request callback",
+   "err_name": "Please enter your name.",
+   "err_phone": "Please enter a phone number so we can call you back.",
+   "cb_done_t": "Thanks, {n}!",
+   "cb_done": "We'll call you during opening hours.",
+   "restart": "Start a new repair",
+   "proto": "Prototype: saved in this browser and listed under Admin.",
+   "wa_msg": "Hello TipTop, I'd like a repair.\nDevice: {d}\nRepair: {r}\nPrice shown: {t}",
+   "ai_listen": "Listening…",
+   "ai_blocked": "The microphone is blocked in this preview. Voice input works on the live site, so please type it for now.",
+   "ai_unsup": "This browser doesn't support voice input. Please type it instead.",
+   "ai_none": "I couldn't place that. Try something like “Galaxy S23 battery”.",
+   "img_btn": "Image prompts",
+   "img_h": "Image prompts",
+   "img_p": "Generate each image with GPT and send them over. Each one has a file name; I'll drop them in and they replace the grey placeholders.",
+   "copy": "Copy prompt",
+   "copied_p": "Prompt copied",
+   "attach": "Attach to GPT:",
+   "real": "Real photo needed, don't generate this one.",
+   "file": "File",
+   "lf_h": "Repair request",
+   "lf_p": "Tell us what's broken. We reply during opening hours, Monday to Saturday, 10:00 to 20:00.",
+   "lf_prob": "What happened?",
+   "lf_prob_ph": "e.g. Dropped it, the screen is cracked and touch doesn't work",
+   "lf_where": "How would you like it repaired?",
+   "wheres": [
+    "Walk in at Moabit",
+    "Walk in at Spandau",
+    "Free pickup (5 km)",
+    "Send it in"
+   ],
+   "lf_via": "How should we contact you?",
+   "vias": [
+    "WhatsApp",
+    "Phone call"
+   ],
+   "lf_send": "Send request",
+   "lf_done": "Thanks, {n}. We'll get back to you by {v} during opening hours.",
+   "lf_new": "Send another request",
+   "lf_hint": "Looks like: {x}",
+   "lf_model_ph": "e.g. Galaxy S23",
+   "ad_title": "TipTop admin",
+   "ad_sign": "Sign in",
+   "ad_user": "Username",
+   "ad_pass": "Password",
+   "ad_demo": "Demo sign-in: any username and password work. The real admin runs on Django with secure logins.",
+   "ad_tabs": [
+    "Prices",
+    "Add device",
+    "Requests"
+   ],
+   "ad_out": "Sign out",
+   "ad_site": "View website",
+   "ad_search": "Search models",
+   "ad_save": "Save prices",
+   "ad_reset": "Reset to default prices",
+   "ad_saved": "Prices saved. The website shows them now.",
+   "ad_resetd": "Default prices restored.",
+   "ad_rep": "Repair",
+   "ad_price": "Price (€)",
+   "ad_pick": "Pick a model on the left to edit its prices.",
+   "ad_cat": "Category",
+   "ad_brand": "Brand",
+   "ad_name": "Model name",
+   "ad_level": "Price level",
+   "levels": [
+    "Budget",
+    "Standard",
+    "Premium",
+    "Flagship"
+   ],
+   "ad_faceid": "Has Face ID",
+   "ad_kind": "Type",
+   "kinds": [
+    "Console with disc drive",
+    "Console without drive",
+    "Handheld",
+    "Controller"
+   ],
+   "ad_add": "Add device",
+   "ad_added": "{m} added. It's live on the website.",
+   "ad_err": "Enter a brand and a model name.",
+   "ad_none": "No requests yet. Send one from the website or the repair request form.",
+   "ad_cols": [
+    "When",
+    "Name",
+    "Phone",
+    "Device",
+    "Repair",
+    "Via"
+   ],
+   "ad_reqs_note": "On the live site, every request also lands in the shop's Google Sheet.",
+   "via_cb": "Callback",
+   "via_form": "Request form",
+   "q_p": "Premium",
+   "q_o": "Original",
+   "lg_back": "Back to the website",
+   "lg_upd": "Last updated {d}",
+   "lg_nav": "Legal",
+   "lg_toc": "Contents",
+   "lg_en": "This English version is for convenience. The German version is legally binding.",
+   "lg_tpl": "Template for review: fill in the highlighted parts and have every legal text checked by a lawyer before launch.",
+   "f_legal": "Legal",
+   "f_agb": "Terms and conditions",
+   "f_wdr_i": "Withdrawal policy",
+   "f_wdr": "Withdraw from contract",
+   "f_ck": "Cookie policy",
+   "f_a11y": "Accessibility",
+   "f_ccset": "Cookie settings",
+   "cc_h": "Cookies and privacy",
+   "cc_p": "We use necessary storage so the site works. With your consent we also use statistics (Matomo, on our own server) and marketing (Google Ads, Meta Pixel), which can send data to the USA. Rejecting costs you nothing, and you can change your choice any time under “Cookie settings”.",
+   "cc_rej": "Reject all",
+   "cc_acc": "Accept all",
+   "cc_set": "Settings",
+   "cc_save": "Save choices",
+   "cc_saved": "Cookie settings saved",
+   "cc_title": "Cookie settings",
+   "cc_intro": "Choose what we may use besides the necessary entries. You can change this at any time.",
+   "cc_cat": {
+    "necessary": [
+     "Necessary",
+     "Language, your cookie choice and form protection. The site doesn't work without these."
+    ],
+    "stats": [
+     "Statistics",
+     "Anonymous visitor numbers with Matomo on our own server in Germany. Helps us improve the site."
+    ],
+    "marketing": [
+     "Marketing",
+     "Google Ads and Meta Pixel measure whether our ads lead to requests. Data may go to the USA."
+    ]
+   },
+   "cc_always": "Always on",
+   "cc_show": "See {n} entries",
+   "cc_state": "Your current choice",
+   "cc_none": "You haven't made a choice yet.",
+   "cc_on": "Allowed",
+   "cc_off": "Rejected",
+   "cc_when": "Saved {d}",
+   "cc_id": "Proof ID",
+   "cc_change": "Change cookie settings",
+   "mic_h": "Voice input",
+   "mic_p": "Your browser's speech recognition turns what you say into text. In Chrome, Edge and Safari the recording is sent to Google, Microsoft or Apple for this. We only receive the text.",
+   "mic_ok": "Start microphone",
+   "mic_no": "I'll type instead",
+   "lk_priv": "privacy policy",
+   "lk_agb": "terms",
+   "fine_cb": "We only use your name and number to call you back about this repair. More in our {p}.",
+   "fine_wa": "WhatsApp is run by Meta, and WhatsApp's privacy policy applies when you send a message. More in our {p}.",
+   "fine_lf": "We only use these details to handle this request. More in our {p}.",
+   "fine_sell": "The WhatsApp offer is non-binding. Our {a} apply to purchases; see also our {p}.",
+   "wd_h": "Withdraw from contract",
+   "wd_p": "Booked a pickup or mail-in repair online, by phone or on WhatsApp? You can withdraw from the contract here within 14 days. You don't need to give a reason.",
+   "wd_go": "Withdraw from contract",
+   "wd_name": "Your name",
+   "wd_mail": "Email for the confirmation of receipt",
+   "wd_ref": "Order number or date of the order",
+   "wd_ref_ph": "e.g. A-10482 or 12 Nov 2026",
+   "wd_dev": "Device (optional)",
+   "wd_dev_ph": "e.g. iPhone 13, screen",
+   "wd_note": "Message (optional, no reason needed)",
+   "wd_hint": "“Confirm withdrawal” sends your withdrawal to us straight away.",
+   "wd_confirm": "Confirm withdrawal",
+   "wd_err_name": "Enter your name.",
+   "wd_err_mail": "Enter a valid email address so we can confirm receipt.",
+   "wd_err_ref": "Enter the order number or the date you placed the order.",
+   "wd_done_h": "Your withdrawal has been received",
+   "wd_done_p": "Received on {d} at {t}. A confirmation with these details has gone to {m}.",
+   "wd_new": "Withdraw another contract",
+   "wd_s_n": "Name",
+   "wd_s_r": "Contract",
+   "wd_s_d": "Device",
+   "wd_s_x": "Message",
+   "via_wd": "Withdrawal",
+   "gmb_n": "{n} Google reviews, {s} shop",
+   "gmb_shop": "{n} Google reviews",
+   "gmb_aria": "Rated {r} out of 5",
+   "gmb_title": "Google rating as of {d}",
+   "br_tm": "All brand names and logos belong to their owners. TipTop Service 24 is an independent workshop and not an authorised service partner of the manufacturers."
+  },
+  "de": {
+   "nav_repair": "Reparaturen",
+   "nav_brands": "Marken",
+   "nav_lab": "Werkstatt",
+   "nav_sell": "Verkaufen",
+   "nav_shops": "Filialen",
+   "cta": "Preis berechnen",
+   "h1a": "Handy kaputt?",
+   "h1b": "Wir reparieren, während du wartest.",
+   "hero_p": "TipTop Service 24 repariert Smartphones, Tablets, Laptops und Konsolen in Berlin-Moabit und Spandau. Die meisten Reparaturen dauern weniger als eine Stunde, ohne Termin.",
+   "stk_hero": "Displays ab",
+   "br_h": "Diese Marken reparieren wir",
+   "br_p": "Schublade öffnen und Modelle und Preise der Marke sehen.",
+   "br_phone": "Handys und Tablets",
+   "br_laptop": "Laptops",
+   "br_console": "Konsolen",
+   "pick": "Was soll repariert werden?",
+   "cat_phone": "Smartphone",
+   "cat_phone_s": "iPhone, Samsung, Pixel, alle Android",
+   "cat_tablet": "Tablet",
+   "cat_tablet_s": "iPad, Galaxy Tab und mehr",
+   "cat_laptop": "Laptop",
+   "cat_laptop_s": "MacBook und alle Laptops",
+   "cat_console": "Konsole",
+   "cat_console_s": "PlayStation, Xbox, Switch",
+   "ask_l": "Problem beschreiben",
+   "ask_ph": "Oder beschreib es einfach: „iPhone 13, Display gesprungen“",
+   "ask_go": "Preis finden",
+   "mic": "Sprechen statt tippen",
+   "facts": [
+    "Bis zu 24 Monate Garantie",
+    "Premium- oder Originalteile",
+    "Kostenlose Abholung im Umkreis von 5 km"
+   ],
+   "glass_w": "Bis zu 24 Monate Garantie",
+   "pop_h": "Reparaturen und Preise",
+   "pop_p": "Gezeigt sind Smartphone-Preise. Reparatur antippen, Modell wählen, genauen Preis sehen.",
+   "prev": "Zurück",
+   "next": "Weiter",
+   "from_p": "ab {p}",
+   "cmp_h": "Vorher und nachher",
+   "cmp_p": "Zieh den Regler zum Vergleichen.",
+   "before": "Vorher",
+   "after": "Nachher",
+   "lab_h": "Eigene Werkstatt für die schweren Fälle",
+   "lab_p": "Seit 2013 löten wir selbst. Unsere zertifizierte Meisterwerkstatt übernimmt die schweren Fälle: tote Platinen, Wasserschäden und verlorene Daten.",
+   "lab": [
+    [
+     "Mikrolöten",
+     "Chips und Stecker unter dem Mikroskop getauscht."
+    ],
+    [
+     "IC-Reparatur",
+     "Netz-, WLAN- und Lade-Chips repariert."
+    ],
+    [
+     "Wasserschaden",
+     "Korrosion entfernt, bevor sie sich ausbreitet."
+    ],
+    [
+     "Datenrettung",
+     "Fotos und Dateien von toten Geräten gerettet."
+    ]
+   ],
+   "lab_note": "Mehr als {n} Kunden seit 2009 in Moabit, mit Teilen in Originalqualität.",
+   "sell_h": "Verkauf dein altes Gerät",
+   "sell_p": "Wir kaufen Handys, Tablets, Laptops und Konsolen. Sag uns, was du hast, und hol dir ein Angebot per WhatsApp.",
+   "f_dev": "Gerät",
+   "f_model": "Modell",
+   "f_cond": "Zustand",
+   "sell_ph": "z. B. iPhone 14 Pro",
+   "conds": [
+    "Wie neu",
+    "Gut",
+    "Abgenutzt",
+    "Defekt"
+   ],
+   "sell_btn": "Angebot per WhatsApp holen",
+   "sell_ticks": [
+    "Sofort bezahlt, bar oder per Überweisung",
+    "Bring einen Ausweis mit, wir brauchen ihn für den Ankaufvertrag"
+   ],
+   "wa_sell": "Hallo TipTop, ich möchte mein Gerät verkaufen.\nGerät: {c} {m}\nZustand: {k}",
+   "shops_h": "Zwei Filialen in Berlin",
+   "shops_p": "Zwei Filialen, ohne Termin. Montag bis Samstag, 10 bis 20 Uhr.",
+   "open": "Jetzt geöffnet, bis 20 Uhr",
+   "closed": "Geschlossen, öffnet {d} um 10 Uhr",
+   "today": "heute",
+   "tomorrow": "morgen",
+   "days": [
+    "Sonntag",
+    "Montag",
+    "Dienstag",
+    "Mittwoch",
+    "Donnerstag",
+    "Freitag",
+    "Samstag"
+   ],
+   "directions": "Route planen",
+   "call": "Anrufen",
+   "ways": [
+    [
+     "Vorbeikommen",
+     "Ohne Termin. Die meisten Reparaturen sind fertig, während du wartest.",
+     "Filialen ansehen"
+    ],
+    [
+     "Kostenlose Abholung",
+     "Im Umkreis von 5 km holen wir dein Gerät ab und bringen es zurück.",
+     "Per WhatsApp buchen"
+    ],
+    [
+     "Einschicken",
+     "Ohne Zubehör schicken. Der Rückversand ist kostenlos.",
+     "Adresse kopieren"
+    ]
+   ],
+   "copied": "Adresse kopiert",
+   "wa_pick": "Hallo TipTop, ich möchte die kostenlose Abholung buchen.",
+   "wa_general": "Hallo TipTop!",
+   "faq_h": "Häufige Fragen",
+   "faq": [
+    [
+     "Wie lange dauert eine Reparatur?",
+     "Die meisten Reparaturen sind in unter einer Stunde fertig, während du wartest. Muss ein Teil bestellt werden, kann es bis zu drei Tage dauern."
+    ],
+    [
+     "Gehen meine Daten verloren?",
+     "Nein. Deine Daten bleiben auf dem Gerät und werden vertraulich behandelt. Nur wenn der Speicherchip selbst beschädigt ist, sind sie in Gefahr."
+    ],
+    [
+     "Premium- oder Original-Teil?",
+     "Original ist das Teil vom Hersteller. Premium ist eine hochwertige Alternative zum günstigeren Preis. Du siehst beide Preise, bevor wir anfangen."
+    ],
+    [
+     "Gibt es Garantie?",
+     "Ja. Auf unsere Reparaturen bekommst du bis zu 24 Monate Garantie."
+    ]
+   ],
+   "f_hours_h": "Öffnungszeiten",
+   "f_hours": "Mo–Sa 10–20 Uhr, So geschlossen",
+   "f_more": "Mehr",
+   "f_form": "Reparaturanfrage-Formular",
+   "f_b2b": "Geschäftskunden",
+   "f_imp": "Impressum",
+   "f_priv": "Datenschutz",
+   "proto_foot": "Design-Prototyp. Die Preise sind Platzhalter, bis die Preisliste des Shops eingespielt ist.",
+   "steps": [
+    "Gerät",
+    "Modell",
+    "Reparatur",
+    "Preis"
+   ],
+   "back": "Zurück",
+   "close": "Schließen",
+   "d_title": "Was soll repariert werden?",
+   "side_empty": "Wähl dein Gerät",
+   "m_title": "Welches Modell?",
+   "search_ph": "Suchen, z. B. iPhone 13",
+   "popular": "Beliebt",
+   "not_listed": "Mein Modell ist nicht dabei",
+   "other_ph": "Modell eingeben",
+   "use_model": "Dieses Modell nehmen",
+   "no_match": "Kein Modell passt zu „{q}“.",
+   "use_q": "Weiter mit „{q}“",
+   "tip_phone": "Nicht sicher? iPhone: Einstellungen > Allgemein > Info. Android: Einstellungen > Über das Telefon.",
+   "tip_tablet": "Nicht sicher? iPad: Einstellungen > Allgemein > Info. Android: Einstellungen > Über das Tablet.",
+   "tip_laptop": "Nicht sicher? Mac: Apple-Menü > Über diesen Mac. Windows: Aufkleber auf der Unterseite.",
+   "tip_console": "Nicht sicher? Der Modellname steht auf der Verpackung oder unter der Konsole.",
+   "r_title": "Was ist kaputt?",
+   "all_rep": "Alle Reparaturen ({n})",
+   "fewer": "Weniger Reparaturen",
+   "unsure_t": "Nicht sicher, was es ist?",
+   "unsure_s": "Wir finden den Fehler für {p}.",
+   "p_title": "Dein Preis",
+   "tier_p": "Premium-Teil",
+   "tier_o": "Original-Teil",
+   "tier_p_s": "Hochwertiges Alternativteil, günstiger.",
+   "tier_o_s": "Das Teil vom Hersteller.",
+   "from": "ab",
+   "on_request": "Preis auf Anfrage",
+   "plus_req": "Einige Teile auf Anfrage.",
+   "total": "Gesamt",
+   "vat": "Inkl. MwSt. Bis zu 24 Monate Garantie.",
+   "add": "Weitere Reparatur hinzufügen",
+   "remove": "Entfernen",
+   "wa_b": "Per WhatsApp senden",
+   "wa_s": "Reparatur und Preis sind schon eingetragen",
+   "cb_b": "Ruft mich zurück",
+   "cb_s": "Nummer hinterlassen, wir rufen an",
+   "wi_b": "Heute vorbeikommen",
+   "wi_s": "Ohne Termin, Mo–Sa 10–20 Uhr",
+   "name_l": "Dein Name",
+   "phone_l": "Telefon- oder WhatsApp-Nummer",
+   "cb_send": "Rückruf anfordern",
+   "err_name": "Bitte gib deinen Namen ein.",
+   "err_phone": "Bitte gib eine Telefonnummer ein, damit wir zurückrufen können.",
+   "cb_done_t": "Danke, {n}!",
+   "cb_done": "Wir rufen dich während der Öffnungszeiten an.",
+   "restart": "Neue Reparatur starten",
+   "proto": "Prototyp: Wird in diesem Browser gespeichert und erscheint im Admin.",
+   "wa_msg": "Hallo TipTop, ich möchte eine Reparatur.\nGerät: {d}\nReparatur: {r}\nAngezeigter Preis: {t}",
+   "ai_listen": "Ich höre zu …",
+   "ai_blocked": "Das Mikrofon ist in dieser Vorschau gesperrt. Auf der echten Website klappt die Spracheingabe, hier bitte tippen.",
+   "ai_unsup": "Dieser Browser unterstützt keine Spracheingabe. Bitte tippen.",
+   "ai_none": "Das konnte ich nicht zuordnen. Versuch es mit etwas wie „Galaxy S23 Akku“.",
+   "img_btn": "Bild-Prompts",
+   "img_h": "Bild-Prompts",
+   "img_p": "Jedes Bild mit GPT erzeugen und schicken. Jedes hat einen Dateinamen; ich setze sie ein und sie ersetzen die grauen Platzhalter.",
+   "copy": "Prompt kopieren",
+   "copied_p": "Prompt kopiert",
+   "attach": "An GPT anhängen:",
+   "real": "Echtes Foto nötig, bitte nicht generieren.",
+   "file": "Datei",
+   "lf_h": "Reparatur­anfrage",
+   "lf_p": "Sag uns, was kaputt ist. Wir melden uns während der Öffnungszeiten, Montag bis Samstag, 10 bis 20 Uhr.",
+   "lf_prob": "Was ist passiert?",
+   "lf_prob_ph": "z. B. Runtergefallen, Display gesprungen, Touch geht nicht",
+   "lf_where": "Wie möchtest du reparieren lassen?",
+   "wheres": [
+    "Vorbeikommen in Moabit",
+    "Vorbeikommen in Spandau",
+    "Kostenlose Abholung (5 km)",
+    "Einschicken"
+   ],
+   "lf_via": "Wie sollen wir uns melden?",
+   "vias": [
+    "WhatsApp",
+    "Anruf"
+   ],
+   "lf_send": "Anfrage senden",
+   "lf_done": "Danke, {n}. Wir melden uns per {v} während der Öffnungszeiten.",
+   "lf_new": "Weitere Anfrage senden",
+   "lf_hint": "Erkannt: {x}",
+   "lf_model_ph": "z. B. Galaxy S23",
+   "ad_title": "TipTop Admin",
+   "ad_sign": "Anmelden",
+   "ad_user": "Benutzername",
+   "ad_pass": "Passwort",
+   "ad_demo": "Demo-Anmeldung: Jeder Name und jedes Passwort funktioniert. Der echte Admin läuft auf Django mit sicherem Login.",
+   "ad_tabs": [
+    "Preise",
+    "Gerät hinzufügen",
+    "Anfragen"
+   ],
+   "ad_out": "Abmelden",
+   "ad_site": "Zur Website",
+   "ad_search": "Modell suchen",
+   "ad_save": "Preise speichern",
+   "ad_reset": "Standardpreise wiederherstellen",
+   "ad_saved": "Preise gespeichert. Die Website zeigt sie jetzt.",
+   "ad_resetd": "Standardpreise wiederhergestellt.",
+   "ad_rep": "Reparatur",
+   "ad_price": "Preis (€)",
+   "ad_pick": "Wähl links ein Modell, um seine Preise zu bearbeiten.",
+   "ad_cat": "Kategorie",
+   "ad_brand": "Marke",
+   "ad_name": "Modellname",
+   "ad_level": "Preisstufe",
+   "levels": [
+    "Einsteiger",
+    "Standard",
+    "Premium",
+    "Flaggschiff"
+   ],
+   "ad_faceid": "Hat Face ID",
+   "ad_kind": "Bauart",
+   "kinds": [
+    "Konsole mit Laufwerk",
+    "Konsole ohne Laufwerk",
+    "Handheld",
+    "Controller"
+   ],
+   "ad_add": "Gerät hinzufügen",
+   "ad_added": "{m} hinzugefügt. Es ist jetzt auf der Website.",
+   "ad_err": "Bitte Marke und Modellname eingeben.",
+   "ad_none": "Noch keine Anfragen. Schick eine über die Website oder das Anfrageformular.",
+   "ad_cols": [
+    "Wann",
+    "Name",
+    "Telefon",
+    "Gerät",
+    "Reparatur",
+    "Über"
+   ],
+   "ad_reqs_note": "Auf der echten Website landet jede Anfrage zusätzlich im Google Sheet des Shops.",
+   "via_cb": "Rückruf",
+   "via_form": "Anfrageformular",
+   "q_p": "Premium",
+   "q_o": "Original",
+   "lg_back": "Zurück zur Website",
+   "lg_upd": "Stand: {d}",
+   "lg_nav": "Rechtliches",
+   "lg_toc": "Inhalt",
+   "lg_en": "This English version is for convenience. The German version is legally binding.",
+   "lg_tpl": "Vorlage zur Prüfung: Markierte Stellen ausfüllen und alle Rechtstexte vor dem Livegang anwaltlich prüfen lassen.",
+   "f_legal": "Rechtliches",
+   "f_agb": "AGB",
+   "f_wdr_i": "Widerrufsbelehrung",
+   "f_wdr": "Vertrag widerrufen",
+   "f_ck": "Cookie-Richtlinie",
+   "f_a11y": "Barrierefreiheit",
+   "f_ccset": "Cookie-Einstellungen",
+   "cc_h": "Cookies und Datenschutz",
+   "cc_p": "Wir nutzen notwendige Speichereinträge, damit die Seite funktioniert. Mit deiner Einwilligung nutzen wir außerdem Statistik (Matomo, eigener Server) und Marketing (Google Ads, Meta-Pixel), wobei Daten in die USA übermittelt werden können. Ablehnen hat keine Nachteile, und du kannst deine Wahl jederzeit unter „Cookie-Einstellungen“ ändern.",
+   "cc_rej": "Alle ablehnen",
+   "cc_acc": "Alle akzeptieren",
+   "cc_set": "Einstellungen",
+   "cc_save": "Auswahl speichern",
+   "cc_saved": "Cookie-Einstellungen gespeichert",
+   "cc_title": "Cookie-Einstellungen",
+   "cc_intro": "Wähle, was wir außer den notwendigen Einträgen nutzen dürfen. Du kannst das jederzeit ändern.",
+   "cc_cat": {
+    "necessary": [
+     "Notwendig",
+     "Sprache, deine Cookie-Auswahl und Formularschutz. Ohne sie funktioniert die Seite nicht."
+    ],
+    "stats": [
+     "Statistik",
+     "Anonyme Besucherzahlen mit Matomo auf unserem eigenen Server in Deutschland. Hilft uns, die Seite zu verbessern."
+    ],
+    "marketing": [
+     "Marketing",
+     "Google Ads und Meta-Pixel messen, ob unsere Anzeigen zu Anfragen führen. Daten können in die USA gehen."
+    ]
+   },
+   "cc_always": "Immer aktiv",
+   "cc_show": "{n} Einträge ansehen",
+   "cc_state": "Deine aktuelle Auswahl",
+   "cc_none": "Du hast noch keine Auswahl getroffen.",
+   "cc_on": "Erlaubt",
+   "cc_off": "Abgelehnt",
+   "cc_when": "Gespeichert am {d}",
+   "cc_id": "Nachweis-ID",
+   "cc_change": "Cookie-Einstellungen ändern",
+   "mic_h": "Spracheingabe",
+   "mic_p": "Die Spracherkennung deines Browsers wandelt das Gesprochene in Text um. In Chrome, Edge und Safari wird die Aufnahme dafür an Google, Microsoft bzw. Apple übertragen. Wir erhalten nur den Text.",
+   "mic_ok": "Mikrofon starten",
+   "mic_no": "Lieber tippen",
+   "lk_priv": "Datenschutzerklärung",
+   "lk_agb": "AGB",
+   "fine_cb": "Wir nutzen Name und Nummer nur, um dich wegen dieser Reparatur zurückzurufen. Mehr in der {p}.",
+   "fine_wa": "WhatsApp wird von Meta betrieben; beim Senden gelten die Datenschutzbestimmungen von WhatsApp. Mehr in der {p}.",
+   "fine_lf": "Wir nutzen deine Angaben nur, um diese Anfrage zu bearbeiten. Mehr in der {p}.",
+   "fine_sell": "Das Angebot per WhatsApp ist unverbindlich. Für den Ankauf gelten unsere {a}; siehe auch {p}.",
+   "wd_h": "Vertrag widerrufen",
+   "wd_p": "Du hast eine Abholung oder Einsendung online, per Telefon oder WhatsApp beauftragt? Dann kannst du den Vertrag hier innerhalb von 14 Tagen widerrufen. Gründe musst du nicht angeben.",
+   "wd_go": "Vertrag widerrufen",
+   "wd_name": "Dein Name",
+   "wd_mail": "E-Mail für die Eingangsbestätigung",
+   "wd_ref": "Auftragsnummer oder Datum der Beauftragung",
+   "wd_ref_ph": "z. B. A-10482 oder 12.11.2026",
+   "wd_dev": "Gerät (optional)",
+   "wd_dev_ph": "z. B. iPhone 13, Display",
+   "wd_note": "Nachricht (optional, keine Begründung nötig)",
+   "wd_hint": "Mit „Widerruf bestätigen“ wird dein Widerruf sofort an uns übermittelt.",
+   "wd_confirm": "Widerruf bestätigen",
+   "wd_err_name": "Bitte gib deinen Namen ein.",
+   "wd_err_mail": "Bitte gib eine gültige E-Mail-Adresse ein, damit wir den Eingang bestätigen können.",
+   "wd_err_ref": "Bitte gib die Auftragsnummer oder das Datum der Beauftragung an.",
+   "wd_done_h": "Dein Widerruf ist eingegangen",
+   "wd_done_p": "Eingegangen am {d} um {t} Uhr. Eine Eingangsbestätigung mit diesem Inhalt ist an {m} unterwegs.",
+   "wd_new": "Weiteren Vertrag widerrufen",
+   "wd_s_n": "Name",
+   "wd_s_r": "Vertrag",
+   "wd_s_d": "Gerät",
+   "wd_s_x": "Nachricht",
+   "via_wd": "Widerruf",
+   "gmb_n": "{n} Google-Bewertungen, Filiale {s}",
+   "gmb_shop": "{n} Google-Bewertungen",
+   "gmb_aria": "Bewertet mit {r} von 5",
+   "gmb_title": "Google-Bewertung, Stand {d}",
+   "br_tm": "Alle genannten Marken und Logos gehören ihren jeweiligen Inhabern. TipTop Service 24 ist eine unabhängige Werkstatt und kein autorisierter Servicepartner der Hersteller."
+  }
+ },
+ "SV": {
+  "display": [
+   "Display",
+   "Display Reparatur"
+  ],
+  "battery": [
+   "Battery replacement",
+   "Akku Austausch"
+  ],
+  "port": [
+   "Charging port",
+   "Ladebuchse Reparatur"
+  ],
+  "back": [
+   "Back cover",
+   "Backcover Reparatur"
+  ],
+  "camera": [
+   "Rear camera",
+   "Kamera Reparatur"
+  ],
+  "water": [
+   "Water damage check",
+   "Wasserschaden Diagnose"
+  ],
+  "camglass": [
+   "Camera glass",
+   "Kameraglas Reparatur"
+  ],
+  "frontcam": [
+   "Front camera",
+   "Frontkamera Reparatur"
+  ],
+  "faceid": [
+   "Face ID",
+   "Face ID Reparatur"
+  ],
+  "speaker": [
+   "Loudspeaker",
+   "Lautsprecher Reparatur"
+  ],
+  "earpiece": [
+   "Earpiece",
+   "Hörmuschel Reparatur"
+  ],
+  "mic": [
+   "Microphone",
+   "Mikrofon Reparatur"
+  ],
+  "mainboard": [
+   "Mainboard repair",
+   "Mainboard Reparatur"
+  ],
+  "data": [
+   "Data recovery (diagnosis)",
+   "Datenrettung (Diagnose)"
+  ],
+  "software": [
+   "Software repair",
+   "Software Reparatur"
+  ],
+  "buttons": [
+   "Buttons",
+   "Tasten Reparatur"
+  ],
+  "vibration": [
+   "Vibration motor",
+   "Vibrationsmotor Reparatur"
+  ],
+  "sim": [
+   "SIM card reader",
+   "SIM-Kartenleser Reparatur"
+  ],
+  "jack": [
+   "Headphone jack",
+   "Kopfhörerbuchse Reparatur"
+  ],
+  "diagnosis": [
+   "Fault diagnosis",
+   "Fehlerdiagnose"
+  ],
+  "keyboard": [
+   "Keyboard",
+   "Tastatur Reparatur"
+  ],
+  "trackpad": [
+   "Trackpad",
+   "Trackpad Reparatur"
+  ],
+  "hinge": [
+   "Hinge",
+   "Scharnier Reparatur"
+  ],
+  "fan": [
+   "Fan and cleaning",
+   "Lüfter und Reinigung"
+  ],
+  "ssd": [
+   "SSD and upgrade",
+   "SSD und Aufrüstung"
+  ],
+  "hdmi": [
+   "HDMI port",
+   "HDMI-Buchse Reparatur"
+  ],
+  "drive": [
+   "Disc drive",
+   "Laufwerk Reparatur"
+  ],
+  "psu": [
+   "Power supply",
+   "Netzteil Reparatur"
+  ],
+  "drift": [
+   "Stick drift",
+   "Stick-Drift Reparatur"
+  ],
+  "cport": [
+   "Controller charging port",
+   "Controller-Ladebuchse"
+  ]
+ },
+ "SV_CAT": {
+  "tablet": {
+   "back": [
+    "Housing and back",
+    "Gehäuse und Rückseite"
+   ]
+  },
+  "laptop": {
+   "back": [
+    "Housing",
+    "Gehäuse Reparatur"
+   ],
+   "port": [
+    "Charging port / DC jack",
+    "Ladebuchse / DC-Buchse"
+   ],
+   "software": [
+    "Operating system and software",
+    "Betriebssystem und Software"
+   ]
+  },
+  "console": {
+   "display": [
+    "Screen (handheld)",
+    "Bildschirm (Handheld)"
+   ],
+   "fan": [
+    "Overheating and cleaning",
+    "Überhitzung und Reinigung"
+   ],
+   "software": [
+    "Software and firmware",
+    "Software und Firmware"
+   ],
+   "ssd": [
+    "Storage upgrade",
+    "Speicher-Upgrade"
+   ],
+   "battery": [
+    "Battery",
+    "Akku Austausch"
+   ]
+  }
+ },
+ "LISTS": {
+  "phone": [
+   "display",
+   "battery",
+   "port",
+   "back",
+   "camera",
+   "water",
+   "camglass",
+   "frontcam",
+   "faceid",
+   "speaker",
+   "earpiece",
+   "mic",
+   "mainboard",
+   "data",
+   "software",
+   "buttons",
+   "vibration",
+   "sim",
+   "jack"
+  ],
+  "tablet": [
+   "display",
+   "battery",
+   "port",
+   "back",
+   "camera",
+   "water",
+   "frontcam",
+   "speaker",
+   "mic",
+   "buttons",
+   "mainboard",
+   "data",
+   "software"
+  ],
+  "laptop": [
+   "display",
+   "battery",
+   "keyboard",
+   "port",
+   "fan",
+   "water",
+   "trackpad",
+   "hinge",
+   "ssd",
+   "speaker",
+   "mainboard",
+   "data",
+   "software"
+  ]
+ },
+ "CON": {
+  "B": [
+   "hdmi",
+   "fan",
+   "drive",
+   "psu",
+   "ssd",
+   "water",
+   "software",
+   "mainboard"
+  ],
+  "b": [
+   "hdmi",
+   "fan",
+   "psu",
+   "ssd",
+   "water",
+   "software",
+   "mainboard"
+  ],
+  "H": [
+   "display",
+   "drift",
+   "battery",
+   "cport",
+   "fan",
+   "water",
+   "ssd",
+   "software",
+   "mainboard"
+  ],
+  "P": [
+   "drift",
+   "cport",
+   "battery",
+   "buttons",
+   "water"
+  ],
+  "X": [
+   "hdmi",
+   "fan",
+   "drift",
+   "drive",
+   "psu",
+   "display",
+   "cport",
+   "battery",
+   "ssd",
+   "water",
+   "software",
+   "mainboard"
+  ]
+ },
+ "BASE": {
+  "phone": {
+   "display": [
+    219,
+    149
+   ],
+   "battery": 99,
+   "port": 99,
+   "back": 119,
+   "camera": 149,
+   "water": 49,
+   "camglass": 59,
+   "frontcam": 119,
+   "faceid": 199,
+   "speaker": 99,
+   "earpiece": 99,
+   "mic": 99,
+   "mainboard": 149,
+   "data": 49,
+   "software": 49,
+   "buttons": 89,
+   "vibration": 79,
+   "sim": 89,
+   "jack": 79,
+   "diagnosis": 29
+  },
+  "tablet": {
+   "display": [
+    249,
+    179
+   ],
+   "battery": 129,
+   "port": 119,
+   "back": 149,
+   "camera": 119,
+   "water": 49,
+   "frontcam": 109,
+   "speaker": 99,
+   "mic": 99,
+   "buttons": 89,
+   "mainboard": 179,
+   "data": 49,
+   "software": 49,
+   "diagnosis": 29
+  },
+  "laptop": {
+   "display": [
+    449,
+    329
+   ],
+   "battery": 179,
+   "keyboard": 199,
+   "port": 149,
+   "fan": 79,
+   "water": 49,
+   "trackpad": 179,
+   "hinge": 149,
+   "ssd": 129,
+   "speaker": 129,
+   "mainboard": 249,
+   "data": 49,
+   "software": 69,
+   "diagnosis": 29
+  },
+  "console": {
+   "hdmi": 99,
+   "fan": 69,
+   "drive": 119,
+   "psu": 129,
+   "ssd": 89,
+   "water": 49,
+   "software": 49,
+   "mainboard": 149,
+   "display": [
+    159,
+    109
+   ],
+   "drift": 59,
+   "battery": 79,
+   "cport": 59,
+   "buttons": 49,
+   "diagnosis": 29
+  }
+ },
+ "FIXED": [
+  "water",
+  "data",
+  "software",
+  "diagnosis"
+ ],
+ "FROM": [
+  "mainboard",
+  "ssd"
+ ],
+ "K": {
+  "display": 1,
+  "back": 0.8,
+  "camera": 0.7,
+  "camglass": 0.3,
+  "frontcam": 0.5,
+  "faceid": 0.5,
+  "battery": 0.35,
+  "port": 0.4,
+  "speaker": 0.3,
+  "earpiece": 0.3,
+  "mic": 0.3,
+  "mainboard": 0.5,
+  "buttons": 0.3,
+  "vibration": 0.2,
+  "sim": 0.3,
+  "jack": 0.2,
+  "keyboard": 0.6,
+  "trackpad": 0.5,
+  "hinge": 0.5,
+  "fan": 0.2,
+  "ssd": 0.3,
+  "hdmi": 0.3,
+  "drive": 0.4,
+  "psu": 0.4,
+  "drift": 0.2,
+  "cport": 0.2
+ },
+ "REAL": {
+  "phone-apple-iphone-13": {
+   "display": [
+    219,
+    149
+   ],
+   "back": 119,
+   "battery": 99,
+   "faceid": 199,
+   "camglass": 59,
+   "camera": 149,
+   "frontcam": 119,
+   "port": 99,
+   "mic": 99,
+   "speaker": 99
+  },
+  "phone-apple-iphone-15": {
+   "display": [
+    399,
+    349
+   ],
+   "back": 139,
+   "battery": 99,
+   "faceid": 249,
+   "camglass": 59,
+   "camera": 179,
+   "frontcam": 129,
+   "port": 119,
+   "mic": 129,
+   "speaker": 119
+  }
+ },
+ "M": {
+  "phone": {
+   "Apple": "iPhone 17 Pro Max:2.5:Fp|iPhone 17 Pro:2.35:F|iPhone Air:2.2:F|iPhone 17:2.0:Fp|iPhone 16e:1.5:F|iPhone 16 Pro Max:2.35:F|iPhone 16 Pro:2.2:Fp|iPhone 16 Plus:2.0:F|iPhone 16:1.9:Fp|iPhone 15 Pro Max:2.1:F|iPhone 15 Pro:1.95:F|iPhone 15 Plus:1.85:F|iPhone 15:1.82:Fp|iPhone 14 Pro Max:1.6:F|iPhone 14 Pro:1.5:F|iPhone 14 Plus:1.2:F|iPhone 14:1.1:Fp|iPhone 13 Pro Max:1.35:F|iPhone 13 Pro:1.25:F|iPhone 13:1:Fp|iPhone 13 mini:0.95:F|iPhone 12 Pro Max:1.0:F|iPhone 12 Pro:0.95:F|iPhone 12:0.9:Fp|iPhone 12 mini:0.85:F|iPhone 11 Pro Max:0.9:F|iPhone 11 Pro:0.85:F|iPhone 11:0.75:Fp|iPhone XS Max:0.8:F|iPhone XS:0.75:F|iPhone XR:0.7:F|iPhone X:0.7:F|iPhone SE (2022):0.55:|iPhone SE (2020):0.5:|iPhone 8 Plus:0.55:|iPhone 8:0.5:",
+   "Samsung": "Galaxy S26 Ultra:2.4:p|Galaxy S26+:1.9:|Galaxy S26:1.7:|Galaxy S25 Ultra:2.3:p|Galaxy S25 Edge:1.9:|Galaxy S25+:1.8:|Galaxy S25:1.6:p|Galaxy S24 Ultra:2.1:|Galaxy S24+:1.6:|Galaxy S24:1.4:p|Galaxy S24 FE:1.0:|Galaxy S23 Ultra:1.9:|Galaxy S23:1.25:|Galaxy S23 FE:0.95:|Galaxy S22 Ultra:1.7:|Galaxy S22:1.1:|Galaxy S21 FE:0.85:|Galaxy Z Fold7:3.2:|Galaxy Z Flip7:2.2:|Galaxy Z Fold6:3.0:|Galaxy Z Flip6:2.0:|Galaxy A56:0.75:p|Galaxy A55:0.7:|Galaxy A54:0.65:|Galaxy A36:0.65:|Galaxy A35:0.6:|Galaxy A26:0.55:|Galaxy A25:0.5:|Galaxy A16:0.45:J|Galaxy A15:0.42:J",
+   "Google": "Pixel 10 Pro XL:2.0:|Pixel 10 Pro:1.8:|Pixel 10:1.4:|Pixel 9a:0.9:|Pixel 9 Pro XL:1.8:|Pixel 9 Pro:1.6:|Pixel 9:1.3:p|Pixel 8a:0.8:|Pixel 8 Pro:1.4:|Pixel 8:1.1:|Pixel 7a:0.7:|Pixel 7:0.9:",
+   "Xiaomi": "Xiaomi 15 Ultra:1.8:|Xiaomi 15:1.3:|Xiaomi 14T Pro:1.1:|Redmi Note 14 Pro:0.7:J|Redmi Note 13 Pro:0.6:J|Redmi Note 13:0.5:J|Poco F7 Pro:0.9:|Poco X7 Pro:0.7:",
+   "Huawei": "P60 Pro:1.5:|P40 Pro:1.2:|P30 Pro:1.0:|P30:0.8:J|Mate 20 Pro:0.9:|P smart 2021:0.4:J",
+   "OnePlus": "OnePlus 13:1.5:|OnePlus 12:1.3:|OnePlus Nord 4:0.8:|OnePlus Nord CE4:0.6:J",
+   "Oppo": "Find X8 Pro:1.6:|Reno12 Pro:0.9:|Oppo A80:0.5:J",
+   "Sony": "Xperia 1 VI:1.6:J|Xperia 10 VI:0.7:J",
+   "Motorola": "Edge 50 Pro:0.9:|Moto g85:0.5:J"
+  },
+  "tablet": {
+   "Apple": "iPad Pro 13 (M5):2.5:|iPad Pro 11 (M5):2.1:|iPad Pro 13 (M4):2.4:|iPad Pro 11 (M4):2.0:p|iPad Pro 12.9 (6th gen):1.9:|iPad Pro 11 (4th gen):1.6:|iPad Air 13 (M3):1.6:|iPad Air 11 (M3):1.3:p|iPad Air 11 (M2):1.3:|iPad Air (5th gen):1.1:|iPad (A16):1.0:p|iPad (10th gen):1.0:p|iPad (9th gen):0.7:p|iPad mini (A17 Pro):1.2:|iPad mini (6th gen):1.1:",
+   "Samsung": "Galaxy Tab S10 Ultra:2.0:|Galaxy Tab S10+:1.7:|Galaxy Tab S9 FE:1.0:p|Galaxy Tab A9+:0.6:p",
+   "Lenovo": "Lenovo Tab P12:0.8:|Lenovo Tab M11:0.6:",
+   "Xiaomi": "Xiaomi Pad 7:0.8:|Redmi Pad Pro:0.6:",
+   "Huawei": "MatePad 11.5:0.8:"
+  },
+  "laptop": {
+   "Apple": "MacBook Pro 16 (M4):1.9:|MacBook Pro 14 (M5):1.75:|MacBook Pro 14 (M4):1.7:p|MacBook Pro 14 (M3):1.6:|MacBook Pro 13 (M2):1.2:|MacBook Pro 13 (M1):1.1:p|MacBook Air 15 (M4):1.4:|MacBook Air 13 (M4):1.25:p|MacBook Air 13 (M3):1.2:|MacBook Air (M2):1.15:p|MacBook Air (M1):1.0:p|MacBook (Intel):0.9:",
+   "Lenovo": "ThinkPad:0.8:p|IdeaPad:0.6:|Yoga:0.8:|Legion:0.9:",
+   "HP": "EliteBook:0.8:|Pavilion:0.6:p|Envy:0.7:|Omen:0.9:",
+   "Dell": "XPS:1.0:p|Latitude:0.8:|Inspiron:0.6:",
+   "ASUS": "ZenBook:0.8:|VivoBook:0.6:|ROG:1.0:",
+   "Acer": "Aspire:0.55:|Swift:0.7:|Nitro:0.8:",
+   "Microsoft": "Surface Laptop:1.0:|Surface Pro:1.1:",
+   "MSI": "MSI Gaming:0.9:",
+   "Samsung": "Galaxy Book:0.8:",
+   "Huawei": "MateBook:0.8:"
+  },
+  "console": {
+   "Sony": "PlayStation 5 Pro:1.3:bp|PlayStation 5:1.0:Bp|PlayStation 5 Digital:1.0:b|PlayStation 4 Pro:0.85:B|PlayStation 4:0.75:B|DualSense controller:0.8:Pp|DualShock 4 controller:0.7:P",
+   "Microsoft": "Xbox Series X:1.1:Bp|Xbox Series S:0.9:b|Xbox One X:0.85:B|Xbox One S:0.8:B|Xbox controller:0.7:P",
+   "Nintendo": "Switch 2:1.4:Hp|Switch OLED:1.1:Hp|Switch:1.0:H|Switch Lite:0.9:H|Joy-Con:0.6:P",
+   "Valve": "Steam Deck OLED:1.3:H|Steam Deck:1.1:H"
+  }
+ },
+ "CATS": [
+  "phone",
+  "tablet",
+  "laptop",
+  "console"
+ ],
+ "TOP6": {
+  "phone": [
+   "display",
+   "battery",
+   "port",
+   "back",
+   "camera",
+   "water"
+  ],
+  "tablet": [
+   "display",
+   "battery",
+   "port",
+   "back",
+   "camera",
+   "water"
+  ],
+  "laptop": [
+   "display",
+   "battery",
+   "keyboard",
+   "port",
+   "fan",
+   "water"
+  ],
+  "console": [
+   "hdmi",
+   "fan",
+   "drift",
+   "display",
+   "drive",
+   "psu"
+  ]
+ },
+ "KW": [
+  [
+   "camglass",
+   [
+    "camera glass",
+    "kameraglas",
+    "camera lens",
+    "kameralinse",
+    "linse"
+   ]
+  ],
+  [
+   "frontcam",
+   [
+    "front camera",
+    "selfie",
+    "frontkamera"
+   ]
+  ],
+  [
+   "faceid",
+   [
+    "face id",
+    "faceid",
+    "gesichtserkennung"
+   ]
+  ],
+  [
+   "drift",
+   [
+    "drift",
+    "joystick",
+    "stick"
+   ]
+  ],
+  [
+   "hdmi",
+   [
+    "hdmi",
+    "no picture",
+    "no signal",
+    "kein bild",
+    "kein signal"
+   ]
+  ],
+  [
+   "drive",
+   [
+    "disc",
+    "disk",
+    "laufwerk",
+    "blu-ray",
+    "bluray"
+   ]
+  ],
+  [
+   "keyboard",
+   [
+    "keyboard",
+    "tastatur"
+   ]
+  ],
+  [
+   "trackpad",
+   [
+    "trackpad",
+    "touchpad"
+   ]
+  ],
+  [
+   "hinge",
+   [
+    "hinge",
+    "scharnier"
+   ]
+  ],
+  [
+   "water",
+   [
+    "water",
+    "wet",
+    "liquid",
+    "toilet",
+    "pool",
+    "coffee",
+    "rain",
+    "drink",
+    "wasser",
+    "nass",
+    "flüssig",
+    "getränk",
+    "kaffee",
+    "regen"
+   ]
+  ],
+  [
+   "data",
+   [
+    "data",
+    "recover",
+    "backup",
+    "daten",
+    "fotos retten",
+    "bilder retten",
+    "datenrettung"
+   ]
+  ],
+  [
+   "battery",
+   [
+    "dead battery",
+    "battery is dead",
+    "battery dead",
+    "akku leer",
+    "akku ist leer",
+    "battery",
+    "akku",
+    "drains",
+    "dies fast",
+    "swollen",
+    "batterie",
+    "aufgebläht",
+    "hält nicht",
+    "entlädt"
+   ]
+  ],
+  [
+   "earpiece",
+   [
+    "earpiece",
+    "hörmuschel",
+    "can t hear the caller",
+    "can t hear people",
+    "höre den anderen nicht",
+    "höre nichts beim telefonieren"
+   ]
+  ],
+  [
+   "mic",
+   [
+    "microphone",
+    "mic",
+    "mikrofon",
+    "can t hear me",
+    "hört mich nicht",
+    "versteht mich nicht"
+   ]
+  ],
+  [
+   "speaker",
+   [
+    "speaker",
+    "sound",
+    "music",
+    "lautsprecher",
+    "ton",
+    "klang",
+    "leise"
+   ]
+  ],
+  [
+   "fan",
+   [
+    "fan",
+    "noisy",
+    "overheat",
+    "overheating",
+    "hot",
+    "lüfter",
+    "zu laut",
+    "sehr laut",
+    "heiß",
+    "heiss",
+    "überhitz"
+   ]
+  ],
+  [
+   "ssd",
+   [
+    "ssd",
+    "storage full",
+    "slow",
+    "langsam",
+    "speicher voll",
+    "upgrade"
+   ]
+  ],
+  [
+   "psu",
+   [
+    "power supply",
+    "netzteil"
+   ]
+  ],
+  [
+   "port",
+   [
+    "charging",
+    "charge",
+    "charger",
+    "port",
+    "cable",
+    "lightning",
+    "usb-c",
+    "usb",
+    "lädt",
+    "ladebuchse",
+    "ladekabel",
+    "ladeanschluss"
+   ]
+  ],
+  [
+   "back",
+   [
+    "back glass",
+    "back cover",
+    "backcover",
+    "rückseite",
+    "housing",
+    "gehäuse"
+   ]
+  ],
+  [
+   "camera",
+   [
+    "camera",
+    "kamera",
+    "blurry",
+    "unscharf"
+   ]
+  ],
+  [
+   "vibration",
+   [
+    "vibrat"
+   ]
+  ],
+  [
+   "sim",
+   [
+    "sim"
+   ]
+  ],
+  [
+   "jack",
+   [
+    "headphone",
+    "aux",
+    "kopfhörer",
+    "klinke"
+   ]
+  ],
+  [
+   "buttons",
+   [
+    "power button",
+    "volume button",
+    "button",
+    "taste",
+    "knopf"
+   ]
+  ],
+  [
+   "software",
+   [
+    "software",
+    "update",
+    "apple logo",
+    "logo",
+    "boot",
+    "frozen",
+    "stuck",
+    "hängt",
+    "virus",
+    "firmware",
+    "reset"
+   ]
+  ],
+  [
+   "mainboard",
+   [
+    "won t turn on",
+    "wont turn on",
+    "doesn t turn on",
+    "not turning on",
+    "won t start",
+    "no power",
+    "dead",
+    "startet nicht",
+    "geht nicht an",
+    "geht nicht mehr an",
+    "tot",
+    "mainboard",
+    "motherboard",
+    "logic board",
+    "platine"
+   ]
+  ],
+  [
+   "display",
+   [
+    "screen",
+    "display",
+    "glass",
+    "cracked",
+    "crack",
+    "smashed",
+    "black screen",
+    "touch",
+    "lines",
+    "flicker",
+    "bildschirm",
+    "glas",
+    "gesprungen",
+    "riss",
+    "zersprungen",
+    "kaputt display",
+    "schwarz",
+    "streifen",
+    "flackert"
+   ]
+  ]
+ ],
+ "CATW": {
+  "phone": [
+   "handy",
+   "phone",
+   "smartphone",
+   "iphone",
+   "galaxy",
+   "pixel",
+   "redmi",
+   "xperia",
+   "mobile",
+   "telefon",
+   "samsung",
+   "xiaomi",
+   "huawei",
+   "oneplus",
+   "oppo",
+   "motorola"
+  ],
+  "tablet": [
+   "ipad",
+   "tablet",
+   "galaxy tab"
+  ],
+  "laptop": [
+   "laptop",
+   "notebook",
+   "macbook",
+   "thinkpad",
+   "computer",
+   "rechner",
+   "surface",
+   "ideapad",
+   "zenbook",
+   "vivobook"
+  ],
+  "console": [
+   "console",
+   "konsole",
+   "playstation",
+   "ps5",
+   "ps4",
+   "xbox",
+   "switch",
+   "nintendo",
+   "steam deck",
+   "controller",
+   "gamepad",
+   "dualsense",
+   "joy-con"
+  ]
+ },
+ "BRANDW": [
+  [
+   "Apple",
+   [
+    "iphone",
+    "ipad",
+    "macbook",
+    "apple"
+   ]
+  ],
+  [
+   "Samsung",
+   [
+    "samsung",
+    "galaxy"
+   ]
+  ],
+  [
+   "Google",
+   [
+    "pixel",
+    "google"
+   ]
+  ],
+  [
+   "Xiaomi",
+   [
+    "xiaomi",
+    "redmi",
+    "poco"
+   ]
+  ],
+  [
+   "Huawei",
+   [
+    "huawei"
+   ]
+  ],
+  [
+   "OnePlus",
+   [
+    "oneplus"
+   ]
+  ],
+  [
+   "Oppo",
+   [
+    "oppo"
+   ]
+  ],
+  [
+   "Sony",
+   [
+    "sony",
+    "xperia",
+    "playstation",
+    "ps5",
+    "ps4",
+    "dualsense"
+   ]
+  ],
+  [
+   "Microsoft",
+   [
+    "xbox",
+    "surface",
+    "microsoft"
+   ]
+  ],
+  [
+   "Nintendo",
+   [
+    "nintendo",
+    "switch",
+    "joy-con"
+   ]
+  ],
+  [
+   "Valve",
+   [
+    "steam deck"
+   ]
+  ],
+  [
+   "Lenovo",
+   [
+    "lenovo",
+    "thinkpad"
+   ]
+  ],
+  [
+   "HP",
+   [
+    "hp"
+   ]
+  ],
+  [
+   "Dell",
+   [
+    "dell"
+   ]
+  ],
+  [
+   "ASUS",
+   [
+    "asus"
+   ]
+  ],
+  [
+   "Acer",
+   [
+    "acer"
+   ]
+  ]
+ ],
+ "IMGS": [
+  {
+   "id": "hero",
+   "short": "Hero",
+   "name": "Hero: repair in progress",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Hero, request form, builder",
+   "attach": "",
+   "p": "Close-up, slightly over the shoulder, inside a small bright Berlin phone repair shop: a technician's hands in blue nitrile gloves lift the cracked screen off an opened smartphone with a blue suction cup and a thin metal spudger, on a blue anti-static work mat. Colourful plastic opening picks (pink, orange, green, yellow), a magnetic screw tray and a screwdriver with an orange handle around it. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "01"
+  },
+  {
+   "id": "cat-phone",
+   "short": "Smartphone",
+   "name": "Device: smartphone",
+   "ratio": "1:1",
+   "px": "1024×1024",
+   "where": "Device tiles",
+   "attach": "",
+   "p": "A generic modern smartphone (no logo) lies face up in the centre, its screen badly cracked with a spiderweb fracture from one corner, screen off. Square 1:1. A real photograph shot from directly above on a seamless sheet of solid cobalt blue (#3048F0) paper that fills the whole frame. Hard direct sunlight from the upper left casts a crisp short shadow to the lower right. Generous empty paper around the device, visible paper texture, small fingerprints and dust. The look of a still life shot on coloured paper by a real photographer, not a 3D render. No text, no logos, no other props.",
+   "n": "02"
+  },
+  {
+   "id": "cat-tablet",
+   "short": "Tablet",
+   "name": "Device: tablet",
+   "ratio": "1:1",
+   "px": "1024×1024",
+   "where": "Device tiles",
+   "attach": "02 cat-phone (same chat, style reference)",
+   "p": "Same set-up as the smartphone image: a generic modern tablet (no logo) lies face up in the centre, screen cracked from one corner, screen off. Square 1:1. A real photograph shot from directly above on a seamless sheet of solid bubblegum pink (#FF8DB5) paper that fills the whole frame. Hard direct sunlight from the upper left casts a crisp short shadow to the lower right. Generous empty paper around the device, visible paper texture, small fingerprints and dust. The look of a still life shot on coloured paper by a real photographer, not a 3D render. No text, no logos, no other props.",
+   "n": "03"
+  },
+  {
+   "id": "cat-laptop",
+   "short": "Laptop",
+   "name": "Device: laptop",
+   "ratio": "1:1",
+   "px": "1024×1024",
+   "where": "Device tiles",
+   "attach": "02 cat-phone (same chat, style reference)",
+   "p": "Same set-up as the smartphone image: a generic modern laptop (no logo) opened flat to 180 degrees, seen from directly above, keyboard and a cracked screen both visible. Square 1:1. A real photograph shot from directly above on a seamless sheet of solid jade green (#1FA67A) paper that fills the whole frame. Hard direct sunlight from the upper left casts a crisp short shadow to the lower right. Generous empty paper around the device, visible paper texture, small fingerprints and dust. The look of a still life shot on coloured paper by a real photographer, not a 3D render. No text, no logos, no other props.",
+   "n": "04"
+  },
+  {
+   "id": "cat-console",
+   "short": "Console",
+   "name": "Device: console",
+   "ratio": "1:1",
+   "px": "1024×1024",
+   "where": "Device tiles",
+   "attach": "02 cat-phone (same chat, style reference)",
+   "p": "Same set-up as the smartphone image: a plain white generic game controller and a compact generic console box that resembles no real brand, side by side. Square 1:1. A real photograph shot from directly above on a seamless sheet of solid tangerine orange (#FF6A2C) paper that fills the whole frame. Hard direct sunlight from the upper left casts a crisp short shadow to the lower right. Generous empty paper around the device, visible paper texture, small fingerprints and dust. The look of a still life shot on coloured paper by a real photographer, not a 3D render. No text, no logos, no other props.",
+   "n": "05"
+  },
+  {
+   "id": "rep-display",
+   "short": "Display",
+   "name": "Repair: display",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Repair cards",
+   "attach": "",
+   "p": "A smartphone with a badly shattered screen on a blue anti-static mat next to a new replacement screen in its clear protective film with a coloured pull tab, a pink opening pick and a blue suction cup. Macro lens. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "06"
+  },
+  {
+   "id": "rep-battery",
+   "short": "Battery",
+   "name": "Repair: battery",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Repair cards",
+   "attach": "06 rep-display (same chat)",
+   "p": "An opened smartphone on a blue anti-static mat, gloved fingers (blue nitrile) lifting out the old battery by its adhesive pull tabs, a new battery beside it. Macro lens. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "07"
+  },
+  {
+   "id": "rep-port",
+   "short": "Charging port",
+   "name": "Repair: charging port",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Repair cards",
+   "attach": "06 rep-display (same chat)",
+   "p": "Extreme close-up of the bottom edge of a smartphone on a blue anti-static mat, a gloved hand cleaning the USB-C port with a small anti-static brush with an orange handle. Macro lens. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "08"
+  },
+  {
+   "id": "rep-back",
+   "short": "Back glass",
+   "name": "Repair: back glass",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Repair cards",
+   "attach": "",
+   "p": "A smartphone face down on a blue anti-static mat showing a heavily cracked glass back with a camera bump (no logo), next to a yellow opening pick and a small heat pad. Macro lens. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "09"
+  },
+  {
+   "id": "rep-camera",
+   "short": "Camera",
+   "name": "Repair: camera",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Repair cards",
+   "attach": "09 rep-back (same chat)",
+   "p": "A smartphone rear camera module held in fine tweezers above the opened phone on a blue anti-static mat, one lens cover glass cracked. Macro lens. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "10"
+  },
+  {
+   "id": "rep-water",
+   "short": "Water damage",
+   "name": "Repair: water damage",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Repair cards",
+   "attach": "09 rep-back (same chat)",
+   "p": "A wet smartphone opened on a blue anti-static mat, water droplets on the frame, its logic board in a small ultrasonic cleaner basket beside it, a plain unlabeled bottle of isopropyl alcohol and a soft brush. Macro lens. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "11"
+  },
+  {
+   "id": "before",
+   "short": "Before",
+   "name": "Before (cracked)",
+   "ratio": "3:2",
+   "px": "1536×1024",
+   "where": "Before/after slider",
+   "attach": "",
+   "p": "Shot from directly above: a generic smartphone lies flat and upright in the centre of a light grey desk mat with space left and right, screen on with a bright abstract wallpaper of soft blue, pink and orange shapes, glass badly shattered from the lower left corner. Three opening picks (pink, orange, green) to the right. Landscape 3:2. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "12"
+  },
+  {
+   "id": "after",
+   "short": "After",
+   "name": "After (repaired)",
+   "ratio": "3:2",
+   "px": "1536×1024",
+   "where": "Before/after slider",
+   "attach": "12 before (same chat, required)",
+   "p": "Recreate the previous image exactly: same phone, position, framing, light, background and picks. The only change: the screen is now perfect with no cracks, the same wallpaper glowing cleanly. Landscape 3:2. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "13"
+  },
+  {
+   "id": "lab-solder",
+   "short": "Micro-soldering",
+   "name": "Workshop: micro-soldering",
+   "ratio": "3:2",
+   "px": "1536×1024",
+   "where": "Workshop",
+   "attach": "",
+   "p": "In the back workshop: a technician in a grey t-shirt (face not visible, seen from the side) at a stereo microscope micro-soldering a logic board held in a blue board holder; soldering station, flux syringe, tweezers, small coloured parts drawers on the wall. Daylight mixed with a white microscope ring light. Landscape 3:2. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "14"
+  },
+  {
+   "id": "lab-ic",
+   "short": "IC repair",
+   "name": "Workshop: IC repair",
+   "ratio": "3:2",
+   "px": "1536×1024",
+   "where": "Workshop",
+   "attach": "14 lab-solder (same chat)",
+   "p": "Close-up of a hot-air rework nozzle above a smartphone logic board in a blue holder while tweezers lift a tiny chip, a small wisp of flux smoke, amber kapton tape on the board. Landscape 3:2. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "15"
+  },
+  {
+   "id": "lab-water",
+   "short": "Water damage",
+   "name": "Workshop: water damage",
+   "ratio": "3:2",
+   "px": "1536×1024",
+   "where": "Workshop",
+   "attach": "",
+   "p": "Macro: hands in blue nitrile gloves scrub a corroded smartphone logic board with a small brush and isopropyl alcohol, white-green corrosion on the connectors, on a blue anti-static mat beside a plain unlabeled dropper bottle. Landscape 3:2. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "16"
+  },
+  {
+   "id": "lab-data",
+   "short": "Data recovery",
+   "name": "Workshop: data recovery",
+   "ratio": "3:2",
+   "px": "1536×1024",
+   "where": "Workshop",
+   "attach": "16 lab-water (same chat)",
+   "p": "A memory chip on a programmer adapter connected by fine cables on a workbench, a laptop showing a progress bar out of focus behind, small coloured parts drawers. Landscape 3:2. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "17"
+  },
+  {
+   "id": "sell",
+   "short": "Used devices",
+   "name": "Sell: used devices",
+   "ratio": "2:3",
+   "px": "1024×1536",
+   "where": "Sell section",
+   "attach": "",
+   "p": "Shot from directly above: used devices on overlapping sheets of solid coloured paper (cobalt blue, bubblegum pink, jade green, tangerine orange, lemon yellow): two generic smartphones (one in a scuffed clear case), a generic tablet, a plain white game controller and a small white earbuds case. Hard direct sunlight with crisp short shadows. Portrait 2:3. Candid documentary photo, shot on a 35mm camera, bright natural window daylight, true-to-life colours, slight film grain, real dust and fingerprints. Not a render, no dramatic or moody lighting, no dark background. No text, no logos, no brand names.",
+   "n": "18"
+  },
+  {
+   "id": "shop-moabit",
+   "short": "Moabit shop (real photo)",
+   "name": "Shop front: Moabit",
+   "ratio": "16:9",
+   "px": "landscape",
+   "where": "Shops",
+   "real": true,
+   "p": "Real photo of the Beusselstraße 18 shop front, landscape.",
+   "n": "19"
+  },
+  {
+   "id": "shop-spandau",
+   "short": "Spandau shop (real photo)",
+   "name": "Shop front: Spandau",
+   "ratio": "16:9",
+   "px": "landscape",
+   "where": "Shops",
+   "real": true,
+   "p": "Real photo of the Havelstraße 8 shop front, landscape.",
+   "n": "20"
+  }
+ ],
+ "REP_IMG": {
+  "display": "rep-display",
+  "battery": "rep-battery",
+  "port": "rep-port",
+  "back": "rep-back",
+  "camera": "rep-camera",
+  "water": "rep-water",
+  "cport": "rep-port"
+ },
+ "CAT_IMG": {
+  "phone": "cat-phone",
+  "tablet": "cat-tablet",
+  "laptop": "cat-laptop",
+  "console": "cat-console"
+ },
+ "SHOPS": [
+  {
+   "id": "shop-moabit",
+   "g": "moabit",
+   "area": "Berlin-Moabit",
+   "street": "Beusselstraße 18",
+   "zip": "10553 Berlin",
+   "q": "TipTop Service 24, Beusselstraße 18, 10553 Berlin",
+   "tel": "+493081475791",
+   "telTxt": "030 814 757 91"
+  },
+  {
+   "id": "shop-spandau",
+   "g": "spandau",
+   "area": "Berlin-Spandau",
+   "street": "Havelstraße 8",
+   "zip": "13597 Berlin",
+   "q": "Havelstraße 8, 13597 Berlin",
+   "tel": "+493089617138",
+   "telTxt": "030 896 171 38"
+  }
+ ],
+ "BRANDWALL": [
+  [
+   "br_phone",
+   [
+    [
+     "Apple",
+     "phone",
+     "Apple",
+     "iPhone"
+    ],
+    [
+     "Samsung",
+     "phone",
+     "Samsung"
+    ],
+    [
+     "Google Pixel",
+     "phone",
+     "Google"
+    ],
+    [
+     "Xiaomi",
+     "phone",
+     "Xiaomi"
+    ],
+    [
+     "Huawei",
+     "phone",
+     "Huawei"
+    ],
+    [
+     "OnePlus",
+     "phone",
+     "OnePlus"
+    ],
+    [
+     "Oppo",
+     "phone",
+     "Oppo"
+    ],
+    [
+     "Sony Xperia",
+     "phone",
+     "Sony"
+    ],
+    [
+     "Motorola",
+     "phone",
+     "Motorola"
+    ],
+    [
+     "iPad",
+     "tablet",
+     "Apple"
+    ],
+    [
+     "Galaxy Tab",
+     "tablet",
+     "Samsung"
+    ]
+   ]
+  ],
+  [
+   "br_laptop",
+   [
+    [
+     "MacBook",
+     "laptop",
+     "Apple"
+    ],
+    [
+     "Lenovo",
+     "laptop",
+     "Lenovo"
+    ],
+    [
+     "HP",
+     "laptop",
+     "HP"
+    ],
+    [
+     "Dell",
+     "laptop",
+     "Dell"
+    ],
+    [
+     "ASUS",
+     "laptop",
+     "ASUS"
+    ],
+    [
+     "Acer",
+     "laptop",
+     "Acer"
+    ],
+    [
+     "Microsoft Surface",
+     "laptop",
+     "Microsoft"
+    ],
+    [
+     "MSI",
+     "laptop",
+     "MSI"
+    ],
+    [
+     "Huawei MateBook",
+     "laptop",
+     "Huawei"
+    ]
+   ]
+  ],
+  [
+   "br_console",
+   [
+    [
+     "PlayStation",
+     "console",
+     "Sony"
+    ],
+    [
+     "Xbox",
+     "console",
+     "Microsoft"
+    ],
+    [
+     "Nintendo Switch",
+     "console",
+     "Nintendo"
+    ],
+    [
+     "Steam Deck",
+     "console",
+     "Valve"
+    ],
+    [
+     "DualSense",
+     "console",
+     "Sony"
+    ],
+    [
+     "Joy-Con",
+     "console",
+     "Nintendo"
+    ]
+   ]
+  ]
+ ],
+ "BRAND_LOGO": {
+  "Apple": "apple",
+  "iPad": "apple",
+  "MacBook": "apple",
+  "Samsung": "samsung",
+  "Galaxy Tab": "samsung",
+  "Google Pixel": "google",
+  "Xiaomi": "xiaomi",
+  "Huawei": "huawei",
+  "Huawei MateBook": "huawei",
+  "OnePlus": "oneplus",
+  "Oppo": "oppo",
+  "Sony Xperia": "sony",
+  "Motorola": "motorola",
+  "Lenovo": "lenovo",
+  "HP": "hp",
+  "Dell": "dell",
+  "ASUS": "asus",
+  "Acer": "acer",
+  "Microsoft Surface": "microsoft",
+  "MSI": "msi",
+  "PlayStation": "playstation",
+  "DualSense": "playstation",
+  "Xbox": "xbox",
+  "Nintendo Switch": "nintendo",
+  "Joy-Con": "nintendo",
+  "Steam Deck": "steam"
+ },
+ "LEGAL_KEYS": [
+  "impressum",
+  "datenschutz",
+  "agb",
+  "widerruf",
+  "cookies",
+  "barrierefreiheit"
+ ],
+ "LEGAL_UPD": {
+  "de": "14. November 2026",
+  "en": "14 November 2026"
+ },
+ "LEGAL_DE": {
+  "impressum": {
+   "nav": "Impressum",
+   "h": "Impressum",
+   "sec": [
+    [
+     "Angaben gemäß § 5 DDG",
+     "<p>TLAMO GmbH<br>handelnd unter „TipTop Service 24“<br>Beusselstraße 18<br>10553 Berlin<br>Deutschland</p><p>Zweite Filiale: Havelstraße 8, 13597 Berlin-Spandau</p>"
+    ],
+    [
+     "Vertreten durch",
+     "<p>Geschäftsführer: <mark class=\"fill\">Vor- und Nachname</mark></p>"
+    ],
+    [
+     "Kontakt",
+     "<p>Telefon: <a href=\"tel:+493081475791\">030 814 757 91</a><br>E-Mail: <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a><br>WhatsApp: +49 176 72746296</p>"
+    ],
+    [
+     "Registereintrag",
+     "<p>Eintragung im Handelsregister<br>Registergericht: Amtsgericht Charlottenburg (Berlin)<br>Registernummer: HRB <mark class=\"fill\">Nummer</mark> B</p>"
+    ],
+    [
+     "Umsatzsteuer",
+     "<p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: DE326279747</p>"
+    ],
+    [
+     "Angaben zur Meisterwerkstatt",
+     "<p>Eingetragen in die Handwerksrolle der Handwerkskammer Berlin, Blücherstraße 68, 10961 Berlin.<br>Berufsbezeichnung: <mark class=\"fill\">z. B. Informationstechniker-Meister</mark>, verliehen in Deutschland.<br>Berufsrechtliche Regelung: Gesetz zur Ordnung des Handwerks (Handwerksordnung), einsehbar unter <a href=\"https://www.gesetze-im-internet.de/hwo/\" target=\"_blank\" rel=\"noopener\">gesetze-im-internet.de/hwo</a>.</p><p><mark class=\"fill\">Nur angeben, wenn der Betrieb in die Handwerksrolle eingetragen ist. Sonst Abschnitt entfernen.</mark></p>"
+    ],
+    [
+     "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+     "<p><mark class=\"fill\">Vor- und Nachname</mark><br>Beusselstraße 18, 10553 Berlin</p>"
+    ],
+    [
+     "Verbraucherstreitbeilegung",
+     "<p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>"
+    ],
+    [
+     "Haftung für Inhalte und Links",
+     "<p>Wir erstellen die Inhalte dieser Website mit Sorgfalt. Preise und Reparaturzeiten können sich ändern; verbindlich ist der Preis, den wir dir vor der Reparatur nennen. Für Inhalte externer Websites, auf die wir verlinken, sind deren Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Werden uns Rechtsverletzungen bekannt, entfernen wir den Link umgehend.</p>"
+    ],
+    [
+     "Bildnachweise",
+     "<p>Fotos: <mark class=\"fill\">Fotograf oder Quelle eintragen</mark></p>"
+    ],
+    [
+     "Gestaltung und Umsetzung",
+     "<p>Ronak</p>"
+    ]
+   ]
+  },
+  "datenschutz": {
+   "nav": "Datenschutz",
+   "h": "Datenschutzerklärung",
+   "intro": "Hier steht, welche Daten wir verarbeiten, wenn du unsere Website nutzt, eine Reparatur anfragst oder uns ein Gerät verkaufst, wofür wir sie brauchen und welche Rechte du hast.",
+   "sec": [
+    [
+     "Verantwortlicher",
+     "<p>Verantwortlich für die Datenverarbeitung auf dieser Website und in unseren Filialen ist:</p><p>TLAMO GmbH (TipTop Service 24)<br>Beusselstraße 18, 10553 Berlin<br>Telefon: <a href=\"tel:+493081475791\">030 814 757 91</a><br>E-Mail: <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a></p><p>Vertreten durch die Geschäftsführung: <mark class=\"fill\">Vor- und Nachname</mark></p>"
+    ],
+    [
+     "Datenschutzbeauftragter",
+     "<p><mark class=\"fill\">Wenn ein Datenschutzbeauftragter benannt ist: Name und Kontakt eintragen. Sonst diesen Abschnitt entfernen.</mark> Für alle Fragen zum Datenschutz erreichst du uns unter <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a>.</p>"
+    ],
+    [
+     "Das Wichtigste in Kürze",
+     "<ul><li>Du kannst die Website nutzen, ohne dich anzumelden und ohne uns Daten zu nennen.</li><li>Daten über dich erhalten wir erst, wenn du anrufst, schreibst, ein Formular abschickst oder eine WhatsApp-Nachricht sendest.</li><li>Statistik- und Marketing-Dienste laden nur, wenn du ihnen in den Cookie-Einstellungen zustimmst.</li><li>Website und Datenbank laufen auf Servern in Deutschland. Wir verkaufen keine Daten.</li></ul>"
+    ],
+    [
+     "Rechtsgrundlagen",
+     "<p>Wir verarbeiten personenbezogene Daten nach der Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG). Je nach Zweck stützen wir uns auf:</p><ul><li>Art. 6 Abs. 1 lit. a DSGVO: deine Einwilligung, die du jederzeit mit Wirkung für die Zukunft widerrufen kannst,</li><li>Art. 6 Abs. 1 lit. b DSGVO: die Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen, etwa einer Reparaturanfrage,</li><li>Art. 6 Abs. 1 lit. c DSGVO: gesetzliche Pflichten, etwa Aufbewahrungspflichten nach Handels- und Steuerrecht,</li><li>Art. 6 Abs. 1 lit. f DSGVO: unser berechtigtes Interesse, etwa am sicheren Betrieb der Website.</li></ul><p>Für das Speichern und Auslesen von Informationen auf deinem Gerät gilt zusätzlich § 25 des Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes (TDDDG).</p>"
+    ],
+    [
+     "Hosting und Server-Logfiles",
+     "<p>Die Website wird bei der Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, auf Servern in Deutschland betrieben. Mit Hetzner besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.</p><p>Bei jedem Aufruf speichert der Server technische Daten, die dein Browser übermittelt: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, zuvor besuchte Seite, Browser und Betriebssystem. Wir brauchen diese Daten, um die Website stabil und sicher zu betreiben und Angriffe abzuwehren (Art. 6 Abs. 1 lit. f DSGVO). Die Logfiles werden nach <mark class=\"fill\">14</mark> Tagen gelöscht, außer sie werden zur Aufklärung eines Sicherheitsvorfalls benötigt.</p>"
+    ],
+    [
+     "Verschlüsselung",
+     "<p>Die Website ist per TLS verschlüsselt. Du erkennst das am Schloss-Symbol und an „https://“ in der Adresszeile. Daten, die du uns über die Website schickst, können so nicht von Dritten mitgelesen werden.</p>"
+    ],
+    [
+     "Cookies, lokaler Speicher und deine Einwilligung",
+     "<p>Ohne Einwilligung speichern wir auf deinem Gerät nur, was für den Betrieb unbedingt nötig ist, zum Beispiel deine Sprachwahl und deine Cookie-Auswahl (§ 25 Abs. 2 Nr. 2 TDDDG). Statistik und Marketing setzen wir nur mit deiner Einwilligung ein (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO).</p><p>Deine Auswahl verwalten wir mit einer eigenen Lösung ohne externen Anbieter. Gespeichert werden die gewählten Kategorien, die Version des Hinweises, der Zeitpunkt und eine zufällige Kennung als Nachweis. Nach 12 Monaten fragen wir erneut. Du kannst deine Auswahl jederzeit über „Cookie-Einstellungen“ am Ende jeder Seite ändern oder widerrufen. Alle Einträge im Einzelnen stehen in der <a href=\"#cookies\">Cookie-Richtlinie</a>.</p>"
+    ],
+    [
+     "Preisrechner, Rückruf und Reparaturanfrage",
+     "<p>Den Preisrechner kannst du ohne Angaben zu deiner Person nutzen. Erst wenn du einen Rückruf anforderst oder das Formular „Reparaturanfrage“ absendest, verarbeiten wir die Daten, die du eingibst: Name, Telefon- oder WhatsApp-Nummer, Gerät und Modell, die gewählte Reparatur, deine Problembeschreibung sowie die gewünschte Art der Kontaktaufnahme und Reparatur.</p><p>Wir nutzen diese Daten nur, um deine Anfrage zu beantworten und die Reparatur durchzuführen (Art. 6 Abs. 1 lit. b DSGVO). Anfragen werden in unserem Verwaltungssystem auf unserem Server in Deutschland gespeichert und zusätzlich in eine Tabelle in Google Sheets übertragen, mit der unser Team arbeitet.</p><p>Anfragen, aus denen kein Auftrag wird, löschen wir nach 6 Monaten. Bei einem Auftrag bewahren wir Auftrags- und Rechnungsdaten so lange auf, wie es das Handels- und Steuerrecht verlangt, in der Regel 6 bis 10 Jahre (Art. 6 Abs. 1 lit. c DSGVO).</p>"
+    ],
+    [
+     "Google Sheets",
+     "<p>Für die Bearbeitung der Anfragen nutzen wir Google Sheets (Google Workspace) der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Mit Google besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO. Eine Übermittlung an die Google LLC in den USA ist nicht ausgeschlossen. Die Google LLC ist nach dem EU-US Data Privacy Framework zertifiziert, für das ein Angemessenheitsbeschluss der EU-Kommission besteht (Art. 45 DSGVO). Zusätzlich gelten die EU-Standardvertragsklauseln.</p>"
+    ],
+    [
+     "WhatsApp",
+     "<p>Mit den WhatsApp-Schaltflächen öffnest du einen Chat mit uns, in dem deine Reparatur oder dein Gerät schon als Nachricht vorausgefüllt ist. Beim Klick werden noch keine Daten an uns übertragen. Erst wenn du die Nachricht abschickst, erhalten wir deine Telefonnummer, deinen Profilnamen und den Inhalt der Nachricht.</p><p>WhatsApp wird von der WhatsApp Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Irland betrieben, die zum Meta-Konzern gehört. Es gelten die Datenschutzbestimmungen von WhatsApp; eine Verarbeitung in den USA ist möglich. Wir nutzen WhatsApp Business, um deine Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO). Wenn du WhatsApp nicht nutzen möchtest, erreichst du uns genauso per Telefon, E-Mail, Formular oder in der Filiale. Chats löschen wir spätestens <mark class=\"fill\">6 Monate</mark> nach Abschluss der Reparatur.</p>"
+    ],
+    [
+     "Telefon und E-Mail",
+     "<p>Wenn du uns anrufst oder schreibst, verarbeiten wir deine Angaben, um dein Anliegen zu bearbeiten (Art. 6 Abs. 1 lit. b oder f DSGVO). E-Mails löschen wir, sobald sie erledigt sind und keine Aufbewahrungspflicht besteht.</p>"
+    ],
+    [
+     "Spracheingabe",
+     "<p>Über das Mikrofon-Symbol kannst du dein Problem diktieren. Die Spracheingabe startet erst, wenn du auf das Symbol tippst, unseren Hinweis bestätigst und deinem Browser den Zugriff auf das Mikrofon erlaubst. Die Umwandlung in Text übernimmt die Spracherkennung deines Browsers (Web Speech API). Je nach Browser wird die Aufnahme dafür an den Hersteller übertragen, bei Google Chrome an die Google LLC, bei Microsoft Edge an die Microsoft Corporation, bei Safari an Apple. Wir erhalten keine Audioaufnahme, nur den erkannten Text im Eingabefeld.</p><p>Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die du mit dem Bestätigen des Hinweises erteilst. Die Spracheingabe ist freiwillig; Tippen funktioniert genauso.</p>"
+    ],
+    [
+     "Automatische Erkennung deiner Problembeschreibung",
+     "<p>Wenn du dein Problem in eigenen Worten beschreibst, erkennt die Website daraus Gerät, Modell und Reparatur und schlägt den passenden Preis vor. Die Auswertung läuft in deinem Browser bzw. auf unserem Server in Deutschland. Es werden keine Daten an externe KI-Anbieter übermittelt, und es gibt keine automatisierte Entscheidung im Sinne von Art. 22 DSGVO: Du entscheidest selbst, ob du den Vorschlag übernimmst.</p><p><mark class=\"fill\">Falls im Live-System ein externer KI-Dienst eingesetzt wird: Anbieter, Zweck und Übermittlung hier ergänzen.</mark></p>"
+    ],
+    [
+     "Ankauf von Geräten",
+     "<p>Wenn du uns ein Gerät verkaufst, verarbeiten wir die Angaben für den Ankaufvertrag: Name, Anschrift, Geburtsdatum, Art und Nummer deines Ausweises, Angaben zum Gerät einschließlich Seriennummer bzw. IMEI, Kaufpreis und Zahlungsdaten. Das ist für den Vertrag erforderlich (Art. 6 Abs. 1 lit. b DSGVO) und dient unserem berechtigten Interesse, den Ankauf gestohlener Geräte zu verhindern und nachweisen zu können, von wem wir ein Gerät erworben haben (Art. 6 Abs. 1 lit. f DSGVO). Dafür gleichen wir die IMEI mit Sperrlisten ab.</p><p>Die Ankaufsunterlagen bewahren wir <mark class=\"fill\">6 Jahre</mark> auf. Daten, die noch auf dem Gerät gespeichert sind, löschen wir vor dem Weiterverkauf vollständig.</p>"
+    ],
+    [
+     "Abholservice und Einsendung",
+     "<p>Für die kostenlose Abholung verarbeiten wir deine Adresse und den Abholtermin, bei Einsendungen deine Anschrift für den Rückversand. Name und Anschrift geben wir an den Versanddienstleister <mark class=\"fill\">z. B. DHL Paket GmbH</mark> weiter, soweit das für die Zustellung nötig ist (Art. 6 Abs. 1 lit. b DSGVO).</p>"
+    ],
+    [
+     "Deine Daten auf dem Gerät während der Reparatur",
+     "<p>Wir greifen auf Inhalte deines Geräts nur zu, soweit es für Reparatur und Funktionstest unbedingt nötig ist. Wir kopieren keine Inhalte und sehen uns keine Fotos, Nachrichten oder Dateien an. Eine Datenrettung führen wir nur in deinem Auftrag durch; die geretteten Daten übergeben wir dir und löschen danach unsere Arbeitskopie.</p>"
+    ],
+    [
+     "Schriftarten",
+     "<p>Die Schrift Archivo ist auf unserem eigenen Server gespeichert. Beim Seitenaufruf wird keine Verbindung zu Google Fonts oder anderen Schriftanbietern aufgebaut.</p>"
+    ],
+    [
+     "Links zu Google Maps und Instagram",
+     "<p>Die Schaltflächen „Route“ und der Link zu Instagram sind einfache Links. Erst wenn du sie anklickst, wechselst du zu Google Maps (Google Ireland Limited) bzw. Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Irland); ab dann gelten deren Datenschutzbestimmungen. Vorher werden keine Daten an diese Anbieter übertragen.</p>"
+    ],
+    [
+     "Statistik mit Matomo (nur mit Einwilligung)",
+     "<p>Wenn du der Kategorie „Statistik“ zustimmst, nutzen wir Matomo, eine Open-Source-Software zur Reichweitenmessung, die wir auf unserem eigenen Server in Deutschland betreiben. Matomo setzt dafür Cookies und erfasst unter anderem aufgerufene Seiten, Verweildauer, Gerätetyp und die Herkunft des Besuchs. Deine IP-Adresse wird vor der Speicherung um zwei Bytes gekürzt, sodass wir dich nicht identifizieren können. Die Daten verlassen unseren Server nicht und werden nach <mark class=\"fill\">13</mark> Monaten gelöscht.</p><p>Rechtsgrundlage ist deine Einwilligung (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO). Widerrufst du sie in den Cookie-Einstellungen, löschen wir die Matomo-Cookies auf deinem Gerät.</p>"
+    ],
+    [
+     "Marketing (nur mit Einwilligung)",
+     "<p>Wenn du der Kategorie „Marketing“ zustimmst, binden wir das Conversion-Tracking von Google Ads (Google Ireland Limited) und das Meta-Pixel (Meta Platforms Ireland Limited) ein. Damit messen wir, ob eine Anzeige zu einer Anfrage geführt hat, und können Anzeigen gezielter in Berlin ausspielen. Dabei werden Cookies gesetzt und Nutzungsdaten wie IP-Adresse, Geräteinformationen und Interaktionen an Google bzw. Meta übermittelt, auch in die USA. Beide Unternehmen sind nach dem EU-US Data Privacy Framework zertifiziert. Für die Erhebung über das Meta-Pixel sind wir gemeinsam mit Meta verantwortlich (Art. 26 DSGVO).</p><p>Rechtsgrundlage ist deine Einwilligung (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO), die du jederzeit widerrufen kannst. <mark class=\"fill\">Nur aufnehmen, wenn Anzeigen geschaltet werden. Sonst Abschnitt und Kategorie entfernen.</mark></p>"
+    ],
+    [
+     "Admin-Bereich",
+     "<p>Der Verwaltungsbereich ist nur für unser Team zugänglich. Für die Anmeldung setzen wir technisch notwendige Cookies für die Sitzung und den Schutz vor Fremdzugriffen. Änderungen an Preisen und Anfragen werden protokolliert, damit nachvollziehbar ist, wer was geändert hat.</p>"
+    ],
+    [
+     "Speicherdauer",
+     "<p>Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck nötig ist oder das Gesetz es verlangt. Die Fristen für die einzelnen Verarbeitungen stehen in den Abschnitten oben. Danach löschen wir die Daten oder sperren sie, wenn eine Aufbewahrungspflicht besteht.</p>"
+    ],
+    [
+     "Deine Rechte",
+     "<p>Du hast jederzeit das Recht auf</p><ul><li>Auskunft über die Daten, die wir über dich speichern (Art. 15 DSGVO),</li><li>Berichtigung unrichtiger Daten (Art. 16 DSGVO),</li><li>Löschung (Art. 17 DSGVO),</li><li>Einschränkung der Verarbeitung (Art. 18 DSGVO),</li><li>Datenübertragbarkeit (Art. 20 DSGVO),</li><li>Widerruf einer Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li></ul><p>Eine kurze Nachricht an <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a> oder ein Besuch in der Filiale genügt.</p>"
+    ],
+    [
+     "Widerspruchsrecht",
+     "<p><strong>Verarbeiten wir Daten auf Grundlage unseres berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO), kannst du aus Gründen, die sich aus deiner besonderen Situation ergeben, jederzeit widersprechen (Art. 21 Abs. 1 DSGVO). Wir verarbeiten die Daten dann nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe nachweisen, die deine Interessen überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen. Der Verarbeitung zu Werbezwecken kannst du jederzeit ohne Angabe von Gründen widersprechen (Art. 21 Abs. 2 DSGVO).</strong></p>"
+    ],
+    [
+     "Beschwerderecht",
+     "<p>Du kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Für uns zuständig ist:</p><p>Berliner Beauftragte für Datenschutz und Informationsfreiheit<br>Alt-Moabit 59–61, 10555 Berlin<br>Telefon 030 13889-0<br><a href=\"https://www.datenschutz-berlin.de\" target=\"_blank\" rel=\"noopener\">datenschutz-berlin.de</a></p>"
+    ],
+    [
+     "Pflicht zur Angabe und automatisierte Entscheidungen",
+     "<p>Du bist weder gesetzlich noch vertraglich verpflichtet, uns Daten zu geben. Ohne Name und Telefonnummer können wir dich aber nicht zurückrufen, und ohne Ausweisdaten können wir kein Gerät ankaufen. Eine automatisierte Entscheidungsfindung einschließlich Profiling nach Art. 22 DSGVO findet nicht statt.</p>"
+    ],
+    [
+     "Änderungen",
+     "<p>Wir passen diese Datenschutzerklärung an, wenn sich die Website, unsere Abläufe oder die Rechtslage ändern. Es gilt die hier veröffentlichte Fassung.</p>"
+    ]
+   ]
+  },
+  "agb": {
+   "nav": "AGB",
+   "h": "Allgemeine Geschäftsbedingungen",
+   "intro": "Für Reparaturen und den Ankauf von Geräten bei TipTop Service 24.",
+   "sec": [
+    [
+     "@Teil A: Reparaturen"
+    ],
+    [
+     "§ 1 Geltungsbereich",
+     "<ol class=\"lg-abs\"><li>Diese Allgemeinen Geschäftsbedingungen gelten für alle Reparatur-, Diagnose- und Ankaufverträge zwischen der TLAMO GmbH, handelnd unter „TipTop Service 24“, Beusselstraße 18, 10553 Berlin (im Folgenden „TipTop“), und ihren Kundinnen und Kunden (im Folgenden „Kunde“), egal ob der Vertrag in einer Filiale, telefonisch, per WhatsApp oder über die Website geschlossen wird.</li><li>Abweichende Bedingungen des Kunden gelten nur, wenn TipTop ihnen ausdrücklich in Textform zustimmt.</li><li>Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).</li></ol>"
+    ],
+    [
+     "§ 2 Preise auf der Website und Vertragsschluss",
+     "<ol class=\"lg-abs\"><li>Die Preise im Preisrechner sind Endpreise inklusive 19 % Umsatzsteuer für die genannte Reparatur am angegebenen Modell. Die Darstellung auf der Website ist noch kein verbindliches Angebot. Mit „ab“ gekennzeichnete Preise sind Mindestpreise; der genaue Preis steht nach der Diagnose fest.</li><li>Der Reparaturvertrag kommt zustande, wenn der Kunde das Gerät in der Filiale abgibt und den Reparaturauftrag bestätigt oder wenn TipTop einen telefonisch, per WhatsApp oder über die Website erteilten Auftrag für Abholung oder Einsendung bestätigt. Rückruf- und Anfrageformulare sind unverbindliche Anfragen.</li><li>Stellt TipTop bei der Diagnose weitere Schäden fest, die den vereinbarten Preis erhöhen würden, holt TipTop vor jeder zusätzlichen Arbeit die Zustimmung des Kunden ein.</li></ol>"
+    ],
+    [
+     "§ 3 Diagnose und Kostenvoranschlag",
+     "<ol class=\"lg-abs\"><li>Die Fehlerdiagnose ist kostenlos, wenn der Kunde die Reparatur anschließend beauftragt. Lehnt der Kunde die Reparatur nach der Diagnose ab, berechnet TipTop <mark class=\"fill\">eine Pauschale von … €</mark>, sofern dies vor der Diagnose vereinbart wurde.</li><li>Ein Kostenvoranschlag ist unverbindlich, wenn er nicht ausdrücklich als verbindlich bezeichnet ist. Zeichnet sich eine wesentliche Überschreitung ab, informiert TipTop den Kunden, bevor weitergearbeitet wird (§ 649 BGB).</li></ol>"
+    ],
+    [
+     "§ 4 Ersatzteile: Original und Premium",
+     "<ol class=\"lg-abs\"><li>„Original“ bezeichnet Ersatzteile des Geräteherstellers oder Teile, die der Hersteller für die Reparatur bereitstellt.</li><li>„Premium“ bezeichnet hochwertige, kompatible Ersatzteile anderer Hersteller, die TipTop vor dem Einbau auf Funktion, Helligkeit, Farbdarstellung und Touch prüft. Bei Displays können Helligkeit, Farbdarstellung und Stromverbrauch leicht vom Originalteil abweichen. Einige Hersteller zeigen nach dem Einbau eines Fremdteils einen Hinweis in den Einstellungen an, zum Beispiel „Unbekanntes Teil“ bei iPhones; die Funktion ist dadurch nicht eingeschränkt.</li><li>Der Kunde wählt die Teilequalität vor der Reparatur. Ausgebaute Altteile erhält er auf Wunsch zurück; sonst entsorgt TipTop sie fachgerecht.</li></ol>"
+    ],
+    [
+     "§ 5 Pflichten des Kunden vor der Reparatur",
+     "<ol class=\"lg-abs\"><li>Der Kunde sichert vor der Abgabe alle Daten auf dem Gerät. Auch bei sorgfältiger Arbeit kann es bei Reparaturen zum Verlust gespeicherter Daten kommen. Für Datenverlust haftet TipTop nur nach § 12.</li><li>Der Kunde entfernt SIM- und Speicherkarten, Hüllen und Zubehör.</li><li>Ist es für den Funktionstest nötig, teilt der Kunde den Entsperrcode mit oder ist bei der Rückgabe zum Test anwesend. Die Angabe ist freiwillig; ohne Code kann TipTop nur eingeschränkt testen.</li></ol>"
+    ],
+    [
+     "§ 6 Reparaturdauer",
+     "<p>Angegebene Reparaturzeiten, etwa „unter einer Stunde“, sind Richtwerte. Muss ein Teil bestellt werden, nennt TipTop die voraussichtliche Dauer. Verbindlich sind nur ausdrücklich zugesagte Termine.</p>"
+    ],
+    [
+     "§ 7 Abholservice und Einsendung",
+     "<ol class=\"lg-abs\"><li>Im Umkreis von 5 km um eine Filiale holt TipTop das Gerät nach Terminabsprache kostenlos ab und bringt es repariert zurück.</li><li>Bei Einsendung verpackt der Kunde das Gerät transportsicher und ohne Zubehör. Der Rückversand ist für den Kunden kostenlos. Bei Verbrauchern trägt TipTop beim Rückversand die Gefahr bis zur Übergabe.</li><li>Wird ein Vertrag ausschließlich über Fernkommunikationsmittel geschlossen, steht Verbrauchern ein Widerrufsrecht zu. Einzelheiten stehen in der <a href=\"#widerruf\">Widerrufsbelehrung</a>.</li></ol>"
+    ],
+    [
+     "§ 8 Zahlung, Abholung und nicht abgeholte Geräte",
+     "<ol class=\"lg-abs\"><li>Der Reparaturpreis ist bei Rückgabe des Geräts fällig. Zahlung ist bar oder mit Karte <mark class=\"fill\">oder per Überweisung</mark> möglich.</li><li>Für seine Forderungen aus dem Reparaturvertrag steht TipTop ein gesetzliches Pfandrecht an dem Gerät zu (§ 647 BGB).</li><li>Holt der Kunde das reparierte Gerät nicht innerhalb von 4 Wochen nach der Fertigmeldung ab, erinnert ihn TipTop und setzt eine angemessene Frist. Nach erfolglosem Fristablauf kann TipTop ein angemessenes Lagergeld verlangen oder nach den gesetzlichen Vorschriften vorgehen. <mark class=\"fill\">Frist und Lagergeld prüfen.</mark></li></ol>"
+    ],
+    [
+     "§ 9 Gewährleistung",
+     "<p>Für Reparaturleistungen und eingebaute Teile gelten die gesetzlichen Mängelrechte. Die Verjährungsfrist beträgt zwei Jahre ab Abnahme (§ 634a BGB). Mängel meldet der Kunde in einer Filiale, telefonisch oder per E-Mail.</p>"
+    ],
+    [
+     "§ 10 Garantie",
+     "<ol class=\"lg-abs\"><li>Zusätzlich zu den gesetzlichen Mängelrechten gibt TipTop eine freiwillige Garantie auf eingebaute Ersatzteile und die ausgeführte Arbeit. Sie beträgt je nach Reparatur und Teilequalität bis zu 24 Monate; die genaue Dauer steht auf der Rechnung.</li><li>Garantiegeber ist die TLAMO GmbH, Beusselstraße 18, 10553 Berlin. Die Garantie gilt in Deutschland. Im Garantiefall prüft TipTop das Gerät und repariert es kostenlos oder tauscht das betroffene Teil aus. Dazu bringt der Kunde das Gerät mit der Rechnung in eine Filiale oder schickt es ein.</li><li>Ausgeschlossen sind Schäden durch Sturz, Druck, Bruch (insbesondere Glasbruch), Flüssigkeit, unsachgemäße Behandlung und Eingriffe Dritter nach der Reparatur.</li><li>Die gesetzlichen Rechte des Kunden, insbesondere die Mängelrechte nach § 9, bleiben von der Garantie unberührt und werden durch sie nicht eingeschränkt. Die Inanspruchnahme der gesetzlichen Mängelrechte ist unentgeltlich.</li></ol>"
+    ],
+    [
+     "§ 11 Wasserschäden, Platinenreparatur und Datenrettung",
+     "<p>Bei Wasserschäden, Platinenreparaturen (Mikrolöten, IC-Tausch) und Datenrettung kann TipTop keinen Erfolg garantieren, weil sich der Zustand oft erst während der Arbeit zeigt. Gelingt die Reparatur nicht, berechnet TipTop nur den vorher vereinbarten Diagnose- bzw. Aufwandspreis. Durch Korrosion vorgeschädigte Geräte können auch nach erfolgreicher Reparatur später weitere Fehler zeigen; dafür gilt die Garantie nach § 10 nicht. Die gesetzlichen Mängelrechte bleiben unberührt.</p>"
+    ],
+    [
+     "§ 12 Haftung",
+     "<ol class=\"lg-abs\"><li>TipTop haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit, für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit sowie nach dem Produkthaftungsgesetz.</li><li>Bei einfacher Fahrlässigkeit haftet TipTop nur bei Verletzung einer wesentlichen Vertragspflicht, also einer Pflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags erst ermöglicht und auf deren Einhaltung der Kunde regelmäßig vertrauen darf. Die Haftung ist dann auf den vorhersehbaren, vertragstypischen Schaden begrenzt.</li><li>Für den Verlust von Daten haftet TipTop bei einfacher Fahrlässigkeit nur in Höhe des Aufwands, der bei ordnungsgemäßer Datensicherung durch den Kunden für die Wiederherstellung nötig gewesen wäre.</li></ol>"
+    ],
+    [
+     "@Teil B: Ankauf von Geräten"
+    ],
+    [
+     "§ 13 Angebot und Vertragsschluss",
+     "<ol class=\"lg-abs\"><li>Das Angebot, das der Kunde per WhatsApp oder über die Website erhält, ist eine unverbindliche Einschätzung auf Grundlage seiner Angaben und gilt 7 Tage.</li><li>Den verbindlichen Kaufpreis legt TipTop nach Prüfung des Geräts in der Filiale fest. Der Ankaufvertrag kommt mit Unterzeichnung in der Filiale zustande, auf Papier oder digital am Tablet.</li></ol>"
+    ],
+    [
+     "§ 14 Voraussetzungen für den Ankauf",
+     "<ol class=\"lg-abs\"><li>Der Verkäufer muss mindestens 18 Jahre alt sein und sich mit einem gültigen amtlichen Lichtbildausweis ausweisen.</li><li>Der Verkäufer versichert, dass er Eigentümer des Geräts ist und frei darüber verfügen darf, dass das Gerät nicht gestohlen, unterschlagen, finanziert, geleast oder mit Rechten Dritter belastet ist und dass seine Angaben zum Zustand stimmen.</li><li>Aktivierungssperren wie „Wo ist?“ bei Apple oder die Google-Kontosperre müssen vor dem Verkauf aufgehoben sein. TipTop prüft IMEI bzw. Seriennummer gegen Sperrlisten.</li></ol>"
+    ],
+    [
+     "§ 15 Daten auf dem Gerät",
+     "<p>Der Verkäufer sichert und löscht seine Daten vor dem Verkauf und setzt das Gerät auf Werkseinstellungen zurück. TipTop löscht verbleibende Daten vor dem Weiterverkauf mit einem zertifizierten Löschverfahren und ist nicht verpflichtet, Daten zu sichern oder herauszugeben.</p>"
+    ],
+    [
+     "§ 16 Kaufpreis und Zahlung",
+     "<p>Der Kaufpreis wird bei Vertragsschluss sofort bar ausgezahlt oder per Überweisung auf ein Konto des Verkäufers gezahlt.</p>"
+    ],
+    [
+     "§ 17 Falsche Angaben und gesperrte Geräte",
+     "<p>Stellt sich heraus, dass die Versicherungen nach § 14 nicht zutreffen, insbesondere dass das Gerät gestohlen oder gesperrt ist, kann TipTop vom Vertrag zurücktreten und den Kaufpreis zurückverlangen. Gesetzliche Ansprüche bleiben unberührt. Bei Verdacht auf eine Straftat darf TipTop das Gerät der Polizei übergeben.</p>"
+    ],
+    [
+     "@Teil C: Schlussbestimmungen"
+    ],
+    [
+     "§ 18 Verbraucherstreitbeilegung",
+     "<p>TipTop ist nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>"
+    ],
+    [
+     "§ 19 Anwendbares Recht und Gerichtsstand",
+     "<ol class=\"lg-abs\"><li>Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Bei Verbrauchern gilt diese Rechtswahl nur, soweit ihnen dadurch nicht der Schutz zwingender Vorschriften des Staates entzogen wird, in dem sie ihren gewöhnlichen Aufenthalt haben.</li><li>Ist der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist Gerichtsstand Berlin.</li></ol>"
+    ],
+    [
+     "§ 20 Unwirksame Bestimmungen",
+     "<p>Sind einzelne Bestimmungen unwirksam, bleibt der Vertrag im Übrigen wirksam. An die Stelle der unwirksamen Bestimmung treten die gesetzlichen Vorschriften (§ 306 BGB).</p>"
+    ]
+   ]
+  },
+  "widerruf": {
+   "nav": "Widerruf",
+   "h": "Widerrufsbelehrung",
+   "intro": "Gilt für Reparaturaufträge, die du ausschließlich aus der Ferne erteilst, zum Beispiel für die Abholung oder Einsendung per Website, Telefon oder WhatsApp.",
+   "sec": [
+    [
+     "Widerrufsrecht",
+     "<p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p><p>Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.</p><p>Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (TLAMO GmbH, TipTop Service 24, Beusselstraße 18, 10553 Berlin, Telefon 030 81475791, E-Mail info@tiptophandyreparatur.de) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Sie können den Widerruf auch über die Widerrufsfunktion „Vertrag widerrufen“ auf dieser Seite erklären.</p><p>Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.</p>"
+    ],
+    [
+     "Folgen des Widerrufs",
+     "<p>Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.</p><p>Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen sollen, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht.</p>"
+    ],
+    [
+     "Wann das Widerrufsrecht gilt",
+     "<ul><li>Das Widerrufsrecht gilt für Verbraucher bei Verträgen, die ausschließlich über Fernkommunikationsmittel geschlossen werden, etwa wenn du eine Abholung oder Einsendung über die Website, per Telefon, E-Mail oder WhatsApp beauftragst.</li><li>Für Aufträge, die du in einer unserer Filialen erteilst, besteht kein gesetzliches Widerrufsrecht.</li><li>Das Widerrufsrecht erlischt, wenn wir die Reparatur vollständig erbracht haben und du vorher ausdrücklich zugestimmt hast, dass wir vor Ablauf der Widerrufsfrist beginnen, und bestätigt hast, dass du dein Widerrufsrecht mit vollständiger Erfüllung verlierst (§ 356 Abs. 4 BGB).</li></ul>"
+    ],
+    [
+     "Muster-Widerrufsformular",
+     "<div class=\"lg-form\"><p>(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)</p><p>An TLAMO GmbH, TipTop Service 24, Beusselstraße 18, 10553 Berlin, E-Mail: info@tiptophandyreparatur.de:</p><p>Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*)</p><p>Bestellt am (*)/erhalten am (*)</p><p>Name des/der Verbraucher(s)</p><p>Anschrift des/der Verbraucher(s)</p><p>Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)</p><p>Datum</p><p>(*) Unzutreffendes streichen.</p></div>"
+    ]
+   ]
+  },
+  "cookies": {
+   "nav": "Cookies",
+   "h": "Cookie-Richtlinie",
+   "intro": "Welche Cookies und Speichereinträge diese Website nutzt, wofür und wie lange.",
+   "sec": [
+    [
+     "Cookies und lokaler Speicher",
+     "<p>Cookies und Einträge im lokalen Speicher (localStorage) sind kleine Datensätze, die dein Browser für eine Website ablegt. Wir nutzen sie sparsam: Ohne deine Einwilligung setzen wir nur, was für den Betrieb der Website unbedingt nötig ist. Werbe- und Analyse-Cookies von Dritten laden nie, bevor du zugestimmt hast.</p>"
+    ],
+    [
+     "Notwendig",
+     "<p>Diese Einträge brauchen wir, damit die Website funktioniert und sich an deine Auswahl erinnert. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG; eine Einwilligung ist nicht erforderlich.</p><div class=\"lg-tw\"><table class=\"lg-tbl\"><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Anbieter</th><th scope=\"col\">Zweck</th><th scope=\"col\">Dauer</th></tr></thead><tbody><tr><td><code>tt-consent</code></td><td>TipTop (lokaler Speicher)</td><td>Speichert deine Cookie-Auswahl, die Version dieses Hinweises, den Zeitpunkt und eine zufällige Kennung als Nachweis.</td><td>12 Monate</td></tr><tr><td><code>tt-lang</code></td><td>TipTop (lokaler Speicher)</td><td>Merkt sich, ob du die Seite auf Deutsch oder Englisch sehen möchtest.</td><td>bis du ihn löschst</td></tr><tr><td><code>tt-mic-ok</code></td><td>TipTop (lokaler Speicher)</td><td>Merkt sich, dass du den Hinweis zur Spracheingabe bestätigt hast.</td><td>bis du ihn löschst</td></tr><tr><td><code>csrftoken</code></td><td>TipTop (Cookie, Live-System)</td><td>Schützt Formulare davor, von fremden Seiten abgeschickt zu werden.</td><td>1 Jahr</td></tr><tr><td><code>sessionid</code></td><td>TipTop (Cookie, Live-System)</td><td>Hält Mitarbeitende im Admin-Bereich angemeldet. Wird für Besucher nicht gesetzt.</td><td>2 Wochen</td></tr><tr><td><code>tt-reqs, tt-ovr, tt-added</code></td><td>TipTop (lokaler Speicher, nur Prototyp)</td><td>Simuliert im Design-Prototyp die Daten des Admin-Bereichs in deinem Browser. Entfällt im Live-System.</td><td>bis du ihn löschst</td></tr></tbody></table></div>"
+    ],
+    [
+     "Statistik",
+     "<p>Nur mit deiner Einwilligung. Hilft uns zu verstehen, welche Seiten und Reparaturen gefragt sind, damit wir die Website verbessern können.</p><div class=\"lg-tw\"><table class=\"lg-tbl\"><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Anbieter</th><th scope=\"col\">Zweck</th><th scope=\"col\">Dauer</th></tr></thead><tbody><tr><td><code>_pk_id.*</code></td><td>Matomo, eigener Server in Deutschland</td><td>Unterscheidet Besuche, ohne dich zu identifizieren. IP-Adresse wird gekürzt.</td><td>13 Monate</td></tr><tr><td><code>_pk_ses.*</code></td><td>Matomo, eigener Server in Deutschland</td><td>Fasst Seitenaufrufe eines Besuchs zusammen.</td><td>30 Minuten</td></tr></tbody></table></div>"
+    ],
+    [
+     "Marketing",
+     "<p>Nur mit deiner Einwilligung. Misst, ob unsere Anzeigen zu Anfragen führen. <mark class=\"fill\">Kategorie entfernen, wenn keine Anzeigen geschaltet werden.</mark></p><div class=\"lg-tw\"><table class=\"lg-tbl\"><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Anbieter</th><th scope=\"col\">Zweck</th><th scope=\"col\">Dauer</th></tr></thead><tbody><tr><td><code>_gcl_au</code></td><td>Google Ireland Limited</td><td>Misst, ob eine Google-Anzeige zu einer Anfrage geführt hat.</td><td>90 Tage</td></tr><tr><td><code>_fbp</code></td><td>Meta Platforms Ireland Limited</td><td>Misst den Erfolg von Anzeigen auf Facebook und Instagram.</td><td>90 Tage</td></tr></tbody></table></div>"
+    ],
+    [
+     "Rechtsgrundlage und Widerruf",
+     "<p>Optionale Cookies setzen wir auf Grundlage deiner Einwilligung (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO). Du kannst sie jederzeit über „Cookie-Einstellungen“ am Ende jeder Seite widerrufen. Ablehnen ist genauso einfach wie Zustimmen und hat keine Nachteile: Preisrechner, Formulare und WhatsApp funktionieren immer. Widerrufst du eine Einwilligung, löschen wir die zugehörigen Cookies auf deinem Gerät. Mehr dazu in der <a href=\"#datenschutz\">Datenschutzerklärung</a>.</p>"
+    ],
+    [
+     "Cookies im Browser löschen",
+     "<p>Du kannst Cookies und Website-Daten auch selbst in deinem Browser löschen oder blockieren, meist unter „Einstellungen“, „Datenschutz“ oder „Website-Daten“. Danach fragen wir beim nächsten Besuch erneut nach deiner Auswahl.</p>"
+    ]
+   ]
+  },
+  "barrierefreiheit": {
+   "nav": "Barrierefreiheit",
+   "h": "Barrierefreiheit",
+   "intro": "Wir möchten, dass alle Menschen ihr Gerät bei uns reparieren lassen können, auch online.",
+   "sec": [
+    [
+     "Unsere Dienstleistung",
+     "<p>Auf dieser Website kannst du Reparaturpreise berechnen, eine Reparatur anfragen, einen Rückruf anfordern, eine Abholung per WhatsApp vereinbaren und uns ein Gerät zum Ankauf anbieten. Alle Funktionen sind auch telefonisch und in unseren Filialen verfügbar.</p>"
+    ],
+    [
+     "Standard",
+     "<p>Wir orientieren uns an den Web Content Accessibility Guidelines (WCAG) 2.1 auf Stufe AA und der harmonisierten Norm EN 301 549.</p>"
+    ],
+    [
+     "So setzen wir Barrierefreiheit um",
+     "<ul><li>Alle Funktionen sind mit der Tastatur bedienbar; der Fokus ist immer deutlich sichtbar.</li><li>Texte und Bedienelemente haben ausreichenden Farbkontrast, und Informationen hängen nie nur an einer Farbe.</li><li>Schaltflächen, Formularfelder und Bilder haben Beschriftungen und Alternativtexte für Screenreader; Fehlermeldungen werden angesagt.</li><li>Die Seite lässt sich auf 200 % vergrößern und funktioniert auf allen Bildschirmgrößen ohne seitliches Scrollen.</li><li>Ist in deinem System „Bewegung reduzieren“ eingestellt, schalten wir Animationen ab.</li><li>Die Seite ist auf Deutsch und Englisch verfügbar, und die Sprache ist für Screenreader ausgezeichnet.</li><li>Den Preis kannst du tippen, antippen oder diktieren.</li></ul>"
+    ],
+    [
+     "Bekannte Einschränkungen",
+     "<ul><li>Der Vorher-nachher-Vergleich ist ein Regler. Mit der Tastatur bedienst du ihn mit den Pfeiltasten; die Bilder sind zusätzlich beschrieben.</li><li>WhatsApp, Google Maps und Instagram sind externe Dienste, auf deren Barrierefreiheit wir keinen Einfluss haben. Telefon, E-Mail und Formular stehen als Alternativen bereit.</li><li><mark class=\"fill\">Ergebnis der abschließenden Prüfung vor dem Livegang ergänzen.</mark></li></ul>"
+    ],
+    [
+     "Barriere melden",
+     "<p>Wenn dir eine Barriere auffällt oder du Hilfe brauchst, melde dich per E-Mail an <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a> oder telefonisch unter <a href=\"tel:+493081475791\">030 814 757 91</a>. Wir antworten innerhalb von <mark class=\"fill\">14</mark> Tagen und helfen dir in der Zwischenzeit auf einem anderen Weg.</p>"
+    ],
+    [
+     "Zuständige Marktüberwachungsbehörde",
+     "<p>Marktüberwachungsstelle der Länder für die Barrierefreiheit von Produkten und Dienstleistungen (MLBF AöR)<br>Carl-Miller-Straße 6, 39112 Magdeburg<br><a href=\"https://www.mlbf-barrierefrei.de\" target=\"_blank\" rel=\"noopener\">mlbf-barrierefrei.de</a></p>"
+    ],
+    [
+     "Stand dieser Erklärung",
+     "<p>Selbstbewertung vom 14. November 2026. <mark class=\"fill\">Prüfen, ob TipTop als Kleinstunternehmen (weniger als 10 Beschäftigte und höchstens 2 Mio. € Jahresumsatz) vom Barrierefreiheitsstärkungsgesetz ausgenommen ist. Die Erklärung kann dann freiwillig bleiben.</mark></p>"
+    ]
+   ]
+  }
+ },
+ "LEGAL_EN": {
+  "impressum": {
+   "nav": "Legal notice",
+   "h": "Legal notice",
+   "sec": [
+    [
+     "Information under § 5 DDG",
+     "<p>TLAMO GmbH<br>trading as “TipTop Service 24”<br>Beusselstraße 18<br>10553 Berlin<br>Germany</p><p>Second shop: Havelstraße 8, 13597 Berlin-Spandau</p>"
+    ],
+    [
+     "Represented by",
+     "<p>Managing director: <mark class=\"fill\">first and last name</mark></p>"
+    ],
+    [
+     "Contact",
+     "<p>Phone: <a href=\"tel:+493081475791\">030 814 757 91</a><br>Email: <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a><br>WhatsApp: +49 176 72746296</p>"
+    ],
+    [
+     "Company register",
+     "<p>Entered in the commercial register<br>Register court: Amtsgericht Charlottenburg (Berlin)<br>Register number: HRB <mark class=\"fill\">number</mark> B</p>"
+    ],
+    [
+     "VAT",
+     "<p>VAT identification number under § 27a of the German VAT Act: DE326279747</p>"
+    ],
+    [
+     "Master workshop",
+     "<p>Entered in the register of crafts of the Handwerkskammer Berlin, Blücherstraße 68, 10961 Berlin.<br>Professional title: <mark class=\"fill\">e.g. Informationstechniker-Meister</mark>, awarded in Germany.<br>Professional rules: German Crafts Code (Handwerksordnung), available at <a href=\"https://www.gesetze-im-internet.de/hwo/\" target=\"_blank\" rel=\"noopener\">gesetze-im-internet.de/hwo</a>.</p><p><mark class=\"fill\">Only include if the business is entered in the register of crafts. Otherwise remove this section.</mark></p>"
+    ],
+    [
+     "Responsible for content under § 18 (2) MStV",
+     "<p><mark class=\"fill\">first and last name</mark><br>Beusselstraße 18, 10553 Berlin</p>"
+    ],
+    [
+     "Consumer dispute resolution",
+     "<p>We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.</p>"
+    ],
+    [
+     "Liability for content and links",
+     "<p>We create the content of this website with care. Prices and repair times can change; the price we tell you before the repair is binding. The operators of external websites we link to are responsible for their content. No legal violations were apparent when we added the links. If we become aware of any, we remove the link straight away.</p>"
+    ],
+    [
+     "Image credits",
+     "<p>Photos: <mark class=\"fill\">enter photographer or source</mark></p>"
+    ],
+    [
+     "Design and development",
+     "<p>Ronak</p>"
+    ]
+   ]
+  },
+  "datenschutz": {
+   "nav": "Privacy",
+   "h": "Privacy policy",
+   "intro": "This page explains which data we process when you use our website, request a repair or sell us a device, why we need it and what your rights are.",
+   "sec": [
+    [
+     "Controller",
+     "<p>The controller for data processing on this website and in our shops is:</p><p>TLAMO GmbH (TipTop Service 24)<br>Beusselstraße 18, 10553 Berlin, Germany<br>Phone: <a href=\"tel:+493081475791\">030 814 757 91</a><br>Email: <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a></p><p>Represented by the managing director: <mark class=\"fill\">first and last name</mark></p>"
+    ],
+    [
+     "Data protection officer",
+     "<p><mark class=\"fill\">If a data protection officer has been appointed: enter name and contact. Otherwise remove this section.</mark> For any privacy question, write to <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a>.</p>"
+    ],
+    [
+     "The short version",
+     "<ul><li>You can use the website without an account and without giving us any data.</li><li>We only receive data about you when you call, write, submit a form or send a WhatsApp message.</li><li>Statistics and marketing services only load if you agree to them in the cookie settings.</li><li>The website and database run on servers in Germany. We never sell data.</li></ul>"
+    ],
+    [
+     "Legal bases",
+     "<p>We process personal data under the General Data Protection Regulation (GDPR) and the German Federal Data Protection Act (BDSG). Depending on the purpose, we rely on:</p><ul><li>Art. 6(1)(a) GDPR: your consent, which you can withdraw at any time for the future,</li><li>Art. 6(1)(b) GDPR: performing a contract or pre-contractual steps, such as a repair request,</li><li>Art. 6(1)(c) GDPR: legal obligations, such as retention duties under commercial and tax law,</li><li>Art. 6(1)(f) GDPR: our legitimate interest, such as running the website securely.</li></ul><p>Storing and reading information on your device is also governed by § 25 of the German Telecommunications Digital Services Data Protection Act (TDDDG).</p>"
+    ],
+    [
+     "Hosting and server logs",
+     "<p>The website is hosted by Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Germany, on servers in Germany. We have a data processing agreement with Hetzner under Art. 28 GDPR.</p><p>Every time a page is requested, the server stores technical data sent by your browser: IP address, date and time, the page requested, the previous page, browser and operating system. We need this to run the website reliably and securely and to fend off attacks (Art. 6(1)(f) GDPR). Logs are deleted after <mark class=\"fill\">14</mark> days unless they are needed to investigate a security incident.</p>"
+    ],
+    [
+     "Encryption",
+     "<p>The website uses TLS encryption, shown by the padlock and “https://” in the address bar. Data you send us through the website cannot be read by third parties.</p>"
+    ],
+    [
+     "Cookies, local storage and your consent",
+     "<p>Without your consent we only store what is strictly necessary to run the website on your device, such as your language and your cookie choice (§ 25(2) no. 2 TDDDG). We only use statistics and marketing with your consent (§ 25(1) TDDDG, Art. 6(1)(a) GDPR).</p><p>We manage your choice with our own solution, without an external provider. We store the categories you chose, the version of the notice, the time and a random ID as proof. After 12 months we ask again. You can change or withdraw your choice at any time via “Cookie settings” at the bottom of every page. Every entry is listed in the <a href=\"#cookies\">cookie policy</a>.</p>"
+    ],
+    [
+     "Price calculator, callback and repair request",
+     "<p>You can use the price calculator without giving any personal data. Only when you request a callback or submit the “Repair request” form do we process what you enter: name, phone or WhatsApp number, device and model, the repair you chose, your description of the problem and how you want to be contacted and repaired.</p><p>We only use this data to answer your request and carry out the repair (Art. 6(1)(b) GDPR). Requests are stored in our admin system on our server in Germany and also copied to a Google Sheets spreadsheet our team works from.</p><p>Requests that do not lead to a repair are deleted after 6 months. For repairs, we keep order and invoice data for as long as commercial and tax law requires, usually 6 to 10 years (Art. 6(1)(c) GDPR).</p>"
+    ],
+    [
+     "Google Sheets",
+     "<p>We use Google Sheets (Google Workspace) from Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland, to handle requests. We have a data processing agreement with Google under Art. 28 GDPR. A transfer to Google LLC in the USA cannot be ruled out. Google LLC is certified under the EU-US Data Privacy Framework, which is covered by an adequacy decision of the European Commission (Art. 45 GDPR). EU standard contractual clauses also apply.</p>"
+    ],
+    [
+     "WhatsApp",
+     "<p>The WhatsApp buttons open a chat with us with your repair or device already filled in as a message. Clicking does not send us anything yet. Only when you send the message do we receive your phone number, profile name and the message.</p><p>WhatsApp is operated by WhatsApp Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Ireland, part of the Meta group. WhatsApp's privacy policy applies, and processing in the USA is possible. We use WhatsApp Business to answer your request (Art. 6(1)(b) GDPR). If you would rather not use WhatsApp, you can reach us just as well by phone, email, form or in a shop. We delete chats no later than <mark class=\"fill\">6 months</mark> after the repair is complete.</p>"
+    ],
+    [
+     "Phone and email",
+     "<p>When you call or write to us, we process your details to handle your request (Art. 6(1)(b) or (f) GDPR). We delete emails once they are dealt with and no retention duty applies.</p>"
+    ],
+    [
+     "Voice input",
+     "<p>You can dictate your problem using the microphone button. Voice input only starts after you tap the button, confirm our notice and allow your browser to use the microphone. Your browser's speech recognition (Web Speech API) turns speech into text. Depending on the browser, the recording is sent to its maker for this: Google LLC for Chrome, Microsoft Corporation for Edge, Apple for Safari. We never receive the audio, only the recognised text in the input field.</p><p>The legal basis is your consent (Art. 6(1)(a) GDPR), given when you confirm the notice. Voice input is optional; typing works just as well.</p>"
+    ],
+    [
+     "Automatic reading of your problem description",
+     "<p>When you describe your problem in your own words, the website picks out the device, model and repair and suggests the matching price. This runs in your browser or on our server in Germany. No data is sent to external AI providers, and there is no automated decision under Art. 22 GDPR: you decide whether to use the suggestion.</p><p><mark class=\"fill\">If the live site uses an external AI service: add the provider, purpose and transfer here.</mark></p>"
+    ],
+    [
+     "Selling us a device",
+     "<p>When you sell us a device, we process the details needed for the purchase contract: name, address, date of birth, type and number of your ID, device details including serial number or IMEI, the price and payment details. This is necessary for the contract (Art. 6(1)(b) GDPR) and serves our legitimate interest in preventing the purchase of stolen devices and being able to show who we bought a device from (Art. 6(1)(f) GDPR). For this we check the IMEI against blocklists.</p><p>We keep purchase records for <mark class=\"fill\">6 years</mark>. Any data still on the device is fully erased before resale.</p>"
+    ],
+    [
+     "Pickup and mail-in",
+     "<p>For the free pickup service we process your address and pickup time; for mail-in repairs, your address for the return. We pass name and address to the delivery company <mark class=\"fill\">e.g. DHL Paket GmbH</mark> where needed for delivery (Art. 6(1)(b) GDPR).</p>"
+    ],
+    [
+     "Your data on the device during repair",
+     "<p>We only access the contents of your device where strictly necessary for the repair and function test. We do not copy anything and do not look at photos, messages or files. We only carry out data recovery on your instruction; we hand the recovered data to you and then delete our working copy.</p>"
+    ],
+    [
+     "Fonts",
+     "<p>The Archivo typeface is stored on our own server. No connection to Google Fonts or any other font provider is made when you open the site.</p>"
+    ],
+    [
+     "Links to Google Maps and Instagram",
+     "<p>The “Directions” buttons and the Instagram link are plain links. Only when you click them do you go to Google Maps (Google Ireland Limited) or Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Ireland), whose privacy policies then apply. No data is sent to these providers before that.</p>"
+    ],
+    [
+     "Statistics with Matomo (consent only)",
+     "<p>If you agree to “Statistics”, we use Matomo, open-source analytics software that we run on our own server in Germany. Matomo sets cookies and records pages viewed, time on page, device type and where the visit came from. Your IP address is shortened by two bytes before storage, so we cannot identify you. The data never leaves our server and is deleted after <mark class=\"fill\">13</mark> months.</p><p>The legal basis is your consent (§ 25(1) TDDDG, Art. 6(1)(a) GDPR). If you withdraw it in the cookie settings, we delete the Matomo cookies on your device.</p>"
+    ],
+    [
+     "Marketing (consent only)",
+     "<p>If you agree to “Marketing”, we load Google Ads conversion tracking (Google Ireland Limited) and the Meta Pixel (Meta Platforms Ireland Limited). This tells us whether an ad led to a request and lets us target ads in Berlin more precisely. Cookies are set and usage data such as IP address, device information and interactions are sent to Google or Meta, including to the USA. Both companies are certified under the EU-US Data Privacy Framework. We are jointly responsible with Meta for data collected through the Meta Pixel (Art. 26 GDPR).</p><p>The legal basis is your consent (§ 25(1) TDDDG, Art. 6(1)(a) GDPR), which you can withdraw at any time. <mark class=\"fill\">Only include if ads are run. Otherwise remove this section and the category.</mark></p>"
+    ],
+    [
+     "Admin area",
+     "<p>The admin area is only accessible to our team. Signing in uses strictly necessary cookies for the session and to protect against cross-site attacks. Changes to prices and requests are logged so we can see who changed what.</p>"
+    ],
+    [
+     "How long we keep data",
+     "<p>We only keep personal data for as long as needed for the purpose or required by law. The periods for each type of processing are listed above. After that we delete the data, or restrict it where a retention duty applies.</p>"
+    ],
+    [
+     "Your rights",
+     "<p>You have the right at any time to</p><ul><li>access the data we hold about you (Art. 15 GDPR),</li><li>have incorrect data corrected (Art. 16 GDPR),</li><li>have data erased (Art. 17 GDPR),</li><li>restrict processing (Art. 18 GDPR),</li><li>data portability (Art. 20 GDPR),</li><li>withdraw consent for the future (Art. 7(3) GDPR).</li></ul><p>A short message to <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a> or a visit to a shop is enough.</p>"
+    ],
+    [
+     "Right to object",
+     "<p><strong>Where we process data based on our legitimate interest (Art. 6(1)(f) GDPR), you can object at any time on grounds relating to your particular situation (Art. 21(1) GDPR). We will then stop, unless we can show compelling legitimate grounds that override your interests or the processing is needed to establish, exercise or defend legal claims. You can object to processing for advertising at any time without giving reasons (Art. 21(2) GDPR).</strong></p>"
+    ],
+    [
+     "Right to complain",
+     "<p>You can complain to a data protection supervisory authority (Art. 77 GDPR). Ours is:</p><p>Berliner Beauftragte für Datenschutz und Informationsfreiheit<br>Alt-Moabit 59–61, 10555 Berlin<br>Phone +49 30 13889-0<br><a href=\"https://www.datenschutz-berlin.de\" target=\"_blank\" rel=\"noopener\">datenschutz-berlin.de</a></p>"
+    ],
+    [
+     "Providing data and automated decisions",
+     "<p>You are not legally or contractually required to give us any data. Without a name and phone number we cannot call you back, though, and without ID details we cannot buy a device from you. There is no automated decision-making or profiling under Art. 22 GDPR.</p>"
+    ],
+    [
+     "Changes",
+     "<p>We update this policy when the website, our processes or the law change. The version published here applies.</p>"
+    ]
+   ]
+  },
+  "agb": {
+   "nav": "Terms",
+   "h": "Terms and conditions",
+   "intro": "For repairs and for selling devices to TipTop Service 24.",
+   "sec": [
+    [
+     "@Part A: Repairs"
+    ],
+    [
+     "§ 1 Scope",
+     "<ol class=\"lg-abs\"><li>These terms apply to all repair, diagnosis and purchase contracts between TLAMO GmbH, trading as “TipTop Service 24”, Beusselstraße 18, 10553 Berlin (“TipTop”), and its customers (“customer”), whether the contract is made in a shop, by phone, via WhatsApp or through the website.</li><li>Conflicting terms of the customer only apply if TipTop expressly agrees to them in text form.</li><li>A consumer is any natural person who enters into a transaction for purposes that are mainly outside their trade, business or profession (§ 13 BGB).</li></ol>"
+    ],
+    [
+     "§ 2 Website prices and contract",
+     "<ol class=\"lg-abs\"><li>Prices in the price calculator are final prices including 19% VAT for the stated repair on the stated model. Showing them on the website is not yet a binding offer. Prices marked “from” are minimum prices; the exact price is set after diagnosis.</li><li>The repair contract is made when the customer hands in the device at a shop and confirms the repair order, or when TipTop confirms an order for pickup or mail-in placed by phone, WhatsApp or through the website. Callback and request forms are non-binding enquiries.</li><li>If the diagnosis reveals further damage that would raise the agreed price, TipTop asks the customer before doing any extra work.</li></ol>"
+    ],
+    [
+     "§ 3 Diagnosis and estimates",
+     "<ol class=\"lg-abs\"><li>Diagnosis is free if the customer then orders the repair. If the customer declines the repair after diagnosis, TipTop charges <mark class=\"fill\">a flat fee of … €</mark>, provided this was agreed before the diagnosis.</li><li>An estimate is non-binding unless expressly marked as binding. If it looks like it will be exceeded significantly, TipTop tells the customer before continuing (§ 649 BGB).</li></ol>"
+    ],
+    [
+     "§ 4 Parts: Original and Premium",
+     "<ol class=\"lg-abs\"><li>“Original” means parts made by the device manufacturer or supplied by the manufacturer for repair.</li><li>“Premium” means high-quality compatible parts from other makers that TipTop tests for function, brightness, colour and touch before fitting. Displays may differ slightly from the original in brightness, colour and power use. Some manufacturers show a notice in the settings after a third-party part is fitted, such as “Unknown part” on iPhones; this does not limit function.</li><li>The customer chooses the part quality before the repair. Removed parts are returned on request; otherwise TipTop disposes of them properly.</li></ol>"
+    ],
+    [
+     "§ 5 Customer duties before the repair",
+     "<ol class=\"lg-abs\"><li>The customer backs up all data on the device before handing it in. Even with careful work, data can be lost during a repair. TipTop is only liable for data loss under § 12.</li><li>The customer removes SIM and memory cards, cases and accessories.</li><li>Where needed for the function test, the customer gives the unlock code or is present at handover to test. This is optional; without a code TipTop can only test in part.</li></ol>"
+    ],
+    [
+     "§ 6 Repair time",
+     "<p>Stated repair times, such as “under an hour”, are guidelines. If a part has to be ordered, TipTop gives the expected time. Only expressly promised dates are binding.</p>"
+    ],
+    [
+     "§ 7 Pickup and mail-in",
+     "<ol class=\"lg-abs\"><li>Within 5 km of a shop, TipTop collects the device free of charge at an agreed time and brings it back repaired.</li><li>For mail-in repairs the customer packs the device safely and without accessories. Return shipping is free for the customer. For consumers, TipTop bears the risk during return shipping until handover.</li><li>Consumers have a right of withdrawal for contracts made exclusively by distance communication. Details are in the <a href=\"#widerruf\">withdrawal policy</a>.</li></ol>"
+    ],
+    [
+     "§ 8 Payment, collection and uncollected devices",
+     "<ol class=\"lg-abs\"><li>The repair price is due when the device is returned. Payment by cash or card <mark class=\"fill\">or bank transfer</mark>.</li><li>TipTop has a statutory lien on the device for its claims under the repair contract (§ 647 BGB).</li><li>If the customer does not collect the repaired device within 4 weeks of being told it is ready, TipTop sends a reminder with a reasonable deadline. After that, TipTop may charge reasonable storage fees or proceed as permitted by law. <mark class=\"fill\">Check period and storage fee.</mark></li></ol>"
+    ],
+    [
+     "§ 9 Statutory warranty",
+     "<p>Statutory rights for defects apply to repair work and fitted parts. The limitation period is two years from acceptance (§ 634a BGB). Customers can report defects in a shop, by phone or by email.</p>"
+    ],
+    [
+     "§ 10 Guarantee",
+     "<ol class=\"lg-abs\"><li>In addition to the statutory rights, TipTop gives a voluntary guarantee on fitted parts and the work done. Depending on the repair and part quality it lasts up to 24 months; the exact period is on the invoice.</li><li>The guarantor is TLAMO GmbH, Beusselstraße 18, 10553 Berlin. The guarantee applies in Germany. In a guarantee case, TipTop checks the device and repairs it free of charge or replaces the affected part. The customer brings the device and invoice to a shop or sends it in.</li><li>Excluded is damage from drops, pressure, breakage (especially broken glass), liquids, improper handling and third-party work after the repair.</li><li>The customer's statutory rights, in particular those under § 9, are not affected or limited by the guarantee. Using the statutory rights is free of charge.</li></ol>"
+    ],
+    [
+     "§ 11 Water damage, board repair and data recovery",
+     "<p>For water damage, board-level repairs (micro-soldering, chip replacement) and data recovery, TipTop cannot guarantee success because the condition often only shows during the work. If the repair fails, TipTop only charges the diagnosis or effort price agreed beforehand. Devices already damaged by corrosion can develop further faults even after a successful repair; the guarantee under § 10 does not cover this. Statutory rights for defects are not affected.</p>"
+    ],
+    [
+     "§ 12 Liability",
+     "<ol class=\"lg-abs\"><li>TipTop is liable without limit for intent and gross negligence, for injury to life, body or health and under the Product Liability Act.</li><li>For simple negligence, TipTop is only liable for breach of an essential contractual duty, meaning a duty that makes proper performance of the contract possible in the first place and that the customer may regularly rely on. Liability is then limited to the foreseeable damage typical for the contract.</li><li>For loss of data caused by simple negligence, TipTop is only liable for the effort that would have been needed to restore the data had the customer backed it up properly.</li></ol>"
+    ],
+    [
+     "@Part B: Selling devices to TipTop"
+    ],
+    [
+     "§ 13 Offer and contract",
+     "<ol class=\"lg-abs\"><li>The offer the customer receives via WhatsApp or the website is a non-binding estimate based on their details and is valid for 7 days.</li><li>TipTop sets the binding price after checking the device in a shop. The purchase contract is made when it is signed in the shop, on paper or digitally on a tablet.</li></ol>"
+    ],
+    [
+     "§ 14 Requirements",
+     "<ol class=\"lg-abs\"><li>The seller must be at least 18 and show valid official photo ID.</li><li>The seller confirms that they own the device and may dispose of it freely, that it is not stolen, embezzled, financed, leased or subject to third-party rights, and that their description of its condition is accurate.</li><li>Activation locks such as Apple's Find My or the Google account lock must be removed before the sale. TipTop checks the IMEI or serial number against blocklists.</li></ol>"
+    ],
+    [
+     "§ 15 Data on the device",
+     "<p>The seller backs up and deletes their data before the sale and resets the device to factory settings. TipTop erases any remaining data with a certified process before resale and is not obliged to back up or hand over data.</p>"
+    ],
+    [
+     "§ 16 Price and payment",
+     "<p>The price is paid immediately when the contract is made, in cash or by transfer to an account in the seller's name.</p>"
+    ],
+    [
+     "§ 17 False information and blocked devices",
+     "<p>If the seller's confirmations under § 14 turn out to be untrue, in particular if the device is stolen or blocked, TipTop may withdraw from the contract and reclaim the price. Statutory claims remain unaffected. If a crime is suspected, TipTop may hand the device to the police.</p>"
+    ],
+    [
+     "@Part C: Final provisions"
+    ],
+    [
+     "§ 18 Consumer dispute resolution",
+     "<p>TipTop is neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.</p>"
+    ],
+    [
+     "§ 19 Governing law and jurisdiction",
+     "<ol class=\"lg-abs\"><li>German law applies, excluding the UN Convention on Contracts for the International Sale of Goods. For consumers, this choice of law only applies insofar as it does not remove the protection of mandatory rules of the country where they normally live.</li><li>If the customer is a merchant, a legal entity under public law or a special fund under public law, the place of jurisdiction is Berlin.</li></ol>"
+    ],
+    [
+     "§ 20 Invalid provisions",
+     "<p>If individual provisions are invalid, the rest of the contract remains valid. The statutory provisions take the place of the invalid provision (§ 306 BGB).</p>"
+    ]
+   ]
+  },
+  "widerruf": {
+   "nav": "Withdrawal",
+   "h": "Withdrawal policy",
+   "intro": "Applies to repair orders you place entirely at a distance, such as booking pickup or mail-in through the website, by phone or via WhatsApp.",
+   "sec": [
+    [
+     "Right of withdrawal",
+     "<p>You have the right to withdraw from this contract within fourteen days without giving any reason.</p><p>The withdrawal period is fourteen days from the day the contract is concluded.</p><p>To exercise your right of withdrawal, you must inform us (TLAMO GmbH, TipTop Service 24, Beusselstraße 18, 10553 Berlin, phone +49 30 81475791, email info@tiptophandyreparatur.de) of your decision to withdraw from this contract by a clear statement (e.g. a letter sent by post or an email). You may use the attached model withdrawal form, but this is not obligatory. You can also withdraw using the “Withdraw from contract” function on this page.</p><p>To meet the withdrawal deadline, it is sufficient for you to send your notice of withdrawal before the withdrawal period has expired.</p>"
+    ],
+    [
+     "Effects of withdrawal",
+     "<p>If you withdraw from this contract, we shall reimburse all payments received from you, including the costs of delivery (with the exception of the supplementary costs resulting from your choice of a type of delivery other than the least expensive type of standard delivery offered by us), without undue delay and in any event not later than fourteen days from the day on which we are informed about your decision to withdraw from this contract. We will carry out such reimbursement using the same means of payment as you used for the initial transaction, unless you have expressly agreed otherwise; in any event, you will not incur any fees as a result of such reimbursement.</p><p>If you requested to begin the performance of services during the withdrawal period, you shall pay us an amount which is in proportion to what has been provided until you have communicated to us your withdrawal from this contract, in comparison with the full coverage of the contract.</p>"
+    ],
+    [
+     "When the right applies",
+     "<ul><li>Consumers have this right for contracts made exclusively by distance communication, for example when you book pickup or mail-in through the website, by phone, email or WhatsApp.</li><li>There is no statutory right of withdrawal for orders you place in one of our shops.</li><li>The right expires once we have fully carried out the repair, if you expressly agreed beforehand that we may start before the withdrawal period ends and confirmed that you lose the right once the contract is fully performed (§ 356(4) BGB).</li></ul>"
+    ],
+    [
+     "Model withdrawal form",
+     "<div class=\"lg-form\"><p>(Complete and return this form only if you wish to withdraw from the contract.)</p><p>To TLAMO GmbH, TipTop Service 24, Beusselstraße 18, 10553 Berlin, Germany, email: info@tiptophandyreparatur.de:</p><p>I/We (*) hereby give notice that I/We (*) withdraw from my/our (*) contract of sale of the following goods (*)/for the provision of the following service (*)</p><p>Ordered on (*)/received on (*)</p><p>Name of consumer(s)</p><p>Address of consumer(s)</p><p>Signature of consumer(s) (only if this form is notified on paper)</p><p>Date</p><p>(*) Delete as appropriate.</p></div>"
+    ]
+   ]
+  },
+  "cookies": {
+   "nav": "Cookies",
+   "h": "Cookie policy",
+   "intro": "Which cookies and storage entries this website uses, what for and for how long.",
+   "sec": [
+    [
+     "Cookies and local storage",
+     "<p>Cookies and local storage entries are small pieces of data your browser keeps for a website. We use them sparingly: without your consent we only set what is strictly necessary to run the site. Third-party advertising and analytics cookies never load before you agree.</p>"
+    ],
+    [
+     "Necessary",
+     "<p>We need these for the site to work and remember your choices. The legal basis is § 25(2) no. 2 TDDDG; no consent is required.</p><div class=\"lg-tw\"><table class=\"lg-tbl\"><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Provider</th><th scope=\"col\">Purpose</th><th scope=\"col\">Duration</th></tr></thead><tbody><tr><td><code>tt-consent</code></td><td>TipTop (local storage)</td><td>Stores your cookie choice, the version of this notice, the time and a random ID as proof.</td><td>12 months</td></tr><tr><td><code>tt-lang</code></td><td>TipTop (local storage)</td><td>Remembers whether you want the site in German or English.</td><td>until you delete it</td></tr><tr><td><code>tt-mic-ok</code></td><td>TipTop (local storage)</td><td>Remembers that you confirmed the voice input notice.</td><td>until you delete it</td></tr><tr><td><code>csrftoken</code></td><td>TipTop (cookie, live site)</td><td>Stops forms being submitted from other websites.</td><td>1 year</td></tr><tr><td><code>sessionid</code></td><td>TipTop (cookie, live site)</td><td>Keeps staff signed in to the admin area. Never set for visitors.</td><td>2 weeks</td></tr><tr><td><code>tt-reqs, tt-ovr, tt-added</code></td><td>TipTop (local storage, prototype only)</td><td>Simulates the admin data in your browser for this design prototype. Not used on the live site.</td><td>until you delete it</td></tr></tbody></table></div>"
+    ],
+    [
+     "Statistics",
+     "<p>Only with your consent. Helps us see which pages and repairs people look for, so we can improve the site.</p><div class=\"lg-tw\"><table class=\"lg-tbl\"><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Provider</th><th scope=\"col\">Purpose</th><th scope=\"col\">Duration</th></tr></thead><tbody><tr><td><code>_pk_id.*</code></td><td>Matomo, our own server in Germany</td><td>Tells visits apart without identifying you. IP addresses are shortened.</td><td>13 months</td></tr><tr><td><code>_pk_ses.*</code></td><td>Matomo, our own server in Germany</td><td>Groups the pages viewed during one visit.</td><td>30 minutes</td></tr></tbody></table></div>"
+    ],
+    [
+     "Marketing",
+     "<p>Only with your consent. Measures whether our ads lead to requests. <mark class=\"fill\">Remove this category if no ads are run.</mark></p><div class=\"lg-tw\"><table class=\"lg-tbl\"><thead><tr><th scope=\"col\">Name</th><th scope=\"col\">Provider</th><th scope=\"col\">Purpose</th><th scope=\"col\">Duration</th></tr></thead><tbody><tr><td><code>_gcl_au</code></td><td>Google Ireland Limited</td><td>Measures whether a Google ad led to a request.</td><td>90 days</td></tr><tr><td><code>_fbp</code></td><td>Meta Platforms Ireland Limited</td><td>Measures how ads on Facebook and Instagram perform.</td><td>90 days</td></tr></tbody></table></div>"
+    ],
+    [
+     "Legal basis and withdrawal",
+     "<p>We set optional cookies based on your consent (§ 25(1) TDDDG, Art. 6(1)(a) GDPR). You can withdraw it at any time via “Cookie settings” at the bottom of every page. Rejecting is as easy as accepting and has no downside: the price calculator, forms and WhatsApp always work. If you withdraw consent, we delete the related cookies on your device. More in the <a href=\"#datenschutz\">privacy policy</a>.</p>"
+    ],
+    [
+     "Deleting cookies in your browser",
+     "<p>You can also delete or block cookies and site data yourself in your browser, usually under “Settings”, “Privacy” or “Site data”. We will then ask for your choice again on your next visit.</p>"
+    ]
+   ]
+  },
+  "barrierefreiheit": {
+   "nav": "Accessibility",
+   "h": "Accessibility",
+   "intro": "We want everyone to be able to get their device repaired with us, online too.",
+   "sec": [
+    [
+     "Our service",
+     "<p>On this website you can calculate repair prices, request a repair, ask for a callback, book a pickup via WhatsApp and offer us a device to buy. Everything is also available by phone and in our shops.</p>"
+    ],
+    [
+     "Standard",
+     "<p>We follow the Web Content Accessibility Guidelines (WCAG) 2.1 at level AA and the harmonised standard EN 301 549.</p>"
+    ],
+    [
+     "What we do",
+     "<ul><li>Every function works with a keyboard, and the focus is always clearly visible.</li><li>Text and controls have enough colour contrast, and information never depends on colour alone.</li><li>Buttons, form fields and images have labels and alternative text for screen readers; error messages are announced.</li><li>The page can be zoomed to 200% and works on every screen size without sideways scrolling.</li><li>If “Reduce motion” is turned on in your system, we switch animations off.</li><li>The site is available in German and English, and the language is marked up for screen readers.</li><li>You can type, tap or dictate to get a price.</li></ul>"
+    ],
+    [
+     "Known limitations",
+     "<ul><li>The before and after comparison is a slider. With a keyboard, use the arrow keys; the images are also described in text.</li><li>WhatsApp, Google Maps and Instagram are external services whose accessibility we cannot control. Phone, email and the form are available instead.</li><li><mark class=\"fill\">Add the result of the final audit before launch.</mark></li></ul>"
+    ],
+    [
+     "Report a barrier",
+     "<p>If you come across a barrier or need help, email <a href=\"mailto:info@tiptophandyreparatur.de\">info@tiptophandyreparatur.de</a> or call <a href=\"tel:+493081475791\">030 814 757 91</a>. We reply within <mark class=\"fill\">14</mark> days and help you another way in the meantime.</p>"
+    ],
+    [
+     "Market surveillance authority",
+     "<p>Marktüberwachungsstelle der Länder für die Barrierefreiheit von Produkten und Dienstleistungen (MLBF AöR)<br>Carl-Miller-Straße 6, 39112 Magdeburg, Germany<br><a href=\"https://www.mlbf-barrierefrei.de\" target=\"_blank\" rel=\"noopener\">mlbf-barrierefrei.de</a></p>"
+    ],
+    [
+     "Status of this statement",
+     "<p>Self-assessment of 14 November 2026. <mark class=\"fill\">Check whether TipTop is exempt from the Accessibility Strengthening Act as a micro-enterprise (fewer than 10 employees and annual turnover of at most €2 million). The statement can then stay voluntary.</mark></p>"
+    ]
+   ]
+  }
+ },
+ "COOKIES": {
+  "de": {
+   "necessary": [
+    [
+     "tt-consent",
+     "TipTop (lokaler Speicher)",
+     "Speichert deine Cookie-Auswahl, die Version dieses Hinweises, den Zeitpunkt und eine zufällige Kennung als Nachweis.",
+     "12 Monate"
+    ],
+    [
+     "tt-lang",
+     "TipTop (lokaler Speicher)",
+     "Merkt sich, ob du die Seite auf Deutsch oder Englisch sehen möchtest.",
+     "bis du ihn löschst"
+    ],
+    [
+     "tt-mic-ok",
+     "TipTop (lokaler Speicher)",
+     "Merkt sich, dass du den Hinweis zur Spracheingabe bestätigt hast.",
+     "bis du ihn löschst"
+    ],
+    [
+     "csrftoken",
+     "TipTop (Cookie, Live-System)",
+     "Schützt Formulare davor, von fremden Seiten abgeschickt zu werden.",
+     "1 Jahr"
+    ],
+    [
+     "sessionid",
+     "TipTop (Cookie, Live-System)",
+     "Hält Mitarbeitende im Admin-Bereich angemeldet. Wird für Besucher nicht gesetzt.",
+     "2 Wochen"
+    ],
+    [
+     "tt-reqs, tt-ovr, tt-added",
+     "TipTop (lokaler Speicher, nur Prototyp)",
+     "Simuliert im Design-Prototyp die Daten des Admin-Bereichs in deinem Browser. Entfällt im Live-System.",
+     "bis du ihn löschst"
+    ]
+   ],
+   "stats": [
+    [
+     "_pk_id.*",
+     "Matomo, eigener Server in Deutschland",
+     "Unterscheidet Besuche, ohne dich zu identifizieren. IP-Adresse wird gekürzt.",
+     "13 Monate"
+    ],
+    [
+     "_pk_ses.*",
+     "Matomo, eigener Server in Deutschland",
+     "Fasst Seitenaufrufe eines Besuchs zusammen.",
+     "30 Minuten"
+    ]
+   ],
+   "marketing": [
+    [
+     "_gcl_au",
+     "Google Ireland Limited",
+     "Misst, ob eine Google-Anzeige zu einer Anfrage geführt hat.",
+     "90 Tage"
+    ],
+    [
+     "_fbp",
+     "Meta Platforms Ireland Limited",
+     "Misst den Erfolg von Anzeigen auf Facebook und Instagram.",
+     "90 Tage"
+    ]
+   ]
+  },
+  "en": {
+   "necessary": [
+    [
+     "tt-consent",
+     "TipTop (local storage)",
+     "Stores your cookie choice, the version of this notice, the time and a random ID as proof.",
+     "12 months"
+    ],
+    [
+     "tt-lang",
+     "TipTop (local storage)",
+     "Remembers whether you want the site in German or English.",
+     "until you delete it"
+    ],
+    [
+     "tt-mic-ok",
+     "TipTop (local storage)",
+     "Remembers that you confirmed the voice input notice.",
+     "until you delete it"
+    ],
+    [
+     "csrftoken",
+     "TipTop (cookie, live site)",
+     "Stops forms being submitted from other websites.",
+     "1 year"
+    ],
+    [
+     "sessionid",
+     "TipTop (cookie, live site)",
+     "Keeps staff signed in to the admin area. Never set for visitors.",
+     "2 weeks"
+    ],
+    [
+     "tt-reqs, tt-ovr, tt-added",
+     "TipTop (local storage, prototype only)",
+     "Simulates the admin data in your browser for this design prototype. Not used on the live site.",
+     "until you delete it"
+    ]
+   ],
+   "stats": [
+    [
+     "_pk_id.*",
+     "Matomo, our own server in Germany",
+     "Tells visits apart without identifying you. IP addresses are shortened.",
+     "13 months"
+    ],
+    [
+     "_pk_ses.*",
+     "Matomo, our own server in Germany",
+     "Groups the pages viewed during one visit.",
+     "30 minutes"
+    ]
+   ],
+   "marketing": [
+    [
+     "_gcl_au",
+     "Google Ireland Limited",
+     "Measures whether a Google ad led to a request.",
+     "90 days"
+    ],
+    [
+     "_fbp",
+     "Meta Platforms Ireland Limited",
+     "Measures how ads on Facebook and Instagram perform.",
+     "90 days"
+    ]
+   ]
+  }
+ },
+ "GMB": {
+  "asof": "2026-11-15",
+  "moabit": {
+   "r": 4.9,
+   "n": 321,
+   "pid": "ChIJA6sIHRNRqEcRdYbk2bTKeB4",
+   "q": "Meisterwerkstatt TipTop Service 24, Beusselstraße 18, 10553 Berlin",
+   "s": "Moabit"
+  },
+  "spandau": {
+   "r": 4,
+   "n": 44,
+   "pid": "ChIJk4noUUFWqEcR8pf5IuXJ-7U",
+   "q": "Tip Top Reparatur Service, Havelstraße 8, 13597 Berlin",
+   "s": "Spandau"
+  }
+ },
+ "IC": {
+  "display": "<rect x=\"6\" y=\"2.5\" width=\"12\" height=\"19\" rx=\"2.4\"/><path d=\"M9.5 7l2.5 3.5-2 2.5 3.5 3.5\"/>",
+  "battery": "<rect x=\"2.5\" y=\"7.5\" width=\"17\" height=\"9\" rx=\"1.8\"/><path d=\"M21.5 10.5v3M6 10.5v3M9.5 10.5v3\"/>",
+  "port": "<path d=\"M9 3v5M15 3v5M7 8h10v3.5a5 5 0 0 1-10 0z\"/><path d=\"M12 16.5V21\"/>",
+  "back": "<rect x=\"6\" y=\"2.5\" width=\"12\" height=\"19\" rx=\"2.4\"/><rect x=\"8.3\" y=\"5\" width=\"4.4\" height=\"4.4\" rx=\"1.2\"/>",
+  "camera": "<path d=\"M4 7.5h3l2-2.5h6l2 2.5h3v11H4z\"/><circle cx=\"12\" cy=\"13\" r=\"3.2\"/>",
+  "camglass": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"3.5\"/><path d=\"M8 6.5l2 2.5\"/>",
+  "frontcam": "<rect x=\"6\" y=\"2.5\" width=\"12\" height=\"19\" rx=\"2.4\"/><circle cx=\"12\" cy=\"5.6\" r=\"1\"/>",
+  "faceid": "<path d=\"M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M9 9.5v1M15 9.5v1M12 9.5v3.5h-1M9 15.5c2 1.5 4 1.5 6 0\"/>",
+  "speaker": "<path d=\"M4 9h3.5L13 5v14l-5.5-4H4z\"/><path d=\"M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11\"/>",
+  "earpiece": "<path d=\"M8 15c0 2.5 1.6 4 3.5 4S15 17.6 15 15.5c0-2.6 3-3.3 3-7.5a6 6 0 0 0-12 0\"/>",
+  "mic": "<path d=\"M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z\"/><path d=\"M5 11a7 7 0 0 0 14 0M12 18v3\"/>",
+  "water": "<path d=\"M12 3s6 6.8 6 11a6 6 0 0 1-12 0c0-4.2 6-11 6-11z\"/>",
+  "mainboard": "<rect x=\"7\" y=\"7\" width=\"10\" height=\"10\" rx=\"1.2\"/><path d=\"M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4\"/>",
+  "data": "<ellipse cx=\"12\" cy=\"6\" rx=\"7.5\" ry=\"2.8\"/><path d=\"M4.5 6v12c0 1.6 3.4 2.8 7.5 2.8s7.5-1.2 7.5-2.8V6M4.5 12c0 1.6 3.4 2.8 7.5 2.8s7.5-1.2 7.5-2.8\"/>",
+  "diagnosis": "<circle cx=\"10.5\" cy=\"10.5\" r=\"6\"/><path d=\"M15 15l5.5 5.5\"/>",
+  "software": "<path d=\"M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13\"/>",
+  "buttons": "<path d=\"M12 3v7.5\"/><path d=\"M7.2 6.3a7.5 7.5 0 1 0 9.6 0\"/>",
+  "vibration": "<rect x=\"8\" y=\"4.5\" width=\"8\" height=\"15\" rx=\"1.8\"/><path d=\"M4.5 9v6M19.5 9v6\"/>",
+  "sim": "<path d=\"M7 3h7l4 4v14H7z\"/><rect x=\"9.5\" y=\"11.5\" width=\"6\" height=\"6\" rx=\"1\"/>",
+  "jack": "<path d=\"M4 15.5V12a8 8 0 0 1 16 0v3.5\"/><rect x=\"3\" y=\"14.5\" width=\"4\" height=\"6\" rx=\"1.2\"/><rect x=\"17\" y=\"14.5\" width=\"4\" height=\"6\" rx=\"1.2\"/>",
+  "keyboard": "<rect x=\"2.5\" y=\"6.5\" width=\"19\" height=\"11\" rx=\"1.8\"/><path d=\"M6 10h.01M9 10h.01M12 10h.01M15 10h.01M18 10h.01M7.5 14h9\"/>",
+  "trackpad": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2.5\"/><path d=\"M4 15h16M12 15v5\"/>",
+  "hinge": "<path d=\"M5 4h14v10H5z\"/><path d=\"M3 17h18\"/>",
+  "fan": "<circle cx=\"12\" cy=\"12\" r=\"1.8\"/><path d=\"M12 10.2c0-4 2.5-6.2 4.8-4.6 1.9 1.4.4 4.4-3.1 5.2M13.8 12c4 0 6.2 2.5 4.6 4.8-1.4 1.9-4.4.4-5.2-3.1M12 13.8c0 4-2.5 6.2-4.8 4.6-1.9-1.4-.4-4.4 3.1-5.2M10.2 12c-4 0-6.2-2.5-4.6-4.8 1.4-1.9 4.4-.4 5.2 3.1\"/>",
+  "ssd": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"10\" rx=\"1.6\"/><path d=\"M6.5 11h5M6.5 13.5h3\"/>",
+  "hdmi": "<path d=\"M3 8h18v4.5L18 16H6l-3-3.5z\"/><path d=\"M7 11h10\"/>",
+  "drive": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/>",
+  "psu": "<path d=\"M13 2.5L5 13.5h6l-1 8 8-11h-6z\"/>",
+  "drift": "<circle cx=\"12\" cy=\"7\" r=\"3.5\"/><path d=\"M12 10.5V16M5 16h14v4H5z\"/>",
+  "wa": "<path d=\"M4 20l1.3-3.9A8 8 0 1 1 8.2 19z\"/><path d=\"M9 9.5c0 2.8 2.2 5 5 5l1.2-1.4-2-1-.8.8a3.5 3.5 0 0 1-1.8-1.8l.8-.8-1-2z\"/>",
+  "call": "<path d=\"M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2\"/>",
+  "store": "<path d=\"M4 10v10h16V10\"/><path d=\"M3 10l2-6h14l2 6\"/><path d=\"M10 20v-5h4v5\"/>",
+  "search": "<circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M16 16l4.5 4.5\"/>",
+  "x": "<path d=\"M6 6l12 12M18 6L6 18\"/>",
+  "left": "<path d=\"M15 5l-7 7 7 7\"/>",
+  "right": "<path d=\"M9 5l7 7-7 7\"/>",
+  "lr": "<path d=\"M9 6l-6 6 6 6M15 6l6 6-6 6\"/>",
+  "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>",
+  "plus": "<path d=\"M12 5v14M5 12h14\"/>",
+  "img": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2.5\"/><circle cx=\"9\" cy=\"10\" r=\"2\"/><path d=\"M21 16l-5-5-9 9\"/>"
+ },
+ "WA_NUMBER": "4917672746296"
+}
