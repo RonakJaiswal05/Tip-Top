@@ -1,6 +1,6 @@
 # Google ratings, brand logo slots, trademark note, business WhatsApp number, per-shop phone.
-rep('const WA_NUMBER = "493081475791";', 'const WA_NUMBER = "4917672746296";')
-rep('// TODO before launch: confirm the shop\'s WhatsApp Business number. Currently the Moabit landline.\n', '// WhatsApp Business number of the shop (confirmed 15 Nov 2026): +49 176 72746296\n')
+# 25 Nov 2026: the owner wants the shop landline 030 814 757 91 as the WhatsApp number everywhere, so WA_NUMBER stays "493081475791".
+rep('// TODO before launch: confirm the shop\'s WhatsApp Business number. Currently the Moabit landline.\n', '// WhatsApp Business number of the shop = the shop landline 030 814 757 91 (owner, 25 Nov 2026)\n')
 rep('''  { id:"shop-moabit", area:"Berlin-Moabit", street:"Beusselstraße 18", zip:"10553 Berlin", q:"TipTop Service 24, Beusselstraße 18, 10553 Berlin" },
   { id:"shop-spandau", area:"Berlin-Spandau", street:"Havelstraße 8", zip:"13597 Berlin", q:"Havelstraße 8, 13597 Berlin" }''',
 '''  { id:"shop-moabit", g:"moabit", area:"Berlin-Moabit", street:"Beusselstraße 18", zip:"10553 Berlin", q:"TipTop Service 24, Beusselstraße 18, 10553 Berlin", tel:"+493081475791", telTxt:"030 814 757 91" },
@@ -11,5 +11,5 @@ rep('''  $("askMic").innerHTML = ic("mic");
   watch($("heroMedia"));''', '''  $("askMic").innerHTML = ic("mic");
   $("gmbHero").innerHTML = gmbBadge();
   watch($("heroMedia"));''')
-rep('</style>', open('gmb4.css', encoding='utf-8').read() + '\n</style>')
-rep('/* ===== Language, routing, boot ===== */', open('gmb4.js', encoding='utf-8').read() + '\n/* ===== Language, routing, boot ===== */')
+rep('</style>', open('gmb4.css').read() + '\n</style>')
+rep('/* ===== Language, routing, boot ===== */', open('gmb4.js').read() + '\n/* ===== Language, routing, boot ===== */')

@@ -78,13 +78,15 @@ function wireAdd() {
     e.preventDefault();
     const brand = $("nbBrand").value.trim(), name = $("nbName").value.trim();
     if (!brand || !name) { $("nbErr").textContent = t("ad_err"); return; }
+    const id = mk(AD.nb.cat, brand, name).id;
+    if (MODELS[AD.nb.cat].some(m => m.id === id)) { $("nbErr").textContent = t("ad_dup", { m:brand + " " + name }); return; }
     let fl = "";
     if (AD.nb.cat === "phone" && AD.nb.faceid) fl += "F";
     if (AD.nb.cat === "console") fl += "BbHP"[AD.nb.kind];
     ADDED.push({ cat:AD.nb.cat, brand, name, f:LVL[AD.nb.lvl], fl });
     LS.set("tt-added", ADDED); buildModels();
     toast(t("ad_added", { m:brand + " " + name }));
-    AD.tab = 0; AD.cat = AD.nb.cat; AD.sel = slug(AD.nb.cat + "-" + brand + "-" + name); renderAdmin();
+    AD.tab = 0; AD.cat = AD.nb.cat; AD.sel = id; renderAdmin();
   });
 }
 function adReqs() {
@@ -92,7 +94,7 @@ function adReqs() {
   const cols = t("ad_cols");
   const fmtD = iso => { try { return new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-GB", { dateStyle:"short", timeStyle:"short", timeZone:"Europe/Berlin" }).format(new Date(iso)); } catch (e) { return iso; } };
   return `<div class="acard"><p class="small" style="margin-bottom:12px">${esc(t("ad_reqs_note"))}</p><div class="tablewrap"><table class="rtable"><thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>
-    ${REQS.map(r => `<tr><td class="num">${esc(fmtD(r.when))}</td><td>${esc(r.name)}</td><td class="num">${esc(r.phone)}</td><td>${esc(r.device)}</td><td>${esc(r.repair)}${r.total ? `<br><span class="small">${esc(r.total)}</span>` : ""}</td><td><span class="badge">${esc(r.via === "cb" ? t("via_cb") : r.via === "wd" ? t("via_wd") : t("via_form"))}</span>${r.contact ? `<br><span class="small">${esc(r.contact)}</span>` : ""}</td></tr>`).join("")}
+    ${REQS.map(r => `<tr><td class="num">${esc(fmtD(r.when))}</td><td>${esc(r.name)}</td><td class="num">${esc(r.phone)}</td><td>${esc(r.device)}</td><td>${esc(r.repair)}${r.total ? `<br><span class="small">${esc(r.total)}</span>` : ""}${r.photos && r.photos.length ? `<span class="rq-ph">${r.photos.map((d, i) => `<img src="${d}" alt="${esc(t("sp_alt", { n:i + 1 }))}">`).join("")}</span>` : ""}</td><td><span class="badge">${esc(r.via === "cb" ? t("via_cb") : r.via === "wd" ? t("via_wd") : r.via === "sell" ? t("via_sell") : t("via_form"))}</span>${r.contact ? `<br><span class="small">${esc(r.contact)}</span>` : ""}</td></tr>`).join("")}
   </tbody></table></div></div>`;
 }
 

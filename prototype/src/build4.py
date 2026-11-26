@@ -169,5 +169,9 @@ rep('  hydrate(); requestAnimationFrame(setupLab);', '  hydrate(); watch(documen
 exec(open('patch_dev.py', encoding='utf-8').read())
 exec(open('patch_legal.py', encoding='utf-8').read())
 exec(open('patch_gmb.py', encoding='utf-8').read())
+exec(open('patch_feedback.py', encoding='utf-8').read())  # client feedback 17 Nov 2026
+exec(open('patch_nov17.py', encoding='utf-8').read())  # client voice note 17 Nov 2026 evening
+exec(open('patch_nov26.py', encoding='utf-8').read())  # call with the owner, 25 Nov 2026
+exec(open('patch_hero_video.py', encoding='utf-8').read())  # desktop hero film, softer call text, 26 Nov 2026
 open('src4.html', 'w', encoding='utf-8').write(s)
 print("ok", len(s))

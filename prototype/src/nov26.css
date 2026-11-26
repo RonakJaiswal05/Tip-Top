@@ -1,0 +1,59 @@
+/* ===== 25/26 Nov 2026: logo, top of page, hours ===== */
+.logo .logo-full{height:46px;width:auto;border-radius:0}
+.logo .logo-mark{height:42px;width:auto;border-radius:0}
+@media(min-width:1600px){.logo .logo-full{height:52px}}
+@media(max-width:1179px){.nav-tel{display:none}}
+@media(min-width:1180px){.nav-tel{display:flex;flex-direction:column;align-items:flex-end;line-height:1.08;gap:2px}}
+.nav-tel b{font-size:15.5px;font-weight:800}
+.nav-tel small{font-size:11.5px;font-weight:750;color:#C2410C;letter-spacing:.01em}
+/* search bar and call buttons at the top of the hero */
+.hero-top{margin-bottom:clamp(20px,2.6vw,30px)}
+.hero-top .ask{margin-top:0;position:relative;padding-left:14px;background:#fff;border:2px solid var(--ink);box-shadow:0 10px 26px -18px rgba(18,20,28,.45)}
+.ask-ic{display:grid;place-items:center;font-size:20px;color:var(--ink);flex:none;margin-right:2px}
+.ask-msg:empty{min-height:0;margin:0}
+.ask-list{position:absolute;left:-2px;right:-2px;top:calc(100% + 8px);z-index:30;margin:0;padding:6px;list-style:none;background:#fff;border-radius:14px;box-shadow:0 22px 44px -14px rgba(18,20,28,.32),0 0 0 1px rgba(18,20,28,.07);max-height:min(62vh,430px);overflow:auto}
+.ask-list li{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border-radius:10px;cursor:pointer}
+.ask-list li:hover,.ask-list li[aria-selected="true"]{background:var(--fog)}
+.ao-n{min-width:0}.ao-n small{display:block;font-size:12px;color:var(--muted)}.ao-n b{display:block;font-size:15.5px;font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ao-p{font-size:12.5px;color:var(--muted);text-align:right;white-space:nowrap}.ao-p b{display:block;color:var(--ink);font-size:14.5px}
+.hero-cta{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:12px}
+.hc{display:flex;align-items:center;gap:12px;min-height:64px;padding:11px 14px;border-radius:14px;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s}
+.hc:hover{transform:translateY(-2px);box-shadow:0 14px 26px -16px rgba(18,20,28,.5)}
+.hc-call{background:var(--ink);color:#fff}
+.hc-wa{background:var(--wa);color:var(--ink)}
+.hc-i{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;font-size:20px;flex:none;background:rgba(255,255,255,.16)}
+.hc-wa .hc-i{background:rgba(255,255,255,.5)}
+.hc-t{min-width:0}.hc-t b{display:block;font-size:17px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.hc-t small{display:block;font-size:13px;font-weight:700;margin-top:1px}
+.hc-call small{color:#FFC48A}
+.hero-top .gmb-wrap{margin-top:12px}
+@media(max-width:380px){.hc{gap:9px;padding:10px 11px}.hc-i{width:34px;height:34px;font-size:18px}.hc-t b{font-size:15px}.hc-t small{font-size:12px}}
+@media(max-width:599px){.hero-cta{grid-template-columns:minmax(0,1fr);gap:8px}.hc{min-height:58px;padding:9px 14px}.hero-top .ask .go{padding:0 16px}}
+/* phones: search, buttons and rating above the photo */
+@media(max-width:599px){
+  .hero-grid{row-gap:0}
+  .hero-grid > div:first-child{display:contents}
+  .hero-top{order:-2;margin-bottom:0}
+  .hero-media{order:-1;margin:18px 0 22px}
+}
+/* tablets: search row across both columns, then headline and photo side by side */
+@media(min-width:600px) and (max-width:900px){
+  .hero-top{grid-column:1 / -1;grid-row:1}
+  .hero h1{grid-row:2}.hero-p{grid-row:3}
+  .hero-media{grid-row:2 / span 2}
+}
+/* desktop-only background video inside the hero photo */
+.hero-frame .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+/* opening hours, one day per line */
+.hours{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-variant-numeric:tabular-nums}
+.hours li{display:flex;justify-content:space-between;gap:18px}
+.hours li.today{font-weight:800}
+.shop .shop-h{display:flex;align-items:flex-start;gap:12px;width:100%;max-width:380px;padding:14px 16px;border-radius:16px;font-weight:500;font-size:15px}
+.shop .shop-h .ico{margin-top:2px}
+.shop .shop-h .hours{flex:1}
+.shop-call{margin-top:10px}
+.shop-call a{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:16px;color:#C2410C;text-decoration:none}
+.shop-call .ico{font-size:18px}
+footer .hours li{max-width:280px}
+.fcall{display:inline-block;margin-top:10px;font-weight:800;font-size:clamp(16px,1.6vw,20px);color:#FFC48A}
+.flogo{display:block;height:clamp(44px,5vw,64px);width:auto;margin-bottom:clamp(18px,2.6vw,30px)}

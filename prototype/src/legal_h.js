@@ -2,10 +2,14 @@
 // Legal pages live on hash routes so they work inside the prototype and the standalone file.
 // Live site: these become Django CMS pages (/impressum, /datenschutz, ...) editable in the admin.
 const LEGAL_KEYS = ["impressum", "datenschutz", "agb", "widerruf", "cookies", "barrierefreiheit"];
-const LEGAL_UPD = { de:"14. November 2026", en:"14 November 2026" };
-const LG_MAIL = '<a href="mailto:info@tiptophandyreparatur.de">info@tiptophandyreparatur.de</a>';
+const LEGAL_UPD = { de:"26. November 2026", en:"26 November 2026" };
+// Shop email confirmed in the call of 25 Nov 2026 (no access to the old info@ address).
+const LG_MAIL = '<a href="mailto:tiptophandyreparatur@gmail.com">tiptophandyreparatur@gmail.com</a>';
 const LG_TEL = '<a href="tel:+493081475791">030 814 757 91</a>';
+// Sole trader (Einzelunternehmer), no GmbH. Owner confirmed in the call of 25 Nov 2026: Mostafa Khodr (K-H-O-D-R).
+const LG_FIRM = "TipTop Service 24 Handy Reparatur Berlin";
 const fillIn = s => `<mark class="fill">${s}</mark>`;
+const LG_OWNER = "Mostafa Khodr";
 const extL = (u, x) => `<a href="${u}" target="_blank" rel="noopener">${x || u.replace(/^https?:\/\/(www\.)?/, "")}</a>`;
 const intL = (h, x) => `<a href="#${h}">${x}</a>`;
 const abs = items => `<ol class="lg-abs">${items.map(x => `<li>${x}</li>`).join("")}</ol>`;
