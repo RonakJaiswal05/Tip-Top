@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/tiptop/admin.css' %}">{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Übersicht</a> › <a href="{% url 'admin:catalog_price_editor' %}">Preise</a> › Preisliste</div>{% endblock %}
+{% block content %}
+<p class="tt-help">Alle Modelle einer Geräteart mit ihren wichtigsten Reparaturen in einer Tabelle. Preise ändern und unten speichern: Gespeichert werden nur die geänderten Felder (blau markiert), jede Änderung steht in der Historie und lässt sich zurücknehmen. Leeres Feld = Preis auf Anfrage. „–“ = diese Reparatur gibt es für das Modell nicht. Einheitspreise (Fehlerdiagnose, Wasserschaden, Datenrettung, Software) stehen unter <a href="{% url 'admin:catalog_categoryprice_changelist' %}">Grundpreise</a>.</p>
+<p class="tt-filters">
+  {% for c in cats %}<a class="button{% if c.key == cat.key %} default{% endif %}" href="?cat={{ c.key }}{% if every %}&amp;cols=all{% endif %}">{{ c.name_de }}</a>{% endfor %}
+</p>
+<form method="get" class="tt-filters">
+  <input type="hidden" name="cat" value="{{ cat.key }}">
+  <select name="brand" aria-label="Marke" onchange="this.form.submit()"><option value="">Alle Marken</option>{% for b in brands %}<option value="{{ b.slug }}"{% if b.slug == brand %} selected{% endif %}>{{ b.name }}</option>{% endfor %}</select>
+  <select name="cols" aria-label="Spalten" onchange="this.form.submit()"><option value="">Wichtigste Reparaturen</option><option value="all"{% if every %} selected{% endif %}>Alle Reparaturen</option></select>
+  <noscript><input type="submit" value="Anzeigen"></noscript>
+  <span>{{ rows|length }} Modelle · {{ n_cells }} Preise</span> ·
+  <a href="{% url 'admin:catalog_price_export' %}?cat={{ cat.key }}&amp;fmt=csv">Export CSV</a> ·
+  <a href="{% url 'admin:catalog_price_export' %}?cat={{ cat.key }}">Export Excel</a> ·
+  <a href="{% url 'admin:catalog_price_import' %}">Import (CSV oder Excel)</a> ·
+  <a href="{% url 'admin:catalog_price_editor' %}?cat={{ cat.key }}">Einzelnes Modell bearbeiten</a>
+</form>
+{% if rows %}
+<form method="post" data-grid>{% csrf_token %}
+  <div class="tt-gridwrap">
+    <table class="tt-ptable tt-grid">
+      <thead><tr><th scope="col" class="tt-mcol">Modell</th>{% for h in heads %}<th scope="col">{{ h.r.name_de }}{% if h.tier %}<small>{{ h.tier }}</small>{% endif %}</th>{% endfor %}</tr></thead>
+      <tbody>{% for row in rows %}<tr>
+        <th scope="row" class="tt-mcol"><a href="{% url 'admin:catalog_price_editor' %}?model={{ row.m.pk }}" title="Alle Preise dieses Modells">{{ row.m.name }}</a> <small>{{ row.m.brand.name }}</small></th>
+        {% for c in row.cells %}{% if c.ok %}<td{% if c.src %} title="{{ c.src }}"{% endif %}><input type="number" min="0" step="1" inputmode="numeric" name="{{ c.name }}" value="{% if c.value is not None %}{{ c.value|floatformat:'-2' }}{% endif %}" data-def="{% if c.value is not None %}{{ c.value|floatformat:'-2' }}{% endif %}" placeholder="Anfrage" aria-label="{{ c.label }}">{% if c.from %}<span class="tt-ab">ab</span>{% endif %}</td>{% else %}<td class="ph na"><span aria-hidden="true">–</span><span class="visually-hidden">{{ c.label }}: nicht möglich</span></td>{% endif %}{% endfor %}
+      </tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  <div class="submit-row"><input type="submit" class="default" value="Geänderte Preise speichern"> <span class="tt-dirty" aria-live="polite"></span></div>
+</form>
+{% else %}<p>Keine aktiven Modelle in dieser Auswahl.</p>{% endif %}
+<script src="{% static 'admin/tiptop/prices.js' %}"></script>
+{% endblock %}

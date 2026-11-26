@@ -131,6 +131,118 @@ def save_model_prices(request, model: DeviceModel) -> tuple[int, list[str]]:
     return changed, []
 
 
+def _grid_columns(cat: Category, every: bool) -> list[tuple[RepairType, str]]:
+    """Columns of the price list: the category's main repairs (the big cards), or every repair of the category.
+    Single-price repairs (diagnosis, water damage check, data recovery, software) are left out: they have one price
+    for the whole category (Grundpreise)."""
+    if every:
+        keys = list(dict.fromkeys(cat.options.order_by("console_type", "order").values_list("repair_id", flat=True)))
+        reps = sorted(RepairType.objects.filter(id__in=keys, fixed_price=False), key=lambda r: keys.index(r.id))
+    else:
+        reps = [f.repair for f in cat.featured.select_related("repair").order_by("order") if not f.repair.fixed_price]
+    cols = []
+    for r in reps:
+        for tier in ([Tier.PREMIUM, Tier.ORIGINAL] if r.has_tiers else [Tier.STANDARD]):
+            cols.append((r, tier))
+    return cols
+
+
+def price_grid(request):
+    """Price list per device type (call with the owner, 25 Nov 2026): every model of a category against its main
+    repairs in one editable table, so the whole price list can be checked and set without opening model by model.
+    Only changed cells are sent; empty means "on request"; a dash means the model doesn't get that repair."""
+    _need(request, "view")
+    from .services import services_for, snapshot
+
+    cats = list(Category.objects.order_by("order"))
+    cat = next((c for c in cats if c.key == request.GET.get("cat")), cats[0])
+    every = request.GET.get("cols") == "all"
+    brand = request.GET.get("brand", "")
+    cols = _grid_columns(cat, every)
+    snap = snapshot()
+    snap_models = {m["id"]: m for m in snap["models"]}
+    models = DeviceModel.objects.filter(category=cat, active=True).select_related("brand").order_by("brand__order", "sort_order", "name")
+    if brand:
+        models = models.filter(brand__slug=brand)
+    models = list(models)
+    brands = Brand.objects.filter(models__category=cat, models__active=True).distinct().order_by("order", "name")
+
+    if request.method == "POST":
+        _need(request, "change")
+        changed, errors = save_grid(request, models, cols, snap_models, snap)
+        if errors:
+            messages.error(request, "Nichts gespeichert, bitte prüfen: " + ", ".join(errors[:12]) + (" …" if len(errors) > 12 else ""))
+        else:
+            messages.success(request, f"{changed} Preise gespeichert. Die Website zeigt sie jetzt." if changed else "Keine Änderungen.")
+            return redirect(request.get_full_path())
+
+    current = {}
+    for p in Price.objects.filter(model__in=models, repair__in={r for r, _ in cols}):
+        current[(p.model_id, p.repair_id, p.tier)] = p
+    rows = []
+    for m in models:
+        have = set(services_for(snap, snap_models[m.id])) if m.id in snap_models else set()
+        cells = []
+        for r, tier in cols:
+            p = current.get((m.id, r.id, tier))
+            label = f"{m.name}: {r.name_de}" + ("" if tier == Tier.STANDARD else f" ({Tier(tier).label})")
+            cells.append({"ok": r.key in have, "name": f"p_{m.id}_{r.id}_{tier}", "value": p.amount if p else None,
+                          "from": bool(p and p.is_from), "src": p.get_source_display() if p else "", "label": label})
+        rows.append({"m": m, "cells": cells})
+    heads = [{"r": r, "tier": "" if t == Tier.STANDARD else Tier(t).label} for r, t in cols]
+    return render(request, "admin/catalog/price_grid.html", _ctx(
+        request, f"Preisliste {cat.name_de}", cats=cats, cat=cat, every=every, brand=brand, brands=brands,
+        heads=heads, rows=rows, n_cells=sum(1 for r in rows for c in r["cells"] if c["ok"]),
+    ))
+
+
+@transaction.atomic
+def save_grid(request, models, cols, snap_models, snap) -> tuple[int, list[str]]:
+    from .services import services_for
+
+    by_id = {m.id: m for m in models}
+    reps = {r.id: r for r, _ in cols}
+    tiers = {(r.id, t) for r, t in cols}
+    current = {(p.model_id, p.repair_id, p.tier): p for p in
+               Price.objects.select_for_update().filter(model__in=models, repair__in=reps.values())}
+    changed, errors = 0, []
+    reason = "Preisliste (Tabelle)"
+    for field, raw in request.POST.items():
+        if not field.startswith("p_"):
+            continue
+        try:
+            _, mid, rid, tier = field.split("_", 3)
+            m, r = by_id[int(mid)], reps[int(rid)]
+        except (ValueError, KeyError):
+            continue
+        if (r.id, tier) not in tiers or m.id not in snap_models or r.key not in services_for(snap, snap_models[m.id]):
+            continue
+        try:
+            amount = _dec(raw)
+        except ValueError as e:
+            errors.append(f"{m.full_name('de')} · {r.name_de}: „{e}“")
+            continue
+        p = current.get((m.id, r.id, tier))
+        if amount is None:
+            if p:
+                p._change_reason = reason
+                p.delete()
+                changed += 1
+            continue
+        if p and p.amount == amount:
+            continue
+        if not p:
+            p = Price(model=m, repair=r, tier=tier, is_from=r.default_from)
+        p.amount, p.source = amount, PriceSource.ADMIN
+        p._change_reason = reason
+        p.save()
+        changed += 1
+    if errors:
+        transaction.set_rollback(True)
+        return 0, errors
+    return changed, []
+
+
 class BulkForm(forms.Form):
     category = forms.ModelChoiceField(Category.objects.order_by("order"), label="Kategorie")
     brand = forms.ModelChoiceField(Brand.objects.order_by("name"), label="Marke", required=False, empty_label="Alle Marken")

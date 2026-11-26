@@ -53,6 +53,16 @@ def _intervals(iv, lang: str, long: bool) -> str:
     return s + (" Uhr" if lang == "de" else "")
 
 
+def day_list(weekly: dict, lang: str) -> list[tuple[str, str]]:
+    """One line per weekday, Monday first: ('Montag', '10:00–20:00 Uhr') or ('Sonntag', '') when closed."""
+    out = []
+    for d in range(7):
+        iv = weekly.get(d, [])
+        text = ", ".join(f"{o:%H:%M}–{c:%H:%M}" for o, c in iv)
+        out.append((DAYS_LONG[lang][d], text + (" Uhr" if text and lang == "de" else "")))
+    return out
+
+
 def week_text(weekly: dict, lang: str, long: bool = False) -> str:
     """'Mo–Sa 10–20 Uhr' or 'Montag bis Samstag, 10 bis 20 Uhr'."""
     groups = _groups(weekly)

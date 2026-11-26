@@ -53,6 +53,10 @@ class Brand(models.Model):
         help_text="Offizielle Logodatei des Herstellers (SVG bevorzugt, sonst PNG). Bitte keine nachgezeichneten Logos. "
                   "Ohne Logo zeigt die Website den Namen.",
     )
+    logo_is_wordmark = models.BooleanField(
+        "Logo zeigt den Namen", default=False,
+        help_text="Das Logo ist ein Schriftzug (z. B. SAMSUNG, SONY). Im Markenschrank steht der Name dann nicht noch einmal daneben.",
+    )
     order = models.PositiveSmallIntegerField("Reihenfolge", default=0)
     active = models.BooleanField("Aktiv", default=True)
 
@@ -194,6 +198,11 @@ class DeviceModel(models.Model):
     has_face_id = models.BooleanField("Hat Face ID", default=False)
     has_headphone_jack = models.BooleanField("Hat Kopfhörerbuchse", default=False)
     console_type = models.CharField("Konsolentyp", max_length=1, blank=True, choices=ConsoleType.choices)
+    excluded_repairs = models.ManyToManyField(
+        RepairType, verbose_name="Nicht möglich", blank=True, related_name="+",
+        help_text="Reparaturen, die es bei diesem Gerät nicht gibt (z. B. kein Lüfter, fest verlöteter Speicher, "
+                  "Batterien statt Akku). Sie erscheinen weder im Rechner noch auf der Modellseite.",
+    )
     photo = models.ImageField("Foto", upload_to="models/", blank=True)
     active = models.BooleanField(
         "Aktiv", default=True, help_text="Ausschalten, wenn das Modell nicht mehr repariert wird. Die Historie bleibt erhalten."

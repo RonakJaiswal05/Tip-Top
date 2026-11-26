@@ -63,15 +63,20 @@ const IC = {
   store:'<path d="M4 10v10h16V10"/><path d="M3 10l2-6h14l2 6"/><path d="M10 20v-5h4v5"/>',
   search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>', left:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>', lr:'<path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/>',
-  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', plus:'<path d="M12 5v14M5 12h14"/>', img:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>'
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/>', ship:'<path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>', globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9M12 3C9.4 5.6 8.2 8.6 8.2 12s1.2 6.4 3.8 9"/>', plus:'<path d="M12 5v14M5 12h14"/>', img:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/>'
 };
 const ic = (k, sw = 1.8) => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k] || IC.diagnosis}</svg>`;
 
 /* ===== Images: responsive AVIF/WebP/JPEG from the media library (sizes as in the prototype) ===== */
 const IMG = D.img || {};
-const REP_IMG = { display:"rep-display", battery:"rep-battery", port:"rep-port", back:"rep-back", camera:"rep-camera", water:"rep-water", cport:"rep-port" };
 const CAT_IMG = { phone:"cat-phone", tablet:"cat-tablet", laptop:"cat-laptop", console:"cat-console" };
-const repImg = k => (CAT && CAT.rep[k] && CAT.rep[k].img) || REP_IMG[k];
+// Repair photos per device type (client, 17 and 25 Nov 2026): the iPhone set only for Apple phones, the Android set for
+// every other phone, own sets for tablets, laptops and consoles. Without a photo the card is a tile in the device colour.
+function repImg(cat, k, brand) {
+  const g = CAT && CAT.rimg ? CAT.rimg[cat === "phone" && brand === "Apple" ? "phone_apple" : cat] : null;
+  const id = g && g[k];
+  return id && IMG[id] ? id : null;
+}
 function ph(id, cls = "") { return `<figure class="ph ${cls}" data-img="${esc(id)}" aria-hidden="true"></figure>`; }
 function imgSizes(f) {
   if (f.closest(".tile")) return "(max-width:599px) 44vw, (max-width:900px) 22vw, 200px";
@@ -109,24 +114,37 @@ const CATS = ["phone", "tablet", "laptop", "console"];
 let CAT = null, MODELS = {}, ALIASES = [], catP = null;
 function loadCatalog() {
   if (!catP) catP = fetch(D.api.catalog, { credentials:"same-origin" }).then(r => { if (!r.ok) throw new Error("catalog"); return r.json(); })
-    .then(c => { CAT = c; buildModels(); return c; }).catch(e => { catP = null; throw e; });
+    .then(c => { CAT = c; Object.assign(IMG, c.img || {}); buildModels(); return c; }).catch(e => { catP = null; throw e; });
   return catP;
 }
 function buildModels() {
   MODELS = {};
   for (const c of CATS) MODELS[c] = [];
-  for (const m of CAT.models) if (MODELS[m.cat]) MODELS[m.cat].push({ id:String(m.id), cat:m.cat, brand:m.brand, name:m.name, loc:lang === "de" ? m.nde : m.nen, full:m[lang], slug:m.slug, fl:m.fl || "", ct:m.ct || "" });
+  for (const m of CAT.models) if (MODELS[m.cat]) MODELS[m.cat].push({ id:String(m.id), cat:m.cat, brand:m.brand, name:m.name, loc:lang === "de" ? m.nde : m.nen, full:m[lang], slug:m.slug, fl:m.fl || "", ct:m.ct || "", no:m.no || [] });
   ALIASES = [];
-  const add = (a, m) => { a = norm(a).trim(); if (a.length >= 3) ALIASES.push({ a, m }); };
+  // Single everyday words never count as a model name on their own ("book a repair" is not a Surface Book).
+  const seen = new Set();
+  const add1 = (a, m) => { const k = a + "|" + m.id; if (a.length >= 3 && !ALIAS_STOP.has(a) && !/^phone \d/.test(a) && !seen.has(k)) { seen.add(k); ALIASES.push({ a, m }); } };
+  // Each alias also counts with "+" written as "plus" and with a space between letters and numbers ("note 20", "z fold 5").
+  const add = (a, m) => { a = norm(a).trim(); for (const v of [a, a.replace(/\+/g, " plus"), a.replace(/([a-z])(\d)/g, "$1 $2"), a.replace(/([a-z])(\d)/g, "$1 $2").replace(/\+/g, " plus")]) add1(v.replace(/\s+/g, " ").trim(), m); };
   for (const c of CATS) for (const m of MODELS[c]) {
     const n = norm(m.name).trim();
     add(m.name, m); add(m.brand + " " + m.name, m);
     add(n.replace(/([a-z])\s(\d)/g, "$1$2"), m);
-    if (m.brand === "Samsung") add(n.replace(/^galaxy /, ""), m);
-    if (/^playstation /.test(n)) add(n.replace(/^playstation /, "ps"), m);
+    if (m.brand === "Samsung" && m.cat !== "laptop") add(n.replace(/^galaxy /, ""), m);
+    if (/^playstation \d/.test(n)) add(n.replace(/^playstation /, "ps"), m);
+    if (n === "playstation portal") add("ps portal", m);
     if (/^xbox (series|one)/.test(n)) add(n.replace(/^xbox /, ""), m);
+    if (n === "dualsense controller") { add("ps5 controller", m); add("playstation 5 controller", m); }
+    if (/ controller$/.test(n)) { const s2 = n.replace(/ controller$/, ""); if (s2.includes(" ") || s2 === "dualsense") add(s2, m); }
+    if (/^iphone \d/.test(n)) { add(n.replace(/^iphone /, "ip"), m); add(n.replace(/^iphone /, "ip "), m); }
+    if (/^dualshock 4/.test(n)) { add("ps4 controller", m); add("playstation 4 controller", m); }
+    if (m.name === "iPhone Duo") { add("iphone fold", m); add("iphone foldable", m); }
+    const g = m.name.match(/^(iPad(?: mini| Air| Pro(?: [\d.]+)?)?) \((\d+)(?:st|nd|rd|th) gen\)$/);
+    if (g) { add(g[1] + " " + g[2], m); add(g[1] + " " + g[2] + " gen", m); add(g[1] + " " + g[2] + " generation", m); add(g[1] + " " + g[2] + ". generation", m); }
   }
 }
+const ALIAS_STOP = new Set(["one","book","modern","stealth","raider","swift","precision","prestige"]);
 const brandsOf = c => [...new Set(MODELS[c].map(m => m.brand))];
 const svName = (k, cat) => { const r = CAT && CAT.rep[k]; if (!r) return k; const o = (r.n && r.n[cat]) || r; return o[lang]; };
 const locName = m => m.custom ? m.name : m.loc;
@@ -136,7 +154,8 @@ function servicesFor(m) {
   const lists = CAT.lists[m.cat] || {};
   if (m.custom) return (lists[""] || []).map(x => x[0]);
   const rows = m.cat === "console" ? (lists[m.ct] || lists[""] || []) : (lists[""] || []);
-  return rows.filter(([k, req]) => !(req === "face_id" && !m.fl.includes("F")) && !(req === "jack" && !m.fl.includes("J"))).map(x => x[0]);
+  // Repairs a model physically can't have (no fan, soldered storage, AA batteries) are switched off per model in the admin.
+  return rows.filter(([k, req]) => !(req === "face_id" && !m.fl.includes("F")) && !(req === "jack" && !m.fl.includes("J")) && !m.no.includes(k)).map(x => x[0]);
 }
 function price(m, key, tier) {
   const pick = v => v == null ? null : typeof v === "object" ? (v[tier === "o" ? "o" : "p"] == null ? null : v[tier === "o" ? "o" : "p"]) : v;
@@ -172,6 +191,7 @@ const KW = [
   ["camglass",["camera glass","kameraglas","camera lens","kameralinse","linse"]],
   ["frontcam",["front camera","selfie","frontkamera"]],
   ["faceid",["face id","faceid","gesichtserkennung"]],
+  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick"]],
   ["drift",["drift","joystick","stick"]],
   ["hdmi",["hdmi","no picture","no signal","kein bild","kein signal"]],
   ["drive",["disc","disk","laufwerk","blu-ray","bluray"]],
@@ -193,18 +213,18 @@ const KW = [
   ["vibration",["vibrat"]],
   ["sim",["sim"]],
   ["jack",["headphone","aux","kopfhörer","klinke"]],
-  ["buttons",["power button","volume button","button","taste","knopf"]],
+  ["buttons",["power button","volume button","button","taste","knopf","keys","key"]],
   ["software",["software","update","apple logo","logo","boot","frozen","stuck","hängt","virus","firmware","reset"]],
   ["mainboard",["won t turn on","wont turn on","doesn t turn on","not turning on","won t start","no power","dead","startet nicht","geht nicht an","geht nicht mehr an","tot","mainboard","motherboard","logic board","platine"]],
   ["display",["screen","display","glass","cracked","crack","smashed","black screen","touch","lines","flicker","bildschirm","glas","gesprungen","riss","zersprungen","kaputt display","schwarz","streifen","flackert"]]
 ];
 const CATW = {
-  phone:["handy","phone","smartphone","iphone","galaxy","pixel","redmi","xperia","mobile","telefon","samsung","xiaomi","huawei","oneplus","oppo","motorola"],
-  tablet:["ipad","tablet","galaxy tab"],
+  phone:["handy","phone","smartphone","iphone","galaxy","pixel","redmi","xperia","mobile","telefon","samsung","xiaomi","huawei","oneplus","oppo","motorola","moto","razr","honor","nothing phone","cmf phone","fairphone","realme"],
+  tablet:["ipad","tablet","tablette","galaxy tab","tab","pad","matepad"],
   laptop:["laptop","notebook","macbook","thinkpad","computer","rechner","surface","ideapad","zenbook","vivobook"],
-  console:["console","konsole","playstation","ps5","ps4","xbox","switch","nintendo","steam deck","controller","gamepad","dualsense","joy-con"]
+  console:["console","konsole","playstation","ps5","ps4","xbox","switch","nintendo","steam deck","controller","gamepad","dualsense","joy-con","rog ally","legion go","msi claw","playstation portal","ps3","xbox one","xbox 360","handheld"]
 };
-const BRANDW = [["Apple",["iphone","ipad","macbook","apple"]],["Samsung",["samsung","galaxy"]],["Google",["pixel","google"]],["Xiaomi",["xiaomi","redmi","poco"]],["Huawei",["huawei"]],["OnePlus",["oneplus"]],["Oppo",["oppo"]],["Sony",["sony","xperia","playstation","ps5","ps4","dualsense"]],["Microsoft",["xbox","surface","microsoft"]],["Nintendo",["nintendo","switch","joy-con"]],["Valve",["steam deck"]],["Lenovo",["lenovo","thinkpad"]],["HP",["hp"]],["Dell",["dell"]],["ASUS",["asus"]],["Acer",["acer"]]];
+const BRANDW = [["Apple",["iphone","ipad","macbook","apple"]],["Samsung",["samsung","galaxy"]],["Google",["pixel","google"]],["Xiaomi",["xiaomi","redmi","poco"]],["Huawei",["huawei"]],["OnePlus",["oneplus"]],["Oppo",["oppo"]],["Motorola",["motorola","moto","razr"]],["Honor",["honor"]],["Nothing",["nothing phone","cmf"]],["Fairphone",["fairphone"]],["Realme",["realme"]],["Sony",["sony","xperia","playstation","ps5","ps4","dualsense"]],["Microsoft",["xbox","surface","microsoft"]],["Nintendo",["nintendo","switch","joy-con"]],["Valve",["steam deck"]],["Lenovo",["lenovo","thinkpad","legion"]],["HP",["hp"]],["Dell",["dell"]],["ASUS",["asus","rog"]],["Acer",["acer"]],["MSI",["msi"]]];
 const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const hasW = (s, w) => new RegExp("(^|\\s)" + reEsc(w) + (w.length <= 3 ? "(?=\\s|$)" : "")).test(s);
 function parse(text) {
@@ -221,12 +241,21 @@ function parse(text) {
     const re = new RegExp("(^|\\s)" + reEsc(kw) + (kw.length <= 3 ? "(?=\\s|$)" : ""));
     if (re.test(rest)) { if (!keys.includes(k)) keys.push(k); rest = rest.replace(re, " "); }
   }
+  if (keys.includes("tmr") && keys.includes("drift")) keys.splice(keys.indexOf("drift"), 1);
+  // A one-word model name loses against an explicit device word for another category ("power switch on my laptop").
+  if (m && !best.a.includes(" ")) {
+    const other = ["tablet","laptop","console","phone"].find(c => c !== m.cat && CATW[c].some(w => w !== best.a && hasW(norm(text), w)));
+    if (other) m = null;
+  }
   let cat = m ? m.cat : null, brand = m ? m.brand : null;
   const full = norm(text);
   if (!cat) {
     for (const c of ["tablet","laptop","console","phone"]) if (CATW[c].some(w => hasW(full, w))) { cat = c; break; }
     if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","drift","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
   }
+  // Same word, different repair per device: "Ladebuchse" on a console is the controller/handheld port, "Tasten" on a laptop is the keyboard.
+  if (cat === "console") { const i = keys.indexOf("port"); if (i >= 0) keys.includes("cport") ? keys.splice(i, 1) : keys.splice(i, 1, "cport"); }
+  if (cat === "laptop") { const i = keys.indexOf("buttons"); if (i >= 0) keys.includes("keyboard") ? keys.splice(i, 1) : keys.splice(i, 1, "keyboard"); }
   if (cat && !brand) for (const [b, ws] of BRANDW) if (ws.some(w => hasW(full, w)) && MODELS[cat].some(x => x.brand === b)) { brand = b; break; }
   return { m, cat, brand, keys:keys.slice(0, 3) };
 }
@@ -325,9 +354,10 @@ function closeBuilder() {
 }
 function goB(step, dir = "f") { B.step = step; B.act = null; renderB(dir); }
 function sideImgId() {
-  if (B.hoverKey && repImg(B.hoverKey)) return repImg(B.hoverKey);
-  const k = B.sel.map(s => s.key).reverse().find(x => repImg(x));
-  if (k) return repImg(k);
+  const ri = k => repImg(B.cat, k, B.model ? B.model.brand : "");
+  if (B.hoverKey && ri(B.hoverKey)) return ri(B.hoverKey);
+  const k = B.sel.map(s => s.key).reverse().find(x => ri(x));
+  if (k) return ri(k);
   if (B.hoverKey && CAT_IMG[B.hoverKey]) return CAT_IMG[B.hoverKey];
   if (B.cat) return CAT_IMG[B.cat];
   return "hero";
@@ -354,7 +384,7 @@ function renderB(dir = "n") {
   const view = B.done ? vDone() : [null, vDev, vModel, vRepair, vPrice][B.step]();
   $("bldBody").innerHTML = `<div class="bv ${dir === "f" ? "f" : dir === "b" ? "b" : ""}">${view}</div>`;
   if (dir !== "n") $("bldBody").scrollTop = 0;
-  renderSide(); hydrate($("bldBody"));
+  renderSide(); renderFoot(); hydrate($("bldBody"));
   const tb = $("bTotal"); if (tb) { if (ANIM && B._tot && B._tot !== tb.textContent) tb.classList.add("bump"); B._tot = tb.textContent; } else B._tot = null;
   if (!$("bld").hidden && (document.activeElement === document.body || !document.activeElement || !$("bld").contains(document.activeElement))) $("bldPanel").focus({ preventScroll:true });
   if (B.step === 2 && dir !== "n" && matchMedia("(pointer:fine)").matches) { const s = $("bSearch"); if (s) s.focus({ preventScroll:true }); }
@@ -383,14 +413,16 @@ function vModel() {
 function vRepair() {
   const m = B.model, all = servicesFor(m), top = topOf(m.cat).filter(k => all.includes(k)).slice(0, 6);
   const rest = all.filter(k => !top.includes(k));
-  const card = k => `<button type="button" class="rc" data-b="rep" data-v="${k}" data-hk="${k}">${repImg(k) && IMG[repImg(k)] ? ph(repImg(k)) : `<span class="icon-tile">${ic((CAT.rep[k] && CAT.rep[k].icon) || k, 1.4)}</span>`}<b>${esc(svName(k, m.cat))}</b><small>${esc(priceLabel(m, k))}</small></button>`;
+  const on = k => B.sel.some(s => s.key === k);
+  const card = k => { const im = repImg(m.cat, k, m.brand);
+    return `<button type="button" class="rc" data-b="rep" data-v="${k}" data-hk="${k}" aria-pressed="${on(k)}"><span class="rc-m">${im ? ph(im) : `<span class="icon-tile">${ic((CAT.rep[k] && CAT.rep[k].icon) || k, 1.4)}</span>`}<span class="tick" aria-hidden="true">${ic("check", 2.8)}</span></span><b>${esc(svName(k, m.cat))}</b><small>${esc(priceLabel(m, k))}</small></button>`; };
   const restHtml = rest.length ? (B.showAll
-      ? `<div class="rlist">${rest.map(k => `<button type="button" data-b="rep" data-v="${k}" data-hk="${k}"><span>${esc(svName(k, m.cat))}</span><span>${esc(priceLabel(m, k))}</span></button>`).join("")}</div><p class="morebtn"><button type="button" class="lk" data-b="all">${esc(t("fewer"))}</button></p>`
+      ? `<div class="rlist">${rest.map(k => `<button type="button" data-b="rep" data-v="${k}" data-hk="${k}" aria-pressed="${on(k)}"><span><i class="cb" aria-hidden="true">${ic("check", 2.8)}</i>${esc(svName(k, m.cat))}</span><span>${esc(priceLabel(m, k))}</span></button>`).join("")}</div><p class="morebtn"><button type="button" class="lk" data-b="all">${esc(t("fewer"))}</button></p>`
       : `<p class="morebtn"><button type="button" class="lk" data-b="all">${esc(t("all_rep", { n:all.length }))}</button></p>`) : "";
   const dg = price(m, "diagnosis");
-  return `<h2 class="bt">${esc(t("r_title"))}</h2><p class="bs">${esc(fullName(m))}</p>
-    <div class="rgrid">${top.map(card).join("")}</div>${restHtml}
-    <button type="button" class="unsure" data-b="rep" data-v="diagnosis" data-hk="diagnosis"><span><b>${esc(t("unsure_t"))}</b><small>${esc(t("unsure_s", { p:dg == null ? t("on_request") : fmt(dg) }))}</small></span>${ic("diagnosis")}</button>`;
+  return `<h2 class="bt">${esc(t("r_title"))}</h2><p class="bs">${esc(fullName(m))} · ${esc(t("r_multi"))}</p>
+    <div class="rgrid" style="--tc:var(--t-${m.cat});--cc:var(--c-${m.cat})">${top.map(card).join("")}</div>${restHtml}
+    <button type="button" class="unsure" data-b="rep" data-v="diagnosis" data-hk="diagnosis" aria-pressed="${on("diagnosis")}"><span><b>${esc(t("unsure_t"))}</b><small>${esc(t("unsure_s", { p:dg == null ? t("on_request") : fmt(dg) }))}</small></span>${ic("diagnosis")}</button>`;
 }
 const tierName = s => CAT.rep[s.key] && CAT.rep[s.key].tiers ? " (" + t(s.tier === "o" ? "tier_o" : "tier_p") + ")" : "";
 function bRepText() { return B.sel.map(s => svName(s.key, B.cat) + tierName(s)).join(", "); }
@@ -420,6 +452,18 @@ function vPrice() {
 }
 function vDone() {
   return `<div class="ok"><span class="ck">${ic("check", 2.4)}</span><h2 class="bt">${esc(t("cb_done_t", { n:B.done }))}</h2><p class="bs">${esc(t("cb_done"))}</p><button type="button" class="btn" data-b="restart">${esc(t("restart"))}</button></div>`;
+}
+function renderFoot() {
+  const f = $("bldFoot"), show = B.step === 3 && !B.done && !!B.model;
+  f.hidden = !show; if (!show) { f.innerHTML = ""; return; }
+  const n = B.sel.length, tt = n ? totalOf(B.model, B.sel) : null;
+  f.innerHTML = `<span class="bf-t" aria-live="polite"><b>${esc(n ? t("r_count", { n }) : t("r_none"))}</b>${tt ? `<small>${esc(tt.text)}</small>` : ""}</span><button type="button" class="btn" data-b="next" ${n ? "" : "disabled"}>${esc(t("r_next"))}${ic("right", 2.2)}</button>`;
+}
+function toggleSel(key) {
+  const i = B.sel.findIndex(s => s.key === key);
+  if (i >= 0) B.sel.splice(i, 1); else addSel(key);
+  $("bldBody").querySelectorAll(`[data-b="rep"][data-v="${key}"]`).forEach(x => x.setAttribute("aria-pressed", i < 0));
+  renderFoot(); renderSide(); writeHash();
 }
 function addSel(key, tier) {
   const ex = B.sel.find(s => s.key === key);
@@ -481,7 +525,8 @@ $("bld").addEventListener("click", e => {
     case "other": B.other = true; renderB(); { const i = $("bOther"); if (i) i.focus(); } break;
     case "useother": { const i = $("bOther"), n = i && i.value.trim(); if (n) chooseModel(customModel(n)); else if (i) i.focus(); break; }
     case "useq": if (B.q.trim()) chooseModel(customModel(B.q.trim())); break;
-    case "rep": addSel(v); B.hoverKey = null; goB(4); break;
+    case "rep": if (B.step === 3) toggleSel(v); else { addSel(v); B.hoverKey = null; goB(4); } break;
+    case "next": if (B.sel.length) { B.hoverKey = null; goB(4); } break;
     case "all": B.showAll = !B.showAll; renderB(); break;
     case "rm": B.sel.splice(+b.dataset.i, 1); B.sel.length ? renderB() : goB(3, "b"); break;
     case "tier": { const d = B.sel.find(s => CAT.rep[s.key] && CAT.rep[s.key].tiers); if (d) d.tier = v; renderB(); break; }
@@ -537,7 +582,7 @@ async function runAsk(text) {
   if (!text.trim()) return;
   try { await loadCatalog(); } catch (e) { $("askMsg").textContent = t("err_send"); return; }
   const r = parse(text);
-  if (!r.m && !r.cat && !r.keys.length) { $("askMsg").textContent = t("ai_none"); openBuilder({}); return; }
+  if (!r.m && !r.cat && !r.keys.length) { $("askMsg").textContent = t("ai_none"); return; }
   $("askMsg").textContent = "";
   const keys = r.keys;
   if (r.m) {
@@ -545,11 +590,137 @@ async function runAsk(text) {
     openBuilder({ model:r.m, cat:r.m.cat, sel:valid.map(k => CAT.rep[k] && CAT.rep[k].tiers ? { key:k, tier:"p" } : { key:k }) });
   } else openBuilder({ cat:r.cat || null, brand:r.brand || "all", pending:keys });
 }
-on("askForm", "submit", e => { e.preventDefault(); runAsk($("askIn").value); });
+function askMatches(text) {
+  // Repair words ("Akku", "Display kaputt") are left out when matching model names.
+  const q = norm(text).trim().split(" ").filter(w => !ASK_SKIP.has(w)).join(" "); if (q.length < 2) return [];
+  const qq = q.replace(/\s/g, ""), words = q.split(" ").filter(w => w.length > 1), r = parse(text), out = [];
+  const all = CATS.flatMap(c => MODELS[c]);
+  const push = m => { if (m && !out.includes(m) && out.length < 6) out.push(m); };
+  push(r.m);
+  for (const a of ALIASES) if (a.a.startsWith(q) || a.a.replace(/\s/g, "").startsWith(qq)) push(a.m);
+  for (const m of all) { const n = norm(m.brand + " " + m.name); if (n.includes(" " + q) || n.replace(/\s/g, "").includes(qq)) push(m); }
+  if (out.length < 6 && words.length > 1) for (const m of all) { const n = norm(m.brand + " " + m.name); if (words.every(w => n.includes(" " + w) || n.replace(/\s/g, "").includes(w))) push(m); }
+  return out.map(m => ({ m, keys:r.keys }));
+}
+const ASK_SKIP = new Set([...KW.flatMap(([, ws]) => ws.flatMap(w => w.split(" "))), "kaputt", "defekt", "broken", "reparatur", "repair", "wechseln", "tauschen", "austausch", "neu", "new", "mein", "meine", "my", "ist", "is", "geht", "nicht"].filter(w => !/^(pro|max|plus|mini|air|ultra|lite|fe|note|edge|fold|flip)$/.test(w)));
+const ASK = { items:[], i:-1 };
+function askClose() { const l = $("askList"), i = $("askIn"); if (!l) return; l.hidden = true; i.setAttribute("aria-expanded", "false"); i.removeAttribute("aria-activedescendant"); }
+function askRender() {
+  const inp = $("askIn"), list = $("askList"); if (!inp || !list) return;
+  if (!CAT) { loadCatalog().then(askRender, () => {}); return; }
+  ASK.items = askMatches(inp.value); ASK.i = -1;
+  if (!ASK.items.length) { askClose(); return; }
+  list.innerHTML = ASK.items.map(({ m, keys }, i) => { const k = keys.find(x => servicesFor(m).includes(x)) || "display";
+    const kk = servicesFor(m).includes(k) ? k : servicesFor(m)[0];
+    return `<li role="option" id="askO${i}" data-i="${i}" aria-selected="false"><span class="ao-n"><small>${esc(t("cat_" + m.cat))}</small><b>${esc(fullName(m))}</b></span><span class="ao-p">${esc(svName(kk, m.cat))}<b>${esc(priceLabel(m, kk))}</b></span></li>`; }).join("");
+  list.hidden = false; inp.setAttribute("aria-expanded", "true"); inp.removeAttribute("aria-activedescendant");
+}
+function askPick(i) {
+  const it = ASK.items[i]; if (!it) return;
+  const valid = it.keys.filter(k => k === "diagnosis" || servicesFor(it.m).includes(k));
+  askClose();
+  openBuilder({ model:it.m, cat:it.m.cat, sel:valid.map(k => CAT.rep[k] && CAT.rep[k].tiers ? { key:k, tier:"p" } : { key:k }) });
+}
+function askMove(d) {
+  if ($("askList").hidden || !ASK.items.length) return;
+  ASK.i = (ASK.i + d + ASK.items.length) % ASK.items.length;
+  $("askList").querySelectorAll("li").forEach((li, i) => li.setAttribute("aria-selected", i === ASK.i));
+  $("askIn").setAttribute("aria-activedescendant", "askO" + ASK.i);
+}
+on("askIn", "input", askRender);
+on("askIn", "keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); askMove(1); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); askMove(-1); }
+  else if (e.key === "Escape" && !$("askList").hidden) { e.stopPropagation(); askClose(); }
+});
+on("askIn", "blur", () => setTimeout(askClose, 150));
+on("askList", "mousedown", e => e.preventDefault());
+on("askList", "click", e => { const li = e.target.closest("li[data-i]"); if (li) askPick(+li.dataset.i); });
+on("askForm", "submit", e => { e.preventDefault(); if (ASK.i >= 0 && !$("askList").hidden) askPick(ASK.i); else { askClose(); runAsk($("askIn").value); } });
 on("askMic", "click", () => voiceGate($("askMic"), (txt, fin) => { $("askIn").value = txt; if (fin) runAsk(txt); }, msg => { $("askMsg").textContent = msg; }));
 
+/* ===== Hero film: desktop and laptop only (wide screen with mouse or trackpad), muted, paused when scrolled away ===== */
+const HV_MQ = matchMedia("(min-width:901px) and (hover:hover) and (pointer:fine)");
+let HV = null, HV_FAIL = false;
+const SND_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
+const SND_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.8 5.2a9.5 9.5 0 0 1 0 13.6"/></svg>';
+function heroVideoOk() {
+  const hm = $("heroMedia");
+  return !!(hm && hm.dataset.video) && !HV_FAIL && HV_MQ.matches && !reduce && !(navigator.connection && navigator.connection.saveData);
+}
+function heroVideo() {
+  const f = document.querySelector("#heroMedia .hero-frame"); if (!f) return;
+  if (!HV) { if (!heroVideoOk()) return; heroVideoMake(); }
+  $("heroMedia").classList.add("has-vid");
+  f.appendChild(HV.v); f.appendChild(HV.b); heroSndLabel();
+  if (HV.on && HV.seen && HV_MQ.matches) HV.v.play().catch(() => {});
+}
+function heroVideoMake() {
+  const v = document.createElement("video");
+  v.className = "hero-vid"; v.muted = true; v.loop = true; v.playsInline = true; v.preload = "none";
+  v.setAttribute("aria-hidden", "true"); v.setAttribute("disablepictureinpicture", ""); v.setAttribute("tabindex", "-1");
+  const b = document.createElement("button"); b.type = "button"; b.className = "hero-snd";
+  HV = { v, b, on:false, seen:true };
+  v.addEventListener("playing", () => v.classList.add("on"));
+  v.addEventListener("error", () => { HV_FAIL = true; v.remove(); b.remove(); $("heroMedia").classList.remove("has-vid"); HV = null; });
+  b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted) v.play().catch(() => {}); heroSndLabel(); });
+  const start = () => { if (!HV) return; v.src = $("heroMedia").dataset.video; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
+  if (document.readyState === "complete") setTimeout(start, 400); else addEventListener("load", () => setTimeout(start, 400), { once:true });
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => {
+    if (!HV) return; HV.seen = es[0].isIntersecting; if (!HV.on) return;
+    if (HV.seen && HV_MQ.matches) HV.v.play().catch(() => {}); else HV.v.pause();
+  }, { threshold:.15 }).observe($("heroMedia"));
+  HV_MQ.addEventListener("change", e => {
+    if (!HV) return;
+    if (e.matches) { if (HV.on && HV.seen) HV.v.play().catch(() => {}); } else { HV.v.pause(); HV.v.muted = true; heroSndLabel(); }
+  });
+}
+function heroSndLabel() {
+  if (!HV) return; const on = !HV.v.muted, l = t(on ? "snd_off" : "snd_on");
+  HV.b.setAttribute("aria-pressed", String(on)); HV.b.setAttribute("aria-label", l);
+  HV.b.innerHTML = (on ? SND_ON : SND_OFF) + `<span>${esc(l)}</span>`;
+}
+heroVideo();
+HV_MQ.addEventListener("change", e => { if (e.matches && !HV) heroVideo(); });
+
 /* ===== Home sections ===== */
-const SELL = { cat:"phone", cond:1 };
+const SELL = { cat:"phone", cond:1, photos:[], n:"", p:"", done:null };
+const SP_MAX = 6;
+/* Photos are shrunk in the browser (longest side 1600 px, JPEG) and sent as multipart. The server re-encodes them
+   without EXIF/GPS, stores them privately and deletes them after 30 days unless a purchase follows. */
+function spShrink(file, max = 1600, q = .82) {
+  return new Promise(res => {
+    const url = URL.createObjectURL(file), im = new Image();
+    im.onload = () => { const k = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement("canvas");
+      c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url); c.toBlob(b => res(b ? { blob:b, url:URL.createObjectURL(b) } : null), "image/jpeg", q); };
+    im.onerror = () => { URL.revokeObjectURL(url); res(null); };
+    im.src = url;
+  });
+}
+async function spAdd(files) {
+  const room = SP_MAX - SELL.photos.length; let skipped = 0;
+  for (const f of [...files].slice(0, Math.max(0, room))) {
+    if (!/^image\//.test(f.type) && !/\.(heic|heif|jpe?g|png|webp)$/i.test(f.name)) { skipped++; continue; }
+    const d = await spShrink(f); if (d) SELL.photos.push(d); else skipped++;
+  }
+  if (files.length > room) toast(t("sp_max", { n:SP_MAX })); else if (skipped) toast(t("sp_bad"));
+}
+function renderSellPhotos() {
+  const box = $("sellPh"); if (!box) return;
+  const n = SELL.photos.length, full = n >= SP_MAX;
+  $("spRow").innerHTML = SELL.photos.map((d, i) => `<span class="sp-th"><img src="${d.url}" alt="${esc(t("sp_alt", { n:i + 1 }))}"><button type="button" class="sp-rm" data-sprm="${i}" aria-label="${esc(t("sp_rm", { n:i + 1 }))}">${ic("x", 2.4)}</button></span>`).join("") +
+    (full ? "" : `<button type="button" class="sp-add sp-cam" data-sp="cam">${ic("camera", 1.8)}<span>${esc(t("sp_cam"))}</span></button><button type="button" class="sp-add" data-sp="lib">${ic("img", 1.8)}<span>${esc(t(n ? "sp_more" : "sp_lib"))}</span></button>`);
+  if (SELL.done) {
+    $("spSend").innerHTML = `<div class="sp-ok" tabindex="-1" id="spOk"><span class="ck">${ic("check", 2.4)}</span><div><b>${esc(t("sp_done_t", { n:SELL.done }))}</b><p>${esc(t("sp_done"))}</p></div></div>`;
+    box.hidden = true; $("sellWa").hidden = true; return;
+  }
+  box.hidden = false; $("sellWa").hidden = false;
+  $("sellWa").classList.toggle("alt", n > 0);
+  $("sellWa").querySelector("span").textContent = t(n ? "sell_btn_alt" : "sell_btn");
+  $("spSend").innerHTML = n ? `<div class="two"><div><label class="lab-l" for="spName">${esc(t("name_l"))}</label><input class="inp" id="spName" autocomplete="name" value="${esc(SELL.n)}"></div><div><label class="lab-l" for="spPhone">${esc(t("sp_phone"))}</label><input class="inp" id="spPhone" type="tel" autocomplete="tel" value="${esc(SELL.p)}"></div></div>
+    <p class="err" id="spErr" role="alert"></p><button type="submit" class="btn sp-go">${ic("check", 2.4)}${esc(t("sp_send", { n }))}</button>` : "";
+}
 function updSell() {
   const wa = $("sellWa"); if (!wa) return;
   const model = $("sellModel").value.trim();
@@ -568,10 +739,41 @@ function updSell() {
 on("sellCat", "click", e => { const b = e.target.closest("button"); if (!b) return; SELL.cat = b.dataset.v; updSell(); });
 on("sellCond", "click", e => { const b = e.target.closest("button"); if (!b) return; SELL.cond = +b.dataset.v; updSell(); });
 on("sellModel", "input", () => { updSell(); if (!CAT) loadCatalog().then(updSell, () => {}); });
-on("sellForm", "submit", e => e.preventDefault());
+on("sellForm", "click", e => {
+  const a = e.target.closest("[data-sp]"); if (a) { $(a.dataset.sp === "cam" ? "spCam" : "spLib").click(); return; }
+  const r = e.target.closest("[data-sprm]");
+  if (r) { const [d] = SELL.photos.splice(+r.dataset.sprm, 1); if (d) URL.revokeObjectURL(d.url); renderSellPhotos(); const nx = $("spRow").querySelector("button"); if (nx) nx.focus(); }
+});
+["spCam", "spLib"].forEach(id => on(id, "change", e => { const fs = e.target.files; if (fs && fs.length) spAdd(fs).then(renderSellPhotos); e.target.value = ""; }));
+on("sellForm", "input", e => { if (e.target.id === "spName") SELL.n = e.target.value; if (e.target.id === "spPhone") SELL.p = e.target.value; });
+on("sellForm", "submit", async e => {
+  e.preventDefault(); if (!SELL.photos.length) return;
+  const n = SELL.n.trim(), p = SELL.p.trim(), err = $("spErr");
+  if (!n) { err.textContent = t("err_name"); $("spName").focus(); return; }
+  if (p.replace(/\D/g, "").length < 6) { err.textContent = t("err_phone"); $("spPhone").focus(); return; }
+  const btn = e.target.querySelector("button[type=submit]"), label = btn.innerHTML; btn.disabled = true; btn.textContent = t("sending"); err.textContent = "";
+  const model = $("sellModel").value.trim(), r = CAT && model ? parse(model) : {};
+  const fd = new FormData();
+  const fields = { kind:"offer", lang, source:location.pathname, ts:D.ts, name:n, phone:p, website:$("spWeb").value, category:SELL.cat,
+    device:(t("cat_" + SELL.cat) + " " + model).trim(), model_id:r.m && r.m.cat === SELL.cat ? r.m.id : "", condition:t("conds")[SELL.cond],
+    repairs_text:t("sp_req", { k:t("conds")[SELL.cond] }) };
+  for (const k in fields) fd.append(k, fields[k]);
+  SELL.photos.forEach((d, i) => fd.append("photos", d.blob, `foto-${i + 1}.jpg`));
+  try {
+    const res = await fetch(D.api.request, { method:"POST", credentials:"same-origin", headers:{ "Accept":"application/json", "X-CSRFToken":csrf() }, body:fd });
+    let j = {}; try { j = await res.json(); } catch (x) {}
+    if (!res.ok) { const er = new Error(j.error || "send"); er.status = res.status; er.data = j; throw er; }
+    SELL.photos.forEach(d => URL.revokeObjectURL(d.url));
+    SELL.done = n; SELL.photos = []; SELL.n = SELL.p = ""; renderSellPhotos(); $("spOk").focus();
+  } catch (er) {
+    err.textContent = er.data && er.data.field === "phone" ? t("err_phone") : er.data && er.data.field === "name" ? t("err_name") : er.data && er.data.field === "photos" ? t("sp_bad") : sendErr(er);
+    btn.disabled = false; btn.innerHTML = label;
+  }
+});
+renderSellPhotos();
 on("sellWa", "click", () => beacon("sale", { category:SELL.cat, device:$("sellModel").value.trim(), condition:t("conds")[SELL.cond] }));
 on("copyAddr", "click", () => copyText(D.mailin, t("copied")));
-document.querySelectorAll('[data-wa="pickup"]').forEach(a => a.addEventListener("click", () => beacon("whatsapp", { method:"pickup", repairs_text:t("ways")[1][0] })));
+document.querySelectorAll('[data-wa="ask"]').forEach(a => a.addEventListener("click", () => beacon("whatsapp", { repairs_text:t("ways")[1][0] })));
 
 on("brandWall", "click", e => { const b = e.target.closest("[data-bc]"); if (b) openBuilder({ cat:b.dataset.bc, brand:b.dataset.bb }); });
 on("heroDevs", "click", e => { const b = e.target.closest("[data-hcat]"); if (b) openBuilder({ cat:b.dataset.hcat }); });
@@ -693,7 +895,7 @@ tilt($("heroDevs")); tilt($("bldBody"));
   matchMedia("(min-width:901px)").addEventListener("change", e => { if (e.matches) set(false); });
 })();
 /* language switch: remember the choice (necessary cookie tt-lang, see cookie policy) */
-document.querySelectorAll(".lang a[data-lang]").forEach(a => a.addEventListener("click", () => {
+document.querySelectorAll(".lang a[data-lang], a.lang-sw[data-lang]").forEach(a => a.addEventListener("click", () => {
   document.cookie = "tt-lang=" + a.dataset.lang + "; Max-Age=31536000; Path=/; SameSite=Lax" + (location.protocol === "https:" ? "; Secure" : "");
 }));
 
@@ -736,7 +938,7 @@ document.querySelectorAll(".lang a[data-lang]").forEach(a => a.addEventListener(
     try {
       await send("form", { name:n, phone:p, website:f.elements.website.value, category:LEAD.cat, device:model || t("cat_" + LEAD.cat),
         model_id:r.m ? +r.m.id : null,
-        problem:$("lfProb").value.trim(), method:["moabit", "spandau", "pickup", "mailin"][LEAD.where], contact_via:["whatsapp", "phone"][LEAD.via] });
+        problem:$("lfProb").value.trim(), method:["moabit", "mailin"][LEAD.where] || "moabit", contact_via:["whatsapp", "phone"][LEAD.via] });
       $("leadBody").innerHTML = `<div class="form-card"><div class="ok" tabindex="-1" id="lfOk"><span class="ck">${ic("check", 2.4)}</span><h2 class="bt">${esc(t("cb_done_t", { n }))}</h2><p class="bs">${esc(t("lf_done", { n, v:t("vias")[LEAD.via] }))}</p><a class="btn" href="${location.pathname}">${esc(t("lf_new"))}</a></div></div>`;
       $("lfOk").focus();
     } catch (er) {

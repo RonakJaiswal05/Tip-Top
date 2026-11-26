@@ -5,21 +5,29 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
+        <div class="hero-top">
+          <form class="ask" id="askForm" autocomplete="off" role="search" action="{{ urls.request }}" method="get">
+            <label for="askIn" class="sr">{{ T.ask_l }}</label>
+            <span class="ask-ic" aria-hidden="true">{% ic "search" 2 %}</span>
+            <input id="askIn" name="q" placeholder="{{ T.ask_ph }}" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="askList">
+            <button type="button" class="mic" id="askMic" aria-label="{{ T.mic }}">{% ic "mic" %}</button>
+            <button type="submit" class="go">{{ T.ask_go }}</button>
+            <ul class="ask-list" id="askList" role="listbox" aria-label="{{ T.ask_l }}" hidden></ul>
+          </form>
+          <p class="ask-msg" id="askMsg" aria-live="polite"></p>
+          <div class="hero-cta">
+            <a class="hc hc-call" href="tel:{{ S.phone }}"><span class="hc-i">{% ic "call" 2 %}</span><span class="hc-t"><b>{{ S.phone_display }}</b><small>{{ T.call_now }}</small></span></a>
+            <a class="hc hc-wa" id="hcWa" href="{{ general_wa }}" target="_blank" rel="noopener"><span class="hc-i">{% ic "wa" 2 %}</span><span class="hc-t"><b>WhatsApp</b><small>{{ S.phone_display }}</small></span></a>
+          </div>
+          <div class="gmb-wrap" id="gmbHero">{% include "site/_gmb_badge.html" with shop=MAIN_SHOP %}</div>
+        </div>
         <h1><span class="l1"><span>{{ T.h1a }}</span><svg class="crack" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" style="--i:0" d="M89 10.5 L81 8.5 L72 9.5 L61 6.5 L50 8 L40 4.5 L29 6 L19 3.5"/><path pathLength="1" style="--i:1" d="M89 10.5 L80 13.5 L71 12.5 L59 15.5 L47 14 L36 17 L23 15.5 L11 18.5"/><path pathLength="1" style="--i:2" d="M89 10.5 L85 6 L79 3 L75 -1.5"/><path pathLength="1" style="--i:3" d="M89 10.5 L93 15 L91 20.5"/><path pathLength="1" style="--i:4" d="M89 10.5 L97 8 L104 9"/><path pathLength="1" style="--i:5" d="M89 10.5 L83 17 L78 21.5"/><path class="thin" pathLength="1" style="--i:6" d="M61 6.5 L57 1.5"/><path class="thin" pathLength="1" style="--i:7" d="M47 14 L44 20"/><path class="thin" pathLength="1" style="--i:8" d="M72 9.5 L69 14.5"/><path class="thin" pathLength="1" style="--i:9" d="M40 4.5 L35 0"/><path class="thin" pathLength="1" style="--i:10" d="M59 15.5 L61 21"/><path class="thin" pathLength="1" style="--i:11" d="M86 9.5 L88 8.5 L91 9 L92 10.5 L90 12 L87 11.5 Z"/></svg></span><span class="l2">{{ T.h1b }}</span></h1>
         <p class="hero-p">{{ T.hero_p }}</p>
-        <div class="gmb-wrap" id="gmbHero">{% include "site/_gmb_badge.html" with shop=MAIN_SHOP %}</div>
         <p class="pick-l">{{ T.pick }}</p>
         <div class="devs" id="heroDevs">{% for c in cats %}<button type="button" class="dev" data-hcat="{{ c.key }}" aria-haspopup="dialog" style="--cc:var(--c-{{ c.key }})"><span class="tile">{% ph "cat-"|add:c.key "notag" sizes="tile" eager=True %}</span><b>{{ c.name }}{% ic "right" 2.4 %}</b><small>{{ c.sub }}</small></button>{% endfor %}</div>
-        <form class="ask" id="askForm" autocomplete="off" action="{{ urls.request }}" method="get">
-          <label for="askIn" class="sr">{{ T.ask_l }}</label>
-          <input id="askIn" name="q" placeholder="{{ T.ask_ph }}">
-          <button type="button" class="mic" id="askMic" aria-label="{{ T.mic }}">{% ic "mic" %}</button>
-          <button type="submit" class="go">{{ T.ask_go }}</button>
-        </form>
-        <p class="ask-msg" id="askMsg" aria-live="polite"></p>
         <div class="facts" id="facts">{% for f in T.facts %}<span>{% ic "check" 2.4 %}{{ f }}</span>{% endfor %}</div>
       </div>
-      <div class="hero-media" id="heroMedia"><div class="hero-frame">{% ph "hero" "notag" sizes="hero" eager=True high=True %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if hero_price %}<span class="stk wait" style="--d:1.3s"><small>{{ T.stk_hero }}</small><b>{{ hero_price }}</b></span>{% endif %}</div>
+      <div class="hero-media" id="heroMedia"{% if hero_video %} data-video="{{ hero_video }}"{% endif %}><div class="hero-frame">{% ph "hero" "notag" sizes="hero" eager=True high=True %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if hero_price %}<span class="stk wait" style="--d:1.3s"><small>{{ T.stk_hero }}</small><b>{{ hero_price }}</b></span>{% endif %}</div>
     </div>
   </section>
 
@@ -33,7 +41,7 @@
   <section class="sec fog" id="brands">
     <div class="wrap">
       <div class="head"><h2 data-rv><span class="rv-line"><span>{{ T.br_h }}</span></span></h2><p>{{ T.br_p }}</p></div>
-      <div class="cab" id="brandWall">{% for g in cab %}<div class="cab-g" style="--cc:var(--c-{{ g.g }});--tc:var(--t-{{ g.g }})"><h3><i aria-hidden="true"></i>{{ g.label }}</h3><div class="drawers">{% for d in g.items %}<button type="button" class="drw wait" data-bc="{{ d.cat }}" data-bb="{{ d.brand }}" aria-haspopup="dialog" style="--d:{{ d.d }}s{% if d.cat != g.g %};--cc:var(--c-{{ d.cat }});--tc:var(--t-{{ d.cat }}){% endif %}"><span class="lbl{% if d.logo %} has-logo{% endif %}">{% if d.logo %}<img class="blogo" src="{{ d.logo }}" alt="" aria-hidden="true">{% endif %}{{ d.label }}</span><span class="pull" aria-hidden="true"></span></button>{% endfor %}</div></div>{% endfor %}</div>
+      <div class="cab" id="brandWall">{% for g in cab %}<div class="cab-g" style="--cc:var(--c-{{ g.g }});--tc:var(--t-{{ g.g }})"><h3><i aria-hidden="true"></i>{{ g.label }}</h3><div class="drawers">{% for d in g.items %}<button type="button" class="drw wait" data-bc="{{ d.cat }}" data-bb="{{ d.brand }}" aria-haspopup="dialog" style="--d:{{ d.d }}s{% if d.cat != g.g %};--cc:var(--c-{{ d.cat }});--tc:var(--t-{{ d.cat }}){% endif %}">{% if d.logo %}<span class="lbl has-logo{% if not d.text %} only{% endif %}"><img class="blogo lg-{{ d.lg }}{% if d.wm %} wm{% endif %}" src="{{ d.logo }}" alt="" aria-hidden="true">{% if d.text %}<span>{{ d.text }}</span>{% endif %}{% if d.text != d.label %}<span class="sr">{{ d.label }}</span>{% endif %}</span>{% else %}<span class="lbl">{{ d.label }}</span>{% endif %}<span class="pull" aria-hidden="true"></span></button>{% endfor %}</div></div>{% endfor %}</div>
       <p class="tm-note">{{ T.br_tm }}</p>
     </div>
   </section>
@@ -64,6 +72,15 @@
           <div><label class="lab-l" for="sellModel">{{ T.f_model }}</label><input class="inp" id="sellModel" placeholder="{{ T.sell_ph }}"></div>
           <div><span class="lab-l" id="sellCondL">{{ T.f_cond }}</span><div class="chips" id="sellCond" role="group" aria-labelledby="sellCondL">{% for c in T.conds %}<button type="button" data-v="{{ forloop.counter0 }}" aria-pressed="{% if forloop.counter0 == sell_cond %}true{% else %}false{% endif %}">{{ c }}</button>{% endfor %}</div></div>
           <p class="hint" id="sellGuide" aria-live="polite"></p>
+          <div class="sp" id="sellPh" hidden>
+            <span class="lab-l" id="spLab">{{ T.sp_lab }}</span>
+            <div class="sp-row" id="spRow"></div>
+            <p class="sp-hint" id="spHint">{% t "sp_hint" n=photo_max %}</p>
+            <input type="file" id="spCam" accept="image/*" capture="environment" hidden>
+            <input type="file" id="spLib" accept="image/*" multiple hidden>
+          </div>
+          <div class="hp" aria-hidden="true"><label for="spWeb">Website</label><input id="spWeb" name="website" tabindex="-1" autocomplete="off"></div>
+          <div id="spSend"></div>
           <a class="btn-wa" id="sellWa" href="{{ sell_wa }}" target="_blank" rel="noopener">{% ic "wa" 1.9 %}<span>{{ T.sell_btn }}</span></a>
           <p class="fine" id="sellFine">{% fine "fine_sell" %}</p>
         </form>
@@ -75,11 +92,7 @@
   <section class="sec" id="shops">
     <div class="wrap">
       <div class="head"><h2 data-rv><span class="rv-line"><span>{{ T.shops_h }}</span></span></h2><p>{{ T.shops_p }}</p></div>
-      <div class="shops" id="shopList">{% for sh in SHOPS %}<article class="shop"><div class="fr"><div class="sign" aria-hidden="true"><span><small>{{ sh.short }}</small><b>{{ sh.street }}</b></span></div>{% ph sh.photo "notag" %}</div><div class="shop-b"><h3>{{ sh.area }}</h3><p class="addr">{{ sh.street }}, {{ sh.zip }}</p>{% include "site/_shop_rating.html" with shop=sh %}{% with st=status|get:sh.key %}<span class="stat" data-open="{{ sh.key }}"><span class="pulse{% if not st.0 %} off{% endif %}"></span>{{ st.1 }}</span>{% endwith %}
-        <div class="row" style="margin-top:8px"><a class="btn" href="{{ sh.maps }}" target="_blank" rel="noopener">{% ic "store" %}{{ T.directions }}</a><a class="btn line" href="tel:{{ sh.tel }}">{% ic "call" %}{{ sh.telTxt }}</a></div></div></article>{% endfor %}</div>
-      <div class="ways" id="ways">{% with w=T.ways %}<div class="way"><b>{{ w.0.0 }}</b><p>{{ w.0.1 }}</p></div>
-        <div class="way"><b>{{ w.1.0 }}</b><p>{{ w.1.1 }}</p><a href="{{ pick_wa }}" target="_blank" rel="noopener" data-wa="pickup">{{ w.1.2 }}</a></div>
-        <div class="way"><b>{{ w.2.0 }}</b><p>{{ w.2.1 }}</p><button type="button" id="copyAddr">{{ w.2.2 }}</button></div>{% endwith %}</div>
+      {% include "site/_shops.html" %}
     </div>
   </section>
 

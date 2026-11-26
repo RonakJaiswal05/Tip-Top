@@ -6,7 +6,7 @@ error_log /var/log/nginx/tiptop-@ENV@.error.log warn;
 add_header X-Content-Type-Options "nosniff" always;
 add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
-location = /favicon.ico { alias /srv/tiptop/@ENV@/static/site/img/favicon.svg; access_log off; expires 30d; }
+location = /favicon.ico { alias /srv/tiptop/@ENV@/static/site/img/logo-mark-180.png; access_log off; expires 30d; }
 
 # hashed file names (ManifestStaticFilesStorage): cache for a year
 location /static/ {

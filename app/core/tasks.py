@@ -25,6 +25,10 @@ def apply_retention() -> dict:
     out["withdrawals"] = Request.objects.filter(kind=Request.Kind.WITHDRAWAL, created_at__lt=old).delete()[0]
     out["withdrawals_orphans"] = Withdrawal.objects.filter(received_at__lt=old).delete()[0]
     out["consent"] = ConsentRecord.objects.filter(created_at__lt=old).delete()[0]
+    # buyback photos: 30 days unless a purchase contract follows (privacy policy, client feedback 17 Nov 2026)
+    from leads.photos import delete_expired
+
+    out["offer_photos"] = delete_expired(now)
     # audit log: 12 months
     out["audit"] = LogEntry.objects.filter(timestamp__lt=now - timedelta(days=settings.AUDIT_RETENTION_DAYS)).delete()[0]
     return out

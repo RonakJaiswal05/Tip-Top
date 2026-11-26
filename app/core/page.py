@@ -1,7 +1,7 @@
 """Everything a public page needs: texts, shops, images and the data block for the page script."""
 import json
 import time
-from datetime import date
+from datetime import date, datetime
 
 from django.core import signing
 
@@ -12,8 +12,8 @@ from catalog.services import fmt_eur, min_price, snapshot
 from content.models import MediaAsset
 from content.texts import fill, texts
 from core.cache import cached, site_version
-from shops.hours import footer_lines, open_data, summary
-from shops.models import Shop
+from shops.hours import day_list, footer_lines, open_data, summary
+from shops.models import BERLIN, Shop
 
 from legal.cookies import cookie_table
 
@@ -56,15 +56,21 @@ def shops_data(lang: str) -> list[dict]:
         out = []
         shops = list(Shop.objects.filter(active=True).prefetch_related("hours").order_by("order"))
         for s in shops:
+            # "10553 Berlin-Moabit" (Bezirk Mitte, Ortsteil Moabit), as on the shop card since 25 Nov 2026
+            place = s.area if s.area.startswith(s.city) else s.city
+            weekly = s.weekly_hours()
             out.append({
-                "key": s.key, "area": s.area, "short": s.short, "street": s.street, "zip": f"{s.postal_code} {s.city}",
+                "key": s.key, "area": s.area, "short": s.short, "street": s.street, "zip": f"{s.postal_code} {place}",
                 "postal_code": s.postal_code, "city": s.city, "tel": s.phone, "telTxt": s.phone_display, "email": s.email,
                 "maps": s.maps_url, "rating": float(s.rating) if s.rating is not None else None, "count": s.rating_count,
                 "asof": date_long(s.rating_fetched_at.date(), lang) if s.rating_fetched_at else "",
                 "photo": s.photo.key if s.photo_id else f"shop-{s.key}", "workshop": s.is_workshop, "mailin": s.is_mail_in,
                 "hours": summary([s], lang), "lat": float(s.latitude) if s.latitude is not None else None,
                 "lng": float(s.longitude) if s.longitude is not None else None, "place_id": s.google_place_id,
-                "weekly": {d: [(o.strftime("%H:%M"), c.strftime("%H:%M")) for o, c in iv] for d, iv in s.weekly_hours().items()},
+                "weekly": {d: [(o.strftime("%H:%M"), c.strftime("%H:%M")) for o, c in iv] for d, iv in weekly.items()},
+                "days": day_list(weekly, lang),
+                # Google reviews open directly (call with the owner, 25 Nov 2026)
+                "reviews": f"https://search.google.com/local/reviews?placeid={s.google_place_id}" if s.google_place_id else s.maps_url,
             })
         return out
 
@@ -111,7 +117,7 @@ def base_context(request, key: str = "home", alt: dict | None = None, title: str
         "open": open_data(),
         "img": {k: IMGS[k] for k in JS_IMAGES if k in IMGS},
         "consent": {"v": S.consent_version, "cats": consent_cats},
-        "mailin": next((f"TipTop Service 24, {s['street']}, {s['zip']}" for s in shops if s["mailin"]), ""),
+        "mailin": next((f"TipTop Service 24, {s['street']}, {s['postal_code']} {s['city']}" for s in shops if s["mailin"]), ""),
         "home": key == "home",
         "page": key,
         "ts": signing.dumps(int(time.time()), salt="form-ts"),
@@ -129,4 +135,5 @@ def base_context(request, key: str = "home", alt: dict | None = None, title: str
         "page_data": json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"),
         "hero_price": fmt_eur(min_price(snap, "phone", "display"), lang) if snap["models"] else "",
         "consent_cats": consent_cats,
+        "today_wd": datetime.now(BERLIN).weekday(),
     }

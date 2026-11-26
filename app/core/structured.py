@@ -10,7 +10,8 @@ def local_business(shop: dict, S, lang: str) -> dict:
     d = {
         "@type": ["ElectronicsStore", "LocalBusiness"],
         "@id": f"{settings.SITE_URL}/#shop-{shop['key']}",
-        "name": f"TipTop Service 24 {shop['short']}",
+        "name": "TipTop Service 24",
+        "alternateName": S.business_name,
         "url": f"{settings.SITE_URL}/{lang}/",
         "telephone": shop["tel"],
         "email": S.contact_email,
@@ -21,8 +22,11 @@ def local_business(shop: dict, S, lang: str) -> dict:
             for day, iv in shop["weekly"].items() for o, c in iv
         ],
         "priceRange": "€€",
-        "parentOrganization": {"@type": "Organization", "name": "TLAMO GmbH", "vatID": "DE326279747"},
+        "legalName": S.business_name,
+        "founder": {"@type": "Person", "name": S.owner_name},
     }
+    if S.vat_id:
+        d["vatID"] = S.vat_id
     if shop.get("lat") is not None and shop.get("lng") is not None:
         d["geo"] = {"@type": "GeoCoordinates", "latitude": shop["lat"], "longitude": shop["lng"]}
     if shop.get("place_id"):

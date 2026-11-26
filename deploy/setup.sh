@@ -170,6 +170,8 @@ for ENVNAME in production staging; do
   log "Environment ${ENVNAME}"
   install -d -m 755 -o "${APP_USER}" -g "${APP_USER}" "${BASE}/${ENVNAME}" "${BASE}/${ENVNAME}/media" "${BASE}/${ENVNAME}/static" \
     "/var/lib/tiptop/${ENVNAME}"
+  # buyback photos: readable by the app only, never served by Nginx, not in backups (deleted after 30 days)
+  install -d -m 700 -o "${APP_USER}" -g "${APP_USER}" "${BASE}/${ENVNAME}/private"
   DB="tiptop_${ENVNAME}"
   ENVFILE="${ETC}/${ENVNAME}.env"
   if [ ! -f "${ENVFILE}" ]; then

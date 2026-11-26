@@ -96,8 +96,9 @@ def build_pdf(c: PurchaseContract) -> bytes:
     iban_masked = f"{iban[:4]} … {iban[-4:]}" if len(iban) > 8 else iban
     story = [
         Paragraph(f"Ankaufvertrag {c.number}", h),
-        Paragraph(f"TLAMO GmbH, handelnd unter „TipTop Service 24“, {shop.street if shop else 'Beusselstraße 18'}, "
-                  f"{shop.postal_code if shop else '10553'} {shop.city if shop else 'Berlin'} (Käufer)", p),
+        Paragraph(f"{s.owner_name}, Einzelunternehmer, handelnd unter „{s.business_name}“, "
+                  f"{shop.street if shop else 'Beusselstraße 18'}, {shop.postal_code if shop else '10553'} "
+                  f"{shop.city if shop else 'Berlin'} (Käufer)", p),
         Spacer(1, 4),
         Paragraph("Verkäufer", h2),
         table([("Name", c.seller_name), ("Anschrift", f"{c.seller_street}, {c.seller_postal_code} {c.seller_city}"),

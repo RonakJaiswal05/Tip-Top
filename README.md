@@ -1,7 +1,8 @@
 # TipTop Service 24: website, price calculator and admin
 
-Django 5.2 site for TipTop Service 24 (TLAMO GmbH), Berlin-Moabit and Spandau. The approved design lives in
-`prototype/`; the live site in `app/` is a port of it.
+Django 5.2 site for TipTop Service 24 Handy Reparatur Berlin (owner Mostafa Khodr), one shop in Berlin-Moabit. The
+approved design lives in `prototype/` (owned by the claude.ai chat, see CLAUDE.md); the live site in `app/` is a port
+of it.
 
 | Where | What |
 |---|---|
@@ -29,6 +30,16 @@ Without `DATABASE_URL` and `REDIS_URL` the dev settings use SQLite, an in-memory
 inline; emails go to the console. Two-factor sign-in is off locally unless `OTP_ENFORCE=1`.
 
 Tests: `uv run python manage.py test tests --settings=tiptop.settings.test`
+
+After the chat updates `prototype/` (a new dated section in CLAUDE.md):
+
+```bash
+node app/seed/extract_prototype.js                  # texts, catalogue, legal texts -> app/seed/prototype.json
+cd app && python tools/build_css.py                 # prototype CSS + port-additions.css -> static/site/css/site.css
+uv run python manage.py migrate
+uv run python manage.py seed_site --overwrite-texts --refresh-media   # dev only: resets texts, replaces changed photos/film
+uv run python tests/browser/expected_labels.py      # then tests/browser/price_check.js in the browser
+```
 
 Useful commands: `import_prices FILE [--dry-run]`, `export_prices FILE.xlsx`, `fetch_ratings`, `setup_roles`,
 `seed_legal`, `seed_catalog`.

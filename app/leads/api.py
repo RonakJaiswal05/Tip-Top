@@ -1,6 +1,8 @@
-"""POST /api/requests/: callback, repair request form, withdrawal, plus WhatsApp-start and sale-offer beacons.
+"""POST /api/requests/: callback, repair request form, withdrawal, buyback offer with photos, plus WhatsApp-start and
+sale beacons.
 
-Accepts JSON (the page script) or a normal form post (works without JavaScript; answers with a redirect).
+Accepts JSON (the page script), multipart (buyback photos) or a normal form post (works without JavaScript; answers
+with a redirect).
 """
 import json
 import logging
@@ -24,9 +26,9 @@ from .models import Request, Withdrawal
 
 log = logging.getLogger(__name__)
 
-ACTIONABLE = {"callback", "form", "withdrawal"}
+ACTIONABLE = {"callback", "form", "withdrawal", "offer"}
 BEACONS = {"whatsapp", "sale"}
-METHODS = {"moabit", "spandau", "pickup", "mailin"}
+METHODS = ["moabit", "mailin"]  # walk in at Beusselstraße 18, or send it in (no second shop, no pickup since 17 Nov 2026)
 VIAS = {"whatsapp", "phone"}
 
 
@@ -71,10 +73,12 @@ def _payload(request) -> tuple[dict, bool]:
     data = request.POST.dict()
     # chips on the no-JS form post their index
     if "method_i" in data and "method" not in data:
-        data["method"] = ["moabit", "spandau", "pickup", "mailin"][int(data["method_i"]) if str(data["method_i"]).isdigit() and int(data["method_i"]) < 4 else 0]
+        i = str(data["method_i"])
+        data["method"] = METHODS[int(i) if i.isdigit() and int(i) < len(METHODS) else 0]
     if "via_i" in data and "contact_via" not in data:
         data["contact_via"] = ["whatsapp", "phone"][1 if str(data.get("via_i")) == "1" else 0]
-    return data, False
+    # the page script sends photos as multipart and asks for a JSON answer
+    return data, "application/json" in request.META.get("HTTP_ACCEPT", "")
 
 
 def _answer(is_json, status=200, back=None, **body):
@@ -124,7 +128,7 @@ def submit(request):
     if model_id:
         fields["device_model"] = DeviceModel.objects.filter(pk=model_id if str(model_id).isdigit() else 0).first()
 
-    if kind in ("callback", "form"):
+    if kind in ("callback", "form", "offer"):
         name, phone = _clip(data.get("name"), 120), _clip(data.get("phone"), 40)
         if not name:
             return _answer(is_json, 400, back, error="name", field="name")
@@ -142,8 +146,25 @@ def submit(request):
         method = data.get("method") if data.get("method") in METHODS else ""
         fields.update(problem=_text(data.get("problem"), 2000), method=method,
                       contact_via=data.get("contact_via") if data.get("contact_via") in VIAS else "")
-    if kind == "sale":
+    if kind in ("sale", "offer"):
         fields.update(condition=_clip(data.get("condition"), 40))
+    if kind == "offer":
+        files = request.FILES.getlist("photos")
+        if not files or len(files) > settings.OFFER_PHOTO_MAX:
+            return _answer(is_json, 400, back, error="photos", field="photos")
+        fields.update(repairs_text=_clip(data.get("repairs_text"), 400), total_text=f"{len(files)} Foto(s)")
+        from .photos import PhotoError, save_photos
+
+        try:
+            with transaction.atomic():
+                req = Request.objects.create(**fields)
+                save_photos(req, files)
+        except PhotoError as e:
+            return _answer(is_json, 400, back, error="photo", field="photos", reason=str(e))
+        from .tasks import after_new_request
+
+        transaction.on_commit(lambda: after_new_request.delay(req.pk))
+        return _answer(is_json, 200, back, ok=True, id=req.pk)
 
     if kind == "withdrawal":
         name, email, ref = _clip(data.get("name"), 120), _clip(data.get("email"), 254), _clip(data.get("reference"), 120)

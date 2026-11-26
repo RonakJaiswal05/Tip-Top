@@ -10,11 +10,12 @@ class Request(models.Model):
         CALLBACK = "callback", "Rückruf"
         FORM = "form", "Anfrageformular"
         WHATSAPP = "whatsapp", "WhatsApp gestartet"
-        SALE = "sale", "Ankauf-Angebot"
+        SALE = "sale", "Ankauf: WhatsApp gestartet"
+        OFFER = "offer", "Ankauf mit Fotos"
         WALKIN = "walkin", "Laufkundschaft"
         WITHDRAWAL = "withdrawal", "Widerruf"
 
-    ACTIONABLE = [Kind.CALLBACK, Kind.FORM, Kind.WALKIN, Kind.WITHDRAWAL]
+    ACTIONABLE = [Kind.CALLBACK, Kind.FORM, Kind.OFFER, Kind.WALKIN, Kind.WITHDRAWAL]
 
     class Status(models.TextChoices):
         NEW = "new", "Neu"
@@ -35,10 +36,11 @@ class Request(models.Model):
         OTHER = "other", "Sonstiges"
 
     class Method(models.TextChoices):
-        MOABIT = "moabit", "Vorbeikommen in Moabit"
-        SPANDAU = "spandau", "Vorbeikommen in Spandau"
-        PICKUP = "pickup", "Kostenlose Abholung (5 km)"
+        MOABIT = "moabit", "Im Laden vorbeibringen"
         MAILIN = "mailin", "Einschicken"
+        # no longer offered (client, 17 Nov 2026), kept for older requests
+        SPANDAU = "spandau", "Vorbeikommen in Spandau (alt)"
+        PICKUP = "pickup", "Abholung (alt)"
 
     class Via(models.TextChoices):
         WHATSAPP = "whatsapp", "WhatsApp"
@@ -105,10 +107,11 @@ class Request(models.Model):
                 self.status_changed_at = timezone.now()
                 if old == self.Status.NEW and not self.first_contact_at:
                     self.first_contact_at = timezone.now()
-        if self.shop_id is None and self.method in ("moabit", "spandau"):
+        if self.shop_id is None and (self.method in ("moabit", "spandau", "mailin") or self.kind == self.Kind.OFFER):
             from shops.models import Shop
 
-            self.shop = Shop.objects.filter(key=self.method).first()
+            # one shop since 17 Nov 2026: walk-ins, send-ins and buyback photos all go to Moabit
+            self.shop = Shop.objects.filter(key="spandau" if self.method == "spandau" else "moabit").first()
         super().save(*args, **kwargs)
 
     @property
@@ -123,6 +126,38 @@ class Request(models.Model):
         elif d.startswith("0"):
             d = "49" + d[1:]
         return d
+
+
+def _private_storage():
+    from django.core.files.storage import FileSystemStorage
+
+    return FileSystemStorage(location=settings.PRIVATE_ROOT, base_url=None)
+
+
+def photo_upload(instance, filename):
+    import secrets
+
+    return f"offer-photos/{timezone.now():%Y/%m}/{instance.request_id}-{secrets.token_hex(8)}.jpg"
+
+
+class RequestPhoto(models.Model):
+    """A photo sent with a buyback request (F9). Re-encoded on upload (no EXIF or GPS data), stored outside the public
+    media folder and only shown to signed-in staff. Deleted after 30 days unless a purchase contract follows."""
+
+    request = models.ForeignKey(Request, on_delete=models.CASCADE, related_name="photos")
+    image = models.FileField("Foto", upload_to=photo_upload, storage=_private_storage)
+    thumb = models.FileField("Vorschau", upload_to=photo_upload, storage=_private_storage, blank=True)
+    width = models.PositiveIntegerField(default=0)
+    height = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Foto"
+        verbose_name_plural = "Fotos"
+        ordering = ["request", "pk"]
+
+    def __str__(self):
+        return f"Foto {self.pk} zu Anfrage #{self.request_id}"
 
 
 class Withdrawal(models.Model):
@@ -189,7 +224,7 @@ class PurchaseContract(models.Model):
     staff = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="Mitarbeiter", null=True, blank=True, on_delete=models.SET_NULL)
     offer_request = models.ForeignKey(
         Request, verbose_name="Angebotsanfrage", null=True, blank=True, on_delete=models.SET_NULL,
-        limit_choices_to={"kind": "sale"}, related_name="contracts",
+        limit_choices_to={"kind__in": ["sale", "offer"]}, related_name="contracts",
     )
 
     seller_first_name = models.CharField("Vorname", max_length=80)
@@ -273,3 +308,14 @@ class PurchaseContract(models.Model):
         if self.data_erased and not self.data_erased_at:
             self.data_erased_at = timezone.now()
         super().save(*args, **kwargs)
+
+
+from django.db.models.signals import post_delete  # noqa: E402
+from django.dispatch import receiver  # noqa: E402
+
+
+@receiver(post_delete, sender=RequestPhoto)
+def _delete_photo_files(sender, instance, **kwargs):
+    for f in (instance.image, instance.thumb):
+        if f:
+            f.storage.delete(f.name)

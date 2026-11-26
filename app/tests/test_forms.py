@@ -34,16 +34,19 @@ class FormTests(SeededTestCase):
     def test_request_form_with_and_without_javascript(self):
         c, token, ts = self.fresh_client()
         r = self.post(c, token, {"kind": "form", "lang": "en", "ts": ts, "name": "Ann", "phone": "0176 1234567", "category": "tablet",
-                                 "device": "iPad Air 11 (M2)", "problem": "Cracked", "method": "spandau", "contact_via": "phone"})
+                                 "device": "iPad Air 11 (M2)", "problem": "Cracked", "method": "mailin", "contact_via": "phone"})
         self.assertEqual(r.status_code, 200)
         req = Request.objects.get(name="Ann")
-        self.assertEqual((req.method, req.contact_via, req.shop.key), ("spandau", "phone", "spandau"))
+        self.assertEqual((req.method, req.contact_via, req.shop.key), ("mailin", "phone", "moabit"))
         # plain HTML form post
         r = c.post("/api/requests/", {"kind": "form", "lang": "de", "ts": ts, "name": "Ohne JS", "phone": "030 1234567",
-                                      "method_i": "2", "via_i": "0", "back": "/de/anfrage/", "csrfmiddlewaretoken": token})
+                                      "method_i": "1", "via_i": "0", "back": "/de/anfrage/", "csrfmiddlewaretoken": token})
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r["Location"], "/de/anfrage/?sent=1")
-        self.assertEqual(Request.objects.get(name="Ohne JS").method, "pickup")
+        self.assertEqual(Request.objects.get(name="Ohne JS").method, "mailin")
+        # no second shop and no pickup any more: anything else falls back to walking in
+        r = self.post(c, token, {"kind": "form", "lang": "de", "ts": ts, "name": "Alt", "phone": "030 7654321", "method": "pickup"})
+        self.assertEqual(Request.objects.get(name="Alt").method, "")
         self.assertIn("Danke", Client().get("/de/anfrage/?sent=1").content.decode())
 
     def test_validation(self):

@@ -4,13 +4,15 @@
   const H = LANG === "de" ? "rechner" : "calculator", sleep = ms => new Promise(r => setTimeout(r, ms));
   let checked = 0; const bad = [];
   for (const slug of Object.keys(E)) {
+    document.getElementById("bldBody").innerHTML = "";  // so the check never reads the previous model's view
     location.hash = "#" + H + "=" + slug; await sleep(30);
-    for (let i = 0; i < 20 && !document.querySelector(".rgrid"); i++) await sleep(20);
+    for (let i = 0; i < 40 && !document.querySelector("#bldBody .rgrid"); i++) await sleep(20);
     const all = document.querySelector("[data-b=all]"); if (all) { all.click(); await sleep(10); }
     const got = {};
     document.querySelectorAll("#bldBody .rc").forEach(b => got[b.dataset.v] = b.querySelector("small").textContent);
     document.querySelectorAll("#bldBody .rlist button").forEach(b => got[b.dataset.v] = b.querySelector("span:last-child").textContent);
     for (const [k, v] of Object.entries(E[slug])) { checked++; if (got[k] !== v) bad.push([slug, k, got[k], v]); }
+    const extra = Object.keys(got).filter(k => !(k in E[slug])); if (extra.length) bad.push([slug, "extra", extra.join(",")]);
   }
   console.log({ models: Object.keys(E).length, checked, mismatches: bad.length, sample: bad.slice(0, 10) });
 })();

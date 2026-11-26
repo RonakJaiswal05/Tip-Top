@@ -1,1 +1,1 @@
-{% load tt %}{% if shop.rating %}<a class="srate" href="{{ shop.maps }}" target="_blank" rel="noopener" title="{% t 'gmb_title' d=shop.asof %}">{% stars shop.rating %}<b>{{ shop.rating|num1:lang }}</b><span>{% t 'gmb_shop' n=shop.count %}</span></a>{% endif %}
+{% load tt %}{% if shop.rating %}<a class="srate" href="{{ shop.reviews }}" target="_blank" rel="noopener" title="{% t 'gmb_title' d=shop.asof %}">{% stars shop.rating %}<b>{{ shop.rating|num1:lang }}</b><span>{% t 'gmb_shop' n=shop.count %}</span></a>{% endif %}

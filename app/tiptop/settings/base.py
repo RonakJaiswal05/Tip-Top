@@ -189,6 +189,11 @@ STORAGES = {
 }
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(env("MEDIA_ROOT", str(BASE_DIR / "media")))
+# Files only signed-in staff may see (buyback photos). Outside MEDIA_ROOT, so Nginx never serves them.
+PRIVATE_ROOT = Path(env("PRIVATE_ROOT", str(BASE_DIR / "private")))
+OFFER_PHOTO_DAYS = 30  # buyback photos are deleted after this many days unless a purchase contract follows
+OFFER_PHOTO_MAX = 6
+OFFER_PHOTO_MAX_BYTES = 8 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000  # the price table posts one field per price

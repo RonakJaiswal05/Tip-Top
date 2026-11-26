@@ -1,6 +1,7 @@
 """Catalogue data for the site: one cached snapshot per site version, used by the price calculator JSON, the home
 page stickers and the model pages. The rules are the prototype's (servicesFor, price, priceLabel, totalOf)."""
 from decimal import Decimal
+from pathlib import Path
 
 from core.cache import cached
 
@@ -47,14 +48,20 @@ def build() -> dict:
             slot[cp.repair.key] = _num(cp.amount)
 
     models = []
+    excluded = {}
+    for model_id, key in DeviceModel.excluded_repairs.through.objects.values_list("devicemodel_id", "repairtype__key"):
+        excluded.setdefault(model_id, []).append(key)
     for m in DeviceModel.objects.filter(active=True).select_related("brand", "category").order_by(
         "category__order", "brand__order", "sort_order", "name"
     ):
-        models.append({
+        row = {
             "id": m.id, "cat": m.category.key, "brand": m.brand.name, "name": m.name, "slug": m.slug, "fl": m.flags(),
             "de": m.full_name("de"), "en": m.full_name("en"), "nde": m.base_name("de"), "nen": m.base_name("en"),
             "ct": m.console_type, "year": m.release_year, "photo": m.photo.url if m.photo else None,
-        })
+        }
+        if m.id in excluded:
+            row["no"] = sorted(excluded[m.id])
+        models.append(row)
     active_ids = {m["id"] for m in models}
     prices, froms = {}, {}
     for model_id, key, tier, amount, is_from in Price.objects.filter(model__active=True).values_list(
@@ -78,11 +85,7 @@ def build() -> dict:
     for model_id, cond, low, high in BuybackPrice.objects.filter(model__active=True).values_list("model_id", "condition", "low", "high"):
         buy.setdefault(str(model_id), {})[cond] = [_num(low), _num(high)]
 
-    drawers = [
-        {"group": d.group, "label": d.label, "cat": d.category.key, "brand": d.brand.name,
-         "logo": d.logo_file.url if d.logo_file else None}
-        for d in CabinetDrawer.objects.filter(active=True).select_related("category", "brand").order_by("group", "order")
-    ]
+    drawers = [drawer_row(d) for d in CabinetDrawer.objects.filter(active=True).select_related("category", "brand").order_by("group", "order")]
     return {
         "cats": [c.key for c in cats],
         "catn": {c.key: {"de": c.name_de, "en": c.name_en} for c in cats},
@@ -91,7 +94,51 @@ def build() -> dict:
         "from": {str(k): sorted(v) for k, v in froms.items()},
         "drawers": drawers,
         "buy": buy,
+        "rimg": repair_photos(),
     }
+
+
+# Repair photos per device type (client, 17 and 25 Nov 2026): the iPhone set only for Apple phones, the Android set for
+# every other phone, own sets for tablets, laptops and consoles. A photo shows once its media asset exists and is
+# published (Inhalte > Medien, same key); until then the card is a tile in the device colour.
+REPAIR_PHOTO_KEYS = {
+    "phone_apple": {"display": "rep-display", "battery": "rep-battery", "port": "rep-port", "back": "rep-back",
+                    "camera": "rep-camera", "water": "rep-water"},
+    "phone": {"display": "and-display", "battery": "and-battery", "port": "and-port", "back": "and-back",
+              "camera": "and-camera", "water": "and-water"},
+    "tablet": {"display": "tab-display", "battery": "tab-battery", "port": "tab-port", "back": "tab-back",
+               "camera": "tab-camera", "water": "tab-water"},
+    "laptop": {"display": "lap-display", "battery": "lap-battery", "keyboard": "lap-keyboard", "port": "lap-port",
+               "fan": "lap-fan", "water": "lap-water"},
+    "console": {"hdmi": "con-hdmi", "fan": "con-fan", "drift": "con-drift", "tmr": "con-drift", "display": "con-display",
+                "drive": "con-drive", "psu": "con-psu"},
+}
+
+
+def repair_photos() -> dict:
+    from content.models import MediaAsset
+
+    have = set(MediaAsset.objects.filter(published=True).exclude(image="").values_list("key", flat=True))
+    return {group: {k: v for k, v in m.items() if v in have} for group, m in REPAIR_PHOTO_KEYS.items()}
+
+
+def repair_photo(snap: dict, cat: str, brand: str, key: str) -> str | None:
+    group = "phone_apple" if cat == "phone" and brand == "Apple" else cat
+    return snap.get("rimg", {}).get(group, {}).get(key)
+
+
+def drawer_row(d: CabinetDrawer) -> dict:
+    """A brand cabinet drawer. Wordmark logos already spell the brand, so the label drops the repeated brand word
+    ("Sony Xperia" -> [SONY] Xperia, "Samsung" -> logo only), as in the prototype's drwLabel()."""
+    f = d.logo_file
+    own = bool(d.logo)
+    wm = bool(f) and not own and d.brand.logo_is_wordmark
+    text = d.label
+    if wm and text.lower().startswith(d.brand.name.lower()):
+        text = text[len(d.brand.name):].strip()
+    lg = (Path(f.name).stem.split("_")[0].lower() if own else d.brand.slug) if f else ""
+    return {"group": d.group, "label": d.label, "text": text, "cat": d.category.key, "brand": d.brand.name,
+            "logo": f.url if f else None, "wm": wm, "lg": lg}
 
 
 def snapshot() -> dict:
@@ -105,9 +152,12 @@ def model_repairs(model: DeviceModel, with_diagnosis: bool = True) -> list[Repai
     for consoles, Face ID / headphone jack only where fitted, plus the diagnosis."""
     opts = RepairOption.objects.filter(category=model.category).select_related("repair").order_by("order")
     opts = opts.filter(console_type=model.console_type if model.category.key == "console" else "")
+    excluded = set(model.excluded_repairs.values_list("key", flat=True)) if model.pk else set()
     out = []
     for o in opts:
         if (o.requires == "face_id" and not model.has_face_id) or (o.requires == "jack" and not model.has_headphone_jack):
+            continue
+        if o.repair.key in excluded:
             continue
         out.append(o.repair)
     if with_diagnosis and all(r.key != "diagnosis" for r in out):
@@ -125,11 +175,14 @@ def services_for(snap: dict, m: dict | None, custom_cat: str | None = None) -> l
         rows = lists.get(m["ct"] if m and m.get("ct") else "", [])
     else:
         rows = lists.get("", [])
+    no = set(m.get("no", ())) if m else set()
     out = []
     for key, req in rows:
         if m and req == "face_id" and "F" not in m["fl"]:
             continue
         if m and req == "jack" and "J" not in m["fl"]:
+            continue
+        if key in no:
             continue
         out.append(key)
     return out

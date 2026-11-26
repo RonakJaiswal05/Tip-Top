@@ -8,6 +8,7 @@ htmlcov/
 
 # Django
 /app/media/
+/app/private/
 /app/staticfiles/
 /app/*.sqlite3
 /app/.env

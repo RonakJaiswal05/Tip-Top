@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>{% block title %}{% if page_title %}{{ page_title }} | TipTop Service 24{% else %}TipTop Service 24{% if lang == "de" %} · Handy-Reparatur in Berlin-Moabit und Spandau{% else %} · Phone repair in Berlin-Moabit and Spandau{% endif %}{% endif %}{% endblock %}</title>
+<title>{% block title %}{% if page_title %}{{ page_title }} | TipTop Service 24{% else %}TipTop Service 24{% if lang == "de" %} · Handy-Reparatur in Berlin-Moabit{% else %} · Phone repair in Berlin-Moabit{% endif %}{% endif %}{% endblock %}</title>
 <meta name="description" content="{% block description %}{% if page_description %}{{ page_description }}{% else %}{{ T.hero_p }}{% endif %}{% endblock %}">
 <script>{{ head_js|safe }}</script>
 <link rel="canonical" href="{{ SITE_URL }}{{ canonical }}">
@@ -14,8 +14,8 @@
 <link rel="preload" href="{% static 'site/fonts/archivo-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 {% block preload %}{% endblock %}
 <link rel="stylesheet" href="{% static 'site/css/site.css' %}">
-<link rel="icon" href="{% static 'site/img/favicon.svg' %}" type="image/svg+xml">
-<link rel="apple-touch-icon" href="{% static 'site/img/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" href="{% static 'site/img/logo-mark-180.png' %}">
+<link rel="apple-touch-icon" href="{% static 'site/img/logo-mark-180.png' %}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="TipTop Service 24">
 <meta property="og:locale" content="{% if lang == 'de' %}de_DE{% else %}en_GB{% endif %}">
@@ -30,8 +30,7 @@
 
 <header class="nav">
   <a class="logo" href="{% if hp %}{{ hp }}{% else %}#top{% endif %}" aria-label="TipTop Service 24">
-    <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#3048F0"/><text x="20" y="26.6" text-anchor="middle" fill="#fff" style="font:800 16px Archivo,Arial,sans-serif;font-stretch:118%">TT</text><circle cx="32.5" cy="7.5" r="3.2" fill="#FFE14D"/></svg>
-    <b>TipTop <span>Service 24</span></b>
+    {% include "site/_logo.html" %}
   </a>
   <nav class="nav-links" aria-label="{{ T.nav_main }}">
     <a href="{{ hp }}#repairs">{{ T.nav_repair }}</a>
@@ -40,8 +39,9 @@
     <a href="{{ hp }}#sell">{{ T.nav_sell }}</a>
     <a href="{{ hp }}#shops">{{ T.nav_shops }}</a>
   </nav>
-  <a class="nav-tel" href="tel:{{ S.phone }}">{{ S.phone_display }}</a>
+  <a class="nav-tel" href="tel:{{ S.phone }}"><b>{{ S.phone_display }}</b><small>{{ T.call_now }}</small></a>
   <div class="lang" role="group" aria-label="{{ T.lang_l }}">{% include "site/_lang.html" %}</div>
+  <a class="lang-sw" id="langSw" href="{{ alternates|get:other_lang }}" hreflang="{{ other_lang }}" lang="{{ other_lang }}" data-lang="{{ other_lang }}" aria-label="{% if other_lang == 'de' %}Auf Deutsch anzeigen{% else %}Show in English{% endif %}">{% ic "globe" 1.8 %}<span>{{ other_lang|upper }}</span></a>
   <button type="button" class="cta" data-open-builder><span>{{ T.cta }}</span></button>
   <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mnav" aria-label="{{ T.menu }}"><span></span><span></span></button>
   <span class="prog" aria-hidden="true"></span>
@@ -64,11 +64,14 @@
 
 <footer>
   <div class="wrap">
+    <img class="flogo" src="{% static 'site/img/logo-tiptop.svg' %}" alt="TipTop" width="245" height="56" loading="lazy"><br>
     <a class="ftel" href="tel:{{ S.phone }}">{{ S.phone_display }}</a><br>
-    <a class="fmail" href="mailto:{{ S.contact_email }}">{{ S.contact_email }}</a>
+    <span class="fcall">{{ T.call_now }}</span><br>
+    <a class="fmail" href="mailto:{{ S.contact_email }}">{{ S.contact_email }}</a><br>
+    <a class="fmail" href="https://wa.me/{{ S.whatsapp_number }}?text={{ T.wa_general|urlencode:'' }}" target="_blank" rel="noopener">WhatsApp {{ S.phone_display }}</a>
     <div class="fgrid">
       {% for s in SHOPS %}<div><h3>{{ s.area }}</h3><p>{{ s.street }}<br>{{ s.zip }}</p></div>
-      {% endfor %}<div><h3>{{ T.f_hours_h }}</h3><p>{% for l in T.f_hours_lines %}{{ l }}{% if not forloop.last %}<br>{% endif %}{% endfor %}</p></div>
+      {% endfor %}{% if MAIN_SHOP %}<div><h3>{{ T.f_hours_h }}</h3>{% include "site/_hours.html" with shop=MAIN_SHOP %}</div>{% endif %}
       <div><h3>{{ T.f_more }}</h3><ul>
         <li><a href="{{ urls.request }}">{{ T.f_form }}</a></li>
         <li><a href="{{ urls.models }}">{{ T.all_models }}</a></li>
@@ -86,7 +89,7 @@
       </ul></div>
     </div>
     <a class="fab" id="fab" href="https://wa.me/{{ S.whatsapp_number }}?text={{ T.wa_general|urlencode:'' }}" target="_blank" rel="noopener" aria-label="WhatsApp">{% ic "wa" 1.9 %}</a>
-    <div class="fbase"><span>© {% now "Y" %} TLAMO GmbH, TipTop Service 24</span><a class="fwd" href="{{ urls.withdraw }}">{{ T.f_wdr }}</a>{% if S.prices_are_placeholders %}<span>{{ T.price_note }}</span>{% endif %}</div>
+    <div class="fbase"><span>© {% now "Y" %} {{ S.business_name }}</span><a class="fwd" href="{{ urls.withdraw }}">{{ T.f_wdr }}</a>{% if S.prices_are_placeholders %}<span>{{ T.price_note }}</span>{% endif %}</div>
   </div>
 </footer>
 
@@ -103,6 +106,7 @@
       </div>
       <div class="mini" id="bldMini"></div>
       <div class="bld-body" id="bldBody" aria-live="polite"></div>
+      <div class="bld-foot" id="bldFoot" hidden></div>
     </div>
   </div>
 </div>

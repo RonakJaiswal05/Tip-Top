@@ -29,7 +29,7 @@ def _csp(request) -> str:
     from .page import HEAD_JS_HASH
 
     s = SiteSettings.load()
-    script, connect, img = ["'self'", f"'{HEAD_JS_HASH}'"], ["'self'"], ["'self'", "data:"]
+    script, connect, img = ["'self'", f"'{HEAD_JS_HASH}'"], ["'self'"], ["'self'", "data:", "blob:"]  # blob: buyback photo previews
     # Optional services only ever load after consent (core.js checks the consent first); CSP just allows their hosts.
     if s.analytics_enabled and s.matomo_url:
         host = s.matomo_url.rstrip("/")

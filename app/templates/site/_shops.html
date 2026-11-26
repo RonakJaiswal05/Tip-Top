@@ -1,0 +1,15 @@
+{% load tt %}      <div class="shops{% if SHOPS|length == 1 %} one{% endif %}" id="shopList">{% for sh in SHOPS %}{% with st=status|get:sh.key %}<article class="shop">
+        <div class="fr"><div class="sign" aria-hidden="true"><span><small>{{ sh.short }}</small><b>{{ sh.street }}</b></span></div>{% ph sh.photo "notag" %}
+          <span class="tag-open shop-open" data-open="{{ sh.key }}"><span class="pulse{% if not st.0 %} off{% endif %}"></span>{{ st.1 }}</span></div>
+        <div class="shop-b">
+          <p class="shop-k">{% ic "store" 1.9 %}{{ sh.area }}</p>
+          <h3>{{ sh.street }}</h3>
+          <p class="addr">{{ sh.zip }}</p>
+          {% include "site/_shop_rating.html" with shop=sh %}
+          <div class="shop-h">{% ic "clock" 1.9 %}{% include "site/_hours.html" with shop=sh %}</div>
+          <p class="shop-call"><a href="tel:{{ sh.tel }}">{% ic "call" 2 %}{{ T.call_now }}</a></p>
+          <div class="shop-acts"><a class="btn" href="{{ sh.maps }}" target="_blank" rel="noopener">{% ic "store" %}{{ T.directions }}</a><a class="btn line" href="tel:{{ sh.tel }}">{% ic "call" %}{{ sh.telTxt }}</a></div>
+        </div></article>{% endwith %}{% endfor %}</div>
+      <div class="ways" id="ways">{% with w=T.ways %}<div class="way w1"><span class="wi">{% ic "store" 1.8 %}</span><div><b>{{ w.0.0 }}</b><p>{{ w.0.1 }}</p></div></div>
+        <a class="way w2" href="{{ pick_wa }}" target="_blank" rel="noopener" data-wa="ask"><span class="wi">{% ic "wa" 1.9 %}</span><div><b>{{ w.1.0 }}</b><p>{{ w.1.1 }}</p><span class="wgo">{{ w.1.2 }}{% ic "right" 2.4 %}</span></div></a>
+        <button type="button" class="way w3" id="copyAddr"><span class="wi">{% ic "ship" 1.8 %}</span><div><b>{{ w.2.0 }}</b><p>{{ w.2.1 }}</p><span class="wgo">{{ w.2.2 }}{% ic "right" 2.4 %}</span></div></button>{% endwith %}</div>

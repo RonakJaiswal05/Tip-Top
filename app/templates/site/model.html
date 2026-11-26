@@ -26,11 +26,7 @@
   <section class="sec" id="shops" style="padding-top:0">
     <div class="wrap">
       <div class="head"><h2 data-rv><span class="rv-line"><span>{{ T.shops_h }}</span></span></h2><p>{{ T.shops_p }}</p></div>
-      <div class="shops">{% for sh in SHOPS %}<article class="shop"><div class="fr"><div class="sign" aria-hidden="true"><span><small>{{ sh.short }}</small><b>{{ sh.street }}</b></span></div>{% ph sh.photo "notag" %}</div><div class="shop-b"><h3>{{ sh.area }}</h3><p class="addr">{{ sh.street }}, {{ sh.zip }}</p>{% include "site/_shop_rating.html" with shop=sh %}{% with st=status|get:sh.key %}<span class="stat" data-open="{{ sh.key }}"><span class="pulse{% if not st.0 %} off{% endif %}"></span>{{ st.1 }}</span>{% endwith %}
-        <div class="row" style="margin-top:8px"><a class="btn" href="{{ sh.maps }}" target="_blank" rel="noopener">{% ic "store" %}{{ T.directions }}</a><a class="btn line" href="tel:{{ sh.tel }}">{% ic "call" %}{{ sh.telTxt }}</a></div></div></article>{% endfor %}</div>
-      <div class="ways">{% with w=T.ways %}<div class="way"><b>{{ w.0.0 }}</b><p>{{ w.0.1 }}</p></div>
-        <div class="way"><b>{{ w.1.0 }}</b><p>{{ w.1.1 }}</p><a href="{{ pick_wa }}" target="_blank" rel="noopener" data-wa="pickup">{{ w.1.2 }}</a></div>
-        <div class="way"><b>{{ w.2.0 }}</b><p>{{ w.2.1 }}</p><button type="button" id="copyAddr">{{ w.2.2 }}</button></div>{% endwith %}</div>
+      {% include "site/_shops.html" %}
     </div>
   </section>
 

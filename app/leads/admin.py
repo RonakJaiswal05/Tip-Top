@@ -12,7 +12,7 @@ from django.utils.safestring import mark_safe
 
 from core.roles import RoleAdminMixin, user_in
 
-from .models import PurchaseContract, Request, Withdrawal
+from .models import PurchaseContract, Request, RequestPhoto, Withdrawal
 
 STATUS_COLOURS = {
     "new": "#3048F0", "contacted": "#8A5A00", "booked": "#1FA67A", "in_repair": "#6B46C1", "ready": "#0E7490",
@@ -27,7 +27,7 @@ class KindFilter(admin.SimpleListFilter):
     """Defaults to the requests staff have to work; 'Alle Arten' also shows WhatsApp starts and sale offers."""
 
     def lookups(self, request, model_admin):
-        return ([("actionable", "Zu bearbeiten (Rückruf, Formular, Widerruf, Laufkundschaft)"), ("all", "Alle Arten")]
+        return ([("actionable", "Zu bearbeiten (Rückruf, Formular, Ankauf mit Fotos, Widerruf, Laufkundschaft)"), ("all", "Alle Arten")]
                 + list(Request.Kind.choices))
 
     def queryset(self, request, qs):
@@ -102,6 +102,44 @@ class WithdrawalInline(admin.StackedInline):
               "confirmation_subject", "confirmation_body", "refund_status", "refunded_at"]
 
 
+class PhotoInline(admin.TabularInline):
+    """Buyback photos: thumbnails link to the full photo, both served only to signed-in staff (never from /media/)."""
+
+    model = RequestPhoto
+    extra = 0
+    can_delete = True
+    fields = ["preview", "size", "created_at"]
+    readonly_fields = ["preview", "size", "created_at"]
+    verbose_name_plural = "Fotos (werden nach 30 Tagen gelöscht, wenn kein Ankaufvertrag folgt)"
+
+    # Photos have no admin page of their own: whoever may see a request sees its photos, whoever may change it may
+    # remove one (for example a photo sent by mistake).
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.has_perm("leads.view_request")
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.has_perm("leads.change_request")
+
+    @admin.display(description="Foto")
+    def preview(self, p):
+        if not p.pk:
+            return "–"
+        full = reverse("admin:leads_request_photo", args=[p.request_id, p.pk])
+        thumb = reverse("admin:leads_request_photo", args=[p.request_id, p.pk]) + "?thumb=1"
+        return format_html('<a href="{}" target="_blank" rel="noopener"><img src="{}" alt="Foto {}" '
+                           'style="height:120px;border-radius:6px;object-fit:cover"></a>', full, thumb, p.pk)
+
+    @admin.display(description="Größe")
+    def size(self, p):
+        return f"{p.width} × {p.height} px" if p.width else "–"
+
+
 @admin.register(Request)
 class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
     list_display = ["number", "received", "kind_badge", "status_badge", "name", "phone_link", "device", "repairs_text", "total_text",
@@ -115,7 +153,14 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
     autocomplete_fields = ["device_model"]
     readonly_fields = ["created_at", "kind", "language", "source", "repairs_view", "first_contact_at", "status_changed_at",
                        "notified_at", "sheet_synced_at", "sheet_error_view", "quick_contact"]
-    inlines = [WithdrawalInline]
+    inlines = [PhotoInline, WithdrawalInline]
+
+    def get_inlines(self, request, obj):
+        if obj and obj.kind == Request.Kind.OFFER:
+            return [PhotoInline]
+        if obj and obj.kind == Request.Kind.WITHDRAWAL:
+            return [WithdrawalInline]
+        return []
     fieldsets = [
         (None, {"fields": [("kind", "created_at"), ("status", "lost_reason"), ("shop", "assignee"), "quick_contact"]}),
         ("Kunde", {"fields": [("name", "phone", "email"), "contact_via"]}),
@@ -210,7 +255,25 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
     def get_urls(self):
         from django.urls import path
 
-        return [path("poll/", self.admin_site.admin_view(self.poll), name="leads_request_poll")] + super().get_urls()
+        return [path("poll/", self.admin_site.admin_view(self.poll), name="leads_request_poll"),
+                path("<int:rid>/photo/<int:pid>/", self.admin_site.admin_view(self.photo), name="leads_request_photo"),
+                ] + super().get_urls()
+
+    def photo(self, request, rid, pid):
+        """Stream a buyback photo to staff who may see the request. Private: no caching, never indexed."""
+        from django.http import FileResponse, Http404
+
+        if not self.has_view_permission(request):
+            raise Http404
+        req = self.get_queryset(request).filter(pk=rid).first()
+        p = RequestPhoto.objects.filter(pk=pid, request=req).first() if req else None
+        f = (p.thumb if request.GET.get("thumb") and p and p.thumb else p.image) if p else None
+        if not f:
+            raise Http404
+        resp = FileResponse(f.open("rb"), content_type="image/jpeg")
+        resp["Cache-Control"] = "private, no-store"
+        resp["X-Robots-Tag"] = "noindex"
+        return resp
 
     def poll(self, request):
         """Latest actionable request for the inbox's 5-second check (no personal data beyond what the inbox shows)."""

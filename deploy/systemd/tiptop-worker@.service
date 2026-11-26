@@ -17,7 +17,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/srv/tiptop/%i/media /var/log/tiptop /var/lib/tiptop/%i
+ReadWritePaths=/srv/tiptop/%i/media /srv/tiptop/%i/private /var/log/tiptop /var/lib/tiptop/%i
 
 [Install]
 WantedBy=multi-user.target

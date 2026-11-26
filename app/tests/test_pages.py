@@ -49,14 +49,17 @@ class PageTests(SeededTestCase):
         html = Client().get("/de/reparatur/apple-iphone-13/").content.decode()
         ld = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
         types = [str(x["@type"]) for x in ld["@graph"]]
-        self.assertEqual(sum("LocalBusiness" in t for t in types), 2)
+        self.assertEqual(sum("LocalBusiness" in t for t in types), 1)  # one shop since 17 Nov 2026
+        biz = next(x for x in ld["@graph"] if "LocalBusiness" in str(x["@type"]))
+        self.assertEqual((biz["vatID"], biz["founder"]["name"]), ("DE357158413", "Mostafa Khodr"))
+        self.assertNotIn("TLAMO", html)
         self.assertGreater(types.count("Service"), 15)
         self.assertIn("BreadcrumbList", types)
         self.assertEqual(Client().get("/de/reparatur/does-not-exist/").status_code, 404)
 
     def test_sitemap(self):
         xml = Client().get("/sitemap.xml").content.decode()
-        self.assertEqual(xml.count("<url>"), (3 + len(LEGAL_KEYS)) * 2 + 180 * 2)
+        self.assertEqual(xml.count("<url>"), (3 + len(LEGAL_KEYS)) * 2 + 435 * 2)
         self.assertIn('hreflang="x-default"', xml)
 
     def test_robots(self):
@@ -72,7 +75,8 @@ class PageTests(SeededTestCase):
         self.assertEqual(c.get("/policies/privacy-policy").headers["Location"], "/de/datenschutz/")
         self.assertEqual(c.get("/products/iphone-13-reparatur-akku").headers["Location"], "/de/reparatur/apple-iphone-13/")
         self.assertEqual(c.get("/collections/macbook-air-13-anfang-2015").headers["Location"], "/de/reparatur/#laptop-apple")
-        self.assertEqual(c.get("/products/huawei-p30-lite-reparatur-akku").headers["Location"], "/de/reparatur/#phone-huawei")
+        # the P30 lite is in the catalogue since 17 Nov 2026, so its old product page lands on its own model page
+        self.assertEqual(c.get("/products/huawei-p30-lite-reparatur-akku").headers["Location"], "/de/reparatur/huawei-p30-lite/")
         self.assertEqual(c.get("/pages/kontakt").status_code, 301)
 
     def test_security_headers_and_no_third_party_requests(self):

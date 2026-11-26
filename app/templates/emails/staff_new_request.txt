@@ -9,6 +9,8 @@ Name: {{ r.name|default:"–" }}
 {% endif %}{% if r.total_text %}Angezeigter Preis: {{ r.total_text }}
 {% endif %}{% if r.problem %}Beschreibung: {{ r.problem }}
 {% endif %}{% if r.method %}Reparaturweg: {{ r.get_method_display }}
+{% endif %}{% if r.condition %}Zustand: {{ r.condition }}
+{% endif %}{% if r.kind == "offer" %}Fotos: {{ r.photos.count }} (nur im Admin zu sehen, werden nach 30 Tagen gelöscht, wenn kein Ankauf folgt)
 {% endif %}{% if r.contact_via %}Kontakt gewünscht über: {{ r.get_contact_via_display }}
 {% endif %}Sprache: {{ r.language|upper }}
 {% if r.kind == "withdrawal" %}

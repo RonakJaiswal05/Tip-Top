@@ -13,7 +13,7 @@ Vertrag (Auftragsnummer oder Datum der Beauftragung): {{ wd.reference }}
 {% endif %}
 Bei Fragen antworte einfach auf diese E-Mail oder ruf uns an: {{ s.phone_display }}.
 
-TipTop Service 24
-TLAMO GmbH, Beusselstraße 18, 10553 Berlin
+{{ s.business_name }}
+Inhaber: {{ s.owner_name }}, Beusselstraße 18, 10553 Berlin
 {{ s.contact_email }}
 {% endautoescape %}

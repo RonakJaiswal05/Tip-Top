@@ -9,7 +9,7 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.views.decorators.http import require_GET
 
-from catalog.services import fmt_eur, min_price, repair_name, snapshot
+from catalog.services import fmt_eur, min_price, repair_name, repair_photo, snapshot
 from content.models import FAQ, BeforeAfter, WorkshopCard
 from content.texts import fill
 from shops.hours import is_open_now, t_fmt
@@ -17,7 +17,7 @@ from shops.models import BERLIN, Shop
 
 from .cache import site_version
 from .models import SiteSettings
-from .page import base_context
+from .page import base_context, images
 from .structured import dump, faq_page, local_business
 
 REP_ROT = [-9, 7, -5, 10, -12, 6]
@@ -60,7 +60,8 @@ def home(request):
         p = min_price(snap, "phone", k)
         rep = snap["rep"][k]
         rail.append({
-            "key": k, "img": rep["img"] or "rep-display", "name": repair_name(snap, k, "phone", lang),
+            "key": k, "img": repair_photo(snap, "phone", "Apple", k) or rep["img"] or "rep-display",
+            "name": repair_name(snap, k, "phone", lang),
             "price": fmt_eur(p, lang) if p is not None else "", "delay": f"{(i % 3) * .08:g}",
             "d": f"{.45 + (i % 3) * .12:.2f}", "r": REP_ROT[i % len(REP_ROT)],
         })
@@ -77,9 +78,9 @@ def home(request):
     status = shop_status(T, lang)
     main = ctx["MAIN_SHOP"]
     try:
-        count = int(str(T.get("lab_count", "15000")).replace(".", "").replace(",", ""))
+        count = int(str(T.get("lab_count", "20000")).replace(".", "").replace(",", ""))
     except ValueError:
-        count = 15000
+        count = 20000
     sell_cond = 1
     ctx.update({
         "cats": cats, "rail": rail, "cab": cab, "pair": pair, "lab": lab, "faq": faq, "status": status,
@@ -89,6 +90,9 @@ def home(request):
         "sell_cond": sell_cond,
         "sell_wa": wa_link(S.whatsapp_number, fill(T["wa_sell"], c=T["cat_phone"], m="?", k=T["conds"][sell_cond])),
         "pick_wa": wa_link(S.whatsapp_number, T["wa_pick"]),
+        "general_wa": wa_link(S.whatsapp_number, T["wa_general"]),
+        "hero_video": S.hero_video.url if S.hero_video else "",
+        "photo_max": settings.OFFER_PHOTO_MAX,
         "page_title": "",
         "ld_json": dump([local_business(sh, S, lang) for sh in ctx["SHOPS"]] + ([faq_page(faq)] if faq else [])),
     })
@@ -98,7 +102,12 @@ def home(request):
 @require_GET
 def catalog_json(request):
     """Models, repairs and prices for the price calculator. Versioned URL, so it can be cached for long."""
-    resp = JsonResponse(snapshot(), json_dumps_params={"ensure_ascii": False, "separators": (",", ":")})
+    data = dict(snapshot())
+    # responsive image URLs for the repair photos the calculator may show (iPhone, Android, tablet, laptop, console sets)
+    im = images()
+    keys = {v for group in data.get("rimg", {}).values() for v in group.values()}
+    data["img"] = {k: im[k] for k in sorted(keys) if k in im}
+    resp = JsonResponse(data, json_dumps_params={"ensure_ascii": False, "separators": (",", ":")})
     if request.GET.get("v") == str(site_version()):
         resp["Cache-Control"] = "public, max-age=31536000, immutable"
     else:

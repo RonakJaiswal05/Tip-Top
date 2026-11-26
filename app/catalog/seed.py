@@ -33,6 +33,8 @@ BRAND_LOGO_FILE = {
 }
 # Drawers whose logo differs from the brand's own
 DRAWER_OWN_LOGO = {"PlayStation": "playstation", "DualSense": "playstation", "Xbox": "xbox", "Steam Deck": "steam"}
+# Logos that are a wordmark (the prototype's BRAND_WORDMARK): the drawer label drops the repeated brand word.
+WORDMARK_BRANDS = {"Samsung", "Sony", "Lenovo", "ASUS", "Acer", "MSI", "Oppo"}
 CONSOLE_TYPES = "BbHP"
 
 
@@ -66,7 +68,7 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
 
     # Repair types, per-category names
     fixed, frm, K = set(d["FIXED"]), set(d["FROM"]), d["K"]
-    icon_of = {"cport": "port"}
+    icon_of = d.get("ICON_OF") or {"cport": "port", "tmr": "drift"}
     reps = {}
     for i, (key, (en, de)) in enumerate(SV.items()):
         reps[key], _ = RepairType.objects.update_or_create(key=key, defaults=dict(
@@ -109,6 +111,9 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
         for b in d["M"][cat]:
             if b not in brands:
                 brands[b], created = Brand.objects.get_or_create(name=b, defaults={"slug": slugify_de(b), "order": order})
+                if not created and brands[b].order != order:
+                    brands[b].order = order
+                    brands[b].save(update_fields=["order"])
                 order += 1
     logos = 0
     for name, brand in brands.items():
@@ -116,7 +121,9 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
         p = _logo_path(f) if f else None
         if p and not brand.logo:
             with p.open("rb") as fh:
-                brand.logo.save(p.name, File(fh), save=True)
+                brand.logo.save(p.name, File(fh), save=False)
+            brand.logo_is_wordmark = name in WORDMARK_BRANDS
+            brand.save()
             logos += 1
     stats["brands"] = len(brands)
 
@@ -138,6 +145,7 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
 
     # Device models, newest first as in the prototype lists
     real_ids = set(d["REAL"])
+    no_repairs = {(p["cat"], p["brand"], p["name"]): sorted(set(p["all"]) - set(p["services"])) for p in d["PRICES"]}
     models = []
     for cat in d["CATS"]:
         for b, entries in d["M"][cat].items():
@@ -155,16 +163,24 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
                 dm.sort_order = i * 10
                 dm.legacy_key = slugify_de(f"{cat}-{b}-{name}")
                 dm.save(keep_factor=True)
+                # Repairs this model physically can't have (the prototype's NOSV). Set once; the admin can change them.
+                no = no_repairs.get((cat, b, name), [])
+                if no and not dm.excluded_repairs.exists():
+                    dm.excluded_repairs.set([reps[k] for k in no])
                 models.append(dm)
     stats["models"] = len(models)
+    seeded = {dm.id for dm in models}
+    others = DeviceModel.objects.exclude(id__in=seeded).filter(active=True)
+    stats["models_not_in_prototype"] = others.count()  # added in the admin, or renamed in the prototype: left alone
 
     # Placeholder prices exactly as the prototype computed them
     created = 0
     by_entry = {(p["cat"], p["brand"], p["name"]): p for p in d["PRICES"]}
     if reset_prices:
         Price.objects.all().delete()
-    existing = set(Price.objects.values_list("model_id", "repair_id", "tier"))
-    new = []
+    existing = {(m, r, t): (pk, amount, src) for pk, m, r, t, amount, src in
+                Price.objects.values_list("id", "model_id", "repair_id", "tier", "amount", "source")}
+    new, changed = [], []
     for dm in models:
         p = by_entry[(dm.category.key, dm.brand.name, dm.name)]
         source = PriceSource.WEBSITE if p["id"] in real_ids else PriceSource.PLACEHOLDER
@@ -174,12 +190,22 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
                 continue  # comes from the category base price
             rows = [(Tier.PREMIUM, v[0]), (Tier.ORIGINAL, v[1])] if isinstance(v, list) else [(Tier.STANDARD, v)]
             for tier, amount in rows:
-                if amount is None or (dm.id, rep.id, tier) in existing:
+                if amount is None:
                     continue
-                new.append(Price(model=dm, repair=rep, tier=tier, amount=amount, is_from=rep.default_from, source=source))
+                cur = existing.get((dm.id, rep.id, tier))
+                if cur is None:
+                    new.append(Price(model=dm, repair=rep, tier=tier, amount=amount, is_from=rep.default_from, source=source))
+                elif cur[2] == PriceSource.PLACEHOLDER and cur[1] != Decimal(str(amount)):
+                    changed.append((cur[0], amount))  # a placeholder the prototype has since changed (never an edited price)
     bulk_create_with_history(new, Price, batch_size=500, default_change_reason="Startdaten aus dem Prototyp")
     created += len(new)
+    for pk, amount in changed:
+        pr = Price.objects.get(pk=pk)
+        pr.amount = amount
+        pr._change_reason = "Platzhalter aus dem Prototyp aktualisiert"
+        pr.save(update_fields=["amount", "updated_at"])
     stats["prices_created"] = created
+    stats["placeholders_updated"] = len(changed)
     stats["prices_total"] = Price.objects.count()
     # bulk writes send no post_save signal: rebuild cached catalogue data once this transaction is committed
     from core.cache import bump

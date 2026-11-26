@@ -15,12 +15,13 @@ from .base import SeededTestCase
 class PriceAccuracyTests(SeededTestCase):
     def test_catalogue_counts(self):
         snap = snapshot()
-        self.assertEqual(len(snap["models"]), 180)
-        self.assertEqual(len(snap["rep"]), 30)
-        self.assertEqual(len({m["brand"] for m in snap["models"]}), 18)
+        self.assertEqual(len(snap["models"]), 435)  # client voice note of 17 Nov 2026
+        self.assertEqual(len(snap["rep"]), 31)  # TMR sticks added
+        self.assertEqual(len({m["brand"] for m in snap["models"]}), 22)
+        self.assertEqual(len({m["slug"] for m in snap["models"]}), 435)  # "+" becomes "plus": no two models share a URL
 
     def test_every_price_matches_the_prototype(self):
-        """All 180 models x every repair x both parts, as the prototype computed them."""
+        """All 435 models x every repair x both parts, as the prototype computed them."""
         snap = snapshot()
         expected = load()["PRICES"]
         by_key = {(m["cat"], m["brand"], m["name"]): m for m in snap["models"]}
@@ -97,7 +98,34 @@ class PriceAccuracyTests(SeededTestCase):
     def test_console_lists_by_type(self):
         snap = snapshot()
         pad = next(x for x in snap["models"] if x["name"] == "DualSense controller")
-        self.assertEqual(services_for(snap, pad), ["drift", "cport", "battery", "buttons", "water"])
+        self.assertEqual(services_for(snap, pad), ["drift", "tmr", "cport", "battery", "buttons", "water"])
+        ps5 = next(x for x in snap["models"] if x["name"] == "PlayStation 5")
+        self.assertIn("tmr", services_for(snap, ps5))  # owner, 25 Nov 2026: sticks on the console page too
+
+    def test_repairs_a_model_cannot_have(self):
+        """The prototype's NOSV list: no fan or SSD where there is none, no battery in an AA-powered controller."""
+        snap = snapshot()
+        by = {(m["brand"], m["name"]): m for m in snap["models"]}
+        cases = {("Sony", "PlayStation Portal"): ["fan", "ssd"], ("Nintendo", "Switch 2"): ["ssd"], ("Nintendo", "Joy-Con"): ["cport"],
+                 ("Microsoft", "Xbox controller"): ["battery"], ("Apple", "MacBook Air 13 (M4)"): ["fan", "ssd"],
+                 ("Apple", "MacBook Pro 14 (M4)"): ["ssd"]}
+        for key, gone in cases.items():
+            have = services_for(snap, by[key])
+            for k in gone:
+                self.assertNotIn(k, have, key)
+        self.assertIn("fan", services_for(snap, by[("Apple", "MacBook Pro 14 (M4)")]))
+
+    def test_repair_photos_follow_the_device(self):
+        """iPhone photos only for Apple phones; other phones, tablets, laptops and consoles never get a phone photo."""
+        from catalog.services import repair_photo
+
+        snap = dict(snapshot())
+        snap["rimg"] = {"phone_apple": {"display": "rep-display"}, "phone": {"display": "and-display"},
+                        "tablet": {"display": "tab-display"}, "laptop": {}, "console": {"hdmi": "con-hdmi"}}
+        self.assertEqual(repair_photo(snap, "phone", "Apple", "display"), "rep-display")
+        self.assertEqual(repair_photo(snap, "phone", "Samsung", "display"), "and-display")
+        self.assertEqual(repair_photo(snap, "tablet", "Apple", "display"), "tab-display")
+        self.assertIsNone(repair_photo(snap, "laptop", "Apple", "display"))
 
 
 class ImportTests(SeededTestCase):

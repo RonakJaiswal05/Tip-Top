@@ -1,4 +1,26 @@
-# Test results (15 November 2026, local build)
+# Test results
+
+## 26 November 2026 (evening): client feedback of 17 Nov, call of 25 Nov, chat changes of 26 Nov
+
+How to run: `cd app && uv run python manage.py test tests --settings=tiptop.settings.test` (61 tests, about 60 s).
+
+| Area | What was checked | Result |
+|------|------------------|--------|
+| Catalogue | 435 models, 22 brands, 31 repairs, unique slugs ("+" → "plus"); every price and repair list equals the prototype's price() and servicesFor(), including the NOSV exclusions (PlayStation Portal, Switch, Joy-Con, Xbox controller, Apple silicon MacBooks) and TMR on consoles | Pass |
+| Calculator in the browser | All 435 models opened via deep link, every label of the repair step compared with the server, no extra repairs shown | 6,657 / 6,657 labels match in German and in English |
+| Repair photos | iPhone 17 Pro → `rep-*`, Galaxy S26 Ultra → `and-*`, iPad Air → `tab-*`, MacBook Air → `lap-*` (no fan card), PS5 Pro / Switch 2 / DualSense → `con-*` or a tile; side panel never shows a phone for other devices | Pass |
+| Multi-select (17 Nov #8) | Tapping toggles, bottom bar "2 ausgewählt · 318 €", "Preis ansehen", "Weitere Reparatur hinzufügen" keeps the choices, deep link carries all repairs | Pass |
+| Search bar (25 Nov #2) | Live suggestions with price, repair words ignored ("s24 akku" → Galaxy S24 family with battery prices), arrow keys + Enter open the calculator at the price step | Pass |
+| Buyback with photos (17 Nov #10) | Browser: 2 photos shrunk to 1600 px, name + phone, sent as multipart, request in the inbox. Tests: EXIF/GPS and camera name gone, turned upright, stored under PRIVATE_ROOT (not /media/), max 6, non-images refused with nothing saved, staff-only view (no-store), deleted after 30 days unless a purchase contract is linked, file removed from disk | Pass |
+| One shop, facts | No "Spandau", "Havelstraße", "TLAMO" or mobile number on the pages; structured data with owner and VAT ID; hours one per line with today bold and "Sonntag geschlossen"; request form "Im Laden vorbeibringen" / "Einschicken" | Pass |
+| Price list per category (25 Nov #13) | Owner/Manager edit all models × main repairs in one table, only changed cells saved, history reason "Preisliste (Tabelle)", impossible repairs shown as "–" and ignored if posted, bad input saves nothing; Front desk and Technician get 403 | Pass |
+| No sideways scrolling | 320, 390, 768, 1024, 1440, 2560 px: home (DE, EN), request page, model page, legal pages, calculator; also no clipped text (the German shop card and footer hours needed two CSS fixes at 320–380 px) | Pass |
+| Accessibility (axe-core 4.10) | Home with the suggestion list open, calculator repair step with the bottom bar, buyback form with a photo | 0 violations |
+| Hero film | Plays on desktop with mouse only, muted with "Ton an", photo stays underneath; phones keep the photo | Pass |
+
+Not re-run this time: Lighthouse (the new logo SVG and the desktop film should be measured on the server).
+
+## 15 November 2026, first build
 
 How to run: `cd app && uv run python manage.py test tests --settings=tiptop.settings.test` (45 tests, about 20 s).
 Browser checks: see `app/tests/browser/README.md`.

@@ -1,0 +1,1 @@
+<ul class="hours">{% for d in shop.days %}<li{% if forloop.counter0 == today_wd %} class="today"{% endif %}><span>{{ d.0 }}</span><span>{% if d.1 %}{{ d.1 }}{% else %}<b>{{ T.closed_day }}</b>{% endif %}</span></li>{% endfor %}</ul>

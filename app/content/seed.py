@@ -18,7 +18,7 @@ DROP = {
     "ad_reset", "ad_saved", "ad_resetd", "ad_rep", "ad_price", "ad_pick", "ad_cat", "ad_brand", "ad_name", "ad_level",
     "levels", "ad_faceid", "ad_kind", "kinds", "ad_add", "ad_added", "ad_err", "ad_none", "ad_cols", "ad_reqs_note",
     "via_cb", "via_form", "via_wd", "q_p", "q_o", "img_btn", "img_h", "img_p", "copy", "copied_p", "attach", "real",
-    "file", "proto", "proto_foot", "f_hours", "faq", "lab",
+    "file", "proto", "proto_foot", "f_hours", "faq", "lab", "ad_dup", "via_sell",
 }
 
 # Texts that change for the live site. Opening hours now come from the admin ({hours}, {t}); prototype-only wording goes.
@@ -26,7 +26,7 @@ CHANGES = {
     "de": {
         "open": "Jetzt geöffnet, bis {t} Uhr",
         "closed": "Geschlossen, öffnet {d} um {t} Uhr",
-        "shops_p": "Zwei Filialen, ohne Termin. {hours}.",
+        "shops_p": "Beusselstraße 18, 10553 Berlin. Ohne Termin, {hours}.",
         "wi_s": "Ohne Termin, {hours}",
         "lf_p": "Sag uns, was kaputt ist. Wir melden uns während der Öffnungszeiten, {hours}.",
         "ai_blocked": "Das Mikrofon ist gesperrt. Erlaube den Zugriff in deinem Browser oder tipp es einfach ein.",
@@ -34,7 +34,7 @@ CHANGES = {
     "en": {
         "open": "Open now, until {t}",
         "closed": "Closed, opens {d} at {t}",
-        "shops_p": "Two shops, no appointment needed. {hours}.",
+        "shops_p": "Beusselstraße 18, 10553 Berlin. No appointment needed, {hours}.",
         "wi_s": "No appointment, {hours}",
         "lf_p": "Tell us what's broken. We reply during opening hours, {hours}.",
         "ai_blocked": "The microphone is blocked. Allow access in your browser or just type it instead.",
@@ -70,13 +70,15 @@ NEW = {
     "sending": ("Wird gesendet …", "Sending…"),
     "lf_done_nojs": ("Danke! Deine Anfrage ist da. Wir melden uns während der Öffnungszeiten.",
                      "Thanks! We've got your request and will get back to you during opening hours."),
-    "lab_count": ("15000", "15000"),
+    "lab_count": ("20000", "20000"),  # "more than 20,000 customers" (client, 17 Nov 2026)
+    # hours list, one day per line: "Sonntag geschlossen" ("closed" is the live status text, see CHANGES)
+    "closed_day": ("geschlossen", "closed"),
     # model pages
     "mp_title": ("{m} Reparatur in Berlin · Preise", "{m} repair in Berlin · prices"),
     "mp_h1b": ("Reparatur in Berlin", "Repair in Berlin"),
-    "mp_lead": ("Alle Reparaturpreise für dein {m} auf einen Blick. Komm ohne Termin in Moabit oder Spandau vorbei, die meisten "
+    "mp_lead": ("Alle Reparaturpreise für dein {m} auf einen Blick. Komm ohne Termin in unseren Laden in Moabit, die meisten "
                 "Reparaturen sind in unter einer Stunde fertig.",
-                "Every repair price for your {m} at a glance. Walk in without an appointment in Moabit or Spandau; most repairs "
+                "Every repair price for your {m} at a glance. Walk in without an appointment at our shop in Moabit; most repairs "
                 "are done in under an hour."),
     "mp_prices": ("Preise für {m}", "Prices for {m}"),
     "mp_book": ("Buchen", "Book"),
@@ -85,8 +87,8 @@ NEW = {
     "mp_more": ("Weitere {b}-Modelle", "More {b} models"),
     "mp_home": ("Start", "Home"),
     "mp_models": ("Reparatur", "Repairs"),
-    "mp_desc": ("{m} Reparatur in Berlin-Moabit und Spandau: {list}. Preise inkl. MwSt., ohne Termin.",
-                "{m} repair in Berlin-Moabit and Spandau: {list}. Prices incl. VAT, no appointment needed."),
+    "mp_desc": ("{m} Reparatur in Berlin-Moabit: {list}. Preise inkl. MwSt., ohne Termin.",
+                "{m} repair in Berlin-Moabit: {list}. Prices incl. VAT, no appointment needed."),
     "mi_p": ("Wähl dein Gerät und sieh alle Reparaturpreise auf einen Blick.", "Pick your device to see every repair price at a glance."),
     "all_models": ("Alle Modelle und Preise", "All models and prices"),
     "f_hours_sun": ("So geschlossen", "Sun closed"),
@@ -112,7 +114,8 @@ GROUPS = [
     ("days", "Öffnungszeiten"), ("ways", "Startseite: Filialen"), ("faq", "Startseite: FAQ"), ("f_", "Footer"),
     ("lf_", "Anfrageformular"), ("wheres", "Anfrageformular"), ("vias", "Anfrageformular"), ("cc_", "Cookie-Banner"),
     ("mic_", "Spracheingabe"), ("wd_", "Widerruf"), ("lg_", "Rechtstexte"), ("fine_", "Datenschutz-Hinweise"), ("lk_", "Datenschutz-Hinweise"),
-    ("gmb_", "Google-Bewertungen"), ("err_", "Formulare"), ("cb_", "Preisrechner"), ("name_l", "Formulare"), ("phone_l", "Formulare"),
+    ("gmb_", "Google-Bewertungen"), ("sp_", "Startseite: Ankauf"), ("r_", "Preisrechner"), ("snd_", "Startseite: Kopf"),
+    ("call_now", "Navigation"), ("err_", "Formulare"), ("cb_", "Preisrechner"), ("name_l", "Formulare"), ("phone_l", "Formulare"),
 ]
 
 ALT = {
@@ -135,9 +138,15 @@ ALT = {
     "lab-water": ("Korrodierte Platine wird mit Pinsel und Isopropanol gereinigt", "Corroded board being cleaned with a brush and isopropyl alcohol"),
     "lab-data": ("Speicherchip auf einem Programmieradapter zur Datenrettung", "Memory chip on a programmer adapter for data recovery"),
     "sell": ("Gebrauchte Smartphones, Tablet und Controller auf farbigem Papier", "Used phones, a tablet and a controller on coloured paper"),
+    "shop-moabit": ("Ladenfront von TipTop Service 24 in der Beusselstraße 18 am Abend",
+                    "The TipTop Service 24 shop front on Beusselstraße 18 in the evening"),
 }
 DECORATIVE = {"hero", "cat-phone", "cat-tablet", "cat-laptop", "cat-console", "rep-display", "rep-battery", "rep-port",
-              "rep-back", "rep-camera", "rep-water", "sell", "lab-solder", "lab-ic", "lab-water", "lab-data"}
+              "rep-back", "rep-camera", "rep-water", "sell", "lab-solder", "lab-ic", "lab-water", "lab-data", "shop-moabit"}
+# Repair photos per device type (catalog.services.REPAIR_PHOTO_KEYS): decorative, the card names the repair.
+DECORATIVE_PREFIXES = ("and-", "tab-", "lap-", "con-")
+# The owner's own photos (CLAUDE.md "What already exists"); everything else was generated and gets replaced.
+REAL_PHOTOS = {"lab-solder", "lab-ic", "lab-water", "lab-data", "shop-moabit"}
 REP_IMG = {"display": "rep-display", "battery": "rep-battery", "port": "rep-port", "back": "rep-back", "camera": "rep-camera",
            "water": "rep-water", "cport": "rep-port"}
 LAB = [("lab-solder", "mainboard"), ("lab-ic", "mainboard"), ("lab-water", "water"), ("lab-data", "data")]
@@ -178,25 +187,44 @@ def seed_texts(overwrite: bool = False) -> int:
     return n
 
 
-def seed_faq() -> int:
-    if FAQ.objects.exists():
+def seed_faq(overwrite: bool = False) -> int:
+    """FAQ from the prototype. With overwrite, the questions are brought back to the prototype's wording (by order)."""
+    if FAQ.objects.exists() and not overwrite:
         return 0
     T = load()["T"]
-    for i, ((qd, ad), (qe, ae)) in enumerate(zip(T["de"]["faq"], T["en"]["faq"])):
-        FAQ.objects.create(question_de=qd, answer_de=ad, question_en=qe, answer_en=ae, order=i)
-    return len(T["de"]["faq"])
+    rows = list(zip(T["de"]["faq"], T["en"]["faq"]))
+    for i, ((qd, ad), (qe, ae)) in enumerate(rows):
+        FAQ.objects.update_or_create(order=i, defaults=dict(question_de=qd, answer_de=ad, question_en=qe, answer_en=ae))
+    FAQ.objects.filter(order__gte=len(rows)).delete()
+    return len(rows)
 
 
-def seed_media(log=print) -> int:
+def _same_file(asset, src: Path) -> bool:
+    try:
+        with asset.image.open("rb") as a:
+            return a.read() == src.read_bytes()
+    except (OSError, ValueError):
+        return False
+
+
+def seed_media(log=print, refresh: bool = False) -> int:
+    """Add the prototype's photos to the media library. With refresh, an existing photo is replaced when the
+    prototype's file has changed (new photos from the client, retouched versions)."""
     n = 0
     for m in load()["IMGS"]:
         key = m["id"]
         src = IMG_DIR / f"{key}.jpg"
-        if not src.is_file() or MediaAsset.objects.filter(key=key).exists():
+        if not src.is_file():
+            continue
+        asset = MediaAsset.objects.filter(key=key).first()
+        if asset and (not refresh or _same_file(asset, src)):
             continue
         alt_de, alt_en = ALT.get(key, ("", ""))
-        asset = MediaAsset(key=key, title=m["name"], alt_de=alt_de, alt_en=alt_en, decorative=key in DECORATIVE,
-                           generated=True, published=bool(alt_de and alt_en))
+        decorative = key in DECORATIVE or key.startswith(DECORATIVE_PREFIXES)
+        if asset is None:
+            asset = MediaAsset(key=key, title=m["name"], alt_de=alt_de, alt_en=alt_en, decorative=decorative,
+                               published=decorative or bool(alt_de and alt_en))
+        asset.generated = key not in REAL_PHOTOS
         with src.open("rb") as fh:
             asset.image.save(f"{key}.jpg", File(fh), save=False)
         asset.save()
@@ -210,10 +238,15 @@ def seed_media(log=print) -> int:
     return n
 
 
-def seed_workshop() -> int:
-    if WorkshopCard.objects.exists():
-        return 0
+def seed_workshop(overwrite: bool = False) -> int:
     T = load()["T"]
+    if WorkshopCard.objects.exists():
+        if not overwrite:
+            return 0
+        for i, (c, (td, xd), (te, xe)) in enumerate(zip(WorkshopCard.objects.order_by("order"), T["de"]["lab"], T["en"]["lab"])):
+            c.title_de, c.text_de, c.title_en, c.text_en = td, xd, te, xe
+            c.save()
+        return 4
     for i, ((td, xd), (te, xe)) in enumerate(zip(T["de"]["lab"], T["en"]["lab"])):
         img, rep = LAB[i]
         WorkshopCard.objects.create(image=MediaAsset.objects.get(key=img), title_de=td, text_de=xd, title_en=te, text_en=xe,

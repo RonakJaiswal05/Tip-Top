@@ -5,10 +5,12 @@
 <p class="tt-help">Kategorie wählen, Modell suchen, Preise in der Tabelle ändern und speichern. Änderungen sind sofort auf der Website, jede Änderung steht in der Historie und lässt sich zurücknehmen. Leeres Feld = Preis auf Anfrage.</p>
 <p class="tt-filters">
   {% for c in cats %}<a class="button{% if c.key == cat %} default{% endif %}" href="?cat={{ c.key }}">{{ c.name_de }}</a>{% endfor %}
+  <a href="{% url 'admin:catalog_price_grid' %}?cat={{ cat }}"><b>Preisliste (alle Modelle in einer Tabelle)</b></a> ·
   <a href="{% url 'admin:catalog_price_bulk' %}">Gesammelt ändern</a> ·
   <a href="{% url 'admin:catalog_price_copy' %}{% if model %}?target={{ model.pk }}{% endif %}">Von ähnlichem Modell übernehmen</a> ·
   <a href="{% url 'admin:catalog_price_import' %}">Import</a> ·
   <a href="{% url 'admin:catalog_price_export' %}?cat={{ cat }}">Export (Excel)</a> ·
+  <a href="{% url 'admin:catalog_price_export' %}?cat={{ cat }}&amp;fmt=csv">Export (CSV)</a> ·
   <a href="{% url 'admin:catalog_price_changelist' %}">Alle Preise und Historie</a> ·
   <a href="{% url 'admin:catalog_scheduledpricechange_changelist' %}">Geplante Änderungen</a>
 </p>

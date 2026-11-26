@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from django.core.validators import RegexValidator
+from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 
 
@@ -7,13 +7,21 @@ class SiteSettings(models.Model):
     """One place for the details that rarely change (A11). There is exactly one row."""
 
     whatsapp_number = models.CharField(
-        "WhatsApp-Nummer", max_length=20, default="4917672746296",
-        validators=[RegexValidator(r"^\d{8,15}$", "Nur Ziffern im internationalen Format ohne +, z. B. 4917672746296.")],
-        help_text="Wird für alle WhatsApp-Schaltflächen und vorausgefüllten Nachrichten verwendet.",
+        "WhatsApp-Nummer", max_length=20, default="493081475791",
+        validators=[RegexValidator(r"^\d{8,15}$", "Nur Ziffern im internationalen Format ohne +, z. B. 493081475791.")],
+        help_text="Wird für alle WhatsApp-Schaltflächen und vorausgefüllten Nachrichten verwendet (WhatsApp Business auf der Ladennummer).",
     )
     phone = models.CharField("Telefon (Hauptnummer, international)", max_length=20, default="+493081475791")
     phone_display = models.CharField("Telefon (Anzeige)", max_length=30, default="030 814 757 91")
-    contact_email = models.EmailField("Kontakt-E-Mail", default="info@tiptophandyreparatur.de")
+    contact_email = models.EmailField("Kontakt-E-Mail", default="tiptophandyreparatur@gmail.com")
+    business_name = models.CharField(
+        "Name des Geschäfts", max_length=120, default="TipTop Service 24 Handy Reparatur Berlin",
+        help_text="Steht im Footer (©), in E-Mails, im Ankaufvertrag und in den strukturierten Daten für Google.",
+    )
+    owner_name = models.CharField(
+        "Inhaber", max_length=120, default="Mostafa Khodr", help_text="Vor- und Nachname, wie im Impressum (Einzelunternehmer).",
+    )
+    vat_id = models.CharField("USt-IdNr.", max_length=20, blank=True, default="DE357158413")
     instagram_url = models.URLField("Instagram", blank=True, default="https://www.instagram.com/tiptopservice24/")
     b2b_url = models.CharField(
         "Link „Geschäftskunden“", max_length=200, blank=True,
@@ -21,11 +29,11 @@ class SiteSettings(models.Model):
     )
 
     notify_emails = models.TextField(
-        "Empfänger für neue Anfragen", blank=True, default="info@tiptophandyreparatur.de",
+        "Empfänger für neue Anfragen", blank=True, default="tiptophandyreparatur@gmail.com",
         help_text="Eine E-Mail-Adresse pro Zeile.",
     )
     summary_emails = models.TextField(
-        "Empfänger der Tageszusammenfassung", blank=True, default="info@tiptophandyreparatur.de",
+        "Empfänger der Tageszusammenfassung", blank=True, default="tiptophandyreparatur@gmail.com",
         help_text="Eine E-Mail-Adresse pro Zeile.",
     )
 
@@ -51,6 +59,13 @@ class SiteSettings(models.Model):
     consent_version = models.PositiveIntegerField(
         "Version des Cookie-Hinweises", default=1,
         help_text="Wird automatisch erhöht, wenn sich die Kategorien ändern. Danach fragt die Website alle Besucher erneut.",
+    )
+
+    hero_video = models.FileField(
+        "Video im Kopfbereich", upload_to="video/", blank=True,
+        validators=[FileExtensionValidator(["mp4", "webm"])],
+        help_text="Kurzes, stummes Video in Endlosschleife (MP4). Läuft nur am Computer, nicht auf Handys und nicht bei "
+                  "„weniger Bewegung“. Leer = Foto.",
     )
 
     prices_are_placeholders = models.BooleanField(

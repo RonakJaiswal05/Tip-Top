@@ -41,7 +41,7 @@ class CategoryAdmin(RoleAdminMixin, admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(RoleAdminMixin, admin.ModelAdmin):
-    list_display = ["logo_preview", "name", "slug", "order", "active", "n_models"]
+    list_display = ["logo_preview", "name", "slug", "logo_is_wordmark", "order", "active", "n_models"]
     list_display_links = ["name"]
     list_editable = ["order", "active"]
     search_fields = ["name"]
@@ -155,10 +155,16 @@ class DeviceModelAdmin(RoleAdminMixin, admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["category", "brand", "name", "release_year", "photo"]}),
         ("Preise", {"fields": ["price_level", "price_factor"]}),
-        ("Was die Reparaturliste beeinflusst", {"fields": [("has_face_id", "has_headphone_jack"), "console_type"]}),
+        ("Was die Reparaturliste beeinflusst", {"fields": [("has_face_id", "has_headphone_jack"), "console_type", "excluded_repairs"]}),
         ("Anzeige", {"fields": ["popular", "active", "sort_order", "slug", "merged_into"]}),
     ]
     role_perms = {**CATALOG_VIEW_DESK, "delete": ["Owner"]}
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "excluded_repairs":
+            kwargs["widget"] = forms.CheckboxSelectMultiple
+            kwargs["queryset"] = RepairType.objects.order_by("order")
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def get_changeform_initial_data(self, request):
         return {"sort_order": -10, "price_level": PriceLevel.STANDARD}
@@ -167,6 +173,10 @@ class DeviceModelAdmin(RoleAdminMixin, admin.ModelAdmin):
         if not change and obj.price_level:
             obj.price_factor = LEVEL_FACTORS[obj.price_level]
         super().save_model(request, obj, form, change)
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)  # "Nicht möglich" is saved here, before the starting prices
+        obj = form.instance
         if not change:
             n = create_starting_prices(obj)
             messages.success(request, f"{n} Startpreise angelegt. Das Modell ist jetzt im Rechner buchbar und hat eine eigene Modellseite.")
@@ -265,6 +275,7 @@ class PriceAdmin(RoleAdminMixin, SimpleHistoryAdmin):
         w = self.admin_site.admin_view
         return [
             path("editor/", w(v.price_editor), name="catalog_price_editor"),
+            path("liste/", w(v.price_grid), name="catalog_price_grid"),
             path("bulk/", w(v.bulk_change), name="catalog_price_bulk"),
             path("copy/", w(v.copy_prices), name="catalog_price_copy"),
             path("import/", w(v.import_view), name="catalog_price_import"),

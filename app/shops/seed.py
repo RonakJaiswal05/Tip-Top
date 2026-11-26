@@ -1,4 +1,6 @@
-"""Seed both shops (with the Google rating snapshot of 15 Nov 2026) and Berlin public holidays."""
+"""Seed the shop (with the Google rating snapshot of 15 Nov 2026) and Berlin public holidays.
+
+One shop only since the client's feedback of 17 Nov 2026: Beusselstraße 18, Berlin-Moabit. The Spandau shop is gone."""
 from datetime import datetime, time
 from decimal import Decimal
 
@@ -11,20 +13,16 @@ SHOPS = [
          phone="+493081475791", phone_display="030 814 757 91", is_workshop=True, is_mail_in=True, order=0,
          google_place_id="ChIJA6sIHRNRqEcRdYbk2bTKeB4", google_name="Meisterwerkstatt TipTop Service 24 Handy Reparatur Berlin",
          maps_query="Meisterwerkstatt TipTop Service 24, Beusselstraße 18, 10553 Berlin", rating=Decimal("4.9"), rating_count=321),
-    # Spandau phone number is from its Google profile; the client still has to confirm it (see docs/BLOCKED.md).
-    dict(key="spandau", area="Berlin-Spandau", short="Spandau", street="Havelstraße 8", postal_code="13597",
-         phone="+493089617138", phone_display="030 896 171 38", order=1,
-         google_place_id="ChIJk4noUUFWqEcR8pf5IuXJ-7U", google_name="Tip Top Reparatur Service",
-         maps_query="Tip Top Reparatur Service, Havelstraße 8, 13597 Berlin", rating=Decimal("4.0"), rating_count=44),
 ]
 SNAPSHOT_AT = datetime(2026, 11, 15, 12, 0, tzinfo=BERLIN)
-# Mon–Sat 10:00–20:00 for both shops, as on the current website. Spandau's Google profile shows longer hours;
-# the client has to confirm, then the team changes them in the admin.
+# Mon–Sat 10:00–20:00, Sunday closed (site and Google profile agree).
 DEFAULT_HOURS = [(d, time(10), time(20)) for d in range(6)]
 
 
 def seed_shops() -> int:
     n = 0
+    # Spandau is closed for the site (client, 17 Nov 2026). Switched off, not deleted: old requests still point to it.
+    Shop.objects.filter(key="spandau", active=True).update(active=False, is_mail_in=False, is_workshop=False)
     for data in SHOPS:
         rating, count = data.pop("rating"), data.pop("rating_count")
         shop, created = Shop.objects.get_or_create(key=data["key"], defaults=data)

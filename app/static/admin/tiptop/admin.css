@@ -27,3 +27,16 @@
 .tt-filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
 .tt-filters a.on{font-weight:700;text-decoration:underline}
 .tt-help{color:var(--body-quiet-color,#666);max-width:70ch}
+/* Price list per category: all models x main repairs (sticky model column and header, scrolls sideways) */
+.tt-gridwrap{max-height:72vh;overflow:auto;border:1px solid var(--hairline-color,#e8e8e8);border-radius:10px}
+.tt-grid{border-collapse:separate;border-spacing:0;width:max-content}
+.tt-grid th,.tt-grid td{padding:4px 6px;border-bottom:1px solid var(--hairline-color,#eee);white-space:nowrap;background:var(--body-bg,#fff)}
+.tt-grid thead th{position:sticky;top:0;z-index:2;font-size:12px;vertical-align:bottom;text-align:right}
+.tt-grid thead th small{display:block;font-weight:400;opacity:.7}
+.tt-grid .tt-mcol{position:sticky;left:0;z-index:1;text-align:left;min-width:200px;font-weight:600}
+.tt-grid thead .tt-mcol{z-index:3}
+.tt-grid .tt-mcol small{font-weight:400;opacity:.65}
+.tt-grid input[type=number]{width:78px}
+.tt-grid td.na{text-align:center}
+.tt-ab{font-size:11px;margin-left:3px;color:#8A909C}
+.tt-dirty{margin-left:12px;color:#3048F0;font-weight:600}

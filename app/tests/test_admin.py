@@ -99,13 +99,13 @@ class AdminTests(SeededTestCase):
     def test_new_device_gets_starting_prices_and_page(self):
         c, _ = self.login("Owner", otp=True)
         r = c.post("/admin/catalog/devicemodel/add/", {
-            "category": Category.objects.get(key="phone").pk, "brand": Brand.objects.get(name="Apple").pk, "name": "iPhone 18 Pro",
+            "category": Category.objects.get(key="phone").pk, "brand": Brand.objects.get(name="Apple").pk, "name": "iPhone 19 Pro",
             "price_level": "flagship", "has_face_id": "on", "popular": "on", "active": "on", "sort_order": "-10",
         })
         self.assertEqual(r.status_code, 302, r.content[:2000])
-        m = DeviceModel.objects.get(name="iPhone 18 Pro")
+        m = DeviceModel.objects.get(name="iPhone 19 Pro")
         self.assertGreater(m.prices.count(), 15)
-        self.assertEqual(Client().get("/de/reparatur/apple-iphone-18-pro/").status_code, 200)
+        self.assertEqual(Client().get("/de/reparatur/apple-iphone-19-pro/").status_code, 200)
         self.assertTrue(m.prices.filter(repair__key="faceid").exists())
 
     def test_audit_log_records_changes(self):
@@ -120,3 +120,55 @@ class AdminTests(SeededTestCase):
         self.assertEqual(e.actor.username, "owner")
         self.assertIn("text_de", e.changes_dict)
         self.assertIn("Handy hin?", Client().get("/de/").content.decode())
+
+
+class PriceListTests(SeededTestCase):
+    """Price list per category (call with the owner, 25 Nov 2026): all models x main repairs, one table."""
+
+    user = AdminTests.user
+    login = AdminTests.login
+
+    def test_grid_shows_and_saves_prices(self):
+        from catalog.models import RepairType
+
+        c, _ = self.login("Owner", otp=True)
+        r = c.get("/admin/catalog/price/liste/?cat=phone")
+        self.assertEqual(r.status_code, 200)
+        html = r.content.decode()
+        ip13 = DeviceModel.objects.get(brand__name="Apple", name="iPhone 13")
+        battery = RepairType.objects.get(key="battery")
+        field = f"p_{ip13.pk}_{battery.pk}_standard"
+        self.assertIn(f'name="{field}"', html)
+        old = Price.objects.get(model=ip13, repair=battery).amount
+        r = c.post("/admin/catalog/price/liste/?cat=phone", {field: "111"})
+        self.assertEqual(r.status_code, 302)
+        p = Price.objects.get(model=ip13, repair=battery)
+        self.assertEqual((p.amount, p.source), (Decimal("111"), "admin"))
+        self.assertEqual(p.history.first().history_change_reason, "Preisliste (Tabelle)")
+        self.assertNotEqual(old, p.amount)
+        # a repair the model can't have is shown as "–" and ignored if posted anyway
+        air = DeviceModel.objects.get(brand__name="Apple", name="MacBook Air 13 (M4)")
+        fan = RepairType.objects.get(key="fan")
+        html = c.get("/admin/catalog/price/liste/?cat=laptop&cols=all").content.decode()
+        self.assertNotIn(f'name="p_{air.pk}_{fan.pk}_standard"', html)
+        c.post("/admin/catalog/price/liste/?cat=laptop&cols=all", {f"p_{air.pk}_{fan.pk}_standard": "50"})
+        self.assertFalse(Price.objects.filter(model=air, repair=fan).exists())
+        # bad input: nothing saved
+        r = c.post("/admin/catalog/price/liste/?cat=phone", {field: "12x"})
+        self.assertEqual(Price.objects.get(model=ip13, repair=battery).amount, Decimal("111"))
+
+    def test_only_owner_and_manager_change_prices(self):
+        """Role matrix (SOW A1): prices are for Owner and Manager; front desk and technicians don't get the screen."""
+        from catalog.models import RepairType
+
+        ip13 = DeviceModel.objects.get(brand__name="Apple", name="iPhone 13")
+        battery = RepairType.objects.get(key="battery")
+        before = Price.objects.get(model=ip13, repair=battery).amount
+        for role in ("Front desk", "Technician"):
+            c, _ = self.login(role)
+            self.assertEqual(c.get("/admin/catalog/price/liste/?cat=phone").status_code, 403, role)
+            self.assertEqual(c.post("/admin/catalog/price/liste/?cat=phone", {f"p_{ip13.pk}_{battery.pk}_standard": "1"}).status_code, 403)
+        self.assertEqual(Price.objects.get(model=ip13, repair=battery).amount, before)
+        c, _ = self.login("Manager", otp=True)
+        self.assertEqual(c.post("/admin/catalog/price/liste/?cat=phone", {f"p_{ip13.pk}_{battery.pk}_standard": "105"}).status_code, 302)
+        self.assertEqual(Price.objects.get(model=ip13, repair=battery).amount, Decimal("105"))

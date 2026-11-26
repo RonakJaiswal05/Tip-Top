@@ -2,6 +2,9 @@
 from django.utils.safestring import mark_safe
 
 IC = {
+    "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/>',
+    "ship": '<path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>',
+    "globe": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9M12 3C9.4 5.6 8.2 8.6 8.2 12s1.2 6.4 3.8 9"/>',
     'display': '<rect x="6" y="2.5" width="12" height="19" rx="2.4"/><path d="M9.5 7l2.5 3.5-2 2.5 3.5 3.5"/>',
     'battery': '<rect x="2.5" y="7.5" width="17" height="9" rx="1.8"/><path d="M21.5 10.5v3M6 10.5v3M9.5 10.5v3"/>',
     'port': '<path d="M9 3v5M15 3v5M7 8h10v3.5a5 5 0 0 1-10 0z"/><path d="M12 16.5V21"/>',

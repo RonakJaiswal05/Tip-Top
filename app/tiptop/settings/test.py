@@ -15,3 +15,6 @@ STORAGES = {
 OTP_ENFORCE = True
 AXES_ENABLED = False
 FORM_MIN_SECONDS = 0
+import tempfile as _tempfile  # noqa: E402
+
+PRIVATE_ROOT = Path(_tempfile.mkdtemp(prefix="tt-private-"))  # noqa: F405

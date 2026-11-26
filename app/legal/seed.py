@@ -18,8 +18,7 @@ from core.routes import LEGAL_KEYS, page_url
 from .cookies import COOKIES
 from .models import LegalPage, LegalPageVersion
 
-STAND = {"de": "15. November 2026", "en": "15 November 2026"}
-STAND_UNCHANGED = {"de": "14. November 2026", "en": "14 November 2026"}
+STAND = {"de": "26. November 2026", "en": "26 November 2026"}  # fallback; the prototype's LEGAL_UPD wins
 
 DROP_SECTIONS = {
     "de": {"datenschutz": {"Statistik mit Matomo (nur mit Einwilligung)", "Marketing (nur mit Einwilligung)"},
@@ -77,20 +76,31 @@ def build(lang: str, key: str, d: dict) -> tuple[dict, bool]:
     return {"title": src["h"], "nav_title": src["nav"], "intro": src.get("intro", ""), "body_html": html}, changed
 
 
+SEED_NOTE = "Aus dem Prototyp übernommen"
+
+
 @transaction.atomic
 def seed_legal(force: bool = False) -> int:
+    """Create a published version per page and language. When the prototype's text has changed since (new client
+    facts), a new version is added, but only on top of a version this seed wrote: a version edited or approved in
+    the admin is never replaced (use --force to add one anyway)."""
     d = load()
+    upd = d.get("LEGAL_UPD") or STAND
     n = 0
     for i, key in enumerate(LEGAL_KEYS):
         page, _ = LegalPage.objects.get_or_create(key=key, defaults={"order": i})
         for lang in ("de", "en"):
-            if page.versions.filter(language=lang).exists() and not force:
-                continue
             data, changed = build(lang, key, d)
+            last = page.versions.filter(language=lang).order_by("-version").first()
+            if last and not force:
+                if last.body_html == data["body_html"] and last.title == data["title"]:
+                    continue
+                if not last.change_note.startswith(SEED_NOTE) or last.lawyer_approved:
+                    continue
             LegalPageVersion.objects.create(
-                page=page, language=lang, status=LegalPageVersion.Status.PUBLISHED,
-                stand=(STAND if changed else STAND_UNCHANGED)[lang],
-                change_note="Aus dem Prototyp übernommen" + ("; Statistik und Marketing entfernt, Cookie-Tabelle an das Live-System angepasst" if changed else ""),
+                page=page, language=lang, status=LegalPageVersion.Status.PUBLISHED, stand=upd[lang],
+                change_note=f"{SEED_NOTE} (Stand {upd[lang]})"
+                + ("; Statistik und Marketing entfernt, Cookie-Tabelle an das Live-System angepasst" if changed else ""),
                 **data,
             )
             n += 1
