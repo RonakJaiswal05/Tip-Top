@@ -1092,13 +1092,15 @@ footer .hours li{max-width:280px}
 /* footer hours on phones: the time goes under the day if needed */
 .fgrid .hours li{flex-wrap:wrap;column-gap:10px;row-gap:0}
 @media (max-width:600px){.fgrid .hours{row-gap:10px}}
+/* 27 Nov (Ronak): before/after never crops the phone; on wide screens the 3:2 box gets narrower instead of shorter */
+.cmp{max-height:none;max-width:calc(80vh * 1.5);margin-left:auto;margin-right:auto}
 </style>
 </head>
 <body>
 
 <header class="nav">
   <a class="logo" href="#top" aria-label="TipTop Service 24">
-    <img class="logo-full" src="img/logo-tiptop.svg" alt="" width="201" height="46">
+    <img class="logo-full" src="img/logo-tiptop.webp" alt="" width="145" height="46">
     <img class="logo-mark" src="img/logo-mark.webp" alt="" width="37" height="42">
   </a>
   <nav class="nav-links" aria-label="Main">
@@ -1234,7 +1236,7 @@ footer .hours li{max-width:280px}
 
   <footer>
     <div class="wrap">
-      <img class="flogo" src="img/logo-tiptop.svg" alt="TipTop" width="245" height="56" loading="lazy"><br>
+      <img class="flogo" src="img/logo-tiptop.webp" alt="TipTop" width="202" height="64" loading="lazy"><br>
       <a class="ftel" href="tel:+493081475791">030 814 757 91</a><br>
       <span class="fcall" data-t="call_now"></span><br>
       <a class="fmail" href="mailto:tiptophandyreparatur@gmail.com">tiptophandyreparatur@gmail.com</a><br>
