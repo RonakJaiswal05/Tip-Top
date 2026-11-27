@@ -13,6 +13,7 @@ of it.
 | `docs/RUNBOOK.md` | How to set up the server, deploy, go live and operate |
 | `docs/BLOCKED.md` | What is waiting on the client or on Ronak |
 | `docs/TESTING.md` | Test results |
+| `vercel.json` | Vercel serves `prototype/` as a design preview (no indexing). The Django site itself runs on the server in `deploy/`, not on Vercel |
 
 ## Local development
 
