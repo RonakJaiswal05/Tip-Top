@@ -1246,8 +1246,6 @@ footer .hours li{max-width:280px}
           <li><a href="#anfrage" data-t="f_form"></a></li>
           <li><a href="https://tiptophandyreparatur.de/pages/geschaftskunde-werden" target="_blank" rel="noopener" data-t="f_b2b"></a></li>
           <li><a href="https://www.instagram.com/tiptopservice24/" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="#admin">Admin</a></li>
-          <li><button type="button" id="imgLink" style="color:inherit;font:inherit;padding:0" data-t="img_btn"></button></li>
         </ul></div>
         <div><h4 data-t="f_legal"></h4><ul>
           <li><a href="#impressum" data-t="f_imp"></a></li>
@@ -1651,6 +1649,9 @@ function hydrate(root = document) {
     if (eager) im.fetchPriority = f.closest(".hero-frame") ? "high" : "auto"; else im.loading = "lazy";
     im.onload = () => { IMG_STATE[id] = true; f.classList.add("loaded"); };
     im.onerror = () => { IMG_STATE[id] = false; im.remove(); };
+    // 27 Nov (Ronak): where the hero film plays, the hero opens on the film's first frame, not the repair photo
+    const filmMq = id === "hero" && f.closest("#heroMedia") ? matchMedia("(min-width:901px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)") : null;
+    if (filmMq && filmMq.matches) { im.src = "img/hero-film.jpg"; f.appendChild(im); return; }
     if (!(IMG[id] && IMG[id].real)) { im.sizes = imgSizes(f); im.srcset = `img/${id}-s.jpg 760w, img/${id}.jpg ${IMG[id] && IMG[id].ratio === "2:3" ? 1024 : IMG[id] && IMG[id].ratio === "1:1" ? 1254 : 1536}w`; }
     im.src = "img/" + id + ".jpg";
     f.appendChild(im);
@@ -2551,7 +2552,7 @@ function renderDrawer() {
     IMGS.map(m => `<div class="ditem"><header><b>${m.n} ${esc(m.name)}</b><code>img/${m.id}.jpg</code></header><small>${esc(m.ratio)} / ${esc(m.px)} / ${esc(m.where)}</small>
       ${m.real ? `<p class="att real">${esc(t("real"))}</p>` : `${m.attach ? `<p class="att">${esc(t("attach"))} ${esc(m.attach)}</p>` : ""}<pre>${esc(m.p)}</pre><button type="button" class="cp" data-cp="${m.id}">${esc(t("copy"))}</button>`}</div>`).join("");
 }
-$("imgLink").addEventListener("click", () => { $("drawer").hidden = false; });
+if ($("imgLink")) $("imgLink").addEventListener("click", () => { $("drawer").hidden = false; });  // footer link removed 27 Nov (Ronak)
 $("imgBtn").addEventListener("click", () => { $("drawer").hidden = false; $("dpanel").focus && $("dpanel").focus(); });
 $("drawer").addEventListener("click", e => {
   if (e.target.closest("[data-dclose]")) { $("drawer").hidden = true; return; }
