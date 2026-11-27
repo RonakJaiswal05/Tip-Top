@@ -1079,6 +1079,19 @@ footer .hours li{max-width:280px}
 .hero-snd svg{width:19px;height:19px;flex:none}
 @media (min-width:901px) and (hover:hover) and (pointer:fine){.hero-media.has-vid .stk{top:26%}}
 @media (max-width:900px),(hover:none),(pointer:coarse){.hero-frame .hero-vid,.hero-snd{display:none}}
+/* shop card at 320-380 px: pin the column to the card width, tighten the hours box */
+.shop .shop-b{grid-template-columns:minmax(0,1fr)}
+@media (max-width:380px){
+  .shop .shop-b{padding-left:18px;padding-right:18px}
+  .shop .shop-b .srate{flex-wrap:wrap;row-gap:2px}
+  .shop .shop-h{padding-left:12px;padding-right:12px;gap:8px}
+  .shop .shop-h > .ico{display:none}
+  .shop .hours{font-size:14px}
+  .shop .hours li{gap:10px}
+}
+/* footer hours on phones: the time goes under the day if needed */
+.fgrid .hours li{flex-wrap:wrap;column-gap:10px;row-gap:0}
+@media (max-width:600px){.fgrid .hours{row-gap:10px}}
 </style>
 </head>
 <body>
@@ -2179,7 +2192,7 @@ function heroVideoMake() {
   v.addEventListener("playing", () => v.classList.add("on"));
   v.addEventListener("error", () => { HV_FAIL = true; v.remove(); b.remove(); $("heroMedia").classList.remove("has-vid"); HV = null; });
   b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted) v.play().catch(() => {}); heroSndLabel(); });
-  const start = () => { if (!HV) return; v.src = "img/hero-loop.mp4"; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
+  const start = () => { if (!HV) return; v.src = "img/hero-loop.mp4?v=2"; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
   if (document.readyState === "complete") setTimeout(start, 400); else addEventListener("load", () => setTimeout(start, 400), { once: true });
   if ("IntersectionObserver" in window) new IntersectionObserver(es => {
     if (!HV) return; HV.seen = es[0].isIntersecting; if (!HV.on) return;
@@ -2359,7 +2372,7 @@ const HOURS = [["10:00", "20:00"], ["10:00", "20:00"], ["10:00", "20:00"], ["10:
 function hoursList() {
   const d = lang === "de" ? ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"] : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   let today = -1; try { today = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(new Intl.DateTimeFormat("en-GB", { timeZone:"Europe/Berlin", weekday:"short" }).format(new Date())); } catch (e) {}
-  return `<ul class="hours">${d.map((n, i) => `<li${i === today ? ' class="today"' : ""}><span>${n}</span><span>${HOURS[i] ? HOURS[i][0] + "–" + HOURS[i][1] + (lang === "de" ? " Uhr" : "") : `<b>${esc(t("closed"))}</b>`}</span></li>`).join("")}</ul>`;
+  return `<ul class="hours">${d.map((n, i) => `<li${i === today ? ' class="today"' : ""}><span>${n}</span><span>${HOURS[i] ? HOURS[i][0] + "–" + HOURS[i][1] + (lang === "de" ? " Uhr" : "") : `<b>${esc(t("closed_day"))}</b>`}</span></li>`).join("")}</ul>`;
 }
 function renderShops() {
   if ($("fHours")) $("fHours").innerHTML = hoursList();
@@ -3391,9 +3404,9 @@ Object.assign(T.de, {
 });
 Object.assign(T.en, { ad_dup:"{m} is already in the list. Change its prices under Prices." });
 Object.assign(T.de, { ad_dup:"{m} ist schon in der Liste. Preise ändern Sie unter Preise." });
-Object.assign(T.en, { call_now:"Give us a call", closed:"closed", ask_l:"Search your model or describe the problem",
+Object.assign(T.en, { call_now:"Give us a call", closed_day:"closed", ask_l:"Search your model or describe the problem",
   ask_ph:"Search model or problem, e.g. iPhone 15 screen", ask_go:"Search" });
-Object.assign(T.de, { call_now:"Ruf uns an", closed:"geschlossen", ask_l:"Modell suchen oder Problem beschreiben",
+Object.assign(T.de, { call_now:"Ruf uns an", closed_day:"geschlossen", ask_l:"Modell suchen oder Problem beschreiben",
   ask_ph:"Modell oder Problem suchen, z. B. iPhone 15 Display", ask_go:"Suchen" });
 Object.assign(T.de, { snd_on:"Ton an", snd_off:"Ton aus" });
 Object.assign(T.en, { snd_on:"Sound on", snd_off:"Sound off" });

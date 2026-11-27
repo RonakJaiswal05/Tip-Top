@@ -28,7 +28,7 @@ function heroVideoMake() {
   v.addEventListener("playing", () => v.classList.add("on"));
   v.addEventListener("error", () => { HV_FAIL = true; v.remove(); b.remove(); $("heroMedia").classList.remove("has-vid"); HV = null; });
   b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted) v.play().catch(() => {}); heroSndLabel(); });
-  const start = () => { if (!HV) return; v.src = "img/hero-loop.mp4"; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
+  const start = () => { if (!HV) return; v.src = "img/hero-loop.mp4?v=2"; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
   if (document.readyState === "complete") setTimeout(start, 400); else addEventListener("load", () => setTimeout(start, 400), { once: true });
   if ("IntersectionObserver" in window) new IntersectionObserver(es => {
     if (!HV) return; HV.seen = es[0].isIntersecting; if (!HV.on) return;

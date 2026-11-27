@@ -44,9 +44,9 @@ s = s[:first_script] + '<script>window.__BRANDDATA = ' + json.dumps(bd) + ';</sc
 
 # desktop hero film: embedded, turned into a blob URL only when the desktop video actually starts
 if os.path.exists(ROOT + 'img/hero-loop.mp4'):
-    tok = 'v.src = "img/hero-loop.mp4";'
+    tok = 'v.src = "img/hero-loop.mp4?v=2";'
     assert s.count(tok) == 1, tok
-    s = s.replace(tok, 'v.src = window.__HEROVID ? URL.createObjectURL(new Blob([Uint8Array.from(atob(window.__HEROVID), c => c.charCodeAt(0))], { type:"video/mp4" })) : "img/hero-loop.mp4";')
+    s = s.replace(tok, 'v.src = window.__HEROVID ? URL.createObjectURL(new Blob([Uint8Array.from(atob(window.__HEROVID), c => c.charCodeAt(0))], { type:"video/mp4" })) : "img/hero-loop.mp4?v=2";')
     first_script = s.index('<script>')
     s = s[:first_script] + '<script>window.__HEROVID = "' + b64(open(ROOT + 'img/hero-loop.mp4', 'rb').read()) + '";</script>\n' + s[first_script:]
 assert 'fonts/' not in s.split('<script>')[0] or True
