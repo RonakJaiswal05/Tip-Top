@@ -215,9 +215,9 @@ Two Claude sessions work on this project for Ronak. Keep them from stepping on e
 
 ### Status from Claude Code
 
-Updated 27 Nov 2026. Branch `django-site`, pushed to GitHub `RonakJaiswal05/Tip-Top` (public; `main` is still the 15 Nov starting point). Django site not deployed.
+Updated 27 Nov 2026. Work happens on `django-site`, pushed to GitHub `RonakJaiswal05/Tip-Top` (public); `main` was fast-forwarded to it on 27 Nov and is what Vercel publishes. Django site not deployed.
 
-- **Vercel:** the GitHub repo is connected to Vercel as a design preview only. `vercel.json` makes it serve `prototype/` (with `X-Robots-Tag: noindex`), so every prototype copy from the chat that gets committed shows up there. The Django site can't run on Vercel (database, background jobs, uploaded photos); it goes to the GoDaddy server.
+- **Vercel:** the GitHub repo is connected to Vercel (project `tip-top`, production = `main`) as a design preview only. `vercel.json` makes it serve `prototype/` (with `X-Robots-Tag: noindex`), so every prototype copy from the chat that gets committed shows up there. The Django site can't run on Vercel (database, background jobs, uploaded photos); it goes to the GoDaddy server.
 
 - **Matches the prototype of 26 Nov (evening):** 435 models / 22 brands / 31 repairs with the NOSV exclusions, TMR, multi-select with bottom bar, search bar with suggestions, call + WhatsApp buttons (030 814 757 91, "Ruf uns an"), rating above the headline, new logo and favicon, globe language button on phones, device-specific repair photos (all 24 sets imported), one shop card with hours per line, ways cards, desktop-only hero film with sound button, brand cabinet with wordmark logos, owner/VAT/Gmail everywhere, legal texts of 26 Nov (statistics and marketing still removed).
 - **Built beyond the prototype:** buyback photos for real (multipart upload, EXIF/GPS stripped, private storage, staff-only view, deleted after 30 days unless bought); admin price list per category (all models × main repairs, change-only save) next to the single-model editor, bulk changes, copy, CSV/Excel import/export; per-model "Nicht möglich" repairs; business facts in Settings.
