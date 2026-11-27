@@ -174,5 +174,6 @@ exec(open('patch_nov17.py', encoding='utf-8').read())  # client voice note 17 No
 exec(open('patch_nov26.py', encoding='utf-8').read())  # call with the owner, 25 Nov 2026
 exec(open('patch_hero_video.py', encoding='utf-8').read())  # desktop hero film, softer call text, 26 Nov 2026
 exec(open('patch_nov27.py', encoding='utf-8').read())  # requests from the Claude Code port, 27 Nov 2026
+exec(open('patch_cc27.py', encoding='utf-8').read())  # Claude Code's direct prototype edits of 27 Nov 2026
 open('src4.html', 'w', encoding='utf-8').write(s)
 print("ok", len(s))

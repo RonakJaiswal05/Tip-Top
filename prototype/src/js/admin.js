@@ -7,8 +7,15 @@ function renderAdmin() {
     b.innerHTML = `<form class="acard login" id="adLogin" novalidate><h1>${esc(t("ad_title"))}</h1>
       <div><label class="lab" for="adU">${esc(t("ad_user"))}</label><input class="lin" id="adU" autocomplete="username"></div>
       <div><label class="lab" for="adP">${esc(t("ad_pass"))}</label><input class="lin" id="adP" type="password" autocomplete="current-password"></div>
+      <p class="err" id="adErr" role="alert"></p>
       <button class="btn-dark" type="submit" style="justify-content:center">${esc(t("ad_sign"))}</button><p class="small">${esc(t("ad_demo"))}</p></form>`;
-    $("adLogin").addEventListener("submit", e => { e.preventDefault(); AD.in = true; renderAdmin(); });
+    // 27 Nov (Ronak): one fixed demo login to hand to the client. It sits in the public page code and protects nothing;
+    // the real admin (Django) has its own logins.
+    $("adLogin").addEventListener("submit", e => {
+      e.preventDefault();
+      if ($("adU").value.trim().toLowerCase() === "mostafa" && $("adP").value === "TipTop-Demo-2026") { AD.in = true; renderAdmin(); return; }
+      $("adErr").textContent = t("ad_wrong"); $("adP").value = ""; $("adP").focus();
+    });
     return;
   }
   const tabs = t("ad_tabs").map((x, i) => `<button type="button" data-tab="${i}" aria-pressed="${AD.tab === i}">${esc(x)}${i === 2 && REQS.length ? ` (${REQS.length})` : ""}</button>`).join("");

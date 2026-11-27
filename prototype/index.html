@@ -1092,6 +1092,38 @@ footer .hours li{max-width:280px}
 /* footer hours on phones: the time goes under the day if needed */
 .fgrid .hours li{flex-wrap:wrap;column-gap:10px;row-gap:0}
 @media (max-width:600px){.fgrid .hours{row-gap:10px}}
+/* hero: film button on phones and tablets, film dialog */
+.hero-play{position:absolute;z-index:6;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;border:0;border-radius:10px;background:rgba(18,20,28,.82);color:#fff;font:inherit;font-weight:700;font-size:14.5px;cursor:pointer}
+.hero-play svg{width:18px;height:18px;flex:none}
+.hero-play:hover{background:var(--ink)}
+.hero-play:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
+@media(max-width:599px){.hero-play{right:auto;left:10px;bottom:auto;top:10px;height:40px;font-size:13.5px}}
+.filmbox{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:rgba(18,20,28,.92);padding:56px 16px 16px}
+.filmbox[hidden]{display:none}
+.fb-in{position:relative;width:min(100%,calc(min(86vh,960px) * 9 / 16));aspect-ratio:9/16}
+.fb-in video{width:100%;height:100%;border-radius:16px;background:#000;object-fit:contain}
+.fb-x{position:absolute;right:0;top:-46px;height:38px;padding:0 14px;border:0;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.fb-x:focus-visible{outline:3px solid var(--lemon);outline-offset:2px}
+html.noscroll{overflow:hidden}
+/* shop map: placeholder until the visitor loads Google Maps */
+.smap{margin-top:clamp(12px,1.6vw,18px);border-radius:24px;overflow:hidden;background:var(--fog)}
+.smap-f{display:block;width:100%;height:clamp(280px,32vw,400px);border:0}
+.smap-ph{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);min-height:clamp(240px,26vw,320px)}
+.smap-art{position:relative;overflow:hidden;background:#E6E9EE}
+.smap-art i{position:absolute;background:#fff;border-radius:6px}
+.smap-art .r1{left:-10%;right:-10%;top:58%;height:22px;transform:rotate(-14deg)}
+.smap-art .r2{top:-10%;bottom:-10%;left:38%;width:18px;transform:rotate(9deg)}
+.smap-art .r3{left:-10%;right:-10%;top:22%;height:12px;transform:rotate(6deg);opacity:.8}
+.smap-pin{position:absolute;left:43%;top:44%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50% 50% 50% 6px;transform:rotate(-45deg);background:var(--cobalt);display:grid;place-items:center;box-shadow:0 10px 22px -10px rgba(18,20,28,.6)}
+.smap-pin .ico{transform:rotate(45deg);color:#fff;font-size:24px}
+.smap-t{padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;justify-content:center;gap:6px}
+.smap-t b{font-size:clamp(22px,2.2vw,30px);line-height:1.1;letter-spacing:-.02em}
+.smap-a{font-weight:650}
+.smap-n{font-size:14px;color:var(--muted);max-width:44ch}
+.smap-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.smap-acts .btn{height:50px}
+.smap-acts .btn.line{background:#fff;border-color:transparent}
+@media(max-width:760px){.smap-ph{grid-template-columns:minmax(0,1fr)}.smap-art{height:150px}.smap-acts{display:grid;grid-template-columns:minmax(0,1fr)}.smap-acts .btn{width:100%}}
 /* 27 Nov (Ronak): before/after never crops the phone; on wide screens the 3:2 box gets narrower instead of shorter */
 .cmp{max-height:none;max-width:calc(80vh * 1.5);margin-left:auto;margin-right:auto}
 </style>
@@ -1149,7 +1181,7 @@ footer .hours li{max-width:280px}
           <p class="ask-msg" id="askMsg" aria-live="polite"></p>
           <div class="hero-cta">
             <a class="hc hc-call" href="tel:+493081475791"><span class="hc-i" id="hcCallI"></span><span class="hc-t"><b>030 814 757 91</b><small data-t="call_now"></small></span></a>
-            <a class="hc hc-wa" id="hcWa" href="https://wa.me/493081475791" target="_blank" rel="noopener"><span class="hc-i" id="hcWaI"></span><span class="hc-t"><b>WhatsApp</b><small>030 814 757 91</small></span></a>
+            <a class="hc hc-wa" id="hcWa" href="https://wa.me/493081475791" target="_blank" rel="noopener"><span class="hc-i" id="hcWaI"></span><span class="hc-t"><b>WhatsApp</b><small data-t="wa_sub"></small></span></a>
           </div>
           <div class="gmb-wrap" id="gmbHero"></div>
         </div>
@@ -1223,6 +1255,7 @@ footer .hours li{max-width:280px}
     <div class="wrap">
       <div class="head"><h2 data-rv><span class="rv-line"><span data-t="shops_h"></span></span></h2><p data-t="shops_p"></p></div>
       <div class="shops one" id="shopList"></div>
+      <div class="smap" id="shopMap"></div>
       <div class="ways" id="ways"></div>
     </div>
   </section>
@@ -1653,7 +1686,7 @@ function hydrate(root = document) {
     im.onerror = () => { IMG_STATE[id] = false; im.remove(); };
     // 27 Nov (Ronak): where the hero film plays, the hero opens on the film's first frame, not the repair photo
     const filmMq = id === "hero" && f.closest("#heroMedia") ? matchMedia("(min-width:901px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)") : null;
-    if (filmMq && filmMq.matches) { im.src = "img/hero-film.jpg"; f.appendChild(im); return; }
+    if (filmMq && filmMq.matches) { im.src = (window.__IMGDATA && window.__IMGDATA["hero-film"]) || "img/hero-film.jpg?v=2"; f.appendChild(im); return; }
     if (!(IMG[id] && IMG[id].real)) { im.sizes = imgSizes(f); im.srcset = `img/${id}-s.jpg 760w, img/${id}.jpg ${IMG[id] && IMG[id].ratio === "2:3" ? 1024 : IMG[id] && IMG[id].ratio === "1:1" ? 1254 : 1536}w`; }
     im.src = "img/" + id + ".jpg";
     f.appendChild(im);
@@ -1672,7 +1705,7 @@ const SV = {
   keyboard:["Keyboard","Tastatur Reparatur"], trackpad:["Trackpad","Trackpad Reparatur"], hinge:["Hinge","Scharnier Reparatur"],
   fan:["Fan and cleaning","Lüfter und Reinigung"], ssd:["SSD and upgrade","SSD und Aufrüstung"],
   hdmi:["HDMI port","HDMI-Buchse Reparatur"], drive:["Disc drive","Laufwerk Reparatur"], psu:["Power supply","Netzteil Reparatur"],
-  drift:["Joystick drift","Joystick-Drift Reparatur"], tmr:["TMR joysticks (no more drift)","TMR-Joysticks (driftfrei)"], cport:["Charging port","Ladebuchse Reparatur"]
+  tmr:["TMR joystick repair (no more drift)","TMR-Joystick-Reparatur (driftfrei)"], cport:["Charging port","Ladebuchse Reparatur"]
 };
 const SV_CAT = {
   tablet:{ back:["Housing and back","Gehäuse und Rückseite"] },
@@ -1688,22 +1721,23 @@ const LISTS = {
   laptop:["display","battery","keyboard","port","fan","water","trackpad","hinge","ssd","speaker","mainboard","data","software"]
 };
 const CON = {
-  // Owner, 25 Nov 2026: joystick drift and TMR sticks belong on the console page too (the controller comes with it).
-  B:["hdmi","drift","tmr","fan","drive","psu","ssd","water","software","mainboard"],
-  b:["hdmi","drift","tmr","fan","psu","ssd","water","software","mainboard"],
-  H:["display","drift","tmr","battery","cport","fan","water","ssd","software","mainboard"],
-  P:["drift","tmr","cport","battery","buttons","water"],
-  X:["hdmi","fan","drift","drive","psu","display","cport","battery","ssd","water","software","mainboard"]
+  // Owner, 25 Nov 2026: joystick repair belongs on the console page too (the controller comes with it).
+  // Owner, 27 Nov 2026: one joystick repair only, "TMR-Joystick-Reparatur (driftfrei)" (drift and TMR were the same job).
+  B:["hdmi","tmr","fan","drive","psu","ssd","water","software","mainboard"],
+  b:["hdmi","tmr","fan","psu","ssd","water","software","mainboard"],
+  H:["display","tmr","battery","cport","fan","water","ssd","software","mainboard"],
+  P:["tmr","cport","battery","buttons","water"],
+  X:["hdmi","fan","tmr","drive","psu","display","cport","battery","ssd","water","software","mainboard"]
 };
 const BASE = {
   phone:{display:[219,149],battery:99,port:99,back:119,camera:149,water:49,camglass:59,frontcam:119,faceid:199,speaker:99,earpiece:99,mic:99,mainboard:149,data:49,software:49,buttons:89,vibration:79,sim:89,jack:79,diagnosis:29},
   tablet:{display:[249,179],battery:129,port:119,back:149,camera:119,water:49,frontcam:109,speaker:99,mic:99,buttons:89,mainboard:179,data:49,software:49,diagnosis:29},
   laptop:{display:[449,329],battery:179,keyboard:199,port:149,fan:79,water:49,trackpad:179,hinge:149,ssd:129,speaker:129,mainboard:249,data:49,software:69,diagnosis:29},
-  console:{hdmi:99,fan:69,drive:119,psu:129,ssd:89,water:49,software:49,mainboard:149,display:[159,109],drift:59,tmr:79,battery:79,cport:59,buttons:49,diagnosis:29}
+  console:{hdmi:99,fan:69,drive:119,psu:129,ssd:89,water:49,software:49,mainboard:149,display:[159,109],tmr:79,battery:79,cport:59,buttons:49,diagnosis:29}
 };
 const FIXED = new Set(["water","data","software","diagnosis"]);
 const FROM = new Set(["mainboard","ssd"]);
-const K = {display:1,back:.8,camera:.7,camglass:.3,frontcam:.5,faceid:.5,battery:.35,port:.4,speaker:.3,earpiece:.3,mic:.3,mainboard:.5,buttons:.3,vibration:.2,sim:.3,jack:.2,keyboard:.6,trackpad:.5,hinge:.5,fan:.2,ssd:.3,hdmi:.3,drive:.4,psu:.4,drift:.2,tmr:.2,cport:.2};
+const K = {display:1,back:.8,camera:.7,camglass:.3,frontcam:.5,faceid:.5,battery:.35,port:.4,speaker:.3,earpiece:.3,mic:.3,mainboard:.5,buttons:.3,vibration:.2,sim:.3,jack:.2,keyboard:.6,trackpad:.5,hinge:.5,fan:.2,ssd:.3,hdmi:.3,drive:.4,psu:.4,tmr:.2,cport:.2};
 /* Current TipTop shop prices (tiptophandyreparatur.de) used as anchors */
 const REAL = {
   "phone-apple-iphone-13":{display:[219,149],back:119,battery:99,faceid:199,camglass:59,camera:149,frontcam:119,port:99,mic:99,speaker:99},
@@ -1855,8 +1889,7 @@ const KW = [
   ["camglass",["camera glass","kameraglas","camera lens","kameralinse","linse"]],
   ["frontcam",["front camera","selfie","frontkamera"]],
   ["faceid",["face id","faceid","gesichtserkennung"]],
-  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick"]],
-  ["drift",["drift","joystick","stick"]],
+  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick","drift","joystick","stick"]],
   ["hdmi",["hdmi","no picture","no signal","kein bild","kein signal"]],
   ["drive",["disc","disk","laufwerk","blu-ray","bluray"]],
   ["keyboard",["keyboard","tastatur"]],
@@ -1905,7 +1938,6 @@ function parse(text) {
     const re = new RegExp("(^|\\s)" + reEsc(kw) + (kw.length <= 3 ? "(?=\\s|$)" : ""));
     if (re.test(rest)) { if (!keys.includes(k)) keys.push(k); rest = rest.replace(re, " "); }
   }
-  if (keys.includes("tmr") && keys.includes("drift")) keys.splice(keys.indexOf("drift"), 1);
   // A one-word model name loses against an explicit device word for another category ("power switch on my laptop").
   if (m && !best.a.includes(" ")) {
     const other = ["tablet","laptop","console","phone"].find(c => c !== m.cat && CATW[c].some(w => w !== best.a && hasW(norm(text), w)));
@@ -1915,7 +1947,7 @@ function parse(text) {
   const full = norm(text);
   if (!cat) {
     for (const c of ["tablet","laptop","console","phone"]) if (CATW[c].some(w => hasW(full, w))) { cat = c; break; }
-    if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","drift","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
+    if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","tmr","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
   }
   // Same word, different repair per device: "Ladebuchse" on a console is the controller/handheld port, "Tasten" on a laptop is the keyboard.
   if (cat === "console") { const i = keys.indexOf("port"); if (i >= 0) keys.includes("cport") ? keys.splice(i, 1) : keys.splice(i, 1, "cport"); }
@@ -1968,7 +2000,7 @@ function devTiles(attr) {
 
 /* ===== Repair builder ===== */
 const B = { step:1, cat:null, model:null, brand:"all", q:"", sel:[], pending:[], showAll:false, other:false, act:null, name:"", phone:"", done:null, hoverKey:null, lastFocus:null };
-const TOP6 = { phone:["display","battery","port","back","camera","water"], tablet:["display","battery","port","back","camera","water"], laptop:["display","battery","keyboard","port","fan","water"], console:["display","hdmi","drift","tmr","battery","cport","fan","drive","psu","buttons"] };
+const TOP6 = { phone:["display","battery","port","back","camera","water"], tablet:["display","battery","port","back","camera","water"], laptop:["display","battery","keyboard","port","fan","water"], console:["display","hdmi","tmr","battery","cport","fan","drive","psu","buttons"] };
 
 function openBuilder(opts = {}) {
   Object.assign(B, { step:1, cat:null, model:null, brand:"all", q:"", sel:[], pending:[], showAll:false, other:false, act:null, done:null, hoverKey:null }, opts);
@@ -2181,10 +2213,41 @@ function heroVideoOk() {
 }
 function heroVideo() {
   const f = document.querySelector("#heroMedia .hero-frame"); if (!f) return;
-  if (!HV) { if (!heroVideoOk()) return; heroVideoMake(); }
+  if (!HV) { if (!heroVideoOk()) { heroPlayBtn(f); return; } heroVideoMake(); }
   $("heroMedia").classList.add("has-vid");
   f.appendChild(HV.v); f.appendChild(HV.b); heroSndLabel();
   if (HV.on && HV.seen && HV_MQ.matches) HV.v.play().catch(() => {});
+}
+const FILM_M = "img/tiptop-film-m.mp4?v=2";
+function heroPlayBtn(f) {
+  if (f.querySelector(".hero-play")) return;
+  const b = document.createElement("button"); b.type = "button"; b.className = "hero-play";
+  b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span>' + esc(t("film_btn")) + "</span>";
+  b.addEventListener("click", () => filmOpen(b)); f.appendChild(b);
+}
+function filmOpen(from) {
+  let box = $("filmBox");
+  if (!box) {
+    box = document.createElement("div"); box.id = "filmBox"; box.className = "filmbox"; box.hidden = true;
+    box.setAttribute("role", "dialog"); box.setAttribute("aria-modal", "true");
+    box.innerHTML = '<div class="fb-in"><button type="button" class="fb-x"></button><video controls playsinline preload="none"></video></div>';
+    document.body.appendChild(box);
+    box.addEventListener("click", e => { if (e.target === box) filmClose(); });
+    box.querySelector(".fb-x").addEventListener("click", filmClose);
+    box.addEventListener("keydown", e => { if (e.key === "Escape") { e.preventDefault(); filmClose(); } });
+  }
+  const v = box.querySelector("video"), x = box.querySelector(".fb-x");
+  box.setAttribute("aria-label", t("film_btn")); x.textContent = t("close"); x.setAttribute("aria-label", t("close"));
+  box._from = from; if (!v.src) v.src = FILM_M;
+  box.hidden = false; document.documentElement.classList.add("noscroll");
+  v.currentTime = 0; v.play().catch(() => {}); x.focus();
+  if (HV && HV.v) HV.v.pause();
+}
+function filmClose() {
+  const box = $("filmBox"); if (!box || box.hidden) return;
+  box.querySelector("video").pause(); box.hidden = true; document.documentElement.classList.remove("noscroll");
+  if (box._from && box._from.isConnected) box._from.focus();
+  if (HV && HV.on && HV.seen && HV_MQ.matches) HV.v.play().catch(() => {});
 }
 function heroVideoMake() {
   const v = document.createElement("video");
@@ -2195,7 +2258,7 @@ function heroVideoMake() {
   v.addEventListener("playing", () => v.classList.add("on"));
   v.addEventListener("error", () => { HV_FAIL = true; v.remove(); b.remove(); $("heroMedia").classList.remove("has-vid"); HV = null; });
   b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted) v.play().catch(() => {}); heroSndLabel(); });
-  const start = () => { if (!HV) return; v.src = "img/hero-loop.mp4?v=2"; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
+  const start = () => { if (!HV) return; v.src = "img/hero-loop.mp4?v=3"; HV.on = true; if (HV.seen && HV_MQ.matches) v.play().catch(() => {}); };
   if (document.readyState === "complete") setTimeout(start, 400); else addEventListener("load", () => setTimeout(start, 400), { once: true });
   if ("IntersectionObserver" in window) new IntersectionObserver(es => {
     if (!HV) return; HV.seen = es[0].isIntersecting; if (!HV.on) return;
@@ -2261,6 +2324,22 @@ $("askMic").addEventListener("click", () => voiceGate($("askMic"), (txt, fin) =>
 const SHOPS = [
   { id:"shop-moabit", g:"moabit", area:"Berlin-Moabit", street:"Beusselstraße 18", zip:"10553 Berlin-Moabit", q:"TipTop Service 24, Beusselstraße 18, 10553 Berlin", tel:"+493081475791", telTxt:"030 814 757 91" }
 ];
+function renderMap() {
+  const box = $("shopMap"); if (!box) return;
+  const sh = SHOPS[0];
+  if (box.querySelector("iframe")) { box.querySelector("iframe").title = t("map_title"); return; }
+  let on = false; try { on = sessionStorage.getItem("tt-map") === "1"; } catch (e) {}
+  if (on) { mapLoad(); return; }
+  box.innerHTML = `<div class="smap-ph"><div class="smap-art" aria-hidden="true"><i class="r1"></i><i class="r2"></i><i class="r3"></i><span class="smap-pin">${ic("store", 2)}</span></div>
+    <div class="smap-t"><b>${esc(t("map_h"))}</b><p class="smap-a">${esc(sh.street)}, ${esc(sh.zip)}</p><p class="smap-n">${esc(t("map_p"))}</p>
+    <div class="smap-acts"><button type="button" class="btn" id="mapLoad">${esc(t("map_btn"))}</button><a class="btn line" href="${mapsUrl(sh)}" target="_blank" rel="noopener">${ic("store")}${esc(t("directions"))}</a></div></div></div>`;
+  $("mapLoad").onclick = () => { try { sessionStorage.setItem("tt-map", "1"); } catch (e) {} mapLoad(true); };
+}
+function mapLoad(focus) {
+  const box = $("shopMap"), sh = SHOPS[0];
+  box.innerHTML = `<iframe class="smap-f" src="https://www.google.com/maps?q=${encodeURIComponent(sh.q)}&z=16&hl=${lang}&output=embed" title="${esc(t("map_title"))}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
+  if (focus) box.querySelector("iframe").focus();
+}
 const mapsUrl = sh => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(sh.q);
 function minPrice(cat, key) {
   let best = null;
@@ -2392,6 +2471,7 @@ function renderShops() {
       <p class="shop-call"><a href="tel:${sh.tel}">${ic("call", 2)}${esc(t("call_now"))}</a></p>
       <div class="shop-acts"><a class="btn" href="${mapsUrl(sh)}" target="_blank" rel="noopener">${ic("store")}${esc(t("directions"))}</a><a class="btn line" href="tel:${sh.tel}">${ic("call")}${esc(sh.telTxt)}</a></div>
     </div></article>`).join("");
+  renderMap();
   const w = t("ways");
   $("ways").innerHTML = `<div class="way w1"><span class="wi">${ic("store", 1.8)}</span><div><b>${esc(w[0][0])}</b><p>${esc(w[0][1])}</p></div></div>
     <a class="way w2" href="${waLink(t("wa_pick"))}" target="_blank" rel="noopener"><span class="wi">${ic("wa", 1.9)}</span><div><b>${esc(w[1][0])}</b><p>${esc(w[1][1])}</p><span class="wgo">${esc(w[1][2])}${ic("right", 2.4)}</span></div></a>
@@ -2554,7 +2634,7 @@ function renderDrawer() {
     IMGS.map(m => `<div class="ditem"><header><b>${m.n} ${esc(m.name)}</b><code>img/${m.id}.jpg</code></header><small>${esc(m.ratio)} / ${esc(m.px)} / ${esc(m.where)}</small>
       ${m.real ? `<p class="att real">${esc(t("real"))}</p>` : `${m.attach ? `<p class="att">${esc(t("attach"))} ${esc(m.attach)}</p>` : ""}<pre>${esc(m.p)}</pre><button type="button" class="cp" data-cp="${m.id}">${esc(t("copy"))}</button>`}</div>`).join("");
 }
-if ($("imgLink")) $("imgLink").addEventListener("click", () => { $("drawer").hidden = false; });  // footer link removed 27 Nov (Ronak)
+if ($("imgLink")) $("imgLink").addEventListener("click", () => { $("drawer").hidden = false; });
 $("imgBtn").addEventListener("click", () => { $("drawer").hidden = false; $("dpanel").focus && $("dpanel").focus(); });
 $("drawer").addEventListener("click", e => {
   if (e.target.closest("[data-dclose]")) { $("drawer").hidden = true; return; }
@@ -2817,6 +2897,7 @@ datenschutz: { nav:"Datenschutz", h:"Datenschutzerklärung", intro:"Hier steht, 
   ["Deine Daten auf dem Gerät während der Reparatur", `<p>Wir greifen auf Inhalte deines Geräts nur zu, soweit es für Reparatur und Funktionstest unbedingt nötig ist. Wir kopieren keine Inhalte und sehen uns keine Fotos, Nachrichten oder Dateien an. Eine Datenrettung führen wir nur in deinem Auftrag durch; die geretteten Daten übergeben wir dir und löschen danach unsere Arbeitskopie.</p>`],
   ["Schriftarten", `<p>Die Schrift Archivo ist auf unserem eigenen Server gespeichert. Beim Seitenaufruf wird keine Verbindung zu Google Fonts oder anderen Schriftanbietern aufgebaut.</p>`],
   ["Links zu Google Maps und Instagram", `<p>Die Schaltflächen „Route“ und der Link zu Instagram sind einfache Links. Erst wenn du sie anklickst, wechselst du zu Google Maps (Google Ireland Limited) bzw. Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Irland); ab dann gelten deren Datenschutzbestimmungen. Vorher werden keine Daten an diese Anbieter übertragen.</p>`],
+  ["Karte von Google Maps (erst nach Klick)", `<p>Unter unserer Ladenkarte kannst du eine Karte von Google Maps laden (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Sie wird erst geladen, wenn du auf „Karte laden“ klickst. Dann überträgt dein Browser Daten wie deine IP-Adresse und die aufgerufene Seite an Google, Google kann Cookies setzen, und Daten können an Google LLC in den USA übertragen werden. Rechtsgrundlage ist deine Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Die Karte bleibt nur für diesen Besuch geladen; danach fragen wir wieder. Mehr dazu: https://policies.google.com/privacy</p>`],
   ["Statistik mit Matomo (nur mit Einwilligung)", `<p>Wenn du der Kategorie „Statistik“ zustimmst, nutzen wir Matomo, eine Open-Source-Software zur Reichweitenmessung, die wir auf unserem eigenen Server in Deutschland betreiben. Matomo setzt dafür Cookies und erfasst unter anderem aufgerufene Seiten, Verweildauer, Gerätetyp und die Herkunft des Besuchs. Deine IP-Adresse wird vor der Speicherung um zwei Bytes gekürzt, sodass wir dich nicht identifizieren können. Die Daten verlassen unseren Server nicht und werden nach ${fillIn("13")} Monaten gelöscht.</p><p>Rechtsgrundlage ist deine Einwilligung (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO). Widerrufst du sie in den Cookie-Einstellungen, löschen wir die Matomo-Cookies auf deinem Gerät.</p>`],
   ["Marketing (nur mit Einwilligung)", `<p>Wenn du der Kategorie „Marketing“ zustimmst, binden wir das Conversion-Tracking von Google Ads (Google Ireland Limited) und das Meta-Pixel (Meta Platforms Ireland Limited) ein. Damit messen wir, ob eine Anzeige zu einer Anfrage geführt hat, und können Anzeigen gezielter in Berlin ausspielen. Dabei werden Cookies gesetzt und Nutzungsdaten wie IP-Adresse, Geräteinformationen und Interaktionen an Google bzw. Meta übermittelt, auch in die USA. Beide Unternehmen sind nach dem EU-US Data Privacy Framework zertifiziert. Für die Erhebung über das Meta-Pixel sind wir gemeinsam mit Meta verantwortlich (Art. 26 DSGVO).</p><p>Rechtsgrundlage ist deine Einwilligung (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO), die du jederzeit widerrufen kannst. ${fillIn("Nur aufnehmen, wenn Anzeigen geschaltet werden. Sonst Abschnitt und Kategorie entfernen.")}</p>`],
   ["Admin-Bereich", `<p>Der Verwaltungsbereich ist nur für unser Team zugänglich. Für die Anmeldung setzen wir technisch notwendige Cookies für die Sitzung und den Schutz vor Fremdzugriffen. Änderungen an Preisen und Anfragen werden protokolliert, damit nachvollziehbar ist, wer was geändert hat.</p>`],
@@ -2991,6 +3072,7 @@ datenschutz: { nav:"Privacy", h:"Privacy policy", intro:"This page explains whic
   ["Your data on the device during repair", `<p>We only access the contents of your device where strictly necessary for the repair and function test. We do not copy anything and do not look at photos, messages or files. We only carry out data recovery on your instruction; we hand the recovered data to you and then delete our working copy.</p>`],
   ["Fonts", `<p>The Archivo typeface is stored on our own server. No connection to Google Fonts or any other font provider is made when you open the site.</p>`],
   ["Links to Google Maps and Instagram", `<p>The “Directions” buttons and the Instagram link are plain links. Only when you click them do you go to Google Maps (Google Ireland Limited) or Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Ireland), whose privacy policies then apply. No data is sent to these providers before that.</p>`],
+  ["Google Maps map (only after a click)", `<p>Below our shop card you can load a map from Google Maps (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland). It only loads when you click “Load map”. Your browser then sends data such as your IP address and the page you are on to Google, Google may set cookies, and data may be transferred to Google LLC in the USA. The legal basis is your consent by clicking (Art. 6(1)(a) GDPR, § 25(1) TDDDG). The map stays loaded for this visit only; after that we ask again. More: https://policies.google.com/privacy</p>`],
   ["Statistics with Matomo (consent only)", `<p>If you agree to “Statistics”, we use Matomo, open-source analytics software that we run on our own server in Germany. Matomo sets cookies and records pages viewed, time on page, device type and where the visit came from. Your IP address is shortened by two bytes before storage, so we cannot identify you. The data never leaves our server and is deleted after ${fillIn("13")} months.</p><p>The legal basis is your consent (§ 25(1) TDDDG, Art. 6(1)(a) GDPR). If you withdraw it in the cookie settings, we delete the Matomo cookies on your device.</p>`],
   ["Marketing (consent only)", `<p>If you agree to “Marketing”, we load Google Ads conversion tracking (Google Ireland Limited) and the Meta Pixel (Meta Platforms Ireland Limited). This tells us whether an ad led to a request and lets us target ads in Berlin more precisely. Cookies are set and usage data such as IP address, device information and interactions are sent to Google or Meta, including to the USA. Both companies are certified under the EU-US Data Privacy Framework. We are jointly responsible with Meta for data collected through the Meta Pixel (Art. 26 GDPR).</p><p>The legal basis is your consent (§ 25(1) TDDDG, Art. 6(1)(a) GDPR), which you can withdraw at any time. ${fillIn("Only include if ads are run. Otherwise remove this section and the category.")}</p>`],
   ["Admin area", `<p>The admin area is only accessible to our team. Signing in uses strictly necessary cookies for the session and to protect against cross-site attacks. Changes to prices and requests are logged so we can see who changed what.</p>`],
@@ -3420,6 +3502,12 @@ Object.assign(T.de, { call_now:"Ruf uns an", closed_day:"geschlossen", ask_l:"Mo
   ask_ph:"Modell oder Problem suchen, z. B. iPhone 15 Display", ask_go:"Suchen" });
 Object.assign(T.de, { snd_on:"Ton an", snd_off:"Ton aus" });
 Object.assign(T.en, { snd_on:"Sound on", snd_off:"Sound off" });
+Object.assign(T.de, { wa_sub:"Schreib uns dein Problem", film_btn:"Film ansehen", close:"Schließen",
+  map_h:"So findest du uns", map_p:"Die Karte kommt von Google Maps. Erst wenn du sie lädst, werden Daten an Google übertragen.",
+  map_btn:"Karte laden", map_title:"Karte: TipTop Service 24, Beusselstraße 18, Berlin-Moabit" });
+Object.assign(T.en, { wa_sub:"Message us your problem", film_btn:"Watch the film", close:"Close",
+  map_h:"How to find us", map_p:"The map comes from Google Maps. Data is only sent to Google once you load it.",
+  map_btn:"Load map", map_title:"Map: TipTop Service 24, Beusselstraße 18, Berlin-Moabit" });
 /* ===== Language, routing, boot ===== */
 function render() { if (!$("bld").hidden) renderB(); renderRail(); hydrate(); }
 function applyLang() {

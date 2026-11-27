@@ -35,7 +35,7 @@ s = s.replace(hook, '    if (window.__IMGDATA) { const d = window.__IMGDATA[id];
 first_script = s.index('<script>')
 s = s[:first_script] + '<script>window.__IMGDATA = ' + json.dumps(data) + ';</script>\n' + s[first_script:]
 # TipTop logo files in the header and the favicon
-for nm, mt in [('logo-tiptop.svg', 'image/svg+xml'), ('logo-mark.webp', 'image/webp'), ('logo-mark-180.png', 'image/png')]:
+for nm, mt in [('logo-tiptop.webp', 'image/webp'), ('logo-mark.webp', 'image/webp'), ('logo-mark-180.png', 'image/png')]:
     s = s.replace('img/' + nm, 'data:' + mt + ';base64,' + b64(open(ROOT + 'img/' + nm, 'rb').read()))
 # brand logos (img/brands/*.svg) as data URIs
 bd = {os.path.basename(p)[:-4]: 'data:image/svg+xml;base64,' + b64(open(p, 'rb').read()) for p in sorted(glob.glob(ROOT + 'img/brands/*.svg'))}
@@ -44,11 +44,15 @@ s = s[:first_script] + '<script>window.__BRANDDATA = ' + json.dumps(bd) + ';</sc
 
 # desktop hero film: embedded, turned into a blob URL only when the desktop video actually starts
 if os.path.exists(ROOT + 'img/hero-loop.mp4'):
-    tok = 'v.src = "img/hero-loop.mp4?v=2";'
+    tok = 'v.src = "img/hero-loop.mp4?v=3";'
     assert s.count(tok) == 1, tok
-    s = s.replace(tok, 'v.src = window.__HEROVID ? URL.createObjectURL(new Blob([Uint8Array.from(atob(window.__HEROVID), c => c.charCodeAt(0))], { type:"video/mp4" })) : "img/hero-loop.mp4?v=2";')
+    s = s.replace(tok, 'v.src = window.__HEROVID ? URL.createObjectURL(new Blob([Uint8Array.from(atob(window.__HEROVID), c => c.charCodeAt(0))], { type:"video/mp4" })) : "img/hero-loop.mp4?v=3";')
     first_script = s.index('<script>')
     s = s[:first_script] + '<script>window.__HEROVID = "' + b64(open(ROOT + 'img/hero-loop.mp4', 'rb').read()) + '";</script>\n' + s[first_script:]
+# phone film dialog: in the single file it plays the embedded hero film
+tok2 = 'if (!v.src) v.src = FILM_M;'
+if tok2 in s and os.path.exists(ROOT + 'img/hero-loop.mp4'):
+    s = s.replace(tok2, 'if (!v.src) v.src = window.__HEROVID ? URL.createObjectURL(new Blob([Uint8Array.from(atob(window.__HEROVID), c => c.charCodeAt(0))], { type:"video/mp4" })) : FILM_M;')
 assert 'fonts/' not in s.split('<script>')[0] or True
 open(OUT, 'w', encoding='utf-8').write(s)
 print('written', OUT, round(len(s.encode()) / 1e6, 2), 'MB')

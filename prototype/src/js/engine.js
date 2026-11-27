@@ -10,7 +10,7 @@ const SV = {
   keyboard:["Keyboard","Tastatur Reparatur"], trackpad:["Trackpad","Trackpad Reparatur"], hinge:["Hinge","Scharnier Reparatur"],
   fan:["Fan and cleaning","Lüfter und Reinigung"], ssd:["SSD and upgrade","SSD und Aufrüstung"],
   hdmi:["HDMI port","HDMI-Buchse Reparatur"], drive:["Disc drive","Laufwerk Reparatur"], psu:["Power supply","Netzteil Reparatur"],
-  drift:["Joystick drift","Joystick-Drift Reparatur"], tmr:["TMR joysticks (no more drift)","TMR-Joysticks (driftfrei)"], cport:["Charging port","Ladebuchse Reparatur"]
+  tmr:["TMR joystick repair (no more drift)","TMR-Joystick-Reparatur (driftfrei)"], cport:["Charging port","Ladebuchse Reparatur"]
 };
 const SV_CAT = {
   tablet:{ back:["Housing and back","Gehäuse und Rückseite"] },
@@ -26,22 +26,23 @@ const LISTS = {
   laptop:["display","battery","keyboard","port","fan","water","trackpad","hinge","ssd","speaker","mainboard","data","software"]
 };
 const CON = {
-  // Owner, 25 Nov 2026: joystick drift and TMR sticks belong on the console page too (the controller comes with it).
-  B:["hdmi","drift","tmr","fan","drive","psu","ssd","water","software","mainboard"],
-  b:["hdmi","drift","tmr","fan","psu","ssd","water","software","mainboard"],
-  H:["display","drift","tmr","battery","cport","fan","water","ssd","software","mainboard"],
-  P:["drift","tmr","cport","battery","buttons","water"],
-  X:["hdmi","fan","drift","drive","psu","display","cport","battery","ssd","water","software","mainboard"]
+  // Owner, 25 Nov 2026: joystick repair belongs on the console page too (the controller comes with it).
+  // Owner, 27 Nov 2026: one joystick repair only, "TMR-Joystick-Reparatur (driftfrei)" (drift and TMR were the same job).
+  B:["hdmi","tmr","fan","drive","psu","ssd","water","software","mainboard"],
+  b:["hdmi","tmr","fan","psu","ssd","water","software","mainboard"],
+  H:["display","tmr","battery","cport","fan","water","ssd","software","mainboard"],
+  P:["tmr","cport","battery","buttons","water"],
+  X:["hdmi","fan","tmr","drive","psu","display","cport","battery","ssd","water","software","mainboard"]
 };
 const BASE = {
   phone:{display:[219,149],battery:99,port:99,back:119,camera:149,water:49,camglass:59,frontcam:119,faceid:199,speaker:99,earpiece:99,mic:99,mainboard:149,data:49,software:49,buttons:89,vibration:79,sim:89,jack:79,diagnosis:29},
   tablet:{display:[249,179],battery:129,port:119,back:149,camera:119,water:49,frontcam:109,speaker:99,mic:99,buttons:89,mainboard:179,data:49,software:49,diagnosis:29},
   laptop:{display:[449,329],battery:179,keyboard:199,port:149,fan:79,water:49,trackpad:179,hinge:149,ssd:129,speaker:129,mainboard:249,data:49,software:69,diagnosis:29},
-  console:{hdmi:99,fan:69,drive:119,psu:129,ssd:89,water:49,software:49,mainboard:149,display:[159,109],drift:59,tmr:79,battery:79,cport:59,buttons:49,diagnosis:29}
+  console:{hdmi:99,fan:69,drive:119,psu:129,ssd:89,water:49,software:49,mainboard:149,display:[159,109],tmr:79,battery:79,cport:59,buttons:49,diagnosis:29}
 };
 const FIXED = new Set(["water","data","software","diagnosis"]);
 const FROM = new Set(["mainboard","ssd"]);
-const K = {display:1,back:.8,camera:.7,camglass:.3,frontcam:.5,faceid:.5,battery:.35,port:.4,speaker:.3,earpiece:.3,mic:.3,mainboard:.5,buttons:.3,vibration:.2,sim:.3,jack:.2,keyboard:.6,trackpad:.5,hinge:.5,fan:.2,ssd:.3,hdmi:.3,drive:.4,psu:.4,drift:.2,tmr:.2,cport:.2};
+const K = {display:1,back:.8,camera:.7,camglass:.3,frontcam:.5,faceid:.5,battery:.35,port:.4,speaker:.3,earpiece:.3,mic:.3,mainboard:.5,buttons:.3,vibration:.2,sim:.3,jack:.2,keyboard:.6,trackpad:.5,hinge:.5,fan:.2,ssd:.3,hdmi:.3,drive:.4,psu:.4,tmr:.2,cport:.2};
 /* Current TipTop shop prices (tiptophandyreparatur.de) used as anchors */
 const REAL = {
   "phone-apple-iphone-13":{display:[219,149],back:119,battery:99,faceid:199,camglass:59,camera:149,frontcam:119,port:99,mic:99,speaker:99},

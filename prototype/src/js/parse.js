@@ -3,8 +3,7 @@ const KW = [
   ["camglass",["camera glass","kameraglas","camera lens","kameralinse","linse"]],
   ["frontcam",["front camera","selfie","frontkamera"]],
   ["faceid",["face id","faceid","gesichtserkennung"]],
-  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick"]],
-  ["drift",["drift","joystick","stick"]],
+  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick","drift","joystick","stick"]],
   ["hdmi",["hdmi","no picture","no signal","kein bild","kein signal"]],
   ["drive",["disc","disk","laufwerk","blu-ray","bluray"]],
   ["keyboard",["keyboard","tastatur"]],
@@ -53,7 +52,6 @@ function parse(text) {
     const re = new RegExp("(^|\\s)" + reEsc(kw) + (kw.length <= 3 ? "(?=\\s|$)" : ""));
     if (re.test(rest)) { if (!keys.includes(k)) keys.push(k); rest = rest.replace(re, " "); }
   }
-  if (keys.includes("tmr") && keys.includes("drift")) keys.splice(keys.indexOf("drift"), 1);
   // A one-word model name loses against an explicit device word for another category ("power switch on my laptop").
   if (m && !best.a.includes(" ")) {
     const other = ["tablet","laptop","console","phone"].find(c => c !== m.cat && CATW[c].some(w => w !== best.a && hasW(norm(text), w)));
@@ -63,7 +61,7 @@ function parse(text) {
   const full = norm(text);
   if (!cat) {
     for (const c of ["tablet","laptop","console","phone"]) if (CATW[c].some(w => hasW(full, w))) { cat = c; break; }
-    if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","drift","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
+    if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","tmr","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
   }
   // Same word, different repair per device: "Ladebuchse" on a console is the controller/handheld port, "Tasten" on a laptop is the keyboard.
   if (cat === "console") { const i = keys.indexOf("port"); if (i >= 0) keys.includes("cport") ? keys.splice(i, 1) : keys.splice(i, 1, "cport"); }
