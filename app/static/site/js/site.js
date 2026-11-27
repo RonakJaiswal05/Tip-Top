@@ -120,7 +120,7 @@ function loadCatalog() {
 function buildModels() {
   MODELS = {};
   for (const c of CATS) MODELS[c] = [];
-  for (const m of CAT.models) if (MODELS[m.cat]) MODELS[m.cat].push({ id:String(m.id), cat:m.cat, brand:m.brand, name:m.name, loc:lang === "de" ? m.nde : m.nen, full:m[lang], slug:m.slug, fl:m.fl || "", ct:m.ct || "", no:m.no || [] });
+  for (const m of CAT.models) if (MODELS[m.cat]) MODELS[m.cat].push({ id:String(m.id), cat:m.cat, brand:m.brand, name:m.name, loc:lang === "de" ? m.nde : m.nen, full:m[lang], slug:m.slug, fl:m.fl || "", ct:m.ct || "", no:m.no || [], add:m.add || [] });
   ALIASES = [];
   // Single everyday words never count as a model name on their own ("book a repair" is not a Surface Book).
   const seen = new Set();
@@ -154,8 +154,12 @@ function servicesFor(m) {
   const lists = CAT.lists[m.cat] || {};
   if (m.custom) return (lists[""] || []).map(x => x[0]);
   const rows = m.cat === "console" ? (lists[m.ct] || lists[""] || []) : (lists[""] || []);
-  // Repairs a model physically can't have (no fan, soldered storage, AA batteries) are switched off per model in the admin.
-  return rows.filter(([k, req]) => !(req === "face_id" && !m.fl.includes("F")) && !(req === "jack" && !m.fl.includes("J")) && !m.no.includes(k)).map(x => x[0]);
+  // Per model in the admin: feature switches (Face ID, Touch ID, headphone jack), repairs it can't have ("Nicht möglich")
+  // and repairs it gets on top of its category's list ("Zusätzlich").
+  const fits = ([k, req]) => !(req === "face_id" && !m.fl.includes("F")) && !(req === "touch_id" && !m.fl.includes("T")) && !(req === "jack" && !m.fl.includes("J")) && !m.no.includes(k);
+  const out = rows.filter(fits).map(x => x[0]);
+  for (const k of m.add) if (!out.includes(k) && CAT.rep[k]) out.push(k);
+  return out;
 }
 function price(m, key, tier) {
   const pick = v => v == null ? null : typeof v === "object" ? (v[tier === "o" ? "o" : "p"] == null ? null : v[tier === "o" ? "o" : "p"]) : v;
@@ -191,8 +195,7 @@ const KW = [
   ["camglass",["camera glass","kameraglas","camera lens","kameralinse","linse"]],
   ["frontcam",["front camera","selfie","frontkamera"]],
   ["faceid",["face id","faceid","gesichtserkennung"]],
-  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick"]],
-  ["drift",["drift","joystick","stick"]],
+  ["tmr",["tmr","hall effect","hall-effect","hall sensor","hall stick","drift","joystick","stick"]],
   ["hdmi",["hdmi","no picture","no signal","kein bild","kein signal"]],
   ["drive",["disc","disk","laufwerk","blu-ray","bluray"]],
   ["keyboard",["keyboard","tastatur"]],
@@ -241,7 +244,6 @@ function parse(text) {
     const re = new RegExp("(^|\\s)" + reEsc(kw) + (kw.length <= 3 ? "(?=\\s|$)" : ""));
     if (re.test(rest)) { if (!keys.includes(k)) keys.push(k); rest = rest.replace(re, " "); }
   }
-  if (keys.includes("tmr") && keys.includes("drift")) keys.splice(keys.indexOf("drift"), 1);
   // A one-word model name loses against an explicit device word for another category ("power switch on my laptop").
   if (m && !best.a.includes(" ")) {
     const other = ["tablet","laptop","console","phone"].find(c => c !== m.cat && CATW[c].some(w => w !== best.a && hasW(norm(text), w)));
@@ -251,7 +253,7 @@ function parse(text) {
   const full = norm(text);
   if (!cat) {
     for (const c of ["tablet","laptop","console","phone"]) if (CATW[c].some(w => hasW(full, w))) { cat = c; break; }
-    if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","drift","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
+    if (!cat) { if (keys.some(k => ["keyboard","trackpad","hinge"].includes(k))) cat = "laptop"; else if (keys.some(k => ["hdmi","drive","tmr","psu"].includes(k))) cat = "console"; else if (keys.includes("faceid")) cat = "phone"; }
   }
   // Same word, different repair per device: "Ladebuchse" on a console is the controller/handheld port, "Tasten" on a laptop is the keyboard.
   if (cat === "console") { const i = keys.indexOf("port"); if (i >= 0) keys.includes("cport") ? keys.splice(i, 1) : keys.splice(i, 1, "cport"); }
@@ -422,7 +424,7 @@ function vRepair() {
   const dg = price(m, "diagnosis");
   return `<h2 class="bt">${esc(t("r_title"))}</h2><p class="bs">${esc(fullName(m))} · ${esc(t("r_multi"))}</p>
     <div class="rgrid" style="--tc:var(--t-${m.cat});--cc:var(--c-${m.cat})">${top.map(card).join("")}</div>${restHtml}
-    <button type="button" class="unsure" data-b="rep" data-v="diagnosis" data-hk="diagnosis" aria-pressed="${on("diagnosis")}"><span><b>${esc(t("unsure_t"))}</b><small>${esc(t("unsure_s", { p:dg == null ? t("on_request") : fmt(dg) }))}</small></span>${ic("diagnosis")}</button>`;
+    ${CAT.rep.diagnosis ? `<button type="button" class="unsure" data-b="rep" data-v="diagnosis" data-hk="diagnosis" aria-pressed="${on("diagnosis")}"><span><b>${esc(t("unsure_t"))}</b><small>${esc(t("unsure_s", { p:dg == null ? t("on_request") : fmt(dg) }))}</small></span>${ic("diagnosis")}</button>` : ""}`;
 }
 const tierName = s => CAT.rep[s.key] && CAT.rep[s.key].tiers ? " (" + t(s.tier === "o" ? "tier_o" : "tier_p") + ")" : "";
 function bRepText() { return B.sel.map(s => svName(s.key, B.cat) + tierName(s)).join(", "); }
@@ -650,7 +652,8 @@ function heroVideoOk() {
 }
 function heroVideo() {
   const f = document.querySelector("#heroMedia .hero-frame"); if (!f) return;
-  if (!HV) { if (!heroVideoOk()) return; heroVideoMake(); }
+  if (!HV) { if (!heroVideoOk()) { heroPlayBtn(f); return; } heroVideoMake(); }
+  const pb = f.querySelector(".hero-play"); if (pb) pb.remove();
   $("heroMedia").classList.add("has-vid");
   f.appendChild(HV.v); f.appendChild(HV.b); heroSndLabel();
   if (HV.on && HV.seen && HV_MQ.matches) HV.v.play().catch(() => {});
@@ -674,6 +677,45 @@ function heroVideoMake() {
     if (!HV) return;
     if (e.matches) { if (HV.on && HV.seen) HV.v.play().catch(() => {}); } else { HV.v.pause(); HV.v.muted = true; heroSndLabel(); }
   });
+}
+/* Where the muted desktop film doesn't play (phones, tablets, reduced motion), the hero photo gets a "Film ansehen" button
+   that opens the vertical film with sound in a dialog (call with the owner, 27 Nov 2026). Escape or "Schließen" closes
+   it and focus goes back to the button. */
+function heroPlayBtn(f) {
+  const src = $("heroMedia").dataset.filmM; if (!src || f.querySelector(".hero-play")) return;
+  const b = document.createElement("button"); b.type = "button"; b.className = "hero-play";
+  b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><span>' + esc(t("film_btn")) + "</span>";
+  b.addEventListener("click", () => filmOpen(b, src)); f.appendChild(b);
+}
+function filmOpen(from, src) {
+  let box = $("filmBox");
+  if (!box) {
+    box = document.createElement("div"); box.id = "filmBox"; box.className = "filmbox"; box.hidden = true;
+    box.setAttribute("role", "dialog"); box.setAttribute("aria-modal", "true");
+    box.innerHTML = '<div class="fb-in"><button type="button" class="fb-x"></button><video controls playsinline preload="none"></video></div>';
+    document.body.appendChild(box);
+    box.addEventListener("click", e => { if (e.target === box) filmClose(); });
+    box.querySelector(".fb-x").addEventListener("click", filmClose);
+    box.addEventListener("keydown", e => {
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); filmClose(); return; }
+      if (e.key !== "Tab") return;
+      const f = [box.querySelector(".fb-x"), box.querySelector("video")];
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[1]) { e.preventDefault(); f[0].focus(); }
+    });
+  }
+  const v = box.querySelector("video"), x = box.querySelector(".fb-x");
+  box.setAttribute("aria-label", t("film_btn")); x.textContent = t("close");
+  box._from = from; if (!v.getAttribute("src")) v.src = src;
+  box.hidden = false; document.documentElement.classList.add("noscroll");
+  v.currentTime = 0; v.play().catch(() => {}); x.focus();
+  if (HV && HV.v) HV.v.pause();
+}
+function filmClose() {
+  const box = $("filmBox"); if (!box || box.hidden) return;
+  box.querySelector("video").pause(); box.hidden = true; document.documentElement.classList.remove("noscroll");
+  if (box._from && box._from.isConnected) box._from.focus();
+  if (HV && HV.on && HV.seen && HV_MQ.matches) HV.v.play().catch(() => {});
 }
 function heroSndLabel() {
   if (!HV) return; const on = !HV.v.muted, l = t(on ? "snd_off" : "snd_on");
@@ -773,6 +815,19 @@ on("sellForm", "submit", async e => {
 renderSellPhotos();
 on("sellWa", "click", () => beacon("sale", { category:SELL.cat, device:$("sellModel").value.trim(), condition:t("conds")[SELL.cond] }));
 on("copyAddr", "click", () => copyText(D.mailin, t("copied")));
+(function () {
+  const box = $("shopMap"), btn = $("mapLoad"); if (!box || !btn) return;
+  const load = focus => {
+    const f = document.createElement("iframe");
+    f.className = "smap-f"; f.src = box.dataset.embed; f.title = box.dataset.title; f.loading = "lazy";
+    f.referrerPolicy = "no-referrer-when-downgrade"; f.allowFullscreen = true;
+    box.replaceChildren(f); if (focus) f.focus();
+  };
+  let on = false; try { on = sessionStorage.getItem("tt-map") === "1"; } catch (e) {}
+  if (on) { load(false); return; }
+  btn.hidden = false;
+  btn.addEventListener("click", () => { try { sessionStorage.setItem("tt-map", "1"); } catch (e) {} load(true); });
+})();
 document.querySelectorAll('[data-wa="ask"]').forEach(a => a.addEventListener("click", () => beacon("whatsapp", { repairs_text:t("ways")[1][0] })));
 
 on("brandWall", "click", e => { const b = e.target.closest("[data-bc]"); if (b) openBuilder({ cat:b.dataset.bc, brand:b.dataset.bb }); });

@@ -48,9 +48,13 @@ def build() -> dict:
             slot[cp.repair.key] = _num(cp.amount)
 
     models = []
-    excluded = {}
+    excluded, extra = {}, {}
     for model_id, key in DeviceModel.excluded_repairs.through.objects.values_list("devicemodel_id", "repairtype__key"):
         excluded.setdefault(model_id, []).append(key)
+    for model_id, key, order in DeviceModel.extra_repairs.through.objects.values_list(
+        "devicemodel_id", "repairtype__key", "repairtype__order"
+    ).order_by("repairtype__order"):
+        extra.setdefault(model_id, []).append(key)
     for m in DeviceModel.objects.filter(active=True).select_related("brand", "category").order_by(
         "category__order", "brand__order", "sort_order", "name"
     ):
@@ -61,6 +65,8 @@ def build() -> dict:
         }
         if m.id in excluded:
             row["no"] = sorted(excluded[m.id])
+        if m.id in extra:
+            row["add"] = extra[m.id]  # repairs this model gets on top of its category's list (admin: "Zusätzlich")
         models.append(row)
     active_ids = {m["id"] for m in models}
     prices, froms = {}, {}
@@ -110,7 +116,7 @@ REPAIR_PHOTO_KEYS = {
                "camera": "tab-camera", "water": "tab-water"},
     "laptop": {"display": "lap-display", "battery": "lap-battery", "keyboard": "lap-keyboard", "port": "lap-port",
                "fan": "lap-fan", "water": "lap-water"},
-    "console": {"hdmi": "con-hdmi", "fan": "con-fan", "drift": "con-drift", "tmr": "con-drift", "display": "con-display",
+    "console": {"hdmi": "con-hdmi", "fan": "con-fan", "tmr": "con-drift", "display": "con-display",
                 "drive": "con-drive", "psu": "con-psu"},
 }
 
@@ -155,11 +161,14 @@ def model_repairs(model: DeviceModel, with_diagnosis: bool = True) -> list[Repai
     excluded = set(model.excluded_repairs.values_list("key", flat=True)) if model.pk else set()
     out = []
     for o in opts:
-        if (o.requires == "face_id" and not model.has_face_id) or (o.requires == "jack" and not model.has_headphone_jack):
+        if not _fits(o.requires, model.has_face_id, model.has_touch_id, model.has_headphone_jack):
             continue
         if o.repair.key in excluded:
             continue
         out.append(o.repair)
+    if model.pk:
+        have = {r.key for r in out}
+        out += [r for r in model.extra_repairs.order_by("order") if r.key not in have and r.key != "diagnosis"]
     if with_diagnosis and all(r.key != "diagnosis" for r in out):
         d = RepairType.objects.filter(key="diagnosis").first()
         if d:
@@ -178,14 +187,20 @@ def services_for(snap: dict, m: dict | None, custom_cat: str | None = None) -> l
     no = set(m.get("no", ())) if m else set()
     out = []
     for key, req in rows:
-        if m and req == "face_id" and "F" not in m["fl"]:
-            continue
-        if m and req == "jack" and "J" not in m["fl"]:
+        if m and not _fits(req, "F" in m["fl"], "T" in m["fl"], "J" in m["fl"]):
             continue
         if key in no:
             continue
         out.append(key)
+    if m:
+        out += [k for k in m.get("add", ()) if k not in out and k in snap["rep"]]
     return out
+
+
+def _fits(requires: str, face_id: bool, touch_id: bool, jack: bool) -> bool:
+    """A repair with a condition only shows on models that have the feature (admin switches on the model)."""
+    return not ((requires == "face_id" and not face_id) or (requires == "touch_id" and not touch_id)
+                or (requires == "jack" and not jack))
 
 
 def price(snap: dict, m: dict | None, key: str, tier: str = "p", cat: str | None = None):

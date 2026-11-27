@@ -27137,7 +27137,6 @@
    "fl": "bp",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "psu",
@@ -27148,7 +27147,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "psu",
@@ -27159,7 +27157,6 @@
    ],
    "prices": {
     "hdmi": 109,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "psu": 139,
@@ -27181,7 +27178,6 @@
    "fl": "Bp",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27193,7 +27189,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27205,7 +27200,6 @@
    ],
    "prices": {
     "hdmi": 99,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "drive": 119,
@@ -27228,7 +27222,6 @@
    "fl": "b",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "psu",
@@ -27239,7 +27232,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "psu",
@@ -27250,7 +27242,6 @@
    ],
    "prices": {
     "hdmi": 99,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "psu": 129,
@@ -27272,7 +27263,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27284,7 +27274,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27296,7 +27285,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "drive": 109,
@@ -27319,7 +27307,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27331,7 +27318,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27343,7 +27329,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 59,
     "tmr": 69,
     "fan": 69,
     "drive": 109,
@@ -27366,7 +27351,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27378,7 +27362,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27390,7 +27373,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 59,
     "tmr": 69,
     "fan": 69,
     "drive": 109,
@@ -27413,7 +27395,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27425,7 +27406,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27437,7 +27417,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 49,
     "tmr": 69,
     "fan": 59,
     "drive": 99,
@@ -27460,7 +27439,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -27470,7 +27448,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -27485,7 +27462,6 @@
      89,
      129
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 69,
     "cport": 59,
@@ -27505,7 +27481,6 @@
    "f": 1,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27513,7 +27488,6 @@
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27521,7 +27495,6 @@
     "water"
    ],
    "prices": {
-    "drift": 59,
     "tmr": 79,
     "cport": 59,
     "battery": 79,
@@ -27540,7 +27513,6 @@
    "f": 0.8,
    "fl": "Pp",
    "services": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27548,7 +27520,6 @@
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27556,7 +27527,6 @@
     "water"
    ],
    "prices": {
-    "drift": 59,
     "tmr": 79,
     "cport": 59,
     "battery": 69,
@@ -27575,7 +27545,6 @@
    "f": 0.7,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27583,7 +27552,6 @@
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27591,7 +27559,6 @@
     "water"
    ],
    "prices": {
-    "drift": 49,
     "tmr": 69,
     "cport": 49,
     "battery": 69,
@@ -27611,7 +27578,6 @@
    "fl": "Bp",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27623,7 +27589,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27635,7 +27600,6 @@
    ],
    "prices": {
     "hdmi": 99,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "drive": 119,
@@ -27658,7 +27622,6 @@
    "fl": "b",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "psu",
@@ -27669,7 +27632,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "psu",
@@ -27680,7 +27642,6 @@
    ],
    "prices": {
     "hdmi": 99,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "psu": 119,
@@ -27702,7 +27663,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27714,7 +27674,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27726,7 +27685,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "drive": 109,
@@ -27749,7 +27707,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27761,7 +27718,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27773,7 +27729,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 59,
     "tmr": 79,
     "fan": 69,
     "drive": 109,
@@ -27796,7 +27751,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27808,7 +27762,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27820,7 +27773,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 59,
     "tmr": 69,
     "fan": 69,
     "drive": 109,
@@ -27843,7 +27795,6 @@
    "fl": "B",
    "services": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27855,7 +27806,6 @@
    ],
    "all": [
     "hdmi",
-    "drift",
     "tmr",
     "fan",
     "drive",
@@ -27867,7 +27817,6 @@
    ],
    "prices": {
     "hdmi": 89,
-    "drift": 49,
     "tmr": 69,
     "fan": 59,
     "drive": 99,
@@ -27889,7 +27838,6 @@
    "f": 1,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27897,7 +27845,6 @@
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27905,7 +27852,6 @@
     "water"
    ],
    "prices": {
-    "drift": 59,
     "tmr": 79,
     "cport": 59,
     "battery": 79,
@@ -27924,14 +27870,12 @@
    "f": 0.7,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "cport",
     "buttons",
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -27939,7 +27883,6 @@
     "water"
    ],
    "prices": {
-    "drift": 49,
     "tmr": 69,
     "cport": 49,
     "buttons": 39,
@@ -27958,7 +27901,6 @@
    "fl": "Hp",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -27969,7 +27911,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -27984,7 +27925,6 @@
      149,
      219
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 89,
     "cport": 59,
@@ -28006,7 +27946,6 @@
    "fl": "Hp",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28017,7 +27956,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28032,7 +27970,6 @@
      119,
      169
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28054,7 +27991,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28065,7 +28001,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28080,7 +28015,6 @@
      109,
      159
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28102,7 +28036,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28113,7 +28046,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28128,7 +28060,6 @@
      99,
      139
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28149,14 +28080,12 @@
    "f": 0.7,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "battery",
     "buttons",
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -28164,7 +28093,6 @@
     "water"
    ],
    "prices": {
-    "drift": 49,
     "tmr": 69,
     "battery": 69,
     "buttons": 39,
@@ -28182,14 +28110,12 @@
    "f": 0.6,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "battery",
     "buttons",
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -28197,7 +28123,6 @@
     "water"
    ],
    "prices": {
-    "drift": 49,
     "tmr": 69,
     "battery": 69,
     "buttons": 39,
@@ -28215,7 +28140,6 @@
    "f": 0.7,
    "fl": "P",
    "services": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -28223,7 +28147,6 @@
     "water"
    ],
    "all": [
-    "drift",
     "tmr",
     "cport",
     "battery",
@@ -28231,7 +28154,6 @@
     "water"
    ],
    "prices": {
-    "drift": 49,
     "tmr": 69,
     "cport": 49,
     "battery": 69,
@@ -28251,7 +28173,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28263,7 +28184,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28278,7 +28198,6 @@
      139,
      209
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 89,
     "cport": 59,
@@ -28301,7 +28220,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28313,7 +28231,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28328,7 +28245,6 @@
      119,
      169
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28351,7 +28267,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28363,7 +28278,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28378,7 +28292,6 @@
      159,
      239
     ],
-    "drift": 59,
     "tmr": 89,
     "battery": 89,
     "cport": 59,
@@ -28401,7 +28314,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28413,7 +28325,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28428,7 +28339,6 @@
      139,
      209
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 89,
     "cport": 59,
@@ -28451,7 +28361,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28463,7 +28372,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28478,7 +28386,6 @@
      129,
      189
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28501,7 +28408,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28513,7 +28419,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28528,7 +28433,6 @@
      139,
      209
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 89,
     "cport": 59,
@@ -28551,7 +28455,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28563,7 +28466,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28578,7 +28480,6 @@
      119,
      169
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28601,7 +28502,6 @@
    "fl": "H",
    "services": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28613,7 +28513,6 @@
    ],
    "all": [
     "display",
-    "drift",
     "tmr",
     "battery",
     "cport",
@@ -28628,7 +28527,6 @@
      129,
      189
     ],
-    "drift": 59,
     "tmr": 79,
     "battery": 79,
     "cport": 59,
@@ -28881,7 +28779,8 @@
    "ad_sign": "Sign in",
    "ad_user": "Username",
    "ad_pass": "Password",
-   "ad_demo": "Demo sign-in: any username and password work. The real admin runs on Django with secure logins.",
+   "ad_demo": "Demo admin: changes here are only saved in this browser and don't reach the shop.",
+   "ad_wrong": "Wrong username or password.",
    "ad_tabs": [
     "Prices",
     "Add device",
@@ -29040,7 +28939,13 @@
    "call_now": "Give us a call",
    "closed_day": "closed",
    "snd_on": "Sound on",
-   "snd_off": "Sound off"
+   "snd_off": "Sound off",
+   "wa_sub": "Message us your problem",
+   "film_btn": "Watch the film",
+   "map_h": "How to find us",
+   "map_p": "The map comes from Google Maps. Data is only sent to Google once you load it.",
+   "map_btn": "Load map",
+   "map_title": "Map: TipTop Service 24, Beusselstraße 18, Berlin-Moabit"
   },
   "de": {
    "nav_repair": "Reparaturen",
@@ -29279,7 +29184,8 @@
    "ad_sign": "Anmelden",
    "ad_user": "Benutzername",
    "ad_pass": "Passwort",
-   "ad_demo": "Demo-Anmeldung: Jeder Name und jedes Passwort funktioniert. Der echte Admin läuft auf Django mit sicherem Login.",
+   "ad_demo": "Demo-Admin: Änderungen hier werden nur in diesem Browser gespeichert und gehen nicht an den Laden.",
+   "ad_wrong": "Benutzername oder Passwort stimmt nicht.",
    "ad_tabs": [
     "Preise",
     "Gerät hinzufügen",
@@ -29438,7 +29344,13 @@
    "call_now": "Ruf uns an",
    "closed_day": "geschlossen",
    "snd_on": "Ton an",
-   "snd_off": "Ton aus"
+   "snd_off": "Ton aus",
+   "wa_sub": "Schreib uns dein Problem",
+   "film_btn": "Film ansehen",
+   "map_h": "So findest du uns",
+   "map_p": "Die Karte kommt von Google Maps. Erst wenn du sie lädst, werden Daten an Google übertragen.",
+   "map_btn": "Karte laden",
+   "map_title": "Karte: TipTop Service 24, Beusselstraße 18, Berlin-Moabit"
   }
  },
  "SV": {
@@ -29554,13 +29466,9 @@
    "Power supply",
    "Netzteil Reparatur"
   ],
-  "drift": [
-   "Joystick drift",
-   "Joystick-Drift Reparatur"
-  ],
   "tmr": [
-   "TMR joysticks (no more drift)",
-   "TMR-Joysticks (driftfrei)"
+   "TMR joystick repair (no more drift)",
+   "TMR-Joystick-Reparatur (driftfrei)"
   ],
   "cport": [
    "Charging port",
@@ -29667,7 +29575,6 @@
  "CON": {
   "B": [
    "hdmi",
-   "drift",
    "tmr",
    "fan",
    "drive",
@@ -29679,7 +29586,6 @@
   ],
   "b": [
    "hdmi",
-   "drift",
    "tmr",
    "fan",
    "psu",
@@ -29690,7 +29596,6 @@
   ],
   "H": [
    "display",
-   "drift",
    "tmr",
    "battery",
    "cport",
@@ -29701,7 +29606,6 @@
    "mainboard"
   ],
   "P": [
-   "drift",
    "tmr",
    "cport",
    "battery",
@@ -29711,7 +29615,7 @@
   "X": [
    "hdmi",
    "fan",
-   "drift",
+   "tmr",
    "drive",
    "psu",
    "display",
@@ -29800,7 +29704,6 @@
     159,
     109
    ],
-   "drift": 59,
    "tmr": 79,
    "battery": 79,
    "cport": 59,
@@ -29843,7 +29746,6 @@
   "hdmi": 0.3,
   "drive": 0.4,
   "psu": 0.4,
-  "drift": 0.2,
   "tmr": 0.2,
   "cport": 0.2
  },
@@ -29958,7 +29860,6 @@
   "console": [
    "display",
    "hdmi",
-   "drift",
    "tmr",
    "battery",
    "cport",
@@ -30002,12 +29903,7 @@
     "hall effect",
     "hall-effect",
     "hall sensor",
-    "hall stick"
-   ]
-  ],
-  [
-   "drift",
-   [
+    "hall stick",
     "drift",
     "joystick",
     "stick"
@@ -31447,6 +31343,10 @@
      "<p>Die Schaltflächen „Route“ und der Link zu Instagram sind einfache Links. Erst wenn du sie anklickst, wechselst du zu Google Maps (Google Ireland Limited) bzw. Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Irland); ab dann gelten deren Datenschutzbestimmungen. Vorher werden keine Daten an diese Anbieter übertragen.</p>"
     ],
     [
+     "Karte von Google Maps (erst nach Klick)",
+     "<p>Unter unserer Ladenkarte kannst du eine Karte von Google Maps laden (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Sie wird erst geladen, wenn du auf „Karte laden“ klickst. Dann überträgt dein Browser Daten wie deine IP-Adresse und die aufgerufene Seite an Google, Google kann Cookies setzen, und Daten können an Google LLC in den USA übertragen werden. Rechtsgrundlage ist deine Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Die Karte bleibt nur für diesen Besuch geladen; danach fragen wir wieder. Mehr dazu: https://policies.google.com/privacy</p>"
+    ],
+    [
      "Statistik mit Matomo (nur mit Einwilligung)",
      "<p>Wenn du der Kategorie „Statistik“ zustimmst, nutzen wir Matomo, eine Open-Source-Software zur Reichweitenmessung, die wir auf unserem eigenen Server in Deutschland betreiben. Matomo setzt dafür Cookies und erfasst unter anderem aufgerufene Seiten, Verweildauer, Gerätetyp und die Herkunft des Besuchs. Deine IP-Adresse wird vor der Speicherung um zwei Bytes gekürzt, sodass wir dich nicht identifizieren können. Die Daten verlassen unseren Server nicht und werden nach <mark class=\"fill\">13</mark> Monaten gelöscht.</p><p>Rechtsgrundlage ist deine Einwilligung (§ 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO). Widerrufst du sie in den Cookie-Einstellungen, löschen wir die Matomo-Cookies auf deinem Gerät.</p>"
     ],
@@ -31789,6 +31689,10 @@
     [
      "Links to Google Maps and Instagram",
      "<p>The “Directions” buttons and the Instagram link are plain links. Only when you click them do you go to Google Maps (Google Ireland Limited) or Instagram (Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Ireland), whose privacy policies then apply. No data is sent to these providers before that.</p>"
+    ],
+    [
+     "Google Maps map (only after a click)",
+     "<p>Below our shop card you can load a map from Google Maps (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland). It only loads when you click “Load map”. Your browser then sends data such as your IP address and the page you are on to Google, Google may set cookies, and data may be transferred to Google LLC in the USA. The legal basis is your consent by clicking (Art. 6(1)(a) GDPR, § 25(1) TDDDG). The map stays loaded for this visit only; after that we ask again. More: https://policies.google.com/privacy</p>"
     ],
     [
      "Statistics with Matomo (consent only)",

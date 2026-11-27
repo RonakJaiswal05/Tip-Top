@@ -40,3 +40,6 @@
 .tt-grid td.na{text-align:center}
 .tt-ab{font-size:11px;margin-left:3px;color:#8A909C}
 .tt-dirty{margin-left:12px;color:#3048F0;font-weight:600}
+/* inbox: one-tap WhatsApp status messages */
+.tt-wa{display:inline-block;margin:0 6px 4px 0;padding:3px 8px;border-radius:6px;background:#E8F8EE;color:#11733A;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap}
+.tt-wa:hover{background:#25D366;color:#fff}

@@ -75,26 +75,109 @@ class RepairNameInline(admin.TabularInline):
     verbose_name_plural = "Andere Namen je Kategorie (z. B. „Ladebuchse / DC-Buchse“ für Laptops)"
 
 
+class RepairOptionInline(admin.TabularInline):
+    model = RepairOption
+    extra = 1
+    fields = ["category", "console_type", "requires", "order"]
+    verbose_name = "Geräteart"
+    verbose_name_plural = ("Für welche Geräte? (eine Zeile je Geräteart; bei Konsolen je Konsolentyp. "
+                           "Einzelne Geräte stellen Sie beim Gerät unter „Reparaturen“ ein.)")
+
+
+class CategoryPriceInline(admin.TabularInline):
+    model = CategoryPrice
+    extra = 1
+    fields = ["category", "tier", "amount"]
+    verbose_name = "Grundpreis"
+    verbose_name_plural = ("Grundpreise je Geräteart (daraus werden Startpreise für alle Geräte berechnet; "
+                           "bei „Einheitspreis“ gilt der Grundpreis für alle)")
+
+
+class RepairTypeForm(forms.ModelForm):
+    icon = forms.ChoiceField(label="Symbol", required=False, help_text="Wird gezeigt, solange es kein Foto gibt.")
+
+    class Meta:
+        model = RepairType
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        from core.icons import IC
+
+        self.fields["icon"].choices = [("", "–")] + [(k, k) for k in sorted(IC)]
+
+
 @admin.register(RepairType)
 class RepairTypeAdmin(RoleAdminMixin, admin.ModelAdmin):
-    list_display = ["name_de", "name_en", "key", "order", "duration_minutes", "warranty_months", "has_tiers", "fixed_price", "default_from"]
+    """Repair types (A5). The owner adds, changes and deletes them (27 Nov 2026), e.g. a combo "Backcover + Display",
+    and sets for which device types they show and their base prices; new ones get starting prices right away."""
+
+    form = RepairTypeForm
+    list_display = ["name_de", "name_en", "key", "order", "n_lists", "duration_minutes", "warranty_months", "has_tiers", "fixed_price",
+                    "default_from"]
     list_editable = ["order", "duration_minutes", "warranty_months"]
     search_fields = ["key", "name_de", "name_en"]
-    readonly_fields = ["key"]
     autocomplete_fields = ["image"]
-    inlines = [RepairNameInline]
+    inlines = [RepairOptionInline, CategoryPriceInline, RepairNameInline]
     fieldsets = [
         (None, {"fields": ["key", ("name_de", "name_en"), ("desc_de", "desc_en"), ("icon", "image"), "order"]}),
         ("Ablauf", {"fields": [("duration_minutes", "warranty_months")]}),
         ("Preise", {"fields": ["has_tiers", "fixed_price", "default_from", "price_weight"]}),
     ]
-    role_perms = {**CATALOG, "add": [], "delete": []}
+    role_perms = CATALOG
 
-    def has_add_permission(self, request):
-        return False  # the 30 repairs are wired into the calculator; rename or reorder them instead
+    def get_readonly_fields(self, request, obj=None):
+        return ["key"] if obj else []
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+    def get_changeform_initial_data(self, request):
+        last = RepairType.objects.order_by("-order").values_list("order", flat=True).first() or 0
+        return {"order": last + 1, "price_weight": "0.50"}
+
+    @admin.display(description="Geräte")
+    def n_lists(self, r):
+        cats = sorted({o.category.name_de for o in r.options.select_related("category")})
+        return ", ".join(cats) or "–"
+
+    def save_model(self, request, obj, form, change):
+        tiers_before = RepairType.objects.filter(pk=obj.pk).values_list("has_tiers", flat=True).first() if change else None
+        super().save_model(request, obj, form, change)
+        if change and tiers_before is not None and tiers_before != obj.has_tiers:
+            messages.info(request, "Premium/Original " + ("eingeschaltet: bisherige Preise gelten jetzt für beide Teile."
+                                                         if obj.has_tiers else "ausgeschaltet: der Premium-Preis ist jetzt der einzige Preis."))
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        if not change:
+            n = starting_prices_for_repair(form.instance)
+            messages.success(request, f"{n} Startpreise angelegt. Die Reparatur ist jetzt im Rechner, in der Preisliste und auf "
+                                      f"den Modellseiten." if n else "Angelegt. Preise setzen Sie in der Preisliste.")
+
+
+def starting_prices_for_repair(repair: RepairType) -> int:
+    """Starting prices for a newly added repair on every active model that gets it, from its category's base price and
+    each model's price level (the prototype's formula). Single-price repairs use the base price directly."""
+    from .services import model_repairs
+
+    if repair.fixed_price:
+        return 0
+    base = {(cp.category_id, cp.tier): cp.amount for cp in CategoryPrice.objects.filter(repair=repair)}
+    if not base:
+        return 0
+    made = 0
+    cats = set(repair.options.values_list("category_id", flat=True))
+    for m in DeviceModel.objects.filter(active=True, category_id__in=cats).select_related("category"):
+        if repair not in model_repairs(m, with_diagnosis=False):
+            continue
+        for (cat_id, tier), amount in base.items():
+            if cat_id != m.category_id:
+                continue
+            _, created = Price.objects.get_or_create(
+                model=m, repair=repair, tier=tier,
+                defaults={"amount": starting_price(float(amount), float(m.price_factor), float(repair.price_weight)),
+                          "is_from": repair.default_from, "source": PriceSource.LEVEL},
+            )
+            made += created
+    return made
 
 
 @admin.register(RepairOption)
@@ -106,12 +189,27 @@ class RepairOptionAdmin(RoleAdminMixin, admin.ModelAdmin):
 
 
 class PriceLevelForm(forms.ModelForm):
+    repairs = forms.ModelMultipleChoiceField(
+        RepairType.objects.order_by("order"), required=False, widget=forms.CheckboxSelectMultiple, label="Reparaturen",
+        help_text="Haken = wird für dieses Gerät angeboten. Beim Anlegen leer lassen = alle Reparaturen, die es für diese "
+                  "Geräteart gibt. Face ID, Touch ID und Kopfhörerbuchse richten sich zusätzlich nach den Schaltern oben.",
+    )
+
     class Meta:
         model = DeviceModel
-        fields = "__all__"
+        exclude = ["excluded_repairs", "extra_repairs"]
         help_texts = {
-            "price_level": "Beim Anlegen werden daraus Startpreise für jede Reparatur berechnet. Danach in der Preisübersicht anpassen.",
+            "price_level": "Beim Anlegen werden daraus Startpreise für die gewählten Reparaturen berechnet. Danach in der "
+                           "Preisliste anpassen.",
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        m = self.instance
+        if m.pk:
+            no = set(m.excluded_repairs.values_list("id", flat=True))
+            self.fields["repairs"].initial = [r.id for r in category_repairs(m) if r.id not in no] + list(
+                m.extra_repairs.values_list("id", flat=True))
 
     def clean(self):
         data = super().clean()
@@ -123,11 +221,24 @@ class PriceLevelForm(forms.ModelForm):
         return data
 
 
-def create_starting_prices(model: DeviceModel) -> int:
-    """Starting prices for a new model from its category's base prices and the price level (the prototype's formula)."""
+def category_repairs(model: DeviceModel) -> list[RepairType]:
+    """Repairs the model's device type (and console type) usually gets, before the per-device choices."""
+    opts = RepairOption.objects.filter(category=model.category).select_related("repair").order_by("order")
+    if model.category_id and model.category.key == "console":
+        opts = opts.filter(console_type=model.console_type)
+    else:
+        opts = opts.filter(console_type="")
+    return [o.repair for o in opts]
+
+
+def create_starting_prices(model: DeviceModel, only: set | None = None) -> int:
+    """Starting prices for a new model from its category's base prices and the price level (the prototype's formula).
+    `only`: repair ids to price (repairs newly ticked on an existing device)."""
     from .services import model_repairs
 
     keys = {r.id for r in model_repairs(model, with_diagnosis=False)}
+    if only is not None:
+        keys &= only
     base = CategoryPrice.objects.filter(category=model.category, repair_id__in=keys).select_related("repair")
     made = 0
     for cp in base:
@@ -155,16 +266,11 @@ class DeviceModelAdmin(RoleAdminMixin, admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["category", "brand", "name", "release_year", "photo"]}),
         ("Preise", {"fields": ["price_level", "price_factor"]}),
-        ("Was die Reparaturliste beeinflusst", {"fields": [("has_face_id", "has_headphone_jack"), "console_type", "excluded_repairs"]}),
+        ("Was das Gerät hat und welche Reparaturen es bekommt", {"fields": [("has_face_id", "has_touch_id", "has_headphone_jack"),
+                                                                             "console_type", "repairs"]}),
         ("Anzeige", {"fields": ["popular", "active", "sort_order", "slug", "merged_into"]}),
     ]
     role_perms = {**CATALOG_VIEW_DESK, "delete": ["Owner"]}
-
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == "excluded_repairs":
-            kwargs["widget"] = forms.CheckboxSelectMultiple
-            kwargs["queryset"] = RepairType.objects.order_by("order")
-        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def get_changeform_initial_data(self, request):
         return {"sort_order": -10, "price_level": PriceLevel.STANDARD}
@@ -175,8 +281,23 @@ class DeviceModelAdmin(RoleAdminMixin, admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def save_related(self, request, form, formsets, change):
-        super().save_related(request, form, formsets, change)  # "Nicht möglich" is saved here, before the starting prices
+        super().save_related(request, form, formsets, change)
         obj = form.instance
+        from .services import model_repairs
+
+        before = {r.id for r in model_repairs(obj, with_diagnosis=False)} if change else set()
+        chosen = form.cleaned_data.get("repairs")
+        if chosen or change:  # adding with nothing ticked = everything the device type gets
+            chosen_ids = {r.id for r in chosen or []}
+            usual = {r.id for r in category_repairs(obj)}
+            obj.excluded_repairs.set(usual - chosen_ids)
+            obj.extra_repairs.set(chosen_ids - usual)
+        if change:
+            added = {r.id for r in model_repairs(obj, with_diagnosis=False)} - before
+            if added:
+                n = create_starting_prices(obj, only=added)
+                if n:
+                    messages.info(request, f"{n} Startpreise für neu gewählte Reparaturen angelegt.")
         if not change:
             n = create_starting_prices(obj)
             messages.success(request, f"{n} Startpreise angelegt. Das Modell ist jetzt im Rechner buchbar und hat eine eigene Modellseite.")

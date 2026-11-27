@@ -16,7 +16,9 @@ CAT_IMG = {"phone": "cat-phone", "tablet": "cat-tablet", "laptop": "cat-laptop",
 
 def _rows(snap, m, lang, T):
     rows = []
-    for key in services_for(snap, m) + ["diagnosis"]:
+    # the admin can delete repair types (27 Nov 2026), including the diagnosis: skip what no longer exists
+    keys = services_for(snap, m) + (["diagnosis"] if "diagnosis" in snap["rep"] else [])
+    for key in dict.fromkeys(keys):
         r = snap["rep"][key]
         name = repair_name(snap, key, m["cat"], lang)
         tiers = [("p", T["tier_p"]), ("o", T["tier_o"])] if r["tiers"] else [("", "")]

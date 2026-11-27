@@ -93,6 +93,7 @@ def home(request):
         "pick_wa": wa_link(S.whatsapp_number, T["wa_pick"]),
         "general_wa": wa_link(S.whatsapp_number, T["wa_general"]),
         "hero_video": S.hero_video.url if S.hero_video else "",
+        "hero_video_mobile": S.hero_video_mobile.url if S.hero_video_mobile else "",
         # desktop shows the film's first frame instead of the repair photo, so the start of the film doesn't jump
         "hero_film": "hero-film" if S.hero_video and "hero-film" in ctx["IMGS"] else "",
         "film_media": FILM_MEDIA, "film_media_not": f"not all and {FILM_MEDIA}",

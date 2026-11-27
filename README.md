@@ -13,6 +13,7 @@ of it.
 | `docs/RUNBOOK.md` | How to set up the server, deploy, go live and operate |
 | `docs/BLOCKED.md` | What is waiting on the client or on Ronak |
 | `docs/TESTING.md` | Test results |
+| `docs/Admin-Kurzanleitung.md` | Short admin guide for the owner (German) |
 | `vercel.json` | Vercel serves `prototype/` as a design preview (no indexing). The Django site itself runs on the server in `deploy/`, not on Vercel |
 
 ## Local development
@@ -38,7 +39,7 @@ After the chat updates `prototype/` (a new dated section in CLAUDE.md):
 node app/seed/extract_prototype.js                  # texts, catalogue, legal texts -> app/seed/prototype.json
 cd app && python tools/build_css.py                 # prototype CSS + port-additions.css -> static/site/css/site.css
 uv run python manage.py migrate
-uv run python manage.py seed_site --overwrite-texts --refresh-media   # dev only: resets texts, replaces changed photos/film
+uv run python manage.py seed_site --overwrite-texts --refresh-media   # dev only: resets texts and the prototype's repair lists, replaces changed photos/films
 uv run python tests/browser/expected_labels.py      # then tests/browser/price_check.js in the browser
 ```
 

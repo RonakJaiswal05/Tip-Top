@@ -16,6 +16,7 @@ SITE_IMG_DIR = Path(settings.BASE_DIR) / "seed" / "img"
 SITE_IMGS = {
     # First frame of the hero film (prototype/img/hero-loop.mp4), shown on desktop until the film plays. When the film
     # is replaced in Settings, replace this image too (Inhalte > Medien, key hero-film) or the start will jump again.
+    # The chat ships it as prototype/img/hero-film.jpg since 27 Nov 2026.
     "hero-film": "Hero film: first frame (desktop)",
 }
 
@@ -106,6 +107,9 @@ NEW = {
     "menu": ("Menü", "Menu"),
     "nav_main": ("Hauptnavigation", "Main"),
     "bld_l": ("Reparaturpreis", "Repair price"),
+    # Request inbox: one-tap WhatsApp status messages (owner, 27 Nov 2026, instead of live tracking)
+    "wa_status_progress": ("Dein Gerät ist in Bearbeitung.", "Your device is being repaired."),
+    "wa_status_ready": ("Dein Gerät ist fertig und kann abgeholt werden.", "Your device is ready for pickup."),
     "wd_mail_err": ("Die Bestätigung konnte nicht sofort verschickt werden. Wir senden sie, sobald es geht, und melden uns.",
                     "We couldn't send the confirmation straight away. We'll send it as soon as possible and get in touch."),
 }
@@ -218,7 +222,9 @@ def seed_media(log=print, refresh: bool = False) -> int:
     """Add the prototype's photos to the media library. With refresh, an existing photo is replaced when the
     prototype's file has changed (new photos from the client, retouched versions)."""
     n = 0
-    items = [(m["id"], m["name"], IMG_DIR) for m in load()["IMGS"]] + [(k, v, SITE_IMG_DIR) for k, v in SITE_IMGS.items()]
+    # hero-film comes from the chat's prototype/img since 27 Nov; app/seed/img only if the prototype has none
+    items = [(m["id"], m["name"], IMG_DIR) for m in load()["IMGS"]] + [
+        (k, v, IMG_DIR if (IMG_DIR / f"{k}.jpg").is_file() else SITE_IMG_DIR) for k, v in SITE_IMGS.items()]
     for key, name, folder in items:
         src = folder / f"{key}.jpg"
         if not src.is_file():

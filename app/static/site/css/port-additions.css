@@ -44,7 +44,3 @@
 
 /* The shop-card fix at 320-380 px and the footer-hours rules were moved into the prototype on 27 Nov 2026
    (patch_nov27.py), so they now arrive with the prototype CSS. */
-/* Before/after (27 Nov 2026): the phone fills almost the full height of the 3:2 photos, so the box must never crop
-   them. On wide screens it used to stay full width while max-height:80vh cut the top and bottom off; now it keeps
-   3:2 and gets narrower instead, centred. */
-.cmp{max-height:none;max-width:calc(80vh * 1.5);margin-left:auto;margin-right:auto}

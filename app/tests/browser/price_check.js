@@ -6,7 +6,7 @@
   for (const slug of Object.keys(E)) {
     document.getElementById("bldBody").innerHTML = "";  // so the check never reads the previous model's view
     location.hash = "#" + H + "=" + slug; await sleep(30);
-    for (let i = 0; i < 40 && !document.querySelector("#bldBody .rgrid"); i++) await sleep(20);
+    for (let i = 0; i < 150 && !document.querySelector("#bldBody .rgrid"); i++) await sleep(20);  // up to 3 s per model
     const all = document.querySelector("[data-b=all]"); if (all) { all.click(); await sleep(10); }
     const got = {};
     document.querySelectorAll("#bldBody .rc").forEach(b => got[b.dataset.v] = b.querySelector("small").textContent);

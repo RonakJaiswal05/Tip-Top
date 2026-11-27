@@ -17,7 +17,7 @@
           <p class="ask-msg" id="askMsg" aria-live="polite"></p>
           <div class="hero-cta">
             <a class="hc hc-call" href="tel:{{ S.phone }}"><span class="hc-i">{% ic "call" 2 %}</span><span class="hc-t"><b>{{ S.phone_display }}</b><small>{{ T.call_now }}</small></span></a>
-            <a class="hc hc-wa" id="hcWa" href="{{ general_wa }}" target="_blank" rel="noopener"><span class="hc-i">{% ic "wa" 2 %}</span><span class="hc-t"><b>WhatsApp</b><small>{{ S.phone_display }}</small></span></a>
+            <a class="hc hc-wa" id="hcWa" href="{{ general_wa }}" target="_blank" rel="noopener"><span class="hc-i">{% ic "wa" 2 %}</span><span class="hc-t"><b>WhatsApp</b><small>{{ T.wa_sub }}</small></span></a>
           </div>
           <div class="gmb-wrap" id="gmbHero">{% include "site/_gmb_badge.html" with shop=MAIN_SHOP %}</div>
         </div>
@@ -27,7 +27,7 @@
         <div class="devs" id="heroDevs">{% for c in cats %}<button type="button" class="dev" data-hcat="{{ c.key }}" aria-haspopup="dialog" style="--cc:var(--c-{{ c.key }})"><span class="tile">{% ph "cat-"|add:c.key "notag" sizes="tile" eager=True %}</span><b>{{ c.name }}{% ic "right" 2.4 %}</b><small>{{ c.sub }}</small></button>{% endfor %}</div>
         <div class="facts" id="facts">{% for f in T.facts %}<span>{% ic "check" 2.4 %}{{ f }}</span>{% endfor %}</div>
       </div>
-      <div class="hero-media" id="heroMedia"{% if hero_video %} data-video="{{ hero_video }}"{% endif %}><div class="hero-frame">{% ph "hero" "notag" sizes="hero" eager=True high=True film=hero_film %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if hero_price %}<span class="stk wait" style="--d:1.3s"><small>{{ T.stk_hero }}</small><b>{{ hero_price }}</b></span>{% endif %}</div>
+      <div class="hero-media" id="heroMedia"{% if hero_video %} data-video="{{ hero_video }}"{% endif %}{% if hero_video_mobile %} data-film-m="{{ hero_video_mobile }}"{% endif %}><div class="hero-frame">{% ph "hero" "notag" sizes="hero" eager=True high=True film=hero_film %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if hero_price %}<span class="stk wait" style="--d:1.3s"><small>{{ T.stk_hero }}</small><b>{{ hero_price }}</b></span>{% endif %}</div>
     </div>
   </section>
 

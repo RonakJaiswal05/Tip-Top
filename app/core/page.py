@@ -1,5 +1,6 @@
 """Everything a public page needs: texts, shops, images and the data block for the page script."""
 import json
+from urllib.parse import quote
 import time
 from datetime import date, datetime
 
@@ -71,6 +72,9 @@ def shops_data(lang: str) -> list[dict]:
                 "days": day_list(weekly, lang),
                 # Google reviews open directly (call with the owner, 25 Nov 2026)
                 "reviews": f"https://search.google.com/local/reviews?placeid={s.google_place_id}" if s.google_place_id else s.maps_url,
+                # Google Maps embed, loaded only after the visitor clicks "Karte laden" (call with the owner, 27 Nov 2026)
+                "embed": "https://www.google.com/maps?q=" + quote(
+                    s.maps_query or f"{s.street}, {s.postal_code} {s.city}") + f"&z=16&hl={lang}&output=embed",
             })
         return out
 

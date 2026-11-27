@@ -40,6 +40,8 @@ def _csp(request) -> str:
         img += ["https://www.facebook.com", "https://googleads.g.doubleclick.net"]
     return (f"default-src 'self'; script-src {' '.join(script)}; style-src 'self' 'unsafe-inline'; "
             f"img-src {' '.join(img)}; connect-src {' '.join(connect)}; font-src 'self'; frame-ancestors 'none'; "
+            # the shop map (Google Maps) is the only frame, and it loads only after a click on "Karte laden"
+            "frame-src https://www.google.com https://maps.google.com; "
             "form-action 'self'; base-uri 'self'; object-src 'none'")
 
 

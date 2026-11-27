@@ -10,6 +10,11 @@
           <p class="shop-call"><a href="tel:{{ sh.tel }}">{% ic "call" 2 %}{{ T.call_now }}</a></p>
           <div class="shop-acts"><a class="btn" href="{{ sh.maps }}" target="_blank" rel="noopener">{% ic "store" %}{{ T.directions }}</a><a class="btn line" href="tel:{{ sh.tel }}">{% ic "call" %}{{ sh.telTxt }}</a></div>
         </div></article>{% endwith %}{% endfor %}</div>
+      {% if MAIN_SHOP %}{% with sh=MAIN_SHOP %}<div class="smap" id="shopMap" data-embed="{{ sh.embed }}" data-title="{{ T.map_title }}">
+        <div class="smap-ph"><div class="smap-art" aria-hidden="true"><i class="r1"></i><i class="r2"></i><i class="r3"></i><span class="smap-pin">{% ic "store" 2 %}</span></div>
+          <div class="smap-t"><b>{{ T.map_h }}</b><p class="smap-a">{{ sh.street }}, {{ sh.zip }}</p><p class="smap-n">{{ T.map_p }}</p>
+            <div class="smap-acts"><button type="button" class="btn" id="mapLoad" hidden>{{ T.map_btn }}</button><a class="btn line" href="{{ sh.maps }}" target="_blank" rel="noopener">{% ic "store" %}{{ T.directions }}</a></div></div></div>
+      </div>{% endwith %}{% endif %}
       <div class="ways" id="ways">{% with w=T.ways %}<div class="way w1"><span class="wi">{% ic "store" 1.8 %}</span><div><b>{{ w.0.0 }}</b><p>{{ w.0.1 }}</p></div></div>
         <a class="way w2" href="{{ pick_wa }}" target="_blank" rel="noopener" data-wa="ask"><span class="wi">{% ic "wa" 1.9 %}</span><div><b>{{ w.1.0 }}</b><p>{{ w.1.1 }}</p><span class="wgo">{{ w.1.2 }}{% ic "right" 2.4 %}</span></div></a>
         <button type="button" class="way w3" id="copyAddr"><span class="wi">{% ic "ship" 1.8 %}</span><div><b>{{ w.2.0 }}</b><p>{{ w.2.1 }}</p><span class="wgo">{{ w.2.2 }}{% ic "right" 2.4 %}</span></div></button>{% endwith %}</div>

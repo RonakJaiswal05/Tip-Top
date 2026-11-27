@@ -5,8 +5,10 @@ The data comes from app/seed/prototype.json, which seed/extract_prototype.js bui
 placeholders, computed by the prototype's own price() so they match it exactly, until the client's price list is
 imported with `manage.py import_prices`.
 
-Running the seed again is safe: it updates names and lists, adds what is missing and never overwrites a price that
-was imported or edited in the admin (unless reset_prices=True).
+Running the seed again is safe: it adds what is missing and never overwrites a price that was imported or edited in
+the admin (unless reset_prices=True). Since the owner manages repair types in the admin (27 Nov 2026), repair names,
+settings, the per-device lists and base prices are only written on a fresh database, or with from_prototype=True when
+a new prototype from the chat should be taken over (dev). Repair types added in the admin are never touched.
 """
 import json
 from decimal import Decimal
@@ -50,8 +52,40 @@ def _logo_path(name: str) -> Path | None:
     return None
 
 
+def _seed_lists(d: dict, cats: dict, reps: dict):
+    """The prototype's LISTS / CON (which repairs each device type gets) and TOP6 (big cards), for its own repairs."""
+    keys = set(reps)
+    RepairOption.objects.filter(repair__key__in=keys).delete()
+    for cat in ("phone", "tablet", "laptop"):
+        for i, key in enumerate(d["LISTS"][cat]):
+            req = "face_id" if key == "faceid" and cat == "phone" else "jack" if key == "jack" and cat == "phone" else ""
+            RepairOption.objects.create(category=cats[cat], repair=reps[key], order=i, requires=req)
+    for ctype, ks in d["CON"].items():
+        for i, key in enumerate(ks):
+            RepairOption.objects.create(category=cats["console"], console_type="" if ctype == "X" else ctype, repair=reps[key], order=i)
+    FeaturedRepair.objects.filter(repair__key__in=keys).delete()
+    for cat, ks in d["TOP6"].items():
+        for i, key in enumerate(ks):
+            FeaturedRepair.objects.get_or_create(category=cats[cat], repair=reps[key], defaults={"order": i})
+
+
+def _seed_base(d: dict, cats: dict, reps: dict, only_missing: bool = False):
+    """Base prices (BASE). Only in the shape the repair currently has (the admin can switch Premium/Original off)."""
+    for cat, m in d["BASE"].items():
+        for key, v in m.items():
+            rep = reps[key]
+            rows = ((Tier.ORIGINAL, v[0]), (Tier.PREMIUM, v[1])) if isinstance(v, list) else ((Tier.STANDARD, v),)
+            if rep.has_tiers != isinstance(v, list):
+                rows = ((Tier.STANDARD, v[1]),) if isinstance(v, list) else ((Tier.ORIGINAL, v), (Tier.PREMIUM, v))
+            for tier, amount in rows:
+                if only_missing:
+                    CategoryPrice.objects.get_or_create(category=cats[cat], repair=rep, tier=tier, defaults={"amount": amount})
+                else:
+                    CategoryPrice.objects.update_or_create(category=cats[cat], repair=rep, tier=tier, defaults={"amount": amount})
+
+
 @transaction.atomic
-def seed_catalog(reset_prices: bool = False, log=print) -> dict:
+def seed_catalog(reset_prices: bool = False, from_prototype: bool = False, log=print) -> dict:
     d = load()
     T, SV, SV_CAT = d["T"], d["SV"], d["SV_CAT"]
     stats = {}
@@ -70,39 +104,31 @@ def seed_catalog(reset_prices: bool = False, log=print) -> dict:
     fixed, frm, K = set(d["FIXED"]), set(d["FROM"]), d["K"]
     icon_of = d.get("ICON_OF") or {"cport": "port", "tmr": "drift"}
     reps = {}
+    fresh = not RepairOption.objects.exists()
+    sync = from_prototype or fresh
     for i, (key, (en, de)) in enumerate(SV.items()):
-        reps[key], _ = RepairType.objects.update_or_create(key=key, defaults=dict(
-            name_de=de, name_en=en, icon=icon_of.get(key, key), has_tiers=(key == "display"), fixed_price=key in fixed,
-            default_from=key in frm, price_weight=Decimal(str(K.get(key, 0.5))), order=i,
-        ))
+        values = dict(name_de=de, name_en=en, icon=icon_of.get(key, key), has_tiers=(key == "display"), fixed_price=key in fixed,
+                      default_from=key in frm, price_weight=Decimal(str(K.get(key, 0.5))), order=i)
+        if sync:
+            reps[key], _ = RepairType.objects.update_or_create(key=key, defaults=values)
+        else:
+            reps[key], _ = RepairType.objects.get_or_create(key=key, defaults=values)
     for cat, m in SV_CAT.items():
         for key, (en, de) in m.items():
-            RepairName.objects.update_or_create(repair=reps[key], category=cats[cat], defaults=dict(name_de=de, name_en=en))
+            if sync:
+                RepairName.objects.update_or_create(repair=reps[key], category=cats[cat], defaults=dict(name_de=de, name_en=en))
+            else:
+                RepairName.objects.get_or_create(repair=reps[key], category=cats[cat], defaults=dict(name_de=de, name_en=en))
     stats["repair_types"] = len(reps)
+    stats["lists"] = "from prototype" if sync else "kept (admin)"
 
     # Which repairs each device gets (LISTS, CON). Console rows with no type are the list for unknown consoles (CON.X).
-    RepairOption.objects.all().delete()
-    for cat in ("phone", "tablet", "laptop"):
-        for i, key in enumerate(d["LISTS"][cat]):
-            req = "face_id" if key == "faceid" and cat == "phone" else "jack" if key == "jack" and cat == "phone" else ""
-            RepairOption.objects.create(category=cats[cat], repair=reps[key], order=i, requires=req)
-    for ctype, keys in d["CON"].items():
-        for i, key in enumerate(keys):
-            RepairOption.objects.create(category=cats["console"], console_type="" if ctype == "X" else ctype, repair=reps[key], order=i)
-
-    FeaturedRepair.objects.all().delete()
-    for cat, keys in d["TOP6"].items():
-        for i, key in enumerate(keys):
-            FeaturedRepair.objects.create(category=cats[cat], repair=reps[key], order=i)
-
-    # Base prices (BASE)
-    for cat, m in d["BASE"].items():
-        for key, v in m.items():
-            if isinstance(v, list):  # [original, premium]
-                for tier, amount in ((Tier.ORIGINAL, v[0]), (Tier.PREMIUM, v[1])):
-                    CategoryPrice.objects.update_or_create(category=cats[cat], repair=reps[key], tier=tier, defaults={"amount": amount})
-            else:
-                CategoryPrice.objects.update_or_create(category=cats[cat], repair=reps[key], tier=Tier.STANDARD, defaults={"amount": v})
+    # Rows of repair types added in the admin stay; without from_prototype the lists are left as the admin has them.
+    if sync:
+        _seed_lists(d, cats, reps)
+        _seed_base(d, cats, reps)
+    else:
+        _seed_base(d, cats, reps, only_missing=True)
 
     # Brands, in order of first appearance
     brands = {}

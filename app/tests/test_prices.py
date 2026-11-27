@@ -16,7 +16,7 @@ class PriceAccuracyTests(SeededTestCase):
     def test_catalogue_counts(self):
         snap = snapshot()
         self.assertEqual(len(snap["models"]), 435)  # client voice note of 17 Nov 2026
-        self.assertEqual(len(snap["rep"]), 31)  # TMR sticks added
+        self.assertEqual(len(snap["rep"]), 30)  # TMR added on 17 Nov, drift merged into it on 27 Nov
         self.assertEqual(len({m["brand"] for m in snap["models"]}), 22)
         self.assertEqual(len({m["slug"] for m in snap["models"]}), 435)  # "+" becomes "plus": no two models share a URL
 
@@ -98,7 +98,7 @@ class PriceAccuracyTests(SeededTestCase):
     def test_console_lists_by_type(self):
         snap = snapshot()
         pad = next(x for x in snap["models"] if x["name"] == "DualSense controller")
-        self.assertEqual(services_for(snap, pad), ["drift", "tmr", "cport", "battery", "buttons", "water"])
+        self.assertEqual(services_for(snap, pad), ["tmr", "cport", "battery", "buttons", "water"])  # one joystick repair (27 Nov)
         ps5 = next(x for x in snap["models"] if x["name"] == "PlayStation 5")
         self.assertIn("tmr", services_for(snap, ps5))  # owner, 25 Nov 2026: sticks on the console page too
 

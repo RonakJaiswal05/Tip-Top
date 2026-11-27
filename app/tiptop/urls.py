@@ -17,10 +17,12 @@ from legal import views as legal_views
 
 from django.contrib.auth import views as auth_views
 
+from core import auth_views as core_auth_views
+
 # Password reset by email for staff (A1). Templates: Django admin's registration templates.
 _reset = dict(extra_context={"site_header": "TipTop Service 24 · Verwaltung"})
 urlpatterns = [
-    path("admin/password_reset/", auth_views.PasswordResetView.as_view(
+    path("admin/password_reset/", core_auth_views.PasswordResetView.as_view(
         **_reset, email_template_name="registration/password_reset_email.html", subject_template_name="registration/password_reset_subject.txt",
     ), name="admin_password_reset"),
     path("admin/password_reset/done/", auth_views.PasswordResetDoneView.as_view(**_reset), name="password_reset_done"),

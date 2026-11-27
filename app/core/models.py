@@ -61,6 +61,12 @@ class SiteSettings(models.Model):
         help_text="Wird automatisch erhöht, wenn sich die Kategorien ändern. Danach fragt die Website alle Besucher erneut.",
     )
 
+    hero_video_mobile = models.FileField(
+        "Film für Handys und Tablets", upload_to="video/", blank=True,
+        validators=[FileExtensionValidator(["mp4", "webm"])],
+        help_text="Hochformat 9:16 mit Ton. Öffnet sich über „Film ansehen“ auf dem Foto im Kopfbereich, wo das stumme "
+                  "Video nicht läuft. Leer = kein Knopf.",
+    )
     hero_video = models.FileField(
         "Video im Kopfbereich", upload_to="video/", blank=True,
         validators=[FileExtensionValidator(["mp4", "webm"])],

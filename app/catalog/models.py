@@ -75,7 +75,10 @@ class Brand(models.Model):
 
 
 class RepairType(models.Model):
-    key = models.SlugField("Schlüssel", max_length=30, unique=True, help_text="Technischer Name, nicht ändern.")
+    key = models.SlugField(
+        "Schlüssel", max_length=30, unique=True, blank=True,
+        help_text="Technischer Name. Wird beim Anlegen aus dem Namen gebildet, danach nicht mehr ändern.",
+    )
     name_de = models.CharField("Name (Deutsch)", max_length=80)
     name_en = models.CharField("Name (Englisch)", max_length=80)
     desc_de = models.CharField("Kurzbeschreibung (Deutsch)", max_length=200, blank=True)
@@ -86,7 +89,11 @@ class RepairType(models.Model):
     )
     duration_minutes = models.PositiveIntegerField("Übliche Dauer (Minuten)", null=True, blank=True)
     warranty_months = models.PositiveSmallIntegerField("Garantie (Monate)", null=True, blank=True)
-    has_tiers = models.BooleanField("Premium und Original", default=False, help_text="Zwei Preise: Premium-Teil und Original-Teil.")
+    has_tiers = models.BooleanField(
+        "Premium und Original", default=False,
+        help_text="Zwei Preise: Premium-Teil und Original-Teil. Beim Ausschalten wird der Premium-Preis zum einzigen Preis, "
+                  "beim Einschalten gelten bisherige Preise für beide Teile, bis Sie sie ändern.",
+    )
     fixed_price = models.BooleanField(
         "Einheitspreis", default=False,
         help_text="Gleicher Preis für alle Modelle einer Kategorie (Grundpreis). Pro Modell überschreibbar.",
@@ -105,6 +112,55 @@ class RepairType(models.Model):
 
     def __str__(self):
         return self.name_de
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            base, n = slugify_de(self.name_de)[:26] or "reparatur", 2
+            self.key = base
+            while RepairType.objects.filter(key=self.key).exclude(pk=self.pk).exists():
+                self.key, n = f"{base}-{n}", n + 1
+        old = RepairType.objects.filter(pk=self.pk).values_list("has_tiers", flat=True).first() if self.pk else None
+        super().save(*args, **kwargs)
+        if old is not None and old != self.has_tiers:
+            self.switch_tiers()
+
+    def switch_tiers(self) -> int:
+        """Bring the stored prices in line with has_tiers (admin wish, 27 Nov 2026: "battery with one price").
+        Off: the Premium price (or, without one, the Original price) becomes the single price. On: the single price is
+        copied to Premium and Original. Model prices and base prices; the price history records the change."""
+        reason = "Premium/Original " + ("eingeschaltet" if self.has_tiers else "ausgeschaltet")
+        changed = 0
+        for Model, key in ((Price, "model_id"), (CategoryPrice, "category_id")):
+            rows = Model.objects.filter(repair=self)
+            groups = {}
+            for p in rows:
+                groups.setdefault(getattr(p, key), {})[p.tier] = p
+            for owner, tiers in groups.items():
+                if self.has_tiers and Tier.STANDARD in tiers:
+                    std = tiers[Tier.STANDARD]
+                    for t in (Tier.PREMIUM, Tier.ORIGINAL):
+                        if t not in tiers:
+                            new = Model(**{key: owner}, repair=self, tier=t, amount=std.amount,
+                                        **({"is_from": std.is_from, "source": std.source} if Model is Price else {}))
+                            new._change_reason = reason
+                            new.save()
+                    std._change_reason = reason
+                    std.delete()
+                    changed += 1
+                elif not self.has_tiers and (Tier.PREMIUM in tiers or Tier.ORIGINAL in tiers):
+                    keep = tiers.get(Tier.PREMIUM) or tiers.get(Tier.ORIGINAL)
+                    std = tiers.get(Tier.STANDARD) or Model(**{key: owner}, repair=self, tier=Tier.STANDARD)
+                    std.amount = keep.amount
+                    if Model is Price:
+                        std.is_from, std.source = keep.is_from, keep.source
+                    std._change_reason = reason
+                    std.save()
+                    for t in (Tier.PREMIUM, Tier.ORIGINAL):
+                        if t in tiers:
+                            tiers[t]._change_reason = reason
+                            tiers[t].delete()
+                    changed += 1
+        return changed
 
 
 class RepairName(models.Model):
@@ -137,6 +193,7 @@ class RepairOption(models.Model):
     class Requires(models.TextChoices):
         NONE = "", "Immer"
         FACE_ID = "face_id", "Nur mit Face ID"
+        TOUCH_ID = "touch_id", "Nur mit Touch ID"
         JACK = "jack", "Nur mit Kopfhörerbuchse"
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="options")
@@ -196,12 +253,17 @@ class DeviceModel(models.Model):
     )
     popular = models.BooleanField("Beliebt", default=False, help_text="Erscheint im Rechner unter „Beliebt“.")
     has_face_id = models.BooleanField("Hat Face ID", default=False)
+    has_touch_id = models.BooleanField("Hat Touch ID", default=False, help_text="Fingerabdrucksensor (Home-Taste oder Seitentaste).")
     has_headphone_jack = models.BooleanField("Hat Kopfhörerbuchse", default=False)
     console_type = models.CharField("Konsolentyp", max_length=1, blank=True, choices=ConsoleType.choices)
     excluded_repairs = models.ManyToManyField(
         RepairType, verbose_name="Nicht möglich", blank=True, related_name="+",
         help_text="Reparaturen, die es bei diesem Gerät nicht gibt (z. B. kein Lüfter, fest verlöteter Speicher, "
                   "Batterien statt Akku). Sie erscheinen weder im Rechner noch auf der Modellseite.",
+    )
+    extra_repairs = models.ManyToManyField(
+        RepairType, verbose_name="Zusätzlich", blank=True, related_name="+",
+        help_text="Reparaturen, die für diese Geräteart sonst nicht angeboten werden, bei diesem Gerät aber schon.",
     )
     photo = models.ImageField("Foto", upload_to="models/", blank=True)
     active = models.BooleanField(
@@ -260,8 +322,8 @@ class DeviceModel(models.Model):
         return n
 
     def flags(self) -> str:
-        """Prototype flag string: F = Face ID, J = headphone jack, B/b/H/P console type, p = popular."""
-        return ("F" if self.has_face_id else "") + ("J" if self.has_headphone_jack else "") + (self.console_type or "") + (
+        """Prototype flag string: F = Face ID, T = Touch ID, J = headphone jack, B/b/H/P console type, p = popular."""
+        return ("F" if self.has_face_id else "") + ("T" if self.has_touch_id else "") + ("J" if self.has_headphone_jack else "") + (self.console_type or "") + (
             "p" if self.popular else ""
         )
 

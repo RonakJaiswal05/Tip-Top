@@ -1,8 +1,8 @@
 # Blocked and open items
 
 Running list kept during the build. "Client" items are the open questions from CLAUDE.md; "Ronak" items are
-decisions or access only Ronak can give. Last updated: 26 Nov 2026 (evening), after porting the client feedback of
-17 Nov, the call of 25 Nov and the chat's changes of 26 Nov.
+decisions or access only Ronak can give. Last updated: 27 Nov 2026 (late evening), after porting the call with the
+owner of 27 Nov and the story film.
 
 ## Needs the client
 
@@ -18,7 +18,9 @@ decisions or access only Ronak can give. Last updated: 26 Nov 2026 (evening), af
 | 8 | Analytics and ads: yes or no | Cookie banner categories | Statistics and marketing off, their categories and legal sections hidden |
 | 9 | 100 real customer phrases | Acceptance test for the search/describe box (SOW F2) | – |
 | 10 | Is "Ruf uns an" under the call buttons fine? | Copy in header, hero, shop card, footer | "Ruf uns an" (text `call_now`, editable in Admin → Texte) |
-| 11 | AI provider for the chatbot; WhatsApp Business API for live status (paid) | Both features are still open | Not built |
+| 11 | AI provider for the chatbot (and its privacy text) | Chatbot can't be built without it | Not built. Live status via the WhatsApp Business API is dropped (owner, 27 Nov); the inbox has one-tap WhatsApp status buttons instead |
+| 13 | The client's own Ankaufvertrag template | The SOW says the counter contract follows it | The admin's purchase contract PDF uses our own draft until the template arrives |
+| 14 | Lawyer's review of the new privacy section "Karte von Google Maps (erst nach Klick)" | Part of the legal review before launch | Live on the site as drafted by the chat |
 | 12 | Legal placeholders: shipping partner, mail-in flat fee, storage period and fee, data protection officer, BFSG exemption | Privacy policy, AGB, accessibility statement | Yellow placeholders; every legal page shows the "have it checked by a lawyer" note |
 
 ## Needs Ronak
@@ -64,8 +66,8 @@ decisions or access only Ronak can give. Last updated: 26 Nov 2026 (evening), af
 
 - Run `deploy/setup.sh` and `deploy/deploy.sh` on the server, DNS, certificates, Search Console (waiting for
   access and your go). Restore test of the backups.
-- Live repair status (WhatsApp templates + `/status/<code>`) and the AI chatbot: research and decisions first.
-- German admin handbook and the two training sessions (SOW deliverables).
+- AI chatbot: waits for the provider decision (client 11).
+- The two training sessions (SOW deliverable). A short German admin guide is in `docs/Admin-Kurzanleitung.md`.
 - Buyback guide prices (F9) work, but no ranges are entered yet (Admin → Ankaufpreise).
 - The remaining SOW screen sizes, five browsers, real phones with VoiceOver/NVDA, voice input on HTTPS, Lighthouse
   on the live server, the 100 customer phrases (docs/TESTING.md).

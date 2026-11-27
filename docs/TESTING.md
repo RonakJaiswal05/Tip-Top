@@ -1,5 +1,20 @@
 # Test results
 
+## 27 November 2026 (late evening): call with the owner of 27 Nov, story film
+
+How to run: `cd app && uv run python manage.py test tests --settings=tiptop.settings.test` (73 tests, about 90 s).
+
+| Area | What was checked | Result |
+|------|------------------|--------|
+| Joystick merge | "drift" and its 34 prices removed; "TMR-Joystick-Reparatur (driftfrei)" is the one joystick repair on consoles, handhelds and controllers; the describe box sends drift, joystick and stick to it | Pass |
+| Calculator in the browser | All 435 models via deep link, every label compared with the server | 6,623 / 6,623 in German; English the same (one model re-checked after the check timed out on it) |
+| Story film | Desktop: the 4:5 film plays muted, opening on its new first frame, no film button. Phones: "Film ansehen" opens the 9:16 film with sound, focus on "Schließen", Escape closes, focus returns. Both films under new file names | Pass |
+| Map | Placeholder only; nothing loaded from Google before the click (resource list: only our own server); after "Karte laden" the Google map shows the shop pin; CSP allows only that frame | Pass |
+| Inbox | "In Bearbeitung" / "Abholbereit" open WhatsApp with the prefilled text in the customer's language, in the list and in the request | Pass |
+| Admin | Owner adds a combo repair type (key from the name, device types, base price, starting prices for every matching model, live in calculator and model pages); deletes repair types including the diagnosis (site still works, "Not sure?" disappears); Premium/Original on and off keeps the prices; repairs ticked per device incl. an extra one; Touch ID condition; deletes a model (its page 404s); password reset by email with rate limit | Pass |
+| Seed | Re-running the seed keeps admin changes to repair names, lists and base prices (`--from-prototype` to take the prototype's again) | Pass |
+| Phones | 320 and 390 px: no sideways scrolling or clipped text with the map card and film button | Pass |
+
 ## 26 November 2026 (evening): client feedback of 17 Nov, call of 25 Nov, chat changes of 26 Nov
 
 How to run: `cd app && uv run python manage.py test tests --settings=tiptop.settings.test` (61 tests, about 60 s).

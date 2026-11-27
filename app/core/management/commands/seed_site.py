@@ -27,23 +27,28 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("--overwrite-texts", action="store_true",
-                            help="Reset page texts, FAQ and workshop cards to the prototype's wording.")
+                            help="Reset page texts, FAQ, workshop cards and the prototype's repair lists and names "
+                                 "to the prototype (dev; overrides admin edits of those).")
         parser.add_argument("--refresh-media", action="store_true",
                             help="Replace photos whose file in prototype/img has changed (new photos from the client).")
 
     def handle(self, *args, **opts):
         ok = lambda m: self.stdout.write(self.style.SUCCESS(m))  # noqa: E731
         S = SiteSettings.load()
-        film = Path(settings.REPO_DIR) / "prototype" / "img" / "hero-loop.mp4"
-        # desktop-only hero film (26 Nov 2026); with --refresh-media a new cut from the chat replaces the old one
-        if film.is_file() and (not S.hero_video or (opts["refresh_media"] and not _same(S.hero_video, film))):
-            old = S.hero_video.name if S.hero_video else ""
-            with film.open("rb") as fh:
-                S.hero_video.save("hero-loop.mp4", File(fh), save=True)
-            if old and old != S.hero_video.name:
-                S.hero_video.storage.delete(old)
-            ok("hero video attached")
-        call_command("seed_catalog", stdout=self.stdout)
+        # The films (story film of 27 Nov 2026): 4:5 muted in the desktop hero, 9:16 with sound behind "Film ansehen" on
+        # phones. With --refresh-media a new cut from the chat replaces the old one under a new file name, so browsers
+        # don't keep the old film.
+        img = Path(settings.REPO_DIR) / "prototype" / "img"
+        for field, name in (("hero_video", "hero-loop.mp4"), ("hero_video_mobile", "tiptop-film-m.mp4")):
+            film, f = img / name, getattr(S, field)
+            if film.is_file() and (not f or (opts["refresh_media"] and not _same(f, film))):
+                old = f.name if f else ""
+                with film.open("rb") as fh:
+                    f.save(name, File(fh), save=True)
+                if old and old != f.name:
+                    f.storage.delete(old)
+                ok(f"{field} attached: {f.name}")
+        call_command("seed_catalog", stdout=self.stdout, from_prototype=opts["overwrite_texts"])
         ok(f"shops created: {seed_shops()}, holidays added: {seed_holidays()}")
         ok(f"texts written: {content_seed.seed_texts(overwrite=opts['overwrite_texts'])}, FAQ: {content_seed.seed_faq(opts['overwrite_texts'])}")
         ok(f"images added: {content_seed.seed_media(log=self.stdout.write, refresh=opts['refresh_media'])}")

@@ -59,6 +59,26 @@ class WaitingFilter(admin.SimpleListFilter):
         return qs
 
 
+# One-tap WhatsApp status messages (owner, 27 Nov 2026: live tracking dropped; he updates chosen customers himself).
+# The texts are page texts (Inhalte > Texte, wa_status_progress / wa_status_ready), in the customer's language.
+WA_STATUS = [("wa_status_progress", "In Bearbeitung", "Dein Gerät ist in Bearbeitung.", "Your device is being repaired."),
+             ("wa_status_ready", "Abholbereit", "Dein Gerät ist fertig und kann abgeholt werden.", "Your device is ready for pickup.")]
+
+
+def wa_status_links(r) -> list[tuple[str, str]]:
+    """(label, wa.me link with the prefilled text) for a request with a phone number."""
+    from urllib.parse import quote
+
+    from content.texts import texts
+
+    if not r.phone_digits:
+        return []
+    lang = "en" if r.language == "en" else "de"
+    tx = texts(lang)
+    return [(label, f"https://wa.me/{r.phone_digits}?text={quote(tx.get(key) or (en if lang == 'en' else de))}")
+            for key, label, de, en in WA_STATUS]
+
+
 @admin.action(description="Ausgewählte als CSV exportieren")
 def export_csv(modeladmin, request, queryset):
     if not user_in(request.user, "Owner", "Manager"):
@@ -142,7 +162,7 @@ class PhotoInline(admin.TabularInline):
 
 @admin.register(Request)
 class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
-    list_display = ["number", "received", "kind_badge", "status_badge", "name", "phone_link", "device", "repairs_text", "total_text",
+    list_display = ["number", "received", "kind_badge", "status_badge", "name", "phone_link", "wa_status", "device", "repairs_text", "total_text",
                     "shop", "assignee", "sheet"]
     list_display_links = ["number", "name"]
     list_filter = [KindFilter, "status", WaitingFilter, "shop", "assignee", "language", ("created_at", admin.DateFieldListFilter)]
@@ -209,6 +229,14 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
             return r.email or "–"
         return format_html('<a href="tel:{}">{}</a>', r.phone, r.phone)
 
+    @admin.display(description="Status per WhatsApp")
+    def wa_status(self, r):
+        links = wa_status_links(r)
+        if not links:
+            return "–"
+        return format_html(" ".join(['<a href="{}" target="_blank" rel="noopener" class="tt-wa">{}</a>'] * len(links)),
+                           *[x for label, url in links for x in (url, label)])
+
     @admin.display(description="Sheet", boolean=True)
     def sheet(self, r):
         return bool(r.sheet_synced_at) if r.is_actionable else None
@@ -222,6 +250,9 @@ class RequestAdmin(RoleAdminMixin, admin.ModelAdmin):
             parts.append(format_html('<a class="button" href="tel:{}">Anrufen</a>', r.phone))
         if r.phone_digits:
             parts.append(format_html('<a class="button" href="https://wa.me/{}" target="_blank" rel="noopener">WhatsApp</a>', r.phone_digits))
+            for label, url in wa_status_links(r):
+                parts.append(format_html('<a class="button" href="{}" target="_blank" rel="noopener" title="WhatsApp mit fertigem Text öffnen">'
+                                         'WhatsApp: {}</a>', url, label))
         if r.email:
             parts.append(format_html('<a class="button" href="mailto:{}">E-Mail</a>', r.email))
         return format_html(" ".join(["{}"] * len(parts)), *parts) if parts else "–"
