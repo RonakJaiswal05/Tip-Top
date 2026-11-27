@@ -1,6 +1,6 @@
 # TipTop Service 24: new website
 
-Context for Claude Code. Read this whole file before changing anything. Last updated 26 November 2026, evening (see "Client feedback of 17 November 2026", "Client voice note of 17 November 2026 (evening)", "Call with the owner, 25 November 2026", "Changes of 26 November 2026 (evening)" and "Working with the claude.ai chat" below).
+Context for Claude Code. Read this whole file before changing anything. Last updated 27 November 2026 (see "Client feedback of 17 November 2026", "Client voice note of 17 November 2026 (evening)", "Call with the owner, 25 November 2026", "Changes of 26 November 2026 (evening)", "Changes of 27 November 2026" and "Working with the claude.ai chat" below).
 
 ## The job in one paragraph
 
@@ -130,7 +130,7 @@ node --check _check.js  # syntax check
 python make_standalone.py   # optional: ../TipTop-Service-24-final.html (needs Pillow)
 ```
 
-`build4.py` does exact-string replacements on `src3.html` and fails loudly if a target string is missing. Patches run in order: `patch_dev.py` (mobile menu, image hydration), `patch_legal.py` (legal pages, consent, withdrawal, fonts), `patch_gmb.py` (Google ratings, logo slots, WhatsApp number, per-shop phone), `patch_feedback.py` + `feedback.css` (client feedback of 17 Nov 2026), `patch_nov17.py` (device-specific repair pictures, image prompts 20 to 37, clean logo), `patch_nov26.py` + `nov26.css` (call with the owner, 25 Nov 2026), `patch_hero_video.py` (desktop hero film, call text "Ruf uns an", 26 Nov 2026 evening). `make_standalone.py` also embeds `img/hero-loop.mp4` in the single file.
+`build4.py` does exact-string replacements on `src3.html` and fails loudly if a target string is missing. Patches run in order: `patch_dev.py` (mobile menu, image hydration), `patch_legal.py` (legal pages, consent, withdrawal, fonts), `patch_gmb.py` (Google ratings, logo slots, WhatsApp number, per-shop phone), `patch_feedback.py` + `feedback.css` (client feedback of 17 Nov 2026), `patch_nov17.py` (device-specific repair pictures, image prompts 20 to 37, clean logo), `patch_nov26.py` + `nov26.css` (call with the owner, 25 Nov 2026), `patch_hero_video.py` (desktop hero film, call text "Ruf uns an", 26 Nov 2026 evening), `patch_nov27.py` (closed_day key, shop card and footer hours on small phones, 27 Nov 2026). `make_standalone.py` also embeds `img/hero-loop.mp4` in the single file.
 
 ## Client feedback of 17 November 2026
 
@@ -204,6 +204,16 @@ Made in the claude.ai chat after the client's feedback on the first video ("not 
 4. **All repair photos exist** (generated in ChatGPT, same blue-mat daylight style): `and-display`, `and-battery`, `and-port`, `and-back`, `and-camera`, `and-water` (Galaxy S26 Ultra style), `tab-*` (6), `lap-display`, `lap-battery`, `lap-keyboard`, `lap-port`, `lap-fan`, `lap-water`, `con-hdmi`, `con-fan`, `con-drift` (also used for TMR), `con-display` (handheld), `con-drive`, `con-psu`. Also new: `rep-display`, `rep-battery`, `rep-port`, `rep-back` (iPhone 18 Pro), `before` / `after` (iPhone 18 Pro Max), `sell`, `cat-console` (PS5 Pro with DualSense). `rep-camera` and `rep-water` are still the older pictures. Tested: Galaxy, iPad, MacBook and PS5 Pro each show only their own photos.
 5. Preview published (Claude artifact, same link) and `prototype/TipTop-Service-24-final.html` rebuilt (17 MB, film embedded).
 
+## Changes of 27 November 2026
+
+From the claude.ai chat. In `prototype/` and `video/` now:
+
+1. **Film, scene 5 replaced.** In "Das neue Display kommt rein" the new screen vanished, the open phone showed its board and then a screen popped back (Flow morph, both old takes). The new take `s5d` is one continuous shot: Mostafa lowers the screen onto the phone and presses it in, then says the line. Both films are rebuilt: `video/TipTop-Film-vertical.mp4` and `video/TipTop-Film-hero-4x5.mp4` = `prototype/img/hero-loop.mp4` (5.9 MB). The prototype now loads `img/hero-loop.mp4?v=2` so browsers don't keep the old file; on the Django site use a hashed static name or bump the version too.
+2. **`patch_nov27.py`** (your three requests, done):
+   - `closed` is back to the open-status text ("Geschlossen, öffnet {d} um 10 Uhr"); the hours list uses `closed_day` ("geschlossen" / "closed"), same as your port.
+   - Shop card at 320–380 px: your CSS from `port-additions.css`, copied 1:1.
+   - Footer hours: your `flex-wrap:wrap;column-gap:10px`, plus `row-gap:0` on `.fgrid .hours li` and `@media (max-width:600px){.fgrid .hours{row-gap:10px}}`, so day and time read as a pair (the inherited 18 px row gap made each time look like it belonged to the next day). **Please add these two rules to the site.**
+
 ## Working with the claude.ai chat
 
 Two Claude sessions work on this project for Ronak. Keep them from stepping on each other:
@@ -219,18 +229,21 @@ Updated 27 Nov 2026. Work happens on `django-site`, pushed to GitHub `RonakJaisw
 
 - **Vercel:** the GitHub repo is connected to Vercel (project `tip-top`, production = `main`) as a design preview only. `vercel.json` makes it serve `prototype/` (with `X-Robots-Tag: noindex`), so every prototype copy from the chat that gets committed shows up there. The Django site can't run on Vercel (database, background jobs, uploaded photos); it goes to the GoDaddy server.
 
-- **Matches the prototype of 26 Nov (evening):** 435 models / 22 brands / 31 repairs with the NOSV exclusions, TMR, multi-select with bottom bar, search bar with suggestions, call + WhatsApp buttons (030 814 757 91, "Ruf uns an"), rating above the headline, new logo and favicon, globe language button on phones, device-specific repair photos (all 24 sets imported), one shop card with hours per line, ways cards, desktop-only hero film with sound button, brand cabinet with wordmark logos, owner/VAT/Gmail everywhere, legal texts of 26 Nov (statistics and marketing still removed).
+- **Matches the prototype of 27 Nov:** 435 models / 22 brands / 31 repairs with the NOSV exclusions, TMR, multi-select with bottom bar, search bar with suggestions, call + WhatsApp buttons (030 814 757 91, "Ruf uns an"), rating above the headline, new logo and favicon, globe language button on phones, device-specific repair photos (all 24 sets imported), one shop card with hours per line, ways cards, desktop-only hero film with sound button, brand cabinet with wordmark logos, owner/VAT/Gmail everywhere, legal texts of 26 Nov (statistics and marketing still removed).
 - **Built beyond the prototype:** buyback photos for real (multipart upload, EXIF/GPS stripped, private storage, staff-only view, deleted after 30 days unless bought); admin price list per category (all models × main repairs, change-only save) next to the single-model editor, bulk changes, copy, CSV/Excel import/export; per-model "Nicht möglich" repairs; business facts in Settings.
-- **Checks:** 61 tests pass; all 6,657 calculator labels match in DE and EN; no sideways scrolling or clipped text from 320 to 2560 px; axe 0 violations. Details in `docs/TESTING.md`.
+- **27 Nov:** new film with scene 5 replaced (stored under a new file name, so browsers fetch it fresh, like `?v=2`); `closed` / `closed_day` as in `patch_nov27.py`; the shop-card and footer-hours CSS now come from the prototype. Desktop hero (where the film plays) shows the film's first frame (`app/seed/img/hero-film.jpg`, media key `hero-film`) instead of the repair photo, so nothing jumps when the film starts; phones keep the photo.
+- **Checks:** 62 tests pass; all 6,657 calculator labels match in DE and EN; no sideways scrolling or clipped text from 320 to 2560 px; axe 0 violations. Details in `docs/TESTING.md`.
 - **Next:** server setup and go-live once Ronak gives access and says go; live repair status and the AI chatbot need decisions first.
 - **Blocked on:** price list, Handwerksrolle/title, original logo, domain/DNS, GBP access, GoDaddy DPA details, Brevo, Google service account. Full list in `docs/BLOCKED.md`.
 - **How the port works:** `node app/seed/extract_prototype.js` (data and texts), `app/tools/build_css.py` (prototype CSS + `app/static/site/css/port-additions.css`), templates and `app/static/site/js/site.js` by hand. So keep text keys and CSS class names stable when you can; new keys and images come over automatically.
 
 ### Requests for the chat
 
-- Shop card at 320–380 px in German: the rating line ("321 Google-Bewertungen") and "Donnerstag 10:00–20:00 Uhr" make `.shop-b`'s grid column wider than the card, so text is clipped. Fixed on the site with `.shop .shop-b{grid-template-columns:minmax(0,1fr)}` plus smaller gaps below 381 px (see `port-additions.css`); please do the same in the prototype.
-- Footer hours (`#fHours`) sit in a 128 px column on phones and overflow; the site lets each line wrap (`.fgrid .hours li{flex-wrap:wrap}`).
-- `patch_nov26.py` sets `T.closed` to "geschlossen" for the hours list, but `openStatus()` uses the same key for "Geschlossen, öffnet {d} um 10 Uhr". The site keeps `closed` for the status and uses a new key `closed_day` for the list; please split the key in the prototype too.
+- **Hero on desktop (Ronak, 27 Nov):** he doesn't want the repair photo showing before the film starts. Please show the film's first frame instead wherever the film plays: `app/seed/img/hero-film.jpg` (720×900, frame 0 of `hero-loop.mp4`) as an extra `<source media="(min-width:901px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)">` in the hero `<picture>` (the site does exactly this). Phones keep `hero.jpg`.
+- **Footer quick links (Ronak, 27 Nov):** remove "Admin" (`#admin`) and the "Image prompts" button from the "Mehr" / "More" column. The site's footer has neither.
+- **Done 27 Nov (`patch_nov27.py`):** Shop card at 320–380 px in German: the rating line ("321 Google-Bewertungen") and "Donnerstag 10:00–20:00 Uhr" make `.shop-b`'s grid column wider than the card, so text is clipped. Fixed on the site with `.shop .shop-b{grid-template-columns:minmax(0,1fr)}` plus smaller gaps below 381 px (see `port-additions.css`); please do the same in the prototype.
+- **Done 27 Nov:** Footer hours (`#fHours`) sit in a 128 px column on phones and overflow; the site lets each line wrap (`.fgrid .hours li{flex-wrap:wrap}`).
+- **Done 27 Nov:** `patch_nov26.py` sets `T.closed` to "geschlossen" for the hours list, but `openStatus()` uses the same key for "Geschlossen, öffnet {d} um 10 Uhr". The site keeps `closed` for the status and uses a new key `closed_day` for the list; please split the key in the prototype too.
 
 ## Development still open
 

@@ -18,6 +18,7 @@ from shops.models import BERLIN, Shop
 from .cache import site_version
 from .models import SiteSettings
 from .page import base_context, images
+from .templatetags.tt import FILM_MEDIA
 from .structured import dump, faq_page, local_business
 
 REP_ROT = [-9, 7, -5, 10, -12, 6]
@@ -92,6 +93,9 @@ def home(request):
         "pick_wa": wa_link(S.whatsapp_number, T["wa_pick"]),
         "general_wa": wa_link(S.whatsapp_number, T["wa_general"]),
         "hero_video": S.hero_video.url if S.hero_video else "",
+        # desktop shows the film's first frame instead of the repair photo, so the start of the film doesn't jump
+        "hero_film": "hero-film" if S.hero_video and "hero-film" in ctx["IMGS"] else "",
+        "film_media": FILM_MEDIA, "film_media_not": f"not all and {FILM_MEDIA}",
         "photo_max": settings.OFFER_PHOTO_MAX,
         "page_title": "",
         "ld_json": dump([local_business(sh, S, lang) for sh in ctx["SHOPS"]] + ([faq_page(faq)] if faq else [])),

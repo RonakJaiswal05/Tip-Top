@@ -48,23 +48,42 @@ SIZES = {
 }
 
 
-def picture_html(img: dict | None, sizes: str = "default", eager: bool = False, high: bool = False, alt: str = "", cls: str = "") -> str:
-    """<picture> with AVIF, WebP and JPEG sources in a phone (760 px) and a desktop size, like the prototype's srcset."""
+# Where the hero film plays (same test as site.js HV_MQ, plus reduced motion). There the hero shows the film's first
+# frame from the start instead of the repair photo, so nothing jumps when the film begins (Ronak, 27 Nov 2026).
+FILM_MEDIA = "(min-width:901px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)"
+
+
+def _srcset(img: dict, fmt: str) -> str:
+    s, l = img["s"], img.get("l") or img["s"]
+    if fmt not in s:
+        return ""
+    return f"{s[fmt]} {s['w']}w, {l[fmt]} {l['w']}w" if l is not s else f"{s[fmt]} {s['w']}w"
+
+
+def picture_html(img: dict | None, sizes: str = "default", eager: bool = False, high: bool = False, alt: str = "", cls: str = "",
+                 art: dict | None = None, art_media: str = "") -> str:
+    """<picture> with AVIF, WebP and JPEG sources in a phone (760 px) and a desktop size, like the prototype's srcset.
+    `art` is another image shown instead where `art_media` matches (art direction)."""
     if not img or "s" not in img:
         return ""
     sz = SIZES.get(sizes, sizes)
     s, l = img["s"], img.get("l") or img["s"]
 
     def srcset(fmt):
-        if fmt not in s:
-            return ""
-        return f"{s[fmt]} {s['w']}w, {l[fmt]} {l['w']}w" if l is not s else f"{s[fmt]} {s['w']}w"
+        return _srcset(img, fmt)
+
+    art_sources = ""
+    if art and "s" in art and art_media:
+        for f in ("avif", "webp", "jpg"):
+            if f in art["s"]:
+                typ = f' type="image/{f}"' if f != "jpg" else ""
+                art_sources += f'<source media="{art_media}"{typ} srcset="{_srcset(art, f)}" sizes="{sz}">'
 
     load = 'fetchpriority="high"' if high else ("" if eager else 'loading="lazy"')
     style = "" if (img.get("fx", 50), img.get("fy", 50)) == (50, 50) else f' style="object-position:{img["fx"]}% {img["fy"]}%"'
     w, h = img.get("w") or l["w"], img.get("h") or round(l["w"] * 1.5)
     return mark_safe(
-        "<picture>"
+        "<picture>" + art_sources
         + "".join(f'<source type="image/{f}" srcset="{srcset(f)}" sizes="{sz}">' for f in ("avif", "webp") if f in s)
         + f'<img src="{l["jpg"]}" srcset="{srcset("jpg")}" sizes="{sz}" width="{w}" height="{h}" alt="{escape(alt)}" '
         + f'decoding="async" {load}{style}{(" class=" + chr(34) + cls + chr(34)) if cls else ""}>'
@@ -73,14 +92,16 @@ def picture_html(img: dict | None, sizes: str = "default", eager: bool = False, 
 
 
 @register.simple_tag(takes_context=True)
-def ph(context, key, cls="", sizes="default", eager=False, high=False, alt=None):
-    """The prototype's <figure class="ph"> image frame, rendered on the server with the image already in place."""
+def ph(context, key, cls="", sizes="default", eager=False, high=False, alt=None, film=""):
+    """The prototype's <figure class="ph"> image frame, rendered on the server with the image already in place.
+    `film`: media key of the hero film's first frame, shown instead where the film plays (FILM_MEDIA)."""
     imgs = context.get("IMGS") or {}
     img = imgs.get(key)
     lang = context.get("lang", "de")
     a = (img or {}).get("alt", {}).get(lang, "") if alt is None else alt
     hidden = "" if a else ' aria-hidden="true"'
-    inner = picture_html(img, sizes, eager, high, a) if img else ""
+    art = imgs.get(film) if film else None
+    inner = picture_html(img, sizes, eager, high, a, art=art, art_media=FILM_MEDIA) if img else ""
     loaded = " tried loaded" if inner else ""
     return format_html('<figure class="ph {}{}" data-img="{}"{}>{}</figure>', cls, loaded, key, mark_safe(hidden), inner)
 

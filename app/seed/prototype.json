@@ -28730,7 +28730,7 @@
    "shops_h": "Our shop in Moabit",
    "shops_p": "Beusselstraße 18, 10553 Berlin. No appointment needed, Monday to Saturday, 10:00 to 20:00.",
    "open": "Open now, until 20:00",
-   "closed": "closed",
+   "closed": "Closed, opens {d} at 10:00",
    "today": "today",
    "tomorrow": "tomorrow",
    "days": [
@@ -29038,6 +29038,7 @@
    "via_sell": "Buyback",
    "ad_dup": "{m} is already in the list. Change its prices under Prices.",
    "call_now": "Give us a call",
+   "closed_day": "closed",
    "snd_on": "Sound on",
    "snd_off": "Sound off"
   },
@@ -29127,7 +29128,7 @@
    "shops_h": "Unser Laden in Moabit",
    "shops_p": "Beusselstraße 18, 10553 Berlin. Ohne Termin, Montag bis Samstag, 10 bis 20 Uhr.",
    "open": "Jetzt geöffnet, bis 20 Uhr",
-   "closed": "geschlossen",
+   "closed": "Geschlossen, öffnet {d} um 10 Uhr",
    "today": "heute",
    "tomorrow": "morgen",
    "days": [
@@ -29435,6 +29436,7 @@
    "via_sell": "Ankauf",
    "ad_dup": "{m} ist schon in der Liste. Preise ändern Sie unter Preise.",
    "call_now": "Ruf uns an",
+   "closed_day": "geschlossen",
    "snd_on": "Ton an",
    "snd_off": "Ton aus"
   }

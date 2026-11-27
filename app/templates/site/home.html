@@ -1,5 +1,5 @@
 {% extends "site/base.html" %}{% load tt %}
-{% block preload %}{% if IMGS.hero %}<link rel="preload" as="image" imagesrcset="{{ IMGS.hero.s.avif }} {{ IMGS.hero.s.w }}w, {{ IMGS.hero.l.avif }} {{ IMGS.hero.l.w }}w" imagesizes="(max-width:599px) 92vw, (max-width:900px) 40vw, 600px" type="image/avif" fetchpriority="high">{% endif %}{% endblock %}
+{% block preload %}{% if IMGS.hero %}<link rel="preload" as="image" imagesrcset="{{ IMGS.hero.s.avif }} {{ IMGS.hero.s.w }}w, {{ IMGS.hero.l.avif }} {{ IMGS.hero.l.w }}w" imagesizes="(max-width:599px) 92vw, (max-width:900px) 40vw, 600px" type="image/avif" fetchpriority="high"{% if hero_film %} media="{{ film_media_not }}"{% endif %}>{% endif %}{% if hero_film %}{% with f=IMGS|get:hero_film %}<link rel="preload" as="image" imagesrcset="{{ f.s.avif }} {{ f.s.w }}w{% if f.l.avif != f.s.avif %}, {{ f.l.avif }} {{ f.l.w }}w{% endif %}" imagesizes="(max-width:599px) 92vw, (max-width:900px) 40vw, 600px" type="image/avif" fetchpriority="high" media="{{ film_media }}">{% endwith %}{% endif %}{% endblock %}
 {% block main %}
 <main id="main">
   <section class="hero" id="top">
@@ -27,7 +27,7 @@
         <div class="devs" id="heroDevs">{% for c in cats %}<button type="button" class="dev" data-hcat="{{ c.key }}" aria-haspopup="dialog" style="--cc:var(--c-{{ c.key }})"><span class="tile">{% ph "cat-"|add:c.key "notag" sizes="tile" eager=True %}</span><b>{{ c.name }}{% ic "right" 2.4 %}</b><small>{{ c.sub }}</small></button>{% endfor %}</div>
         <div class="facts" id="facts">{% for f in T.facts %}<span>{% ic "check" 2.4 %}{{ f }}</span>{% endfor %}</div>
       </div>
-      <div class="hero-media" id="heroMedia"{% if hero_video %} data-video="{{ hero_video }}"{% endif %}><div class="hero-frame">{% ph "hero" "notag" sizes="hero" eager=True high=True %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if hero_price %}<span class="stk wait" style="--d:1.3s"><small>{{ T.stk_hero }}</small><b>{{ hero_price }}</b></span>{% endif %}</div>
+      <div class="hero-media" id="heroMedia"{% if hero_video %} data-video="{{ hero_video }}"{% endif %}><div class="hero-frame">{% ph "hero" "notag" sizes="hero" eager=True high=True film=hero_film %}<span class="tag-open" data-open="{{ MAIN_SHOP.key }}"><span class="pulse{% if not main_status.0 %} off{% endif %}"></span>{{ main_status.1 }}</span></div>{% if hero_price %}<span class="stk wait" style="--d:1.3s"><small>{{ T.stk_hero }}</small><b>{{ hero_price }}</b></span>{% endif %}</div>
     </div>
   </section>
 

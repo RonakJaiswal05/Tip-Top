@@ -104,3 +104,20 @@ class PageTests(SeededTestCase):
         r = Client().get("/de/")
         self.assertEqual(r.status_code, 503)
         self.assertEqual(Client().get("/admin/login/").status_code, 200)
+
+
+class HeroFilmFrameTests(SeededTestCase):
+    """Desktop shows the film's first frame instead of the repair photo, phones keep the photo (Ronak, 27 Nov 2026)."""
+
+    def test_picture_switches_to_the_film_frame_where_the_film_plays(self):
+        from core.templatetags.tt import FILM_MEDIA, picture_html
+
+        def img(name):
+            return {"s": {"w": 720, "avif": f"/{name}-s.avif", "webp": f"/{name}-s.webp", "jpg": f"/{name}-s.jpg"}, "w": 720, "h": 900}
+
+        html = picture_html(img("hero"), "hero", eager=True, high=True, art=img("hero-film"), art_media=FILM_MEDIA)
+        first = html.index("<source")
+        self.assertIn(f'media="{FILM_MEDIA}"', html[first:first + 300])  # the film frame wins where the film plays
+        self.assertIn('srcset="/hero-film-s.avif 720w"', html)
+        self.assertIn('src="/hero-s.jpg"', html)  # everyone else: the photo
+        self.assertNotIn("media=", picture_html(img("hero"), "hero"))

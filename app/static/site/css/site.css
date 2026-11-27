@@ -1048,6 +1048,19 @@ footer .hours li{max-width:280px}
 .hero-snd svg{width:19px;height:19px;flex:none}
 @media (min-width:901px) and (hover:hover) and (pointer:fine){.hero-media.has-vid .stk{top:26%}}
 @media (max-width:900px),(hover:none),(pointer:coarse){.hero-frame .hero-vid,.hero-snd{display:none}}
+/* shop card at 320-380 px: pin the column to the card width, tighten the hours box */
+.shop .shop-b{grid-template-columns:minmax(0,1fr)}
+@media (max-width:380px){
+  .shop .shop-b{padding-left:18px;padding-right:18px}
+  .shop .shop-b .srate{flex-wrap:wrap;row-gap:2px}
+  .shop .shop-h{padding-left:12px;padding-right:12px;gap:8px}
+  .shop .shop-h > .ico{display:none}
+  .shop .hours{font-size:14px}
+  .shop .hours li{gap:10px}
+}
+/* footer hours on phones: the time goes under the day if needed */
+.fgrid .hours li{flex-wrap:wrap;column-gap:10px;row-gap:0}
+@media (max-width:600px){.fgrid .hours{row-gap:10px}}
 /* =========================================================
    Django port: additions for the live site (no visual change to the approved design)
    ========================================================= */
@@ -1092,17 +1105,5 @@ footer .hours li{max-width:280px}
 .mp-brand .mp-links{margin-top:10px}
 @media(max-width:520px){.mp-lines .line .p{min-width:0}.mp-cta .btn,.mp-cta .btn-wa{width:100%}}
 
-/* Shop card at 320-380 px: in German the rating line ("321 Google-Bewertungen" beside the stars) and the hours list
-   ("Donnerstag ... 10:00-20:00 Uhr") made the card's grid column wider than the card, so the prototype clips them.
-   Pin the column to the card width and tighten the hours box. */
-.shop .shop-b{grid-template-columns:minmax(0,1fr)}
-@media (max-width:380px){
-  .shop .shop-b{padding-left:18px;padding-right:18px}
-  .shop .shop-b .srate{flex-wrap:wrap;row-gap:2px}
-  .shop .shop-h{padding-left:12px;padding-right:12px;gap:8px}
-  .shop .shop-h > .ico{display:none}
-  .shop .hours{font-size:14px}
-  .shop .hours li{gap:10px}
-}
-/* Footer hours (one day per line) in the narrow two-column footer on phones: the time goes under the day if needed */
-.fgrid .hours li{flex-wrap:wrap;column-gap:10px}
+/* The shop-card fix at 320-380 px and the footer-hours rules were moved into the prototype on 27 Nov 2026
+   (patch_nov27.py), so they now arrive with the prototype CSS. */

@@ -11,6 +11,13 @@ from catalog.seed import load
 from .models import FAQ, BeforeAfter, ContentBlock, MediaAsset, WorkshopCard
 
 IMG_DIR = Path(settings.REPO_DIR) / "prototype" / "img"
+# Images the Django site adds itself (prototype/ belongs to the claude.ai chat): key -> title
+SITE_IMG_DIR = Path(settings.BASE_DIR) / "seed" / "img"
+SITE_IMGS = {
+    # First frame of the hero film (prototype/img/hero-loop.mp4), shown on desktop until the film plays. When the film
+    # is replaced in Settings, replace this image too (Inhalte > Medien, key hero-film) or the start will jump again.
+    "hero-film": "Hero film: first frame (desktop)",
+}
 
 # Texts only the prototype needed (admin preview, image prompt tool, "saved in this browser" notes)
 DROP = {
@@ -211,18 +218,18 @@ def seed_media(log=print, refresh: bool = False) -> int:
     """Add the prototype's photos to the media library. With refresh, an existing photo is replaced when the
     prototype's file has changed (new photos from the client, retouched versions)."""
     n = 0
-    for m in load()["IMGS"]:
-        key = m["id"]
-        src = IMG_DIR / f"{key}.jpg"
+    items = [(m["id"], m["name"], IMG_DIR) for m in load()["IMGS"]] + [(k, v, SITE_IMG_DIR) for k, v in SITE_IMGS.items()]
+    for key, name, folder in items:
+        src = folder / f"{key}.jpg"
         if not src.is_file():
             continue
         asset = MediaAsset.objects.filter(key=key).first()
         if asset and (not refresh or _same_file(asset, src)):
             continue
         alt_de, alt_en = ALT.get(key, ("", ""))
-        decorative = key in DECORATIVE or key.startswith(DECORATIVE_PREFIXES)
+        decorative = key in DECORATIVE or key.startswith(DECORATIVE_PREFIXES) or key in SITE_IMGS
         if asset is None:
-            asset = MediaAsset(key=key, title=m["name"], alt_de=alt_de, alt_en=alt_en, decorative=decorative,
+            asset = MediaAsset(key=key, title=name, alt_de=alt_de, alt_en=alt_en, decorative=decorative,
                                published=decorative or bool(alt_de and alt_en))
         asset.generated = key not in REAL_PHOTOS
         with src.open("rb") as fh:
