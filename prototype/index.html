@@ -1380,7 +1380,7 @@ en: {
   lf_prob:"What happened?", lf_prob_ph:"e.g. Dropped it, the screen is cracked and touch doesn't work", lf_where:"How would you like it repaired?", wheres:["Bring it to the shop","Send it in"],
   lf_via:"How should we contact you?", vias:["WhatsApp","Phone call"], lf_send:"Send request", lf_done:"Thanks, {n}. We'll get back to you by {v} during opening hours.", lf_new:"Send another request", lf_hint:"Looks like: {x}", lf_model_ph:"e.g. Galaxy S23",
   ad_title:"TipTop admin", ad_sign:"Sign in", ad_user:"Username", ad_pass:"Password",
-  ad_demo:"Demo sign-in: any username and password work. The real admin runs on Django with secure logins.",
+  ad_demo:"Demo admin: changes here are only saved in this browser and don't reach the shop.", ad_wrong:"Wrong username or password.",
   ad_tabs:["Prices","Add device","Requests"], ad_out:"Sign out", ad_site:"View website",
   ad_search:"Search models", ad_save:"Save prices", ad_reset:"Reset to default prices", ad_saved:"Prices saved. The website shows them now.", ad_resetd:"Default prices restored.",
   ad_rep:"Repair", ad_price:"Price (€)", ad_pick:"Pick a model on the left to edit its prices.",
@@ -1454,7 +1454,7 @@ de: {
   lf_prob:"Was ist passiert?", lf_prob_ph:"z. B. Runtergefallen, Display gesprungen, Touch geht nicht", lf_where:"Wie möchtest du reparieren lassen?", wheres:["Im Laden vorbeibringen","Einschicken"],
   lf_via:"Wie sollen wir uns melden?", vias:["WhatsApp","Anruf"], lf_send:"Anfrage senden", lf_done:"Danke, {n}. Wir melden uns per {v} während der Öffnungszeiten.", lf_new:"Weitere Anfrage senden", lf_hint:"Erkannt: {x}", lf_model_ph:"z. B. Galaxy S23",
   ad_title:"TipTop Admin", ad_sign:"Anmelden", ad_user:"Benutzername", ad_pass:"Passwort",
-  ad_demo:"Demo-Anmeldung: Jeder Name und jedes Passwort funktioniert. Der echte Admin läuft auf Django mit sicherem Login.",
+  ad_demo:"Demo-Admin: Änderungen hier werden nur in diesem Browser gespeichert und gehen nicht an den Laden.", ad_wrong:"Benutzername oder Passwort stimmt nicht.",
   ad_tabs:["Preise","Gerät hinzufügen","Anfragen"], ad_out:"Abmelden", ad_site:"Zur Website",
   ad_search:"Modell suchen", ad_save:"Preise speichern", ad_reset:"Standardpreise wiederherstellen", ad_saved:"Preise gespeichert. Die Website zeigt sie jetzt.", ad_resetd:"Standardpreise wiederhergestellt.",
   ad_rep:"Reparatur", ad_price:"Preis (€)", ad_pick:"Wähl links ein Modell, um seine Preise zu bearbeiten.",
@@ -2612,8 +2612,15 @@ function renderAdmin() {
     b.innerHTML = `<form class="acard login" id="adLogin" novalidate><h1>${esc(t("ad_title"))}</h1>
       <div><label class="lab" for="adU">${esc(t("ad_user"))}</label><input class="lin" id="adU" autocomplete="username"></div>
       <div><label class="lab" for="adP">${esc(t("ad_pass"))}</label><input class="lin" id="adP" type="password" autocomplete="current-password"></div>
+      <p class="err" id="adErr" role="alert"></p>
       <button class="btn-dark" type="submit" style="justify-content:center">${esc(t("ad_sign"))}</button><p class="small">${esc(t("ad_demo"))}</p></form>`;
-    $("adLogin").addEventListener("submit", e => { e.preventDefault(); AD.in = true; renderAdmin(); });
+    // 27 Nov (Ronak): one fixed demo login to hand to the client. It sits in the public page code and protects nothing;
+    // the real admin (Django) has its own logins.
+    $("adLogin").addEventListener("submit", e => {
+      e.preventDefault();
+      if ($("adU").value.trim().toLowerCase() === "mostafa" && $("adP").value === "TipTop-Demo-2026") { AD.in = true; renderAdmin(); return; }
+      $("adErr").textContent = t("ad_wrong"); $("adP").value = ""; $("adP").focus();
+    });
     return;
   }
   const tabs = t("ad_tabs").map((x, i) => `<button type="button" data-tab="${i}" aria-pressed="${AD.tab === i}">${esc(x)}${i === 2 && REQS.length ? ` (${REQS.length})` : ""}</button>`).join("");
